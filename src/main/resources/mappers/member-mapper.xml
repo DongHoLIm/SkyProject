@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	<resultMap type="com.kh.finalProject.member.model.vo.Member" id="memberResultSet">
+		<id property="memberId" column="MEMBER_ID"/>
+		<result property="memberPwd" column="MEMBER_PWD"/>
+		<result property="memberKName" column="MEMBER_KNAME"/>
+		<result property="memberEName" column="MEMBER_ENAME"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="memberStatus" column="MEMBER_STATUS"/>
+	</resultMap>
+	<!-- 로그인 체크  -->
+	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		FROM MEMBER 
+		WHERE MEMBER_ID=#{memberId}
+		AND MEMBER_PWD = #{memberPwd}
+	</select>
+</mapper>
