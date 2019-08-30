@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.service.MemberService;
 import com.kh.finalProject.member.model.vo.Member;
 
@@ -22,13 +23,24 @@ public class MemberController {
 	@RequestMapping("login.me")
 	public String loginMember(Member m,Model model) {
 		
-		Member loginUser = ms.loginCheck(m);
-		
-		if(loginUser == null) {
-			return "common/errorAlert";
-		}else {
+		Member loginUser=null;
+		try {
+			loginUser = ms.loginCheck(m);
+			model.addAttribute("loginUser",loginUser);
+			System.out.println(loginUser);
 			return "main/main";
+			
+		} catch (loginException e) {
+			
+			model.addAttribute("msg",e.getMessage());
+			return "common/errorAlert";
 		}
+		
+		
+			
+		
+			
+		
 		
 	}
 	

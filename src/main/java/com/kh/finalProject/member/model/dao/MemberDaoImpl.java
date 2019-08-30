@@ -8,10 +8,16 @@ import com.kh.finalProject.member.model.vo.Member;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
-
+	//login check 메소드 
 	@Override
-	public Member loginCheck(SqlSessionTemplate sqlSession, Member m) {		
-		return sqlSession.selectOne("Member.loginCheck",m);
+	public Member loginCheck(SqlSessionTemplate sqlSession, Member m) throws loginException {		
+		Member loginUser =  sqlSession.selectOne("Member.loginCheck",m);
+		
+		if(loginUser==null) {
+			throw new loginException("해당아이디가 없습니다.");
+		}
+			
+		return loginUser;
 	}
 
 }
