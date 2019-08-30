@@ -13,7 +13,7 @@
 		<result property="phone" column="PHONE"/>
 		<result property="email" column="EMAIL"/>
 		<result property="address" column="ADDRESS"/>
-		<result property="memberStatus" column="MEMBER_STATUS"/>
+		<result property="memberStatus" column="MEMBER_CHECK"/>
 	</resultMap>
 	<!-- 로그인 체크  -->
 	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
