@@ -15,7 +15,8 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>일반 공지</h2>
+			
+			<h2>학생 행사</h2>
 			<hr>
 			<br>
 			<form>
@@ -32,12 +33,13 @@
 						</td>
 						<td>
 							<input style="display: inline-block; width: 70%;" type="text" value="" placeholder="내용을 입력해주세요">
-							<input style="display: inline-block;" type="button" value="검색">
+							<input style="display: inline-block;float:right;" type="button" value="검색">
 						</td>
 					</tr>
 				</table>
 			</form>
-			<br>
+			<button style="float:right;">글쓰기</button>
+			<br><br>
 			<table style="text-align: center;">
 				<tbody>
 					<tr>
