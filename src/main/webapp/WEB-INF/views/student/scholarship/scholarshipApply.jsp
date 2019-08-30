@@ -4,7 +4,44 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>장학관리</title>
+<style>
+		#searchInfo {
+			float:left;
+		}
+		
+		.table {
+			text-align:center;
+		}
+		
+		.sibal{
+			display: inline-block;
+		}
+		
+		.sibal > button{
+			float:right;
+		}
+		
+		h3{
+			margin-right:53%;
+			float:bottom;
+		}
+		
+		.sample11{
+			margin-top: 10px;
+		}
+		
+		.sample11 th:nth-child(2n-1){
+			padding-left: 5px;
+			padding-top: 18px;
+			padding-bottom: 0px;
+		}
+		
+		.sample11 th{
+			vertical-align: middle;
+			padding:5px 2px 5px 2px;
+		}
+	</style>
 </head>
 <body>
 <div id="wrapper">
@@ -17,52 +54,70 @@
 	  				<h2>장학금 신청</h2>
 	  				
 					<div>
-	  				<span>
-					<h3 align="right" class="sibal">장학금신청</h3>
-					
+	  				
+					<h4 align="right" class="sibal">교내장학금 신청 및 결과</h4>
+					<div style="float:right">
 						<button class="sibal">조회</button>
 						<button class="sibal">신규</button>
 						<button class="sibal">저장</button>
 						<button class="sibal">도움말</button>
 					</div>
-					<div style="border:1.5px solid lightgray;" height="34px">
-						<p>년도</p>
-						<p>학기</p>
-					</span>
 					</div>
+					
+					<table class="sample11" style="border:2px solid lightgray">
+						<thead>
+							<tr  style="text-align:center">
+								<th width="5%"><p class="sipal">년도</p></th>
+								<th width="40%"><select name='mulitple'>
+											<option value=''>-- 선택 --</option>
+											<option value='' selected>제2전공(복수전공)</option>
+											<option value='' disabled>경영</option>
+											<option value='' label=''>영문</option>
+									</select>
+								</th>
+								<th width="5%"><p>학기</p></th>
+								<th width="40%"><select name='mulitple'>
+											<option value=''>-- 선택 --</option>
+											<option value='' selected>제2전공(복수전공)</option>
+											<option value='' disabled>경영</option>
+											<option value='' label=''>영문</option>
+									</select>
+								</th>
+							</tr>
+					</table>
 					
 					<hr>
 					
 					<div class="container">         
-	  					<table class="table" text-align="center" style="border:1.5px solid lightgray">
-	  					  <thead style="background-color:skyblue">
+	  					<table class="table" text-align="center" style="border:2px solid lightgray">
+	  					  <thead style="background-color:#eff1f2">
 	  					  	<tr>
-	  					      <th style="text-align:center;">상태</th>
-	  					      <th style="text-align:center;">년도</th>
-	  					      <th style="text-align:center;">학기</th>
-	  					      <th style="text-align:center;">학번</th>
-	  					      <th style="text-align:center;">성명</th>
-	  					      <th style="text-align:center;">소속</th>
-	  					      <th style="text-align:center;">성별</th>
-	  					      <th style="text-align:center;">신청장학금</th>
-	  					      <th style="text-align:center;">신청일자</th>
-	  					      <th style="text-align:center;">승인구분</th>
-	  					      <th style="text-align:center;">승인일자</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">상태</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">년도</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">학기</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">학번</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">성명</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">소속</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">성별</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">신청장학금</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">신청일자</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">승인구분</th>
+	  					      <th style="text-align:center; border:1px solid lightgray;">승인일자</th>
 	 					    </tr>
 	 					   </thead>
 	 					   <tbody>
 	 					   	<tr style="background-color:white">
-	 					   		<td>승인완료</td>
-	 					   		<td>2019</td>
-	 					   		<td>2</td>
-	 					   		<td>20191234</td>
-	 					   		<td>홍길동</td>
-	 					   		<td>컴퓨터학과</td>
-	 					   		<td>남</td>
-	 					   		<td>성적장학금</td>
-	 					   		<td>2019-08-24</td>
-	 					   		<td>승인</td>
-	 					   		<td>2019-08-25</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">승인완료</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">2019</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">2</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">20191234</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">홍길동</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">컴퓨터학과</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">남</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">성적장학금</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">2019-08-24</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">승인</td>
+	 					   		<td style="border:1px solid lightgray; color:black;">2019-08-25</td>
 	 					   	</tr>
 	 					   </tbody>
 	 					 </table>

@@ -6,6 +6,26 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+		#searchInfo {
+			float:left;
+		}
+		
+		.table {
+			text-align:center;
+		}
+		th {
+			border:1px solid lightgray;
+		}
+		
+		tr {
+			border:1px solid lightgray;
+		}
+		
+		td {
+			border:1px solid lightgray;
+		}
+	</style>
 <body>
 <div id="wrapper">
 		<div id="main">
@@ -16,11 +36,10 @@
 					        
 	  				<h2>등록금 납부 결과 조회</h2>	
 					<div style="border:1.5px solid lightgray;" height="100px">
-						<ul>
-							<li>입학년도 1학기부터 등록금납부확인증 발급이 가능합니다.</li>
-							<li>본 화면에서 발급된 등록금납부확인증은 연말정산용 서류 제출용으로 불가합니다.</li>
-							<li>연말정산 제출용 교육비납입증명서 신청은 우편발급 또는 인터넷제증명자동발급을 통하여 신청하여주시기 바랍니다.</li>
-						</ul>
+					 	&nbsp;&nbsp;&nbsp;- 입학년도 1학기부터 등록금납부확인증 발급이 가능합니다.<br>
+						&nbsp;&nbsp;&nbsp;- 본 화면에서 발급된 등록금납부확인증은 연말정산용 서류 제출용으로 불가합니다.<br>
+						&nbsp;&nbsp;&nbsp;- 연말정산 제출용 교육비납입증명서 신청은 우편발급 또는 인터넷제증명자동발급을 통하여 신청하여주시기 바랍니다.<br>
+						
 					</div>
 
 					<hr>
