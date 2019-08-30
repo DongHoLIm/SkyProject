@@ -68,7 +68,7 @@
 											<li>
 											<span class="opener">기숙사관리</span>
 											<ul>
-												<li><a href="#">기숙사 이용 신청</a></li>
+												<li><a href="#">기숙사 이용 신청</a></li> 
 												<li><a href="#">기숙사 신청 내역</a></li>
 											
 											</ul>
@@ -81,17 +81,17 @@
 									
 												<h4>공지사항</h4>
 												
-												<li><a href="#">일반 공지</a></li>
+												<li><a href="normalListView.no">일반 공지</a></li>
 												<li><a href="#">장학 공지</a></li>
 												<li><a href="#">학사 일정</a></li>
 												<li><a href="#">교내외 행사</a></li>
 												
 												<hr>
 												
-												<h4>학교 생활</h4>
+												<h4>학교 생활</h4>
 												<li><a href="#">학교 행사</a></li>
-												<li><a href="#">자유게시판</a></li>
-												<li><a href="#">내 게시물 조회</a></li>
+												<li><a href="freeListView.bo">자유게시판</a></li>
+												<li><a href="#">내 게시물 조회</a></li>
 												
 												<hr>
 												
@@ -107,7 +107,7 @@
 												
 												<h4>시스템 문의</h4>
 												<li><a href="#">이메일 문의 </a></li>
-												<li><a href="#">내 문의 내역 조희 </a></li>
+												<li><a href="#">내 문의 내역 조희</a></li>
 												
 												
 											</ul>
