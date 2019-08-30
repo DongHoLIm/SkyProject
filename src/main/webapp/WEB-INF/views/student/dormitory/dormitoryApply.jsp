@@ -4,7 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기숙사관리</title>
+<style>
+		#searchInfo {
+			float:left;
+		}
+		
+		.table {
+			text-align:center;
+		}
+	</style>
 </head>
 <body>
 <div id="wrapper">
@@ -18,7 +27,7 @@
 					<div class="container">         
 	  					<table class="table" text-align="center">
 	  					  	<tr>
-	  					      <td style="text-align:center;">소속</td>
+	  					      <td style="text-align:center; background-color:">소속</td>
 	  					      <td style="text-align:center;"><input type="text"></td>
 	  					      <td style="text-align:center;">입사학기</td>
 	  					      <td style="text-align:center;"><input type="text"></td>

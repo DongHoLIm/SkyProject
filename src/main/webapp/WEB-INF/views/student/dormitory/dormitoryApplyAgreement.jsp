@@ -5,6 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+		#searchInfo {
+			float:left;
+		}
+		
+		.table {
+			text-align:center;
+		}
+	</style>
 </head>
 <body>
 <div id="wrapper">
