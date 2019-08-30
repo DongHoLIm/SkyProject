@@ -15,7 +15,7 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>일반 공지</h2>
+			<h2>장학 공지</h2>
 			<hr>
 			<br>
 			<form>
