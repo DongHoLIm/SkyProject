@@ -13,7 +13,7 @@
 	<div id="wrapper">
 		<div id="main">
 			<div class="inner">
-				<jsp:include page="../../common/header.jsp" />
+				<jsp:include page="/WEB-INF/views/common/header.jsp" />
 			<br>
 			
 			<h2>학생 행사</h2>
@@ -63,7 +63,7 @@
 		</div>
 		</div>
 		<div>
-			<jsp:include page="../../common/menubar-student.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
 		</div>
 	</div>
 </body>

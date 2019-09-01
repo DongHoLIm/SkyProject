@@ -13,10 +13,10 @@
 	<div id="wrapper">
 		<div id="main">
 			<div class="inner">
-				<jsp:include page="../../common/header.jsp" />
+				<jsp:include page="/WEB-INF/views/common/header.jsp" />
 			<br>
 			
-			<h2>학생 행사</h2>
+			<h2>학사 일정</h2>
 			<hr>
 			<br>
 			<form>
@@ -38,7 +38,13 @@
 					</tr>
 				</table>
 			</form>
-			<button style="float:right;">글쓰기</button>
+			<div  style="float:right;">
+				<button>전체 일정</button>
+				<button>주간 일정</button>
+				<button>월간 일정</button>
+				<button>나만의 일정 만들기</button>
+				<button>나만의 일정</button>
+			</div>
 			<br><br>
 			<table style="text-align: center;">
 				<tbody>
@@ -61,7 +67,7 @@
 		</div>
 		</div>
 		<div>
-			<jsp:include page="../../common/menubar-student.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
 		</div>
 	</div>
 </body>
