@@ -191,7 +191,7 @@ table.basicinfo {
 								<th style="text-align: center" id="t1">처리 결과</th>
 							</tr>
 						<thead>
-							<tobody>
+							<tbody>
 							<tr>
 								<td>경영</td>
 								<td>글로벌</td>
@@ -200,7 +200,7 @@ table.basicinfo {
 								<td>2019-09-12</td>
 								<td>승인</td>
 							</tr>
-							</tobody>
+							</tbody>
 					</table>
 				</table>
 			</form>
