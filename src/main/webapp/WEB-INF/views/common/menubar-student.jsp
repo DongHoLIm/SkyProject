@@ -34,7 +34,7 @@
 										<li>
 											<span class="opener">학적관리</span>
 											<ul>
-												<li><a href="">학적정보 조회</a></li>
+												<li><a href="#">학적정보 조회</a></li>
 												<li><a href="#">신상 관리</a></li>
 												<li><a href="#">학적 변동 조회</a></li>
 												<li><a href="#">복수(부)전공 신청</a></li>
@@ -46,8 +46,7 @@
 											<li>
 											<span class="opener">수업관리</span>
 											<ul>
-												<li><a href="">수강신청</a></li>
-												<li><a href="#">전체 수강과목 조회</a></li>
+												<li><a href="#" onclick="window.open('goSugang.st', 'SKY 수강신청'); return false">과목조회, 수강신청</a></li>
 												<li><a href="#">병결신청</a></li>
 											</ul>
 										</li>
