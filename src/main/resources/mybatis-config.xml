@@ -5,10 +5,14 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.kh.finalProject.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.finalProject.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.finalProject.board.model.vo.Writer" alias="Writer"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/writer-mapper.xml"/>
 	</mappers>
 	
 </configuration>

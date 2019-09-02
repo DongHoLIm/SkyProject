@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+	<resultMap type="com.kh.finalProject.board.model.vo.Board" id="boardResultSet">
+		<id property="boardNo" column="BOARD_NO"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="writer" column="WRITER"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="boardType" column="BOARD_TYPE"/>
+		<result property="writeDept" column="WRITE_DEPT"/>
+		<result property="deadLine" column="DEADLINE"/>
+		<result property="startDate" column="START_DATE"/>
+		<result property="endDate" column="END_DATE"/>
+		<result property="fileCode" column="FILE_CODE"/>
+		<result property="oldName" column="OLD_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="path" column="PATH"/>
+		<result property="count" column="COUNT"/>
+	</resultMap>
+	
+	<!-- 게시글 수 조회  -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS='Y'
+	</select>
+	
+	<!-- 페이징 처리 된 목록 조회 -->
+	<select id="selectnNoticeList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN NORMALNOTICE A ON(B.BOARD_NO = A.BOARD_NO)
+		WHERE B.STATUS = 'Y' AND B.BOARD_TYPE = '일반공지'
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+</mapper>
