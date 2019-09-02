@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>등록관리</title>
 </head>
 <style>
 		#searchInfo {
@@ -25,6 +25,7 @@
 		td {
 			border:1px solid lightgray;
 		}
+		
 	</style>
 <body>
 <div id="wrapper">
@@ -45,38 +46,36 @@
 					<hr>
 						
 					<div class="container">         
-	  					<table class="table" text-align="center" style="border:2px solid gray">
-	  					  <thead style="background-color:gray">
+	  					<table class="table" text-align="center" style="border:2px solid lightgray">
+	  					  <thead style="background-color:#eff1f2">
 	  					  	<tr>
-	  					      <th style="text-align:center;">년도학기</th>
-	  					      <th style="text-align:center;">등록금</th>
-	  					      <th style="text-align:center;">감면액</th>
-	  					      <th style="text-align:center;">납부한 금액</th>
-	  					      <th style="text-align:center;">등록금 확인증 출력</th>
-	  					      <th style="text-align:center;">학생회비 확인증 출력</th>
-	  					      <th style="text-align:center;">비고</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">년도학기</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">등록금</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">감면액</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">납부한 금액</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">등록금 확인증 출력</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">학생회비 확인증 출력</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">비고</th>
 	 					    </tr>
 	 					   </thead>
 	 					   <tbody>
 	     					 <tr style="background-color:white">
-	    					   <td>2019년도 2학기</td>
-	     					   <td>540,000 원</td>
-	     					   <td>[장학]<br>540,000 원<br>
-	     					   	   [이월]<br> 0 원</td>
-	     					   <td>0 원</td>
-	     					   <td><input type="button" width="100px" value="출력하기"></td>
-	     					   <td><input type="button" width="100px" value="출력하기"></td>
-	     					   <td></td>
+	    					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">2019년도 2학기</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">540,000 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br>540,000 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">0 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"></td>
 	  					    </tr>
 	   					    <tr style="background-color:white">
-	    					  <td>2019년도 1학기</td>
-	    					  <td>1,440,000 원</td>
-	      					  <td>[장학]<br> 1,440,000 원<br>
-	     					      [이월]<br> 0 원</td>
-	      					  <td>0 원</td>
-	      					  <td><input type="button" width="100px" value="출력하기"></td>
-	      					  <td><input type="button" width="100px" value="출력하기"></td>
-	      					  <td></td>
+	    					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">2019년도 1학기</td>
+	    					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">1,440,000 원</td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br> 1,440,000 원 </td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">0 원</td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"></td>
 	      	   			    </tr>
 	  					  </tbody>
 					  </table>

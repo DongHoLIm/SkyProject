@@ -28,10 +28,10 @@
 	  					<table class="table" style="border:2px solid lightgray">
 	  						<thead>
 		  					  	<tr style="background-color:#eff1f2;">
-		  					      <th style="text-align:center; border:1px solid lightgray;">신청일시</th>
-		  					      <th style="text-align:center; border:1px solid lightgray;">신청기간</th>
-		  					      <th style="text-align:center; border:1px solid lightgray;">신청자</th>
-		  					      <th style="text-align:center; border:1px solid lightgray;">승인여부</th>
+		  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">신청일시</th>
+		  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">신청기간</th>
+		  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">신청자</th>
+		  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">승인여부</th>
 		 					    </tr>
 	 					   </thead>
 	 					   <tbody>
