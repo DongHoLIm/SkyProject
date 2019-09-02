@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Writer">
+	<resultMap type="com.kh.finalProject.board.model.vo.Writer" id="writerResultSet">
+		<id property="memberId" column="MEMBER_ID"/>
+		<result property="memberName" column="MEMBER_KNAME"/>
+		<result property="edeptName" column="EDEPT_NAME"/>
+	</resultMap>
+	
+	<!-- 게시글 수 조회  -->
+	<select id="selectWriterInfo" resultMap="writerResultSet" parameterType="Writer">
+		SELECT M.MEMBER_ID, M.MEMBER_KNAME, D.EDEPT_NAME
+		FROM MEMBER M
+		JOIN EMPLOYEE E ON(M.MEMBER_ID = E.EMPLOYEE_NO)
+		JOIN E_DEPARTMENT D ON(E.EDEPT_CODE = D.EDEPT_CODE)
+		WHERE M.MEMBER_ID = #{memberId}
+	</select>
+	
+</mapper>
