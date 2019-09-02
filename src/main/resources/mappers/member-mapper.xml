@@ -14,6 +14,7 @@
 		<result property="email" column="EMAIL"/>
 		<result property="address" column="ADDRESS"/>
 		<result property="memberStatus" column="MEMBER_CHECK"/>
+		<result property="loginCheck" column="LOGIN_CHECK"/>
 	</resultMap>
 	<!-- 로그인 체크  -->
 	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
@@ -22,4 +23,9 @@
 		WHERE MEMBER_ID=#{memberId}
 		AND MEMBER_PWD = #{memberPwd}
 	</select>
+	<update id="upDateLoginCheck" parameterType="Member">
+		UPDATE MEMBER 
+		SET LOGIN_CHECK='1' 
+		WHERE MEMBER_ID=#{memberId}
+	</update>
 </mapper>
