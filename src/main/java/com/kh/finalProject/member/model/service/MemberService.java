@@ -1,5 +1,7 @@
 package com.kh.finalProject.member.model.service;
 
+import javax.security.auth.login.LoginException;
+
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.vo.Member;
 

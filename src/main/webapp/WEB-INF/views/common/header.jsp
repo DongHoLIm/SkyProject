@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="resources/css/main.css" />
-<title>Insert title here</title>
+<title>header</title>
 </head>
 <body>
 
@@ -14,16 +15,9 @@
 		<a href="index.jsp" class="logo"><img
 			src="resources/images/logo.png" width="150px;" height="30px;"></a>
 		<ul class="icons">
-			<li><a href="#" class="icon brands fa-twitter"><span
-					class="label">Twitter</span></a></li>
-			<li><a href="#" class="icon brands fa-facebook-f"><span
-					class="label">Facebook</span></a></li>
-			<li><a href="#" class="icon brands fa-snapchat-ghost"><span
-					class="label">Snapchat</span></a></li>
-			<li><a href="#" class="icon brands fa-instagram"><span
-					class="label">Instagram</span></a></li>
-			<li><a href="#" class="icon brands fa-medium-m"><span
-					class="label">Medium</span></a></li>
+			<li><a href="#">${loginUser.memberKName}</a></li>
+			<li><a href="#" class="icon solid fa-paper-plane"></a><span class="label"></span></li>
+			<li><a href="logOut.me" class="button primary small">LogOut</a></li>		
 		</ul>
 	</header>
 
