@@ -92,17 +92,17 @@
 	  					<table class="table" text-align="center" style="border:2px solid lightgray">
 	  					  <thead style="background-color:#eff1f2">
 	  					  	<tr>
-	  					      <th style="text-align:center; border:1px solid lightgray;">상태</th>
-	  					      <th style="text-align:center; border:1px solid lightgray;">년도</th>
-	  					      <th style="text-align:center; border:1px solid lightgray;">학기</th>
-	  					      <th style="text-align:center; border:1px solid lightgray;">학번</th>
-	  					      <th style="text-align:center; border:1px solid lightgray;">성명</th>
-	  					      <th style="text-align:center; border:1px solid lightgray;">소속</th>
-	  					      <th style="text-align:center; border:1px solid lightgray;">성별</th>
-	  					      <th style="text-align:center; border:1px solid lightgray;">신청장학금</th>
-	  					      <th style="text-align:center; border:1px solid lightgray;">신청일자</th>
-	  					      <th style="text-align:center; border:1px solid lightgray;">승인구분</th>
-	  					      <th style="text-align:center; border:1px solid lightgray;">승인일자</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">상태</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">년도</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">학기</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">학번</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">성명</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">소속</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">성별</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">신청장학금</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">신청일자</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">승인구분</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">승인일자</th>
 	 					    </tr>
 	 					   </thead>
 	 					   <tbody>

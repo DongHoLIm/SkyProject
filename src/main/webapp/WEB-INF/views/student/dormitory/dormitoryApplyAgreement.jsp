@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기숙사관리</title>
 <style>
 		#searchInfo {
 			float:left;
@@ -25,7 +25,7 @@
 	  				<h2>기숙사 신청</h2>	
 						
 					<div class="container" style="text-align:center">         
-	  					<div id = "scholarInfo"style="overflow:scroll; width:1100px; height:550px; border:1.5px solid lightgray">
+	  					<div id = "scholarInfo"style="overflow:scroll;  height:550px; border:1.5px solid lightgray">
 							추가서류 제출 해당자
 							<br><br>
 							- 서류 : 매학기 1개월 이내 발급된 원본만 가능
@@ -76,11 +76,10 @@
 		       				<br><br>
 		       				- 기본증명서
 					</div>
-					<input type="button" value="동의함" style="width:550px;"><input type="button" value="동의안함" style="width:550px">
+					<input type="button" value="동의함" style="width:686px;"><input type="button" value="동의안함" style="width:686px">
 				</div>		
 		</div>
 		</div>
-		
 		<div>
 		<jsp:include page="../../common/menubar-student.jsp" />
 	</div>
