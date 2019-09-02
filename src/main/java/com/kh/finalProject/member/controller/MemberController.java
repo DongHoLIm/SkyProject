@@ -68,6 +68,7 @@ public class MemberController {
 	public String goCourseApply(Member m, Model model, HttpSession session) {
 		
 		return "student/class/courseApply";
+	}
 
 	
 	//로그 아웃  
