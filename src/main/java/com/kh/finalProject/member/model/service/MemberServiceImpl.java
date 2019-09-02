@@ -1,5 +1,7 @@
 package com.kh.finalProject.member.model.service;
 
+import javax.security.auth.login.LoginException;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,13 @@ public class MemberServiceImpl implements MemberService{
 		Member loginUser = null;
 		
 		loginUser = md.loginCheck(sqlSession,m);
+		
+		if(loginUser.getLoginCheck().equals("1")) {
+			
+			throw new loginException("해당 아이디는 이미 로그인 되었습니다.");
+		}else {
+			md.updateLoginCheck(sqlSession,loginUser);
+		}
 		return loginUser;
 	}
 

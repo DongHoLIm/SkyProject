@@ -9,4 +9,6 @@ public interface MemberDao {
 
 	Member loginCheck(SqlSessionTemplate sqlSession, Member m) throws loginException;
 
+	void updateLoginCheck(SqlSessionTemplate sqlSession, Member loginUser);
+
 }

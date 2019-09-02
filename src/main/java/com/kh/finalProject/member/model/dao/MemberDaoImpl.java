@@ -19,5 +19,10 @@ public class MemberDaoImpl implements MemberDao {
 			
 		return loginUser;
 	}
+	@Override
+	public void updateLoginCheck(SqlSessionTemplate sqlSession, Member loginUser) {
+		sqlSession.update("Member.upDateLoginCheck",loginUser);
+		
+	}
 
 }
