@@ -56,6 +56,34 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return sqlSession.selectOne("Board.selectBoardOne", boardNo);
 	}
+	
+	@Override
+	public UploadFile selectUploadFile(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.selectOne("UploadFile.selectUploadFile", boardNo);
+	}
+
+	@Override
+	public int insertnNotice(SqlSessionTemplate sqlSession, Board b) {	
+		
+		return sqlSession.insert("Board.insertnNotice", b);
+	}
+
+	@Override
+	public int insertNormalNotice(SqlSessionTemplate sqlSession, Board b) {
+		
+		return sqlSession.insert("Board.insertNormalNotice", b);
+	}
+	
+	@Override
+	public int insertnNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf) {		
+		
+		return sqlSession.insert("UploadFile.insertnNoticeFile", uf);
+	}
+
+	
+
+
 
 	
 }

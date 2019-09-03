@@ -44,7 +44,7 @@
 			<h4 id="basic">일반 공지</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<form action="em_nNoticeInsert.bo" method="post" enctype="multipart/form-data">
+			<form action="em_nNoticeInsert.bo?memberId=${sessionScope.loginUser.memberId}&writer=${writerInfo.memberName}&writeDept=${writerInfo.edeptName}" method="post" enctype="multipart/form-data">
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
 						<th style="text-align: center;">카테고리</th>
@@ -80,7 +80,7 @@
 				<div align="center" style="margin-top: 2%;">
 					<button type="reset" onclick="writeCancel()">취소</button>
 					&nbsp;&nbsp;&nbsp;
-					<button type="submit">가입하기</button>
+					<button type="submit">글쓰기</button>
 				</div>
 			</form>
 		</div>
@@ -92,6 +92,7 @@
 		function writeCancel(){
 			location.href = "em_nNoticeList.bo";
 		}
+		
 	</script>
 </body>
 </html>

@@ -22,5 +22,14 @@ public interface BoardDao {
 
 	Board selectOneBoard(SqlSessionTemplate sqlSession, int boardNo);
 
+	int insertnNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int insertnNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
+	int insertNormalNotice(SqlSessionTemplate sqlSession, Board b);
+
+	UploadFile selectUploadFile(SqlSessionTemplate sqlSession, int boardNo);
+
+
 	
 }

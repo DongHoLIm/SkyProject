@@ -46,6 +46,39 @@ public class BoardServiceImpl implements BoardService{
 		
 		return bd.selectOneBoard(sqlSession, boardNo);
 	}
+	
+	@Override
+	public UploadFile selectUploadFile(int boardNo) {
+		return bd.selectUploadFile(sqlSession, boardNo);
+	}
+
+	@Override
+	public int insertnNoticewithFile(Board b, UploadFile uf) {				
+		 
+		int result = bd.insertnNotice(sqlSession, b);
+		
+		if(result > 0) {			
+			
+			bd.insertNormalNotice(sqlSession, b);			
+			
+			bd.insertnNoticeFile(sqlSession, uf);
+		}
+		 
+		return result;
+	}
+
+	@Override
+	public int insertnNotice(Board b) {
+		int result = bd.insertnNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.insertNormalNotice(sqlSession, b);
+		}
+		
+		return result;
+	}
+
+	
 
 	
 }

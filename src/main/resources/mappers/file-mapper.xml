@@ -10,6 +10,17 @@
 		<result property="oldName" column="OLD_NAME"/>
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="path" column="PATH"/>
-	</resultMap>	
+	</resultMap>
+	
+	<insert id="insertnNoticeFile">
+		INSERT INTO UPLOAD_FILE
+		VALUES(SEQ_FILECODE.NEXTVAL, SEQ_BOARDNO.CURRVAL, #{oldName}, #{changeName}, #{path})
+	</insert>	
+	
+	<select id="selectUploadFile" resultMap="fileResultSet" parameterType="_int">
+		SELECT *
+		FROM UPLOAD_FILE
+		WHERE BOARD_NO = #{boardNo}
+	</select>
 	
 </mapper>
