@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>장학관리</title>
+<title>기숙사관리</title>
 <style>
 		#searchInfo {
 			float:left;
