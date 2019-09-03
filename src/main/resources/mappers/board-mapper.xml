@@ -24,7 +24,7 @@
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE STATUS='Y'
+		WHERE STATUS='Y' AND BOARD_TYPE = '일반공지'
 	</select>
 	
 	<!-- 페이징 처리 된 목록 조회 -->
@@ -61,4 +61,62 @@
 		INSERT INTO NORMALNOTICE
 		VALUES(SEQ_BOARDNO.CURRVAL, #{writeDept}, #{deadLine})
 	</insert>
+	
+	<update id="deletenNotice">
+		UPDATE BOARD SET STATUS = 'N' WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<select id="selectSearchResultCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN NORMALNOTICE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.STATUS = 'Y' 
+		AND B.BOARD_TYPE = '일반공지'
+		<choose>
+			<when test="writer != null">
+				AND M.MEMBER_KNAME = #{writer}
+			</when>
+			<when test="title != null">
+				AND TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND N.WRITE_DEPT = #{writeDept}
+			</otherwise>
+		</choose>		
+	</select>
+	
+	<select id="selectSearchResultList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN NORMALNOTICE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.STATUS = 'Y'
+		AND B.BOARD_TYPE = '일반공지'
+		<choose>
+			<when test="writer != null">
+				AND M.MEMBER_KNAME = #{writer}
+			</when>
+			<when test="title != null">
+				AND TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND N.WRITE_DEPT = #{writeDept}
+			</otherwise>
+		</choose>
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<update id="updatenNotice">
+		UPDATE BOARD 
+		SET TITLE = #{title}, CONTENT = #{content} 
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<update id="updateNormalNotice">
+		UPDATE NORMALNOTICE
+		SET DEADLINE = #{deadLine}
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
 </mapper>

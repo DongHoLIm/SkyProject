@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.finalProject.board.model.exception.BoardSelectListException;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 
@@ -29,6 +30,18 @@ public interface BoardDao {
 	int insertNormalNotice(SqlSessionTemplate sqlSession, Board b);
 
 	UploadFile selectUploadFile(SqlSessionTemplate sqlSession, int boardNo);
+
+	int deletenNotice(SqlSessionTemplate sqlSession, String boardNo);
+
+	int getSearchResultListCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<Board> selectSearchResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);
+
+	int updatenNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int updatenNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
+	int updateNormalNotice(SqlSessionTemplate sqlSession, Board b);
 
 
 	

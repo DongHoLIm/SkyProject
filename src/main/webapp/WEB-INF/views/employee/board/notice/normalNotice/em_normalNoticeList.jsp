@@ -56,18 +56,17 @@
 				<tr>
 					<td>상세검색</td>
 					<td colspan='5'>
-						<select class="sel1">
-							<option value="">선택</option>
-							<option value="">작성자</option>
-							<option value="">작성부서</option>
-							<option value="">제목</option>
+						<select id="searchCondition" name="searchCondition">
+							<option value="writer">작성자</option>
+							<option value="writeDept">작성부서</option>
+							<option value="title">제목</option>
 						</select>
 					</td>
 					<td>
-						<input style="display: inline-block; width: 80%;" type="text" value="" placeholder="내용을 입력해주세요">
+						<input style="display: inline-block; width: 80%;" type="text" id="searchValue" placeholder="내용을 입력해주세요">
 					</td>
 					<td>
-						<input style="display: inline-block;" type="button" value="검색">
+						<input style="display: inline-block;" type="button" value="검색" onclick="searchnNotice()">
 					</td>
 				</tr>
 			</table>
@@ -75,12 +74,14 @@
 
 			<br>
 			<br>
-			<div id="writeArea">
-				<div align="right" style="margin-bottom: 10px;">
-					<input type="hidden" name="memberId" value="${sessionScope.loginUser.memberId}">
-					<button id="writeBtn" onclick="insertnNotice()">글쓰기</button>
+			<c:if test="${sessionScope.loginUser.memberStatus == 3}">
+				<div id="writeArea">
+					<div align="right" style="margin-bottom: 10px;">
+						<input type="hidden" name="memberId" value="${sessionScope.loginUser.memberId}">
+						<button id="writeBtn" onclick="insertnNotice()">글쓰기</button>
+					</div>
 				</div>
-			</div>
+			</c:if>
 			<table style="width: 88.5%; text-align: center; margin: 0 auto;" id="boardArea">
 				<tbody>
 					<tr>
@@ -108,6 +109,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<input type="hidden" id="currentPage" value="${pi.currentPage}">
 			<div class="pagingArea">
 			  <ul class="pagination" style="justify-content: center; cursor: pointer;">
 				<c:if test="${pi.currentPage <= 1}">
@@ -160,6 +162,14 @@
 			var memberId = $("input[name=memberId]").val();			
 			
 			location.href = "em_showInsertnNotice.bo?memberId=" + memberId;
+		}
+		
+		function searchnNotice(){
+			var searchCondition = $("#searchCondition").val();
+			var searchValue = $("#searchValue").val();	
+			var currentPage = $("#currentPage").val();
+			
+			location.href = "em_searchnNotice.bo?searchCondition=" + searchCondition + "&searchValue=" + searchValue + "&currentPage=" + currentPage;
 		}
 		
 	</script>
