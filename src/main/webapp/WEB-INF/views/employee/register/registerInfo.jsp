@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
 	<link rel="stylesheet" href="assets/css/main.css"/>
-<title>메인 페이지</title>
+<title>등록관리</title>
 <style>
 		#searchInfo {
 			float:left;

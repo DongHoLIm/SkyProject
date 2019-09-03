@@ -62,7 +62,7 @@
 	     					 <tr style="background-color:white">
 	    					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">2019년도 2학기</td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">540,000 원</td>
-	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br>540,000 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br>540,000 원<br>[이월]<br>0 원</td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">0 원</td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
@@ -71,7 +71,7 @@
 	   					    <tr style="background-color:white">
 	    					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">2019년도 1학기</td>
 	    					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">1,440,000 원</td>
-	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br> 1,440,000 원 </td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br> 1,440,000 원<br>[이월]<br>0 원 </td>
 	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">0 원</td>
 	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
 	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
