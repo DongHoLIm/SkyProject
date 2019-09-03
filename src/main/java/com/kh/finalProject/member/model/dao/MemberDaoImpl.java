@@ -28,14 +28,6 @@ public class MemberDaoImpl implements MemberDao {
 	//메인에서의 loginCheck값 변경 
 	@Override
 	public void logOutLoginCheck(SqlSessionTemplate sqlSession, Member loginUser) {
-		sqlSession.update("Member.upDateLooutCheck",loginUser);
 		
-	}
-	@Override
-	public void sessionLogOut(SqlSessionTemplate sqlSession, Member loginUser) {
-		System.out.println(loginUser);		
-		sqlSession.update("Member.upDateLooutCheck",loginUser);
-		
-	}
-
-}
+		sqlSession.update("Member.upDateLogoutCheck",loginUser);		
+	}}

@@ -33,14 +33,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 	//로그아웃 에 대한 로그인 상태 변경 
 	@Override
-	public void logOutLoginCheck(Member loginUser) {
-		md.logOutLoginCheck(sqlSession,loginUser);
-		
+	public void logOutLoginCheck(Member loginUser) {	
+	 md.logOutLoginCheck(sqlSession,loginUser);		
 	}
 	//세션 만료에 따른 로그인 상태 변경 
-	@Override
-	public void sessionLogOut(Member loginUser) {		
-		md.sessionLogOut(sqlSession, loginUser);
-	}
-
+	
 }

@@ -22,7 +22,7 @@
 			<hr>
 			<form>
 				<div id="ssbox" style="width:100%">
-					<input type="file" name="photo" style="display: inline-block;">
+					<input type="file" name="photo" class="button icon solid fa-download" style="display: inline-block;">
 					<div style="display:inline-block;width:50%;float:right;">
 						<select class="sel" style="display: inline-block; ">
 							<option>선택</option>
