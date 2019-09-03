@@ -11,6 +11,4 @@ public interface MemberService {
 
 	void logOutLoginCheck(Member loginUser);
 
-	void sessionLogOut(Member loginUser);
-
 }

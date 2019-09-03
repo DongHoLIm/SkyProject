@@ -74,9 +74,7 @@
     <filter-name>encodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  <listener>
-    <listener-class>com.kh.finalProject.member.controller.SessionListenner</listener-class>
-  </listener>
+
   <session-config>
     <session-timeout>180</session-timeout>
   </session-config>
