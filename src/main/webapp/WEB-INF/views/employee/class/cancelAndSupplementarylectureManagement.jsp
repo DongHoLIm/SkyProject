@@ -119,7 +119,7 @@
 		</div>
 		</div>
 		<div>
-			<jsp:include page="../../common/menubar-student.jsp" />
+			<jsp:include page="../../common/menubar-employee.jsp" />
 		</div>
 	</div>
 </body>

@@ -14,7 +14,7 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>강의 계획서 조회</h2>
+			<h2>개설/폐지 조회</h2>
 			<hr style="margin: 0 auto;">
 			<br> <br>
 			<table style="text-align: center; margin: 0 auto;">
@@ -37,29 +37,23 @@
 			</div>
 			<br>
 			<table style="text-align: center; margin: 0 auto;">
-				<thead>
-					<tr>
-						<th width="25%" style="text-align:center;">과목명</th>
-						<th width="10%" style="text-align:center;">담당교수</th>
-						<th width="20%" style="text-align:center;">등록일자</th>
-						<th width="40%" style="text-align:center;">강의 일정</th>
-						<th width="10%" style="text-align:center;">보기</th>
-					</tr>
-				</thead>
 				<tbody>
 					<tr>
-						<td>JAVA기초</td>
-						<td>김현수</td>
-						<td>2019-08-20</td>
-						<td>2019-09-01~2019-10-01</td>
-						<td><a>보기</a></td>
+						<th width="10%" style="text-align:center;">구분</th>
+						<th width="30%" style="text-align:center;">과목명</th>
+						<th width="15%" style="text-align:center;">담당교수</th>
+						<th width="25%" style="text-align:center;">신청일자</th>
+						<th width="25%" style="text-align:center;">처리일자</th>
+					</tr>
+					<tr>
+
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		</div>
 		<div>
-			<jsp:include page="../../common/menubar-student.jsp" />
+			<jsp:include page="../../common/menubar-employee.jsp" />
 		</div>
 	</div>
 </body>

@@ -55,8 +55,9 @@ public class MemberController {
 	}
 	//수강공지사항
 	@RequestMapping(value="goNotice.st")
-	public String goNotice(Member m, Model model, HttpSession session) {
-		
+	public String goNotice(Model model, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		System.out.println(loginUser);
 		return "student/class/Notice";
 	}
 	//교과목조회
