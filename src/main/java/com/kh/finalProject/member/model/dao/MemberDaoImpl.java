@@ -31,11 +31,4 @@ public class MemberDaoImpl implements MemberDao {
 		sqlSession.update("Member.upDateLooutCheck",loginUser);
 		
 	}
-	@Override
-	public void sessionLogOut(SqlSessionTemplate sqlSession, Member loginUser) {
-		System.out.println(loginUser);		
-		sqlSession.update("Member.upDateLooutCheck",loginUser);
-		
-	}
-
 }
