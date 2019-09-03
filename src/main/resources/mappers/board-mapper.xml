@@ -51,4 +51,14 @@
 		JOIN NORMALNOTICE N ON(B.BOARD_NO = N.BOARD_NO)
 		WHERE B.BOARD_NO = #{boardNo} AND B.STATUS = 'Y'
 	</select>	
+	
+	<insert id="insertnNotice">
+		INSERT INTO BOARD
+		VALUES(SEQ_BOARDNO.NEXTVAL, #{memberId}, #{title}, #{content}, #{writer}, SYSDATE, 'Y', '일반공지', DEFAULT)
+	</insert>
+	
+	<insert id="insertNormalNotice">
+		INSERT INTO NORMALNOTICE
+		VALUES(SEQ_BOARDNO.CURRVAL, #{writeDept}, #{deadLine})
+	</insert>
 </mapper>

@@ -70,6 +70,7 @@ public class BoardController {
 		System.out.println("emNoticeDetail boardNo :::: " + boardNo);
 		
 		Board b = bs.selectOneBoard(boardNo);
+		UploadFile uf = bs.selectUploadFile(boardNo);
 		
 		System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
 		
@@ -96,34 +97,65 @@ public class BoardController {
 	@RequestMapping(value="em_nNoticeInsert.bo")
 	public String emnNoticeInsert(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {
 		System.out.println("em_nNoticeInsert.bo photo :::: " + photo);
-		System.out.println("em_nNoticeInsert.bo b :::: " + b);
+		System.out.println("em_nNoticeInsert.bo b :::: " + b);	
 		
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		System.out.println("em_nNoticeInsert.bo root :::: " + root);
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;
 		
-		String filePath = root + "\\uploadFiles";
-		String originFileName = photo.getOriginalFilename();
 		
-		System.out.println("em_nNoticeInsert.bo originFileName :::: " + originFileName);
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			System.out.println("em_nNoticeInsert.bo root :::: " + root);
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();
+			
+			System.out.println("em_nNoticeInsert.bo originFileName :::: " + originFileName);
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.insertnNoticewithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				
+				return "redirect:em_nNoticeList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글쓰기 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
 		
-		String ext = originFileName.substring(originFileName.lastIndexOf("."));
-		
-		String changeName = CommonUtils.getRandomString();
-		
-		uf.setOldName(originFileName);
-		uf.setChangeName(changeName);
-		uf.setPath(filePath + "\\" + changeName + ext);
-		
-//		try{			
-//			photo.transferTo(new File(filePath + "\\" + changeName + ext));
-//		 	
-//			bs.insertnNotice(b, uf);
-//			
-//		}catch(Exception e) {
-//		 
-//		}
-		 
-		
-		return "";
+		try{			
+			
+			bs.insertnNotice(b);
+			
+			model.addAttribute("b", b);
+			
+			return "redirect:em_nNoticeList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글쓰기 실패!");
+			
+			return "common/errorAlert";	
+		}
 	}
 }

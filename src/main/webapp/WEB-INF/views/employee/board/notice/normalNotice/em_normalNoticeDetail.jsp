@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,10 @@
 					<th style="text-align: center;">작성부서</th>
 					<td>${b.writeDept}</td>
 					<th style="text-align: center;">게시기한</th>
-					<td>${b.deadLine}</td>
+					<td>
+						<fmt:parseDate value="${b.deadLine}" var="deadLine" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${deadLine}" pattern="yyyy-MM-dd"/>
+					</td>
 				</tr>
 				<tr>
 					<th style="text-align: center;">제목</th>
@@ -47,6 +51,9 @@
 				</tr>
 				<tr>
 					<td colspan="6" style="text-align: left; height: 100px;">
+						<%if(true) {%>
+						
+						<%} %>
 						${b.content}
 					</td>
 				</tr>

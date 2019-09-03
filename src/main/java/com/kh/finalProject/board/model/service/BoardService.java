@@ -18,6 +18,12 @@ public interface BoardService {
 
 	Board selectOneBoard(int boardNo);
 
+	int insertnNoticewithFile(Board b, UploadFile uf);
+
+	int insertnNotice(Board b);
+
+	UploadFile selectUploadFile(int boardNo);
+
 
 
 	
