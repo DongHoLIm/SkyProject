@@ -9,4 +9,8 @@ public interface MemberService {
 
 	Member loginCheck(Member m) throws loginException;
 
+	void logOutLoginCheck(Member loginUser);
+
+	void sessionLogOut(Member loginUser);
+
 }

@@ -19,9 +19,22 @@ public class MemberDaoImpl implements MemberDao {
 			
 		return loginUser;
 	}
+	//loginCheck 값 변경
 	@Override
 	public void updateLoginCheck(SqlSessionTemplate sqlSession, Member loginUser) {
 		sqlSession.update("Member.upDateLoginCheck",loginUser);
+		
+	}
+	//메인에서의 loginCheck값 변경 
+	@Override
+	public void logOutLoginCheck(SqlSessionTemplate sqlSession, Member loginUser) {
+		sqlSession.update("Member.upDateLooutCheck",loginUser);
+		
+	}
+	@Override
+	public void sessionLogOut(SqlSessionTemplate sqlSession, Member loginUser) {
+		System.out.println(loginUser);		
+		sqlSession.update("Member.upDateLooutCheck",loginUser);
 		
 	}
 

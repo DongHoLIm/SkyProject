@@ -28,4 +28,9 @@
 		SET LOGIN_CHECK='1' 
 		WHERE MEMBER_ID=#{memberId}
 	</update>
+	<update id="upDateLooutCheck" parameterType="Member">
+		UPDATE MEMBER 
+		SET LOGIN_CHECK='0' 
+		WHERE MEMBER_ID=#{memberId}
+	</update>
 </mapper>

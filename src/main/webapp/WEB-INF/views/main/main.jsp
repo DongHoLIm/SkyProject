@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,5 +29,9 @@
 			</c:if>
 		</div>
 	</div>
+	
+	<c:if test="${empty loginUser}">		
+		<jsp:forward page="Login.jsp"/>
+	</c:if>
 </body>
 </html>

@@ -1,13 +1,16 @@
 package com.kh.finalProject.member.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+
 
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.service.MemberService;
@@ -23,19 +26,24 @@ public class MemberController {
 	
 	//비밀번호 (암호화 비처리 메소드 )
 	@RequestMapping("login.me")
-	public String loginMember(Member m,Model model) {
+	public String loginMember(Member m,HttpSession session,Model model) {
 		
 		Member loginUser=null;
+		
 		try {			
 			loginUser = ms.loginCheck(m);
-			model.addAttribute("loginUser",loginUser);
-			return "main/main";									
+			session.setAttribute("loginUser",loginUser);			
+			return "redirect:loginOk.me";									
 		} catch (loginException e) {			
 			model.addAttribute("msg",e.getMessage());
 			return "common/errorAlert";
 		} 
 	}
-	
+	@RequestMapping("loginOk.me")
+	public String loginOk(Member loginUser) {
+		
+		return "main/main";
+	}
 	//비밀번호 (암호화 처리 메소드)
 	
 
@@ -72,10 +80,13 @@ public class MemberController {
 
 	
 	//로그 아웃  
-	@RequestMapping("logOut.me")
-	public String logOut(Model model,SessionStatus status) {
-		
-		status.setComplete();
+	@RequestMapping("logOut.me" )
+	public String logOut(HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		if(loginUser!=null) {
+			ms.logOutLoginCheck(loginUser);
+		}		
+		session.invalidate();		
 		return "main/Login";
 	}
 	
