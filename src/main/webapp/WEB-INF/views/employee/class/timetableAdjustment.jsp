@@ -14,7 +14,7 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>수강신청 열기</h2>
+			<h2>시간표 조정</h2>
 			<hr style="margin: 0 auto;">
 			<br> <br>
 			<table style="text-align: center; margin: 0 auto;">
@@ -41,16 +41,14 @@
 						<td>김현수</td>
 						<td>전공필수</td>
 						<td>30</td>
-						<td>09:00~09:50</td>
+						<td><button>시간표조정</button></td>
 					</tr>
 				</tbody>
 			</table>
-			<br><br><br><br><br>
-			<button style="float:right;">수강열기</button>
 		</div>
 		</div>
 		<div>
-			<jsp:include page="../../common/menubar-student.jsp" />
+			<jsp:include page="../../common/menubar-employee.jsp" />
 		</div>
 	</div>
 </body>
