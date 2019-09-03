@@ -1,6 +1,6 @@
 package com.kh.finalProject.board.model.vo;
 
-public class Writer {
+public class Writer implements java.io.Serializable{
 	private String memberId;
 	private String memberName;
 	private String edeptName;

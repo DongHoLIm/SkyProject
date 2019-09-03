@@ -7,12 +7,14 @@
 		<typeAlias type="com.kh.finalProject.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.finalProject.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.finalProject.board.model.vo.Writer" alias="Writer"/>
+		<typeAlias type="com.kh.finalProject.board.model.vo.UploadFile" alias="UploadFile"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/writer-mapper.xml"/>
+		<mapper resource="mappers/file-mapper.xml"/>
 	</mappers>
 	
 </configuration>
