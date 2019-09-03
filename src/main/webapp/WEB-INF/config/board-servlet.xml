@@ -24,4 +24,15 @@
 		base-package="com.kh.finalProject.board.*" />
 		
 	<aop:aspectj-autoproxy proxy-target-class="true"/> 
+	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10000000"/>		
+	</beans:bean>
+	
+	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView"/>
+	
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="1"/>
+	</beans:bean>
+	
 </beans:beans>

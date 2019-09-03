@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.finalProject.board.model.exception.BoardSelectListException;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 
 public interface BoardService {
@@ -14,5 +15,10 @@ public interface BoardService {
 	ArrayList<Board> selectnNoticeList(PageInfo pi) throws BoardSelectListException;
 
 	Writer selectWriterInfo(String memberId);
+
+	Board selectOneBoard(int boardNo);
+
+
+
 	
 }

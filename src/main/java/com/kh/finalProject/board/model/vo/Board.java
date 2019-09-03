@@ -12,20 +12,16 @@ public class Board implements java.io.Serializable{
 	private String status;
 	private String boardType;
 	private String writeDept;
-	private Date deadLine;
+	private String deadLine;
 	private Date startDate;
 	private Date endDate;
-	private String fileCode;
-	private String oldName;
-	private String changeName;
-	private String path;
 	private int count;
 	
 	public Board() {}
 
 	public Board(int boardNo, String memberId, String title, String content, String writer, Date enrollDate,
-			String status, String boardType, String writeDept, Date deadLine, Date startDate, Date endDate,
-			String fileCode, String oldName, String changeName, String path, int count) {
+			String status, String boardType, String writeDept, String deadLine, Date startDate, Date endDate,
+			int count) {
 		super();
 		this.boardNo = boardNo;
 		this.memberId = memberId;
@@ -39,10 +35,6 @@ public class Board implements java.io.Serializable{
 		this.deadLine = deadLine;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.fileCode = fileCode;
-		this.oldName = oldName;
-		this.changeName = changeName;
-		this.path = path;
 		this.count = count;
 	}
 
@@ -118,11 +110,11 @@ public class Board implements java.io.Serializable{
 		this.writeDept = writeDept;
 	}
 
-	public Date getDeadLine() {
+	public String getDeadLine() {
 		return deadLine;
 	}
 
-	public void setDeadLine(Date deadLine) {
+	public void setDeadLine(String deadLine) {
 		this.deadLine = deadLine;
 	}
 
@@ -142,38 +134,6 @@ public class Board implements java.io.Serializable{
 		this.endDate = endDate;
 	}
 
-	public String getFileCode() {
-		return fileCode;
-	}
-
-	public void setFileCode(String fileCode) {
-		this.fileCode = fileCode;
-	}
-
-	public String getOldName() {
-		return oldName;
-	}
-
-	public void setOldName(String oldName) {
-		this.oldName = oldName;
-	}
-
-	public String getChangeName() {
-		return changeName;
-	}
-
-	public void setChangeName(String changeName) {
-		this.changeName = changeName;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
 	public int getCount() {
 		return count;
 	}
@@ -187,10 +147,10 @@ public class Board implements java.io.Serializable{
 		return "Board [boardNo=" + boardNo + ", memberId=" + memberId + ", title=" + title + ", content=" + content
 				+ ", writer=" + writer + ", enrollDate=" + enrollDate + ", status=" + status + ", boardType="
 				+ boardType + ", writeDept=" + writeDept + ", deadLine=" + deadLine + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", fileCode=" + fileCode + ", oldName=" + oldName + ", changeName="
-				+ changeName + ", path=" + path + ", count=" + count + "]";
+				+ ", endDate=" + endDate + ", count=" + count + "]";
 	}
 
+	
 	
 	
 }
