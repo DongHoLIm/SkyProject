@@ -1,32 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-.inputbox {
-	border: none;
-	box-shadow: none !important;
-	width: 100%;
-}
-</style>
+<title>메인 페이지</title>
 </head>
 <body>
+	<c:set var="member" value="${loginUser.memberStatus}" />
 	<div id="wrapper">
 		<div id="main">
 			<div class="inner">
 				<jsp:include page="../common/header.jsp" />
 				<br>
-				
-				<!-- 내용작성 -->	
-							
 			</div>
 		</div>
 		<div>
-			<jsp:include page="../common/menubar-student.jsp" />
+			<c:if test="${member eq '1'}">
+				<jsp:include page="../common/menubar-student.jsp" />
+			</c:if>
+			<c:if test="${member eq '2'}">
+				<jsp:include page="../common/menubar-professor.jsp" />
+			</c:if>
+			<c:if test="${member eq '3'}">
+				<jsp:include page="../common/menubar-employee.jsp" />
+			</c:if>
 		</div>
 	</div>
+	
+	<c:if test="${empty loginUser}">		
+		<jsp:forward page="Login.jsp"/>
+	</c:if>
 </body>
 </html>

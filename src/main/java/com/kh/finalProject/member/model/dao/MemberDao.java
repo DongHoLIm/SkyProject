@@ -11,4 +11,8 @@ public interface MemberDao {
 
 	void updateLoginCheck(SqlSessionTemplate sqlSession, Member loginUser);
 
+	void logOutLoginCheck(SqlSessionTemplate sqlSession, Member loginUser);
+
+	void sessionLogOut(SqlSessionTemplate sqlSession, Member loginUser);
+
 }

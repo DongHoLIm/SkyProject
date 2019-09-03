@@ -24,4 +24,5 @@
 		base-package="com.kh.finalProject.member.*" />
 		
 	<aop:aspectj-autoproxy proxy-target-class="true"/> 
+	
 </beans:beans>

@@ -260,6 +260,8 @@ address {
 
 </head>
 <body>
+<c:set var="member" value="${scopeSession.loginUser}" />
+<c:if test="${empty member}">
    <div id="wrap">
    <img src="resources/images/bg_borderTop.png">
       <div id="container">
@@ -293,6 +295,9 @@ address {
          <span>COPYRIGHT</span>&copy; 2019 KH UNIV. ALL RIGHTS RESERVED.
       </address>
    </div>
-
+</c:if>
+<c:if test="${!empty member}">
+	<jsp:forward page="main/main"/>
+</c:if>
 </body>
 </html>
