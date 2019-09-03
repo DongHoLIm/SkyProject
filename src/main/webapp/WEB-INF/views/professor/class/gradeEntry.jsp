@@ -52,51 +52,33 @@ table.basicinfo {
 				<jsp:include page="../../common/header.jsp" />
 			</div>
 			<form class="ba">
-				<h4 id="basic">학생 학적 정보 조회</h4>
+				<h4 id="basic">성적입력</h4>
 				<hr>
-
-				<table class="basicinfo" id="Change">
-					<tr>
-					
-						<td><select value="name">
-								<option value='' selected>-- 이름 --</option>
-								<option value='' >2020-10-12</option>
-								<option value='' >경제 사정</option>
-								<option value='' ></option>
-						</select></td>
-					</tr>
-
-
-				</table>
-
-
-
 
 				<table class="basicinfo" id="Change">
 
 					<thead>
 						<tr>
-							<th style="text-align: center" id="t1">이수 구분</th>
-							<th style="text-align: center" id="t1">교과목명</th>
-							<th style="text-align: center" id="t1">학점</th>
-							<th style="text-align: center" id="t1">성적</th>
+							<th style="text-align: center" id="t1">과목번호</th>
+							<th style="text-align: center" id="t1">이수구분</th>
+							<th style="text-align: center" id="t1">강의명</th>
+							<th style="text-align: center" id="t1">강의실/강의시간</th>
+							<th style="text-align: center" id="t1">학점(시간)</th>
+							<th style="text-align: center" id="t1">성적입력</th>
+							
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>교양 필수</td>
-							<td>인성과 학문</td>
-							<td>2.0</td>
-							<td>C</td>
+							<td>A1001</td>
+							<td>전공필수</td>
+							<td>창의설계</td>
+							<td>만우관/월(7-10)</td>
+							<td>3(3)</td>
+							<td><button>성적입력</button></td>
 						</tr>
-						<tr>
-							<td>교양 필수</td>
-							<td>인성과 학문</td>
-							<td>2.0</td>
-							<td>C</td>
-						</tr>
-					</tbody>
-				</table>
+						
+						</tbody>
 				</table>
 			</form>
 		</div>
