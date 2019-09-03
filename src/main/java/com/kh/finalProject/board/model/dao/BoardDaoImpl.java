@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.finalProject.board.model.exception.BoardSelectListException;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 
 @Repository
@@ -43,5 +44,18 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return sqlSession.selectOne("Writer.selectWriterInfo", memberId);
 	}
+
+	@Override
+	public int updateCount(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.update("Board.updateBoardCount", boardNo);
+	}
+
+	@Override
+	public Board selectOneBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.selectOne("Board.selectBoardOne", boardNo);
+	}
+
 	
 }

@@ -17,10 +17,6 @@
 		<result property="deadLine" column="DEADLINE"/>
 		<result property="startDate" column="START_DATE"/>
 		<result property="endDate" column="END_DATE"/>
-		<result property="fileCode" column="FILE_CODE"/>
-		<result property="oldName" column="OLD_NAME"/>
-		<result property="changeName" column="CHANGE_NAME"/>
-		<result property="path" column="PATH"/>
 		<result property="count" column="COUNT"/>
 	</resultMap>
 	
@@ -41,4 +37,18 @@
 		ORDER BY B.BOARD_NO DESC
 	</select>
 	
+	<update id="updateBoardCount" parameterType="_int">
+		UPDATE BOARD
+		SET COUNT = (SELECT COUNT FROM BOARD WHERE BOARD_NO = #{boardNo}) + 1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<select id="selectBoardOne" resultMap="boardResultSet" parameterType="_int">
+		SELECT B.BOARD_NO, B.MEMBER_ID, B.TITLE, B.CONTENT, B.WRITER, B.ENROLL_DATE, B.STATUS, B.BOARD_TYPE, B.COUNT, N.WRITE_DEPT, N.DEADLINE
+		FROM BOARD B
+		JOIN EMPLOYEE E ON(B.MEMBER_ID = E.EMPLOYEE_NO)
+		JOIN E_DEPARTMENT D ON(E.EDEPT_CODE = D.EDEPT_CODE)
+		JOIN NORMALNOTICE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.BOARD_NO = #{boardNo} AND B.STATUS = 'Y'
+	</select>	
 </mapper>

@@ -19,7 +19,7 @@
 		background: white;
 		text-align: center;
 	}
-</style>
+</style>	
 </head>
 <body>
 	<div id="wrapper">
@@ -33,21 +33,21 @@
 			<table style="width: 88.5%; margin: 0 auto;">
 				<tr>
 					<th style="text-align: center;">작성자</th>
-					<td>박성래</td>
+					<td>${b.writer}</td>
 					<th style="text-align: center;">작성부서</th>
-					<td>학사지원팀</td>
+					<td>${b.writeDept}</td>
 					<th style="text-align: center;">게시기한</th>
-					<td>2019-08-30</td>
+					<td>${b.deadLine}</td>
 				</tr>
 				<tr>
 					<th style="text-align: center;">제목</th>
-					<td colspan="3">제목</td>
+					<td colspan="3">${b.title}</td>
 					<th style="text-align: center;">조회수</th>
-					<td>56</td>
+					<td>${b.count}</td>
 				</tr>
 				<tr>
 					<td colspan="6" style="text-align: left; height: 100px;">
-					
+						${b.content}
 					</td>
 				</tr>
 				<tr>

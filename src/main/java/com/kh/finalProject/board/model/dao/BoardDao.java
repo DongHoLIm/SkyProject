@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.finalProject.board.model.exception.BoardSelectListException;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 
 public interface BoardDao {
@@ -16,5 +17,10 @@ public interface BoardDao {
 	ArrayList<Board> selectnNoticeList(SqlSessionTemplate sqlSession, PageInfo pi) throws BoardSelectListException;
 
 	Writer selectWriterInfo(SqlSessionTemplate sqlSession, String memberId);
+
+	int updateCount(SqlSessionTemplate sqlSession, int boardNo);
+
+	Board selectOneBoard(SqlSessionTemplate sqlSession, int boardNo);
+
 	
 }

@@ -155,7 +155,7 @@
 		function insertnNotice(){
 			var memberId = $("input[name=memberId]").val();			
 			
-			location.href = "em_insertnNotice.bo?memberId=" + memberId;
+			location.href = "em_showInsertnNotice.bo?memberId=" + memberId;
 		}
 		
 	</script>
