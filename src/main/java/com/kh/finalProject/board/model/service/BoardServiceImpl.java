@@ -10,6 +10,7 @@ import com.kh.finalProject.board.model.dao.BoardDao;
 import com.kh.finalProject.board.model.exception.BoardSelectListException;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 
@@ -77,6 +78,46 @@ public class BoardServiceImpl implements BoardService{
 		
 		return result;
 	}
+
+	@Override
+	public int deletenNotice(String boardNo) {
+		
+		return bd.deletenNotice(sqlSession, boardNo);
+	}
+
+	@Override
+	public int getSearchResultListCount(SearchCondition sc) {
+		return bd.getSearchResultListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo pi) {
+		return bd.selectSearchResultList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public int updatenNoticewithFile(Board b, UploadFile uf) {
+		
+		int result = bd.updatenNotice(sqlSession, b);
+		System.out.println("board는 업뎃 후");
+		
+		if(result > 0) {
+			bd.updateNormalNotice(sqlSession, b);
+			bd.updatenNoticeFile(sqlSession, uf);
+		}
+		return result;
+	}
+
+	@Override
+	public int updatenNotice(Board b) {
+		int result = bd.updatenNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.updateNormalNotice(sqlSession, b);
+		}
+		return result;
+	}
+
 
 	
 

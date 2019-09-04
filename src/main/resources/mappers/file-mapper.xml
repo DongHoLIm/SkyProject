@@ -23,4 +23,9 @@
 		WHERE BOARD_NO = #{boardNo}
 	</select>
 	
+	<update id="updatenNoticeFile">
+		UPDATE UPLOAD_FILE 
+		SET OLD_NAME = #{oldName}, CHANGE_NAME = #{changeName}, PATH = #{path} 
+		WHERE BOARD_NO = #{boardNo}
+	</update>	
 </mapper>

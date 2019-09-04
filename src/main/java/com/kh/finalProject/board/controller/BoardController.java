@@ -17,6 +17,7 @@ import com.kh.finalProject.board.model.exception.BoardSelectListException;
 import com.kh.finalProject.board.model.service.BoardService;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 import com.kh.finalProject.common.CommonUtils;
@@ -72,11 +73,29 @@ public class BoardController {
 		Board b = bs.selectOneBoard(boardNo);
 		UploadFile uf = bs.selectUploadFile(boardNo);
 		
-		System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+		if(uf == null) {
+			request.setAttribute("b", b);
+			System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+			
+			return "employee/board/notice/normalNotice/em_normalNoticeDetail";
+			
+		} else {
+			
+			String realPath = uf.getPath().split("webapp")[1];
+			
+			System.out.println(realPath);
+			
+			uf.setPath("/finalProject/" + realPath);
+			
+			System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+			System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
+			
+			request.setAttribute("b", b);
+			request.setAttribute("uf", uf);
+			
+			return "employee/board/notice/normalNotice/em_normalNoticeDetail";			
+		}
 		
-		request.setAttribute("b", b);
-		
-		return "employee/board/notice/normalNotice/em_normalNoticeDetail";
 	}
 	
 	@RequestMapping(value="em_showInsertnNotice.bo")
@@ -154,6 +173,143 @@ public class BoardController {
 		}catch(Exception e) {
 			
 			model.addAttribute("msg", "글쓰기 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("em_deletenNotice.bo")
+	public String emnNoticeDelete(String boardNo, HttpServletRequest request) {
+		System.out.println("delectnNotice boardNo ::::" + boardNo);
+		
+		bs.deletenNotice(boardNo);
+		
+		return "forward:em_nNoticeList.bo";
+	}
+	
+	@RequestMapping("em_searchnNotice.bo")
+	public String emnNoticeSearch(String searchCondition, String searchValue, int currentPage, HttpServletRequest request) {
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+		System.out.println("currentPage :::: " + currentPage);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		if(searchCondition.equals("writer")) {
+			sc.setWriter(searchValue);
+		}
+		if(searchCondition.equals("writeDept")) {
+			sc.setWriteDept(searchValue);
+		}
+		if(searchCondition.equals("title")) {
+			sc.setTitle(searchValue);
+		}
+		
+		int listCount = bs.getSearchResultListCount(sc);
+		
+		System.out.println("검색후 listCount :::: " + listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Board> list = bs.selectSearchResultList(sc, pi);
+		
+		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
+		
+		return "employee/board/notice/normalNotice/em_normalNoticeList";
+	}
+	
+	@RequestMapping("em_showUpdatenNotice.bo")
+	public String emShowUpdateNotice(int boardNo, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		
+		Board b = bs.selectOneBoard(boardNo);
+		UploadFile uf = bs.selectUploadFile(boardNo);
+		
+		if(uf == null) {
+			request.setAttribute("b", b);
+			System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+			
+			return "employee/board/notice/normalNotice/em_normalNoticeUpdate";
+			
+		} else {
+			
+			String realPath = uf.getPath().split("webapp")[1];
+			
+			System.out.println(realPath);
+			
+			uf.setPath("/finalProject/" + realPath);
+			
+			System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+			System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
+			
+			request.setAttribute("b", b);
+			request.setAttribute("uf", uf);
+		
+		return "employee/board/notice/normalNotice/em_normalNoticeUpdate";
+		}
+	}
+	
+	@RequestMapping(value="em_nNoticeUpdate.bo")
+	public String emnNoticeUpdate(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {
+		
+		System.out.println("일반공지 글 수정 b :::: " + b);
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("일반공지 글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updatenNoticewithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				
+				return "redirect:em_nNoticeList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			
+			bs.updatenNotice(b);
+			
+			model.addAttribute("b", b);
+			
+			return "redirect:em_nNoticeList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
 			
 			return "common/errorAlert";	
 		}
