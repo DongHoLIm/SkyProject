@@ -31,4 +31,5 @@ public class MemberDaoImpl implements MemberDao {
 		sqlSession.update("Member.upDateLooutCheck",loginUser);
 		
 	}
+	
 }
