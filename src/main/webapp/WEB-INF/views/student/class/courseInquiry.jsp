@@ -179,7 +179,7 @@ table.tableList2 td img {
 				href="goCourseApply.st">수강신청</a></li>
 		</ul>
 	</div>
-	<form>
+	<form action="inquiry.st" method="post">
 		<table class="tableList1" width="100%">
 			<tbody>
 				<tr id="choice">
@@ -190,29 +190,98 @@ table.tableList2 td img {
 								<option value="">교수 검색</option>
 						</select>&nbsp;&nbsp;
 					</span> <span id="choice1" name="choice1"> <span> <strong>학과</strong>
-								<select name="allMajor" id="allMajor" class="Layer1">
-									<option value="">!!</option>
+								<select name="department" id="department" class="Layer1">
+									<option value="400000"># 교양과정 [400000]</option>
+									<option value="400210"># 교직과 [400210]</option>
+									<option value="411010">IT경영학과 [411010]</option>
+									<option value="416010">IT콘텐츠학과 [416010]</option>
+									<option value="413030">e-경영학 [413030]</option>
+									<option value="413020">e-비즈경영정보학과 [413020]</option>
+									<option value="404040">e-비즈니스학과 [404040]</option>
+									<option value="404030">경영학과 [404030]</option>
+									<option value="404010">경제학과 [404010]</option>
+									<option value="403041">광고홍보학과 [403041]</option>
+									<option value="402070">국사학과 [402070]</option>
+									<option value="402010">국어국문학과 [402010]</option>
+									<option value="404020">국제경제학과 [404020]</option>
+									<option value="403950">국제관계학부 [403950]</option>
+									<option value="403960">글로벌비즈니스학부 [403960]</option>
+									<option value="401021">기독교교육학 [401021]</option>
+									<option value="401020">기독교교육학과 [401020]</option>
+									<option value="402030">독어독문학과 [402030]</option>
+									<option value="402032">독어독문화학 [402032]</option>
+									<option value="402960">독일어문화학부 [402960]</option>
+									<option value="406030">동북아국제통상학 [406030]</option>
+									<option value="402095">디지털문화콘텐츠학 [402095]</option>
+									<option value="402094">디지털문화콘텐츠학과 [402094]</option>
+									<option value="405950">디지털융합학부 [405950]</option>
+									<option value="406060">마케팅사회조사학 [406060]</option>
+									<option value="402081">문예창작학과 [402081]</option>
+									<option value="403970">미디어영상광고학부 [403970]</option>
+									<option value="403980">미디어영상광고홍보학부 [403980]</option>
+									<option value="403021">사회복지학 [403021]</option>
+									<option value="403020">사회복지학과 [403020]</option>
+									<option value="406080">사회적경제경영 [406080]</option>
+									<option value="403011">사회학과 [403011]</option>
+									<option value="413011">상담복지학 [413011]</option>
+									<option value="413040">상담심리학 [413040]</option>
+									<option value="405011">수리금융학과 [405011]</option>
+									<option value="405010">수학과 [405010]</option>
+									<option value="401011">신학 [401011]</option>
+									<option value="401010">신학과 [401010]</option>
+									<option value="401910">신학부 [401910]</option>
+									<option value="403990">심리·아동학부 [403990]</option>
+									<option value="413910">아노덴인재학부 [413910]</option>
+									<option value="406040">아동보육학 [406040]</option>
+									<option value="402100">영상문화학 [402100]</option>
+									<option value="402020">영어영문학과 [402020]</option>
+									<option value="405021">응용통계학과 [405021]</option>
+									<option value="402980">인문콘텐츠학부 [402980]</option>
+									<option value="403071">일본지역학과 [403071]</option>
+									<option value="403072">일본학과 [403072]</option>
+									<option value="403031">재활학 [403031]</option>
+									<option value="403030">재활학과 [403030]</option>
+									<option value="405020">정보통계학과 [405020]</option>
+									<option value="405050">정보통신학과 [405050]</option>
+									<option value="405960">정보통신학부 [405960]</option>
+									<option value="402060">종교문화학 [402060]</option>
+									<option value="402061">종교문화학과 [402061]</option>
+									<option value="402091">중국문화정보학부 [402091]</option>
+									<option value="402093">중국문화콘텐츠학부 [402093]</option>
+									<option value="402043">중국어문화학과 [402043]</option>
+									<option value="402970">중국어문화학부 [402970]</option>
+									<option value="403061">중국지역학과 [403061]</option>
+									<option value="403062">중국학과 [403062]</option>
+									<option value="402051">철학 [402051]</option>
+									<option value="402050">철학과 [402050]</option>
+									<option value="405940">컴퓨터공학부 [405940]</option>
+									<option value="405061">특수체육학과 [405061]</option>
+									<option value="406070">평생교육학 [406070]</option>
+									<option value="409010">학점교류 [409010]</option>
+									<option value="402071">한국사학과 [402071]</option>
+									<option value="402044">한중문화콘텐츠학과 [402044]</option>
+									<option value="410910">휴먼서비스학부 [410910]</option>
 							</select> &nbsp;&nbsp;&nbsp; <strong>이수구분</strong> <select name="allIsu"
 								id="allIsu" class="Layer1">
 									<option value="">* 전체 *</option>
-									<option value="">교필</option>
-									<option value="">교선</option>
-									<option value="">평생</option>
-							</select> &nbsp;&nbsp;&nbsp; <strong>학년</strong> <select name="allHakyun"
+									<option value="1">교필</option>
+									<option value="2">교선</option>
+									<option value="P">평생</option>
+							</select> &nbsp;&nbsp;&nbsp; <!-- <strong>학년</strong> <select name="allHakyun"
 								id="allHakyun" class="Layer1">
 									<option value="">1학년</option>
 									<option value="">2학년</option>
 									<option value="">3학년</option>
 									<option value="">4학년</option>
-							</select> <strong>과목</strong> <select name="allLecture" id="allLecture"
+							</select> --> <strong>과목</strong> <select name="subject" id="subject"
 								class="Layer1">
-									<option value="">!!</option>
-									<option value="">3D콘텐츠제작 [KY700]</option>
-									<option value="">4차산업혁명과사회디자인 [KYA58]</option>
-									<option value="">Creative Thinking [KY979]</option>
-									<option value="">NCS직업기초능력다지기 [KY603]</option>
-									<option value="">결혼과가족 [KY961]</option>
-									<option value="">고급한국어문법1 [*KY111]</option>
+									<option value="KY508">1인미디어만들기 [KY508]</option>
+									<option value="KY700">3D콘텐츠제작 [KY700]</option>
+									<option value="KYA58">4차산업혁명과사회디자인 [KYA58]</option>
+									<option value="KY979">Creative Thinking [KY979]</option>
+									<option value="KY603">NCS직업기초능력다지기 [KY603]</option>
+									<option value="KY961">결혼과가족 [KY961]</option>
+									<option value="*KY111">고급한국어문법1 [*KY111]</option>
 									<option value="*KY109">고급한국어회화1 [*KY109]</option>
 									<option value="KY771">고급회화:토론과발표 [KY771]</option>
 									<option value="KY728">공동체감성과실천적말하기 [KY728]</option>
@@ -234,7 +303,6 @@ table.tableList2 td img {
 									<option value="KY786">뉴턴과근대과학탄생의비밀 [KY786]</option>
 									<option value="KYA44">돈과인간 [KYA44]</option>
 									<option value="KYA55">돈의메카니즘 [KYA55]</option>
-									<option value="KYA64">동남아경제 [KYA64]</option>
 									<option value="KYA50">동아시아120년전쟁과한반도의평화 [KYA50]</option>
 									<option value="KYA62">디지털시대자기표현 [KYA62]</option>
 									<option value="KY208">러시아어회화및실습Ⅱ [KY208]</option>
@@ -251,7 +319,6 @@ table.tableList2 td img {
 									<option value="KYA45">발성과가곡부르기 [KYA45]</option>
 									<option value="KY819">배구 [KY819]</option>
 									<option value="KY822">배드민턴 [KY822]</option>
-									<option value="KYA63">베트남어2 [KYA63]</option>
 									<option value="KY836">봉사활동Ⅱ [KY836]</option>
 									<option value="KYA47">북한의문화와일상생활 [KYA47]</option>
 									<option value="KY731">사랑할때와헤어질때:고전속의스무장면 [KY731]</option>
@@ -300,7 +367,6 @@ table.tableList2 td img {
 									<option value="KY750">일본근현대와동아시아 [KY750]</option>
 									<option value="KY951">일본문학길잡이 [KY951]</option>
 									<option value="KY668">일상생활과기록 [KY668]</option>
-									<option value="KY931">재미있는정신분석이야기 [KY931]</option>
 									<option value="KY703">정보기술법률 [KY703]</option>
 									<option value="KY832">정의란무엇인가 [KY832]</option>
 									<option value="KY950">제3세계문학길잡이 [KY950]</option>
@@ -344,7 +410,6 @@ table.tableList2 td img {
 									<option value="*KY116">한국어쓰기기초1 [*KY116]</option>
 									<option value="KY674">한국의세계문화유산 [KY674]</option>
 									<option value="*KY020">한국의전통문화 [*KY020]</option>
-									<option value="KY841">한문Ⅱ [KY841]</option>
 									<option value="KYA46">합창과화음 [KYA46]</option>
 									<option value="KY206">현대서양사상의길잡이 [KY206]</option>
 									<option value="KY447">현대세계정치의이해 [KY447]</option>
@@ -363,20 +428,19 @@ table.tableList2 td img {
 	<table class="tableList2" style="width: 100%">
 		<tbody>
 			<tr>
-				<th width="35"><input type="checkbox" class="Allcheck"></th>
-				<th width="35">No</th>
-				<th width="45">학년</th>
-				<th width="60">이수구분</th>
-				<th width="80">학수번호</th>
-				<th width="180">교과목명</th>
-				<th width="40">학점</th>
-				<th width="70">교수</th>
-				<th>교시</th>
-				<th>강의실(건물명)</th>
-				<th width="60">인원</th>
-				<th width="50">계획서</th>
-				<th width="50">강의평가</th>
-				<th>비고</th>
+				<th width="2%"><input type="checkbox" class="Allcheck"></th>
+				<th width="3%" >No</th>
+				<th width="6%">이수구분</th>
+				<th width="6%">학수번호</th>
+				<th width="20%">교과목명</th>
+				<th width="5%">학점</th>
+				<th width="8%">교수</th>
+				<th width="7%">교시</th>
+				<th width="13%">강의실(건물명)</th>
+				<th width="5%">인원</th>
+				<th width="7%">계획서</th>
+				<th width="7%">강의평가</th>
+				<th width="11%">비고</th>
 			</tr>
 			<tr>
 				<td colspan="14"><font color="red">☞ 조회버튼을 클릭하세요.</font></td>

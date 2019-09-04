@@ -13,5 +13,4 @@ public interface MemberDao {
 
 	void logOutLoginCheck(SqlSessionTemplate sqlSession, Member loginUser);
 
-
 }
