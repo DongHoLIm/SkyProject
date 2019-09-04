@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 .sel {
 	width: 24%;
@@ -22,7 +24,8 @@
 			<hr>
 			<form>
 				<div id="ssbox" style="width:100%">
-					<input type="file" name="photo" class="button icon solid fa-download" style="display: inline-block;">
+				<input type="file" name="ExcelFile" id="file" style="display: none" onchange="fileAjax();"/>
+				 	<a class="button icon solid fa-download" onclick="fileUpload();">Excel Upload</a>					
 					<div style="display:inline-block;width:50%;float:right;">
 						<select class="sel" style="display: inline-block; ">
 							<option>선택</option>
@@ -68,5 +71,29 @@
 			<jsp:include page="../../common/menubar-student.jsp" />
 		</div>
 	</div>
+	<script>
+		function fileUpload(){
+			$("#file").click();
+		}
+		function fileAjax(){
+			$(function(){
+				var fileName = $("#file").val();
+				console.log(fileName);
+				$.ajax({
+					url:"excel.me",
+					type :"post",
+					data : {fileName:fileName},
+					success: function(data) {
+						console.log("접속 성공");
+					},
+					error : function(data){
+						console.log("접속실패");
+					}
+					
+				});
+				return false;
+			});
+		}
+	</script>
 </body>
 </html>
