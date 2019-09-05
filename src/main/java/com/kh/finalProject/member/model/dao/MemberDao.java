@@ -13,4 +13,6 @@ public interface MemberDao {
 
 	void logOutLoginCheck(SqlSessionTemplate sqlSession, Member loginUser);
 
+	int insertMember(SqlSessionTemplate sqlSession, Member insertMember);
+
 }

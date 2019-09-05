@@ -13,5 +13,5 @@ public interface MemberService {
 
 	void logOutLoginCheck(Member loginUser);
 
-	void insertMember(List<String> values);
+	int insertMember(Member insertMember);
 }
