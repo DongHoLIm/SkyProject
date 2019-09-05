@@ -1,5 +1,7 @@
 package com.kh.finalProject.member.model.vo;
 
+import java.util.ArrayList;
+
 public class Member implements java.io.Serializable{
 	private String memberId;
 	private String memberPwd;
@@ -11,6 +13,7 @@ public class Member implements java.io.Serializable{
 	private String address;
 	private String memberStatus;
 	private String loginCheck;
+	private ArrayList<Member> list;
 	
 	public Member() {}
 	
@@ -112,6 +115,18 @@ public class Member implements java.io.Serializable{
 	public void setLoginCheck(String loginCheck) {
 		this.loginCheck = loginCheck;
 	}
+	
+
+
+	public ArrayList<Member> getList() {
+		return list;
+	}
+
+
+
+	public void setList(ArrayList<Member> list) {
+		this.list = list;
+	}
 
 
 
@@ -119,8 +134,13 @@ public class Member implements java.io.Serializable{
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberKName=" + memberKName
 				+ ", memberEName=" + memberEName + ", memberNo=" + memberNo + ", phone=" + phone + ", email=" + email
-				+ ", address=" + address + ", memberStatus=" + memberStatus + ", loginCheck=" + loginCheck + "]";
+				+ ", address=" + address + ", memberStatus=" + memberStatus + ", loginCheck=" + loginCheck + ", list="
+				+ list + "]";
 	}
+
+
+
+
 	
 	
 }

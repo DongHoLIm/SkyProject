@@ -1,5 +1,7 @@
 package com.kh.finalProject.member.model.service;
 
+import java.util.List;
+
 import javax.security.auth.login.LoginException;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -37,5 +39,13 @@ public class MemberServiceImpl implements MemberService{
 		md.logOutLoginCheck(sqlSession,loginUser);
 		
 	}
+	//insert Member 
+	@Override
+	public void insertMember(List<String> values) {
+		// TODO Auto-generated method stub
+		
+		
+	}
+	
 	
 }
