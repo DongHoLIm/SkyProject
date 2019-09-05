@@ -33,4 +33,9 @@
 		SET LOGIN_CHECK='0' 
 		WHERE MEMBER_ID=#{memberId}
 	</update>
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER VALUES(
+			#{memberId},#{memberPwd},#{memberKName},#{memberEName},#{memberNo},#{phone},#{email},#{address},#{loginCheck},#{memberStatus}
+		)	
+	</insert>
 </mapper>
