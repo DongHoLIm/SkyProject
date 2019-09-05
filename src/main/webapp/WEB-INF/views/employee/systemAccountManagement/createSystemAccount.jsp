@@ -41,7 +41,7 @@
 				</form>				
 				<br>
 				<div style="float:right">
-					<button>삭제</button>
+					<button id="resetBtn">삭제</button>
 					<button id="insertMemberAll">발급</button>
 				</div>
 				<br>
@@ -92,13 +92,13 @@
 									
 									
 									<c:if test="${insertMember.memberStatus== 1}">
-										<td id="memberStatus"><input type="hidden" value="${insertMember.memberStatus}"/>학생</td>
+										<td>학생</td>
 									</c:if>
 									<c:if test="${insertMember.memberStatus == 2}">
-										<td id="memberStatus"><input type="hidden" value="${insertMember.memberStatus}"/>교수</td>
+										<td>교수</td>
 									</c:if>
 									<c:if test="${insertMember.memberStatus == 3}">
-										<td id="memberStatus"><input type="hidden" value="${insertMember.memberStatus}"/>교직원</td>
+										<td>교직원</td>
 									</c:if>							
 								</tr>
 						</c:forEach>
@@ -115,11 +115,23 @@
 									console.log("");
 									var memberId = $(this).children().eq(1).text();
 									var memberPwd = $(this).children().eq(2).text();
-									
-									
+									var memberKName = $(this).children().eq(3).text();
+									var memberEName = $(this).children().eq(4).text();
+									var memberNo = $(this).children().eq(5).text();
+									var phone = $(this).children().eq(6).text();
+									var email = $(this).children().eq(7).text();
+									var address = $(this).children().eq(8).text();
+									var memberStatus = $(this).children().eq(9).text();
 									member = {
 											memberId : memberId,
-											memberPwd : memberPwd
+											memberPwd : memberPwd,
+											memberKName : memberKName,
+											memberEName : memberEName,
+											memberNo : memberNo,
+											phone : phone,
+											email : email,
+											address : address,
+											memberStatus : memberStatus
 									}
 									list.push(member);
 								 });

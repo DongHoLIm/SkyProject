@@ -103,13 +103,14 @@ public class MemberController {
 	            //행의 수	          
 	            int rows=sheet.getPhysicalNumberOfRows();
 	            ArrayList <Member> list = new ArrayList<Member>();
-	            for(rowindex=0;rowindex<rows;rowindex++){
+	            for(rowindex=1;rowindex<rows;rowindex++){
 	                //행을읽는다
 	                XSSFRow row=sheet.getRow(rowindex);
+	                Member insertMember = new Member();
 	                if(row !=null){
 	                    //셀의 수
 	                    int cells=row.getPhysicalNumberOfCells();
-	                    Member insertMember = new Member();
+	                   
 	                    for(columnindex=0; columnindex<=cells; columnindex++){
 	                        //셀값을 읽는다
 	                        XSSFCell cell=row.getCell(columnindex);
@@ -163,8 +164,8 @@ public class MemberController {
 	                        	}
 	                        }	
 	                    }
-	                    list.add(insertMember);
 	                }
+	                list.add(insertMember);
 	            }
 	            model.addAttribute("insertMember_parent", list);
 	            return "employee/systemAccountManagement/createSystemAccount";
@@ -190,7 +191,7 @@ public class MemberController {
 //		return "employee/systemAccountManagement/createSystemAccount";
 //	}
 	@RequestMapping(value="insertMember.me")
-	public ModelAndView insertMember(ModelAndView mv,String resultStr) {
+	public ModelAndView insertMember(ModelAndView mv,String resultStr,Model model) {
 		System.out.println(resultStr);
 		
 		 ObjectMapper mapper = new ObjectMapper();
@@ -202,6 +203,52 @@ public class MemberController {
 			
 			ArrayList<Object> list = (ArrayList<Object>) memberMap.get("list");
 			System.out.println(list.get(1));
+			 int checkresult = 0;
+			for(int i =0;i<list.size();i++) {
+				System.out.println(i+"번째 list 내용 :"+list.get(i));
+				Map<Object,Object> list2 =new HashMap<Object,Object>();
+				list2 = (Map<Object, Object>) list.get(i);
+				Member insertMember = new Member();
+				String memberId = (String) list2.get("memberId");
+				String memberPwd = (String)list2.get("memberPwd");
+				String memberKName= (String)list2.get("memberKName");
+				String memberEName = (String)list2.get("memberEName");
+				String memberNo = (String)list2.get("memberNo");
+				String phone =(String)list2.get("phone");
+				String email = (String)list2.get("email");
+				String address = (String)list2.get("address");
+				String memberStatus = (String)list2.get("memberStatus");
+				if(memberStatus.equals("학생")) {
+					memberStatus = "1";
+				}else if(memberStatus.equals("교수")) {
+					memberStatus ="2";
+				}else if(memberStatus.equals("교직원")) {
+					memberStatus ="3";
+				}
+				
+				
+				insertMember.setMemberId(memberId);
+				insertMember.setMemberPwd(memberPwd);
+				insertMember.setMemberKName(memberKName);
+				insertMember.setMemberEName(memberEName);
+				insertMember.setMemberNo(memberNo);
+				insertMember.setPhone(phone);
+				insertMember.setEmail(email);
+				insertMember.setAddress(address);
+				insertMember.setLoginCheck("0");
+				insertMember.setMemberStatus(memberStatus);
+			
+				int result = ms.insertMember(insertMember);
+				if(result<0) {
+					checkresult=-1;
+				}				
+			}
+			if(checkresult<0) {
+				model.addAttribute("정보 추가에 실패 했습니다.");
+				mv.setViewName("common/errorAlert");
+			}else {
+				mv.setViewName("JsonView");
+			}
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -212,10 +259,9 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-	     
-		mv.setViewName("jsonView");
-		return mv;
+	     	
+	     return mv;
+		
 	}
 
 }

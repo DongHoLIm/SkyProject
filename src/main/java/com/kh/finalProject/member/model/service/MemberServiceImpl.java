@@ -6,6 +6,7 @@ import javax.security.auth.login.LoginException;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
 import com.kh.finalProject.member.model.dao.MemberDao;
@@ -18,6 +19,9 @@ public class MemberServiceImpl implements MemberService{
 	private SqlSessionTemplate sqlSession;
 	@Autowired
 	private MemberDao md;
+	
+	@Autowired
+	private DataSourceTransactionManager transactionManager;
 	
 	@Override
 	public Member loginCheck(Member m) throws loginException {
@@ -41,11 +45,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 	//insert Member 
 	@Override
-	public void insertMember(List<String> values) {
-		// TODO Auto-generated method stub
-		
-		
+	public int insertMember(Member insertMember) {
+		return md.insertMember(sqlSession,insertMember);
 	}
-	
+
 	
 }
