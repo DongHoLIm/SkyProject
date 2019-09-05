@@ -1,4 +1,4 @@
-package com.kh.finalProject.classmanagement.controller;
+package com.kh.finalProject.student.classmanagement.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,12 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.kh.finalProject.classmanagement.model.service.ClassService;
-import com.kh.finalProject.classmanagement.model.vo.Inquiry;
 import com.kh.finalProject.member.model.vo.Member;
+import com.kh.finalProject.student.classmanagement.model.service.ClassService;
+import com.kh.finalProject.student.classmanagement.model.vo.Inquiry;
 @Controller
+@SessionAttributes("loginUser")
 public class ClassController {
 	@Autowired
 	private ClassService cs;

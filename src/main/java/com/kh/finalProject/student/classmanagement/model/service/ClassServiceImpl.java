@@ -1,11 +1,11 @@
-package com.kh.finalProject.classmanagement.model.service;
+package com.kh.finalProject.student.classmanagement.model.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.finalProject.classmanagement.model.dao.ClassDao;
-import com.kh.finalProject.classmanagement.model.vo.Inquiry;
+import com.kh.finalProject.student.classmanagement.model.dao.ClassDao;
+import com.kh.finalProject.student.classmanagement.model.vo.Inquiry;
 
 @Service
 public class ClassServiceImpl implements ClassService{
