@@ -7,8 +7,23 @@ public class PageInfo implements java.io.Serializable{
 	private int maxPage;
 	private int startPage;
 	private int endPage;
+	private boolean searchflag;
 	
 	public PageInfo() {}
+
+	public PageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage,
+			boolean searchflag) {
+		super();
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		this.limit = limit;
+		this.maxPage = maxPage;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.searchflag = searchflag;
+	}
+	
+	
 
 	public PageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage) {
 		super();
@@ -68,10 +83,19 @@ public class PageInfo implements java.io.Serializable{
 		this.endPage = endPage;
 	}
 
+	public boolean getSearchflag() {
+		return searchflag;
+	}
+
+	public void setSearchflag(boolean searchflag) {
+		this.searchflag = searchflag;
+	}
+
 	@Override
 	public String toString() {
 		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit + ", maxPage="
-				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + "]";
+				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", searchflag=" + searchflag + "]";
 	}
 
+	
 }

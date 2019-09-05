@@ -215,11 +215,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping("em_searchnNotice.bo")
-	public String emnNoticeSearch(String searchCondition, String searchValue, int currentPage, HttpServletRequest request) {
+	public String emnNoticeSearch(String searchCondition, String searchValue, boolean searchflag, HttpServletRequest request) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
 		
 		System.out.println("searchCondition :::: " + searchCondition);
 		System.out.println("searchValue :::: " + searchValue);
 		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
 		
 		SearchCondition sc = new SearchCondition();
 		
@@ -240,12 +247,18 @@ public class BoardController {
 			
 			System.out.println("검색후 listCount :::: " + listCount);
 			
-			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			PageInfo spi = Pagination.getPageInfo(currentPage, listCount);
 			
-			ArrayList<Board> list = bs.selectSearchResultList(sc, pi);
+			spi.setSearchflag(searchflag);
 			
-			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);
+			System.out.println("spi :::: " + spi);
+			
+			ArrayList<Board> slist = bs.selectSearchResultList(sc, spi);
+			
+			request.setAttribute("slist", slist);
+			request.setAttribute("spi", spi);
+			request.setAttribute("searchCondition", searchCondition);
+			request.setAttribute("searchValue", searchValue);
 			
 			return "employee/board/notice/normalNotice/em_normalNoticeList";
 		} catch (BoardSearchException e) {
@@ -253,8 +266,6 @@ public class BoardController {
 			
 			return "common/errorAlert";	
 		}
-		
-		
 	}
 	
 	@RequestMapping("em_showUpdatenNotice.bo")
@@ -401,4 +412,111 @@ public class BoardController {
 			return "common/errorAlert";
 		}
 	}
+	
+	@RequestMapping(value="pro_nNoticeDetail.bo")
+	public String pronNoticeDetail(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
+		System.out.println("emNoticeDetail boardNo :::: " + boardNo);
+		
+		Board b;
+		UploadFile uf;
+		
+		try {
+			b = bs.selectOneBoard(boardNo);
+			
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				
+				return "professor/board/notice/normalNotice/pro_normalNoticeDetail";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+				
+				return "professor/board/notice/normalNotice/pro_normalNoticeDetail";			
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="pro_searchnNotice.bo")
+	public String pronNoticeSearch(String searchCondition, String searchValue, boolean searchflag, HttpServletRequest request) {		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		if(searchCondition.equals("writer")) {
+			sc.setWriter(searchValue);
+		}
+		if(searchCondition.equals("writeDept")) {
+			sc.setWriteDept(searchValue);
+		}
+		if(searchCondition.equals("title")) {
+			sc.setTitle(searchValue);
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.getSearchResultListCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo spi = Pagination.getPageInfo(currentPage, listCount);
+			
+			spi.setSearchflag(searchflag);
+			
+			System.out.println("spi :::: " + spi);
+			
+			ArrayList<Board> slist = bs.selectSearchResultList(sc, spi);
+			
+			request.setAttribute("slist", slist);
+			request.setAttribute("spi", spi);
+			request.setAttribute("searchCondition", searchCondition);
+			request.setAttribute("searchValue", searchValue);
+			
+			return "professor/board/notice/normalNotice/pro_normalNoticeList";
+		} catch (BoardSearchException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+

@@ -75,10 +75,10 @@
 		AND B.BOARD_TYPE = '일반공지'
 		<choose>
 			<when test="writer != null">
-				AND M.MEMBER_KNAME = #{writer}
+				AND B.WRITER = #{writer}
 			</when>
 			<when test="title != null">
-				AND TITLE LIKE '%' || #{title} || '%'
+				AND B.TITLE LIKE '%' || #{title} || '%'
 			</when>
 			<otherwise>
 				AND N.WRITE_DEPT = #{writeDept}
@@ -95,10 +95,10 @@
 		AND B.BOARD_TYPE = '일반공지'
 		<choose>
 			<when test="writer != null">
-				AND M.MEMBER_KNAME = #{writer}
+				AND B.WRITER = #{writer}
 			</when>
 			<when test="title != null">
-				AND TITLE LIKE '%' || #{title} || '%'
+				AND B.TITLE LIKE '%' || #{title} || '%'
 			</when>
 			<otherwise>
 				AND N.WRITE_DEPT = #{writeDept}

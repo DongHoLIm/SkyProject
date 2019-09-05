@@ -96,8 +96,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo pi) throws BoardSearchException {
-		return bd.selectSearchResultList(sqlSession, sc, pi);
+	public ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo spi) throws BoardSearchException {
+		return bd.selectSearchResultList(sqlSession, sc, spi);
 	}
 
 	@Override
