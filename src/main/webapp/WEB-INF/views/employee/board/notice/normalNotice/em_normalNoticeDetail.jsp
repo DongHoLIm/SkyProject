@@ -49,7 +49,7 @@
 					<th style="text-align: center;">게시기한</th>
 					<td>
 						<fmt:parseDate value="${b.deadLine}" var="deadLine" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${deadLine}" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate value="${deadLine}" pattern="yyyy/MM/dd"/>
 					</td>
 				</tr>
 				<tr>
@@ -62,7 +62,7 @@
 					<td colspan="6" style="text-align: left; height: 100px;">
 						<c:if test="${!empty uf}">
 							<div align="center">
-								<img src="${uf.path}">
+								<img src="${uf.path}" width="50%" height="70%">
 							</div>
 						</c:if>
 						${b.content}
@@ -94,6 +94,15 @@
 			
 			location.href="em_showUpdatenNotice.bo?boardNo="+boardNo;
 		}
+		
+		$(function(){
+			var width = $("img").width();
+			var height = $("img").height();
+			
+			console.log(width);
+			console.log(height);
+		});
+		
 	</script>
 </div>
 </body>

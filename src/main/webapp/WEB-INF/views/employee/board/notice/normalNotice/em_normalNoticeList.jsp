@@ -103,7 +103,7 @@
 						<td style="text-align: center;"><c:out value="${b.count}"/></td>
 						<td style="text-align: center;">
 							<fmt:parseDate value="${b.deadLine}" var="deadLine" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<fmt:formatDate value="${deadLine}" pattern="yyyy-MM-dd"/>
+							<fmt:formatDate value="${deadLine}" pattern="yyyy/MM/dd"/>
 						</td>
 					</tr>
 					</c:forEach>

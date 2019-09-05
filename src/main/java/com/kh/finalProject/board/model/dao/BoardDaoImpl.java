@@ -121,6 +121,7 @@ public class BoardDaoImpl implements BoardDao{
 
 	@Override
 	public int updateNormalNotice(SqlSessionTemplate sqlSession, Board b) {
+		
 		return sqlSession.update("Board.updateNormalNotice", b);
 	}
 

@@ -7,7 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.finalProject.board.model.dao.BoardDao;
+import com.kh.finalProject.board.model.exception.BoardDeleteException;
+import com.kh.finalProject.board.model.exception.BoardInsertException;
+import com.kh.finalProject.board.model.exception.BoardSearchException;
 import com.kh.finalProject.board.model.exception.BoardSelectListException;
+import com.kh.finalProject.board.model.exception.BoardSelectOneException;
+import com.kh.finalProject.board.model.exception.BoardUpdateException;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
@@ -20,10 +25,10 @@ public class BoardServiceImpl implements BoardService{
 	private SqlSessionTemplate sqlSession;
 	
 	@Autowired
-	private BoardDao bd;
+	private BoardDao bd;	
 
 	@Override
-	public int getListCount() {
+	public int getListCount() throws BoardSelectListException{
 		
 		return bd.getListCount(sqlSession);
 	}
@@ -41,7 +46,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public Board selectOneBoard(int boardNo) {
+	public Board selectOneBoard(int boardNo) throws BoardSelectOneException{
 		
 		bd.updateCount(sqlSession, boardNo);
 		
@@ -49,12 +54,12 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public UploadFile selectUploadFile(int boardNo) {
+	public UploadFile selectUploadFile(int boardNo) throws BoardSelectOneException{
 		return bd.selectUploadFile(sqlSession, boardNo);
 	}
 
 	@Override
-	public int insertnNoticewithFile(Board b, UploadFile uf) {				
+	public int insertnNoticewithFile(Board b, UploadFile uf) throws BoardInsertException{				
 		 
 		int result = bd.insertnNotice(sqlSession, b);
 		
@@ -69,7 +74,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int insertnNotice(Board b) {
+	public int insertnNotice(Board b) throws BoardInsertException{
 		int result = bd.insertnNotice(sqlSession, b);
 		
 		if(result > 0) {
@@ -80,36 +85,36 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int deletenNotice(String boardNo) {
+	public int deletenNotice(String boardNo) throws BoardDeleteException{
 		
 		return bd.deletenNotice(sqlSession, boardNo);
 	}
 
 	@Override
-	public int getSearchResultListCount(SearchCondition sc) {
+	public int getSearchResultListCount(SearchCondition sc) throws BoardSearchException{
 		return bd.getSearchResultListCount(sqlSession, sc);
 	}
 
 	@Override
-	public ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo pi) {
+	public ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo pi) throws BoardSearchException {
 		return bd.selectSearchResultList(sqlSession, sc, pi);
 	}
 
 	@Override
-	public int updatenNoticewithFile(Board b, UploadFile uf) {
+	public int updatenNoticewithFile(Board b, UploadFile uf) throws BoardUpdateException{
 		
 		int result = bd.updatenNotice(sqlSession, b);
-		System.out.println("board는 업뎃 후");
 		
 		if(result > 0) {
 			bd.updateNormalNotice(sqlSession, b);
+			System.out.println("파일수정");
 			bd.updatenNoticeFile(sqlSession, uf);
 		}
 		return result;
 	}
 
 	@Override
-	public int updatenNotice(Board b) {
+	public int updatenNotice(Board b) throws BoardUpdateException {
 		int result = bd.updatenNotice(sqlSession, b);
 		
 		if(result > 0) {
