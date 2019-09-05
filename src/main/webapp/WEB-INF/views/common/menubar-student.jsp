@@ -53,7 +53,7 @@
 											<li>
 											<span class="opener">등록관리</span>
 											<ul>
-												<li><a href="#">등록금 납부 결과 조회</a></li>
+												<li><a href="registerInfo.me">등록금 납부 결과 조회</a></li>
 											</ul>
 										</li>
 										<li>

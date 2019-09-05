@@ -18,6 +18,8 @@
 		<mapper resource="mappers/file-mapper.xml"/>
 		<mapper resource="mappers/studentInfo-mapper.xml"/>
 		<mapper resource="mappers/lectureOpen-mapper.xml"/>
+		<mapper resource="mappers/register-mapper.xml"/>
+
 	</mappers>
 	
 </configuration>
