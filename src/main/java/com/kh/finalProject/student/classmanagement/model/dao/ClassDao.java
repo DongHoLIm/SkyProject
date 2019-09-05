@@ -1,8 +1,8 @@
-package com.kh.finalProject.classmanagement.model.dao;
+package com.kh.finalProject.student.classmanagement.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.kh.finalProject.classmanagement.model.vo.Inquiry;
+import com.kh.finalProject.student.classmanagement.model.vo.Inquiry;
 
 public interface ClassDao {
 

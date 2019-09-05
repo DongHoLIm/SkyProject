@@ -1,4 +1,4 @@
-package com.kh.finalProject.classmanagement.model.vo;
+package com.kh.finalProject.student.classmanagement.model.vo;
 
 public class Inquiry {
 	private String department;
