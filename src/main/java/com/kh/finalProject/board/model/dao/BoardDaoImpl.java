@@ -95,16 +95,16 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public ArrayList<Board> selectSearchResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
-		ArrayList<Board> list = null;
+	public ArrayList<Board> selectSearchResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo spi) {
+		ArrayList<Board> slist = null;
 		
-		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		int offset = (spi.getCurrentPage() - 1) * spi.getLimit();
 		
-		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		RowBounds rowBounds = new RowBounds(offset, spi.getLimit());
 		
-		list = (ArrayList) sqlSession.selectList("Board.selectSearchResultList", sc, rowBounds);
+		slist = (ArrayList) sqlSession.selectList("Board.selectSearchResultList", sc, rowBounds);
 		
-		return list;
+		return slist;
 	}
 
 	@Override
