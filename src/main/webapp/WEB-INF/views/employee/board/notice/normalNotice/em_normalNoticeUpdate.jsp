@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +59,8 @@
 					<tr>
 						<th style="text-align: center;">게시기한</th>
 						<td width="100px;">
-							<input type='text' class='datepicker-here' data-language='kr' id="dateInput" name="deadLine" value="${b.deadLine}"/>
+							<fmt:parseDate value="${b.deadLine}" var="deadLine" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<input type='text' class='datepicker-here' data-language='kr' id="dateInput" name="deadLine" value="<fmt:formatDate value="${deadLine}" pattern="yyyy/MM/dd"/>"/>
 						</td>
 						<th style="text-align: center;">제목</th>
 						<td colspan="3" style="border-right: 1px solid #E5E6E7">

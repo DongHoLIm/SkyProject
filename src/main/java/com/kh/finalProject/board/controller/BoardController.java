@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.finalProject.board.model.exception.BoardDeleteException;
+import com.kh.finalProject.board.model.exception.BoardSearchException;
 import com.kh.finalProject.board.model.exception.BoardSelectListException;
+import com.kh.finalProject.board.model.exception.BoardSelectOneException;
 import com.kh.finalProject.board.model.service.BoardService;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
@@ -30,6 +33,11 @@ public class BoardController {
 	@Autowired
 	private BoardService bs;
 	
+///////////////////////////////////////////// 교직원 일반공지 ///////////////////////////////////////////////
+///////////////////////////////////////////// 교직원 일반공지 ///////////////////////////////////////////////
+///////////////////////////////////////////// 교직원 일반공지 ///////////////////////////////////////////////
+///////////////////////////////////////////// 교직원 일반공지 ///////////////////////////////////////////////
+///////////////////////////////////////////// 교직원 일반공지 ///////////////////////////////////////////////
 	@RequestMapping(value="em_nNoticeList.bo")
 	public String emNoticeList(HttpServletRequest request) {
 		
@@ -39,13 +47,15 @@ public class BoardController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int listCount = bs.getListCount();
-		
-		System.out.println("boardCtrl listCount :::: " + listCount);
-		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		int listCount;
 		
 		try {
+			listCount = bs.getListCount();
+			
+			System.out.println("boardCtrl listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
 			ArrayList<Board> list = bs.selectnNoticeList(pi);
 			
 			System.out.println("boardCtrl list :::: " + list);
@@ -60,7 +70,7 @@ public class BoardController {
 			request.setAttribute("msg", e.getMessage());
 			
 			return "common/errorAlert";
-		}
+		}		
 		
 	}
 	
@@ -70,31 +80,41 @@ public class BoardController {
 		
 		System.out.println("emNoticeDetail boardNo :::: " + boardNo);
 		
-		Board b = bs.selectOneBoard(boardNo);
-		UploadFile uf = bs.selectUploadFile(boardNo);
+		Board b;
+		UploadFile uf;
 		
-		if(uf == null) {
-			request.setAttribute("b", b);
-			System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+		try {
+			b = bs.selectOneBoard(boardNo);
 			
-			return "employee/board/notice/normalNotice/em_normalNoticeDetail";
+			uf = bs.selectUploadFile(boardNo);
 			
-		} else {
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				
+				return "employee/board/notice/normalNotice/em_normalNoticeDetail";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+				
+				return "employee/board/notice/normalNotice/em_normalNoticeDetail";			
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
 			
-			String realPath = uf.getPath().split("webapp")[1];
-			
-			System.out.println(realPath);
-			
-			uf.setPath("/finalProject/" + realPath);
-			
-			System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
-			System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
-			
-			request.setAttribute("b", b);
-			request.setAttribute("uf", uf);
-			
-			return "employee/board/notice/normalNotice/em_normalNoticeDetail";			
-		}
+			return "common/errorAlert";
+		}	
 		
 	}
 	
@@ -182,9 +202,16 @@ public class BoardController {
 	public String emnNoticeDelete(String boardNo, HttpServletRequest request) {
 		System.out.println("delectnNotice boardNo ::::" + boardNo);
 		
-		bs.deletenNotice(boardNo);
+		try {
+			bs.deletenNotice(boardNo);
+			
+			return "forward:em_nNoticeList.bo";
+		} catch (BoardDeleteException e) {			
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
 		
-		return "forward:em_nNoticeList.bo";
 	}
 	
 	@RequestMapping("em_searchnNotice.bo")
@@ -206,18 +233,28 @@ public class BoardController {
 			sc.setTitle(searchValue);
 		}
 		
-		int listCount = bs.getSearchResultListCount(sc);
+		int listCount;
 		
-		System.out.println("검색후 listCount :::: " + listCount);
+		try {
+			listCount = bs.getSearchResultListCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bs.selectSearchResultList(sc, pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			
+			return "employee/board/notice/normalNotice/em_normalNoticeList";
+		} catch (BoardSearchException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Board> list = bs.selectSearchResultList(sc, pi);
-		
-		request.setAttribute("list", list);
-		request.setAttribute("pi", pi);
-		
-		return "employee/board/notice/normalNotice/em_normalNoticeList";
 	}
 	
 	@RequestMapping("em_showUpdatenNotice.bo")
@@ -225,31 +262,40 @@ public class BoardController {
 		
 		System.out.println("update전 select용 boardNo :::: " + boardNo);
 		
-		Board b = bs.selectOneBoard(boardNo);
-		UploadFile uf = bs.selectUploadFile(boardNo);
-		
-		if(uf == null) {
-			request.setAttribute("b", b);
-			System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectOneBoard(boardNo);
+			uf = bs.selectUploadFile(boardNo);
 			
-			return "employee/board/notice/normalNotice/em_normalNoticeUpdate";
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				
+				return "employee/board/notice/normalNotice/em_normalNoticeUpdate";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
 			
-		} else {
+				return "employee/board/notice/normalNotice/em_normalNoticeUpdate";
+			}
 			
-			String realPath = uf.getPath().split("webapp")[1];
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
 			
-			System.out.println(realPath);
-			
-			uf.setPath("/finalProject/" + realPath);
-			
-			System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
-			System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
-			
-			request.setAttribute("b", b);
-			request.setAttribute("uf", uf);
-		
-		return "employee/board/notice/normalNotice/em_normalNoticeUpdate";
-		}
+			return "common/errorAlert";
+		}	
 	}
 	
 	@RequestMapping(value="em_nNoticeUpdate.bo")
@@ -264,6 +310,7 @@ public class BoardController {
 		String changeName;		
 		
 		if(photo.getOriginalFilename().length() > 0) {
+			System.out.println("if문 안으로 들어옴");
 			root = request.getSession().getServletContext().getRealPath("resources");
 			
 			filePath = root + "\\uploadFiles";
@@ -300,7 +347,7 @@ public class BoardController {
 		}
 		
 		try{			
-			
+			System.out.println("if문 바깥으로 들어옴");
 			bs.updatenNotice(b);
 			
 			model.addAttribute("b", b);
@@ -312,6 +359,46 @@ public class BoardController {
 			model.addAttribute("msg", "글 수정 실패!");
 			
 			return "common/errorAlert";	
+		}
+	}
+	
+///////////////////////// 교수 일반공지 ////////////////////////////////////
+///////////////////////// 교수 일반공지 ////////////////////////////////////
+///////////////////////// 교수 일반공지 ////////////////////////////////////
+///////////////////////// 교수 일반공지 ////////////////////////////////////
+///////////////////////// 교수 일반공지 ////////////////////////////////////
+	
+	@RequestMapping(value="pro_nNoticeList.bo")
+	public String pronNoticeList(HttpServletRequest request) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.getListCount();
+			
+			System.out.println("boardCtrl listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bs.selectnNoticeList(pi);
+			
+			System.out.println("boardCtrl list :::: " + list);
+			System.out.println("boardCtrl :::: " + pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			
+			return "professor/board/notice/normalNotice/pro_normalNoticeList";
+			
+		} catch (BoardSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
 		}
 	}
 }
