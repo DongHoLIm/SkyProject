@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Enrollment">
+	<resultMap type="com.kh.finalProject.enrollment.model.vo.Enrollment" id="enrollmentResultSet">
+		<id property="enrollSemester" column="ENROLL_SEMESTER"/>
+		
+		<result property="studentNo" column="STUDENT_NO"/>
+		<result property="enrollYear" column="ENROLL_YEAR"/>
+		<result property="tuition" column="TUITION"/>
+	</resultMap>
+	
+	<select id="EnrollmentCheck" resultMap="enrollmentResultSet" parameterType="Enrollment">
+		SELECT *
+		FROM ENROLLMENT
+		WHERE STUDENT_NO = #{studentNo}
+	</select>
+</mapper>
