@@ -125,6 +125,28 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.update("Board.updateNormalNotice", b);
 	}
 
+	@Override
+	public int sNoticeListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.selectsNoticeListCount");
+	}
+
+	@Override
+	public ArrayList<Board> selectsNoticeList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.selectsNoticeList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		
+		return list;
+	}
+
 	
 
 

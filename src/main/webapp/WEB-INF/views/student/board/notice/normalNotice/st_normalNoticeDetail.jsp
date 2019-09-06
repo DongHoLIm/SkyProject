@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,36 +35,46 @@
 			<table style="width: 88.5%; margin: 0 auto;">
 				<tr>
 					<th style="text-align: center;">작성자</th>
-					<td>박성래</td>
+					<td>${b.writer}</td>
 					<th style="text-align: center;">작성부서</th>
-					<td>학사지원팀</td>
+					<td>${b.writeDept}</td>
 					<th style="text-align: center;">게시기한</th>
-					<td>2019-08-30</td>
-				</tr>
-				<tr>
-					<th style="text-align: center;">제목</th>
-					<td colspan="3">제목</td>
-					<th style="text-align: center;">조회수</th>
-					<td>56</td>
-				</tr>
-				<tr>
-					<td colspan="6" style="text-align: left; height: 100px;">
-					
+					<td>
+						<fmt:parseDate value="${b.deadLine}" var="deadLine" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${deadLine}" pattern="yyyy/MM/dd"/>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6"><button onclick="nNoticeList()">목록으로</button>
+					<th style="text-align: center;">제목</th>
+					<td colspan="3">${b.title}</td>
+					<th style="text-align: center;">조회수</th>
+					<td>${b.count}</td>
+				</tr>
+				<tr>
+					<td colspan="6" style="text-align: left; height: 100px;">
+						<c:if test="${!empty uf}">
+							<div align="center">
+								<img src="${uf.path}" width="50%" height="70%">
+							</div>
+						</c:if>
+						${b.content}
+					</td>
+				</tr>
+				<tr>
+					<td colspan="6"><button onclick="st_nNoticeList()">목록으로</button>
 				</tr>
 			</table>
 		</div>
 		<div>
-		<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
+		</div>
 	</div>
+	
 	<script>
-		function nNoticeList(){
-			location.href="normalListView.no";
-		}
+	function st_nNoticeList(){
+		location.href="st_nNoticeList.bo";
+	}
 	</script>
-</div>
+
 </body>
 </html>

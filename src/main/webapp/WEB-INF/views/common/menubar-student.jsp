@@ -80,17 +80,17 @@
 									
 												<h4>공지사항</h4>
 												
-												<li><a href="#">일반 공지</a></li>
+												<li><a href="st_nNoticeList.bo">일반 공지</a></li>
 												<li><a href="#">장학 공지</a></li>
 												<li><a href="#">학사 일정</a></li>
 												<li><a href="#">교내외 행사</a></li>
 												
 												<hr>
 												
-												<h4>학교 생활</h4>
+												<h4>학교 생활</h4>
 												<li><a href="#">학교 행사</a></li>
-												<li><a href="#">자유게시판</a></li>
-												<li><a href="#">내 게시물 조회</a></li>
+												<li><a href="#">자유게시판</a></li>
+												<li><a href="#">내 게시물 조회</a></li>
 												
 												<hr>
 												
