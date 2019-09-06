@@ -11,7 +11,7 @@
 		<result property="tuition" column="TUITION"/>
 	</resultMap>
 	
-	<select id="EnrollmentCheck" resultMap="enrollmentResultSet" parameterType="Enrollment">
+	<select id="EnrollmentCheck" resultMap="enrollmentResultSet" parameterType="String">
 		SELECT *
 		FROM ENROLLMENT
 		WHERE STUDENT_NO = #{studentNo}

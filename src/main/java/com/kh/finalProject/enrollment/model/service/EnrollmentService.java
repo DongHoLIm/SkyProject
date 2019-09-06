@@ -5,6 +5,6 @@ import com.kh.finalProject.enrollment.model.vo.Enrollment;
 
 public interface EnrollmentService {
 
-	Enrollment userEnrollment(Enrollment e, String studentNo) throws EnrollmentException;
+	Enrollment userEnrollment(String studentNo) throws EnrollmentException;
 
 }

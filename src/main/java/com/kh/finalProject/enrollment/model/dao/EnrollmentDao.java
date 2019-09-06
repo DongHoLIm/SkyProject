@@ -7,6 +7,6 @@ import com.kh.finalProject.enrollment.model.vo.Enrollment;
 
 public interface EnrollmentDao {
 
-	Enrollment userEnrollment(SqlSessionTemplate sqlSession, Enrollment e, String studentNo) throws EnrollmentException;
+	Enrollment userEnrollment(SqlSessionTemplate sqlSession, String studentNo) throws EnrollmentException;
 
 }

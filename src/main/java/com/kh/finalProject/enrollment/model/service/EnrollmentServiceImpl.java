@@ -19,9 +19,9 @@ public class EnrollmentServiceImpl implements EnrollmentService{
 	private DataSourceTransactionManager transactionManager;
 	
 	@Override
-	public Enrollment userEnrollment(Enrollment e, String studentNo) throws EnrollmentException {
+	public Enrollment userEnrollment(String studentNo) throws EnrollmentException {
 		
-		Enrollment memberEnrollment = ed.userEnrollment(sqlSession, e, studentNo);
+		Enrollment memberEnrollment = ed.userEnrollment(sqlSession, studentNo);
 		
 		return memberEnrollment;
 	}

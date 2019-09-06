@@ -32,8 +32,8 @@ public class EnrollmentController {
 		
 		
 		try {
-			Enrollment memberEnrollment = es.userEnrollment(e, studentNo);
-			
+			Enrollment memberEnrollment = es.userEnrollment(studentNo);
+			System.out.println("memberEnrollment :  "+memberEnrollment);
 			model.addAttribute("memberEnrollment", memberEnrollment);
 			
 			return "redirect:index.jsp";
