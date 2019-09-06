@@ -13,14 +13,17 @@ public class Member implements java.io.Serializable{
 	private String address;
 	private String memberStatus;
 	private String loginCheck;
+	private String sdeptCode;
+	private String rankCode;
+	private String bank;
+	private String bankNumber;
 	private ArrayList<Member> list;
 	
-	public Member() {}
+	public Member() {}	
 	
-	
-
 	public Member(String memberId, String memberPwd, String memberKName, String memberEName, String memberNo,
-			String phone, String email, String address, String memberStatus, String loginCheck) {
+			String phone, String email, String address, String memberStatus, String loginCheck, String sdeptCode,
+			String rankCode, String bank, String bankNumber, ArrayList<Member> list) {
 		super();
 		this.memberId = memberId;
 		this.memberPwd = memberPwd;
@@ -32,9 +35,12 @@ public class Member implements java.io.Serializable{
 		this.address = address;
 		this.memberStatus = memberStatus;
 		this.loginCheck = loginCheck;
+		this.sdeptCode = sdeptCode;
+		this.rankCode = rankCode;
+		this.bank = bank;
+		this.bankNumber = bankNumber;
+		this.list = list;
 	}
-
-
 
 	public String getMemberId() {
 		return memberId;
@@ -126,21 +132,49 @@ public class Member implements java.io.Serializable{
 
 	public void setList(ArrayList<Member> list) {
 		this.list = list;
+	}	
+
+	public String getSdeptCode() {
+		return sdeptCode;
 	}
 
+	public void setSdeptCode(String sdeptCode) {
+		this.sdeptCode = sdeptCode;
+	}
 
+	
+	public String getRankCode() {
+		return rankCode;
+	}
+
+	public void setRankCode(String rankCode) {
+		this.rankCode = rankCode;
+	}
+
+		
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public String getBankNumber() {
+		return bankNumber;
+	}
+
+	public void setBankNumber(String bankNumber) {
+		this.bankNumber = bankNumber;
+	}
 
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberKName=" + memberKName
 				+ ", memberEName=" + memberEName + ", memberNo=" + memberNo + ", phone=" + phone + ", email=" + email
-				+ ", address=" + address + ", memberStatus=" + memberStatus + ", loginCheck=" + loginCheck + ", list="
-				+ list + "]";
-	}
-
-
-
-
-	
+				+ ", address=" + address + ", memberStatus=" + memberStatus + ", loginCheck=" + loginCheck
+				+ ", sdeptCode=" + sdeptCode + ", rankCode=" + rankCode + ", bank=" + bank + ", bankNumber="
+				+ bankNumber + ", list=" + list + "]";
+	}	
 	
 }

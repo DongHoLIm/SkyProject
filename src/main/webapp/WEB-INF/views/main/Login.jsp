@@ -271,7 +271,7 @@ address {
             </h1>
             <fieldset>
                <legend>로그인</legend>
-               <div class="inputWrap">
+               <div class="inputWrap">               
                   <input type="text" id="loginId" name="memberId" title="아이디 혹은 학번"
                      placeholder="학번(교번) (ID No.)" maxlength="16"> <input
                      type="password" id="loginPasswd" name="memberPwd" title="비밀번호"
@@ -279,8 +279,8 @@ address {
                </div>
                <button type="submit" class="submit" style="cursor: pointer;">로그인(Login)</button>
                <div class="linkWrap">
-                  <a href="#">아이디 찾기</a> <a
-                     href="#"><span></span>임시비밀번호발급</a>
+                  <a href="findId.me">아이디 찾기</a> <a
+                     href="newPassword.me"><span></span>임시비밀번호발급</a>
                </div>
                <p>
                   <span></span>이용 후 반드시 로그아웃 해주세요!<br>&nbsp;&nbsp;Please be

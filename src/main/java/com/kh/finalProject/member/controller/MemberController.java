@@ -161,6 +161,12 @@ public class MemberController {
 	                        		insertMember.setLoginCheck(value);
 	                        	}else if(columnindex==9) {
 	                        		insertMember.setMemberStatus(value);
+	                        	}else if(columnindex==10) {
+	                        		insertMember.setSdeptCode(value);
+	                        	}else if(columnindex==11) {
+	                        		insertMember.setRankCode(value);
+	                        	}else if(columnindex==12) {
+	                        		insertMember.setBankNumber(value);
 	                        	}
 	                        }	
 	                    }
@@ -168,6 +174,7 @@ public class MemberController {
 	                list.add(insertMember);
 	            }
 	            model.addAttribute("insertMember_parent", list);
+	            new File(filepath+"\\"+changeName+ext).delete();
 	            return "employee/systemAccountManagement/createSystemAccount";
 		} catch (IllegalStateException e) {
 			new File(filepath+"\\"+changeName+ext).delete();
@@ -199,13 +206,11 @@ public class MemberController {
 	     
 	     try {
 			memberMap = mapper.readValue(resultStr, new TypeReference<Map<Object, Object>>(){});
-			System.out.println("memberMap::" + memberMap);
-			
+						
 			ArrayList<Object> list = (ArrayList<Object>) memberMap.get("list");
-			System.out.println(list.get(1));
+			
 			 int checkresult = 0;
-			for(int i =0;i<list.size();i++) {
-				System.out.println(i+"번째 list 내용 :"+list.get(i));
+			for(int i =0;i<list.size();i++) {				
 				Map<Object,Object> list2 =new HashMap<Object,Object>();
 				list2 = (Map<Object, Object>) list.get(i);
 				Member insertMember = new Member();
@@ -218,14 +223,55 @@ public class MemberController {
 				String email = (String)list2.get("email");
 				String address = (String)list2.get("address");
 				String memberStatus = (String)list2.get("memberStatus");
+				String sdeptCode =(String)list2.get("sdeptCode");
+				String rankCode = (String)list2.get("rankCode");
+				String bankNumber = (String)list2.get("bankNumber");
 				if(memberStatus.equals("학생")) {
-					memberStatus = "1";
+					memberStatus = "1";					
 				}else if(memberStatus.equals("교수")) {
-					memberStatus ="2";
+					memberStatus ="2";					
 				}else if(memberStatus.equals("교직원")) {
-					memberStatus ="3";
+					memberStatus ="3";					
+				}				
+				if(sdeptCode.equals("교양학과")) {
+					sdeptCode="SD100";
+				}else if(sdeptCode.equals("경영학과")) {
+					sdeptCode="SD110";
+				}else if(sdeptCode.equals("경제학과")) {
+					sdeptCode="SD120";
+				}else if(sdeptCode.equals("정치외교과")) {
+					sdeptCode="SD130";
+				}else if(sdeptCode.equals("실용음악과")) {
+					sdeptCode="SD140";
+				}else if(sdeptCode.equals("사회체육과")) {
+					sdeptCode="SD150";
+				}else if(sdeptCode.equals("컴퓨터공학과")) {
+					sdeptCode="SD160";
+				}else if(sdeptCode.equals("전자공학과")) {
+					sdeptCode="SD170";
+				}else if(sdeptCode.equals("건축과")) {
+					sdeptCode="SD180";
+				}else if(sdeptCode.equals("학사지원팀")) {
+					sdeptCode="ED1000";
+				}else if(sdeptCode.equals("장학지원팀")) {
+					sdeptCode="ED1100";
+				}else if(sdeptCode.equals("학생지원팀")) {
+					sdeptCode="ED1200";
+				}else {
+					sdeptCode=null;
+				}				
+				if(rankCode.equals("사원")) {
+					rankCode="RANK1000";
+				}else if(rankCode.equals("대리")) {
+					rankCode="RANK1001";
+				}else if(rankCode.equals("과장")) {
+					rankCode="RANK1002";
+				}else if(rankCode.equals("팀장")) {
+					rankCode="RANK1003";
+				}else {
+					insertMember.setBank(rankCode);
 				}
-				
+
 				
 				insertMember.setMemberId(memberId);
 				insertMember.setMemberPwd(memberPwd);
@@ -237,17 +283,30 @@ public class MemberController {
 				insertMember.setAddress(address);
 				insertMember.setLoginCheck("0");
 				insertMember.setMemberStatus(memberStatus);
-			
+				insertMember.setSdeptCode(sdeptCode);
+				insertMember.setBankNumber(bankNumber);
+				if(insertMember.getBank().equals("")) {
+					insertMember.setRankCode(rankCode);
+				}
+				
 				int result = ms.insertMember(insertMember);
 				if(result<0) {
 					checkresult=-1;
-				}				
+				}else {
+					if(memberStatus.equals("1")) {
+						result=ms.insertStudentInfo(insertMember);
+					}else if(memberStatus.equals("2")) {
+						result=ms.insertProfessorInfo(insertMember);
+					}else {
+						result=ms.insertEmployeeInfo(insertMember);
+					}
+				}
 			}
 			if(checkresult<0) {
 				model.addAttribute("정보 추가에 실패 했습니다.");
 				mv.setViewName("common/errorAlert");
 			}else {
-				mv.setViewName("JsonView");
+				
 			}
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
@@ -259,9 +318,16 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	     	
-	     return mv;
-		
+	     mv.setViewName("JsonView");
+	     return mv;	
 	}
-
+	@RequestMapping("findId.me")
+	public String findId() {
+		
+		return "main/findId";
+	}
+	@RequestMapping("newPassword.me")
+	public String newPassword() {
+		return "main/newPassword";
+	}
 }

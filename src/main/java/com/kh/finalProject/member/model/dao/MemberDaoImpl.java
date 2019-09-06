@@ -31,11 +31,29 @@ public class MemberDaoImpl implements MemberDao {
 		sqlSession.update("Member.upDateLooutCheck",loginUser);
 		
 	}
-
+	//정보 추가
 	@Override
 	public int insertMember(SqlSessionTemplate sqlSession, Member insertMember) {
-		System.out.println(insertMember); 
+		
 		return sqlSession.insert("Member.insertMember",insertMember);
+	}
+	//학적 정보 추가
+	@Override
+	public int insertStudentInfo(SqlSessionTemplate sqlSession, Member insertMember) {
+		
+		return sqlSession.insert("Member.insertStudentInfo",insertMember);
+	}
+	//교수정보 추가
+	@Override
+	public int insertProfessorInfo(SqlSessionTemplate sqlSession, Member insertMember) {
+		
+		return sqlSession.insert("Member.insertProfessorInfo",insertMember);
+	}
+	//교직원 정보 추가
+	@Override
+	public int insertEmployeeInfo(SqlSessionTemplate sqlSession, Member insertMember) {
+	
+		return sqlSession.insert("Member.insertEmployeeInfo",insertMember);
 	}
 	
 }

@@ -60,25 +60,15 @@
 							<th>이메일</th>
 							<th>주소</th>
 							<th>구분</th>
+							<th>학과/부서</th>												
+							<th>직급/은행명</th>
+							<th>계좌번호</th>			
 						</tr>
 					</thead>
 					<c:if test="${!empty insertMember_parent }">
 						<tbody>
 						<c:forEach var="insertMember" items="${insertMember_parent}">
-								<tr class="trClass">
-									
-									
-<%-- 									<td><input type="checkbox" value="selectOne" id="Allcheck"><label for="Allcheck"></label></td>
-									<td><input type="hidden" value="${insertMember.memberId}" name="memberId"/>${insertMember.memberId}</td>
-									<td><input type="hidden"value="${insertMember.memberPwd}" name="memberPwd"/>${insertMember.memberPwd}</td>
-									<td><input type="hidden" value="${insertMember.memberKName}" name="memberK"/>${insertMember.memberKName}</td>
-									<td><input type="hidden" value="${insertMember.memberEName}" name="memberE"/>${insertMember.memberEName}</td>
-									<td><input type="hidden" value="${insertMember.memberNo}" name="memberNo"/>${insertMember.memberNo}</td>
-									<td><input type="hidden" value="${insertMember.phone}" name="phone"/>${insertMember.phone}</td>
-									<td><input type="hidden" value="${insertMember.email}" name="email"/>${insertMember.email}</td>
-									<td><input type="hidden" value="${insertMember.address}" name="address" />${insertMember.address}</td>
- --%>									
-									
+								<tr class="trClass">		
 									<td><input type="checkbox" value="selectOne" id="Allcheck"><label for="Allcheck"></label></td>
 									<td>${insertMember.memberId}</td>
 									<td>${insertMember.memberPwd}</td>
@@ -87,10 +77,7 @@
 									<td>${insertMember.memberNo}</td>
 									<td>${insertMember.phone}</td>
 									<td>${insertMember.email}</td>
-									<td>${insertMember.address}</td>
-									
-									
-									
+									<td>${insertMember.address}</td>								
 									<c:if test="${insertMember.memberStatus== 1}">
 										<td>학생</td>
 									</c:if>
@@ -99,7 +86,12 @@
 									</c:if>
 									<c:if test="${insertMember.memberStatus == 3}">
 										<td>교직원</td>
-									</c:if>							
+									</c:if>
+									<td>${insertMember.sdeptCode }</td>
+									<c:if test="${! empty insertMember.rankCode }">
+										<td>${insertMember.rankCode}</td>
+									</c:if>	
+									<td>${insertMember.bankNumber}</td>					
 								</tr>
 						</c:forEach>
 						</tbody>
@@ -112,7 +104,7 @@
 								
 								 
 								 $(".trClass").each(function(){
-									console.log("");
+									
 									var memberId = $(this).children().eq(1).text();
 									var memberPwd = $(this).children().eq(2).text();
 									var memberKName = $(this).children().eq(3).text();
@@ -122,6 +114,9 @@
 									var email = $(this).children().eq(7).text();
 									var address = $(this).children().eq(8).text();
 									var memberStatus = $(this).children().eq(9).text();
+									var sdeptCode =$(this).children().eq(10).text();
+									var rankCode=$(this).children().eq(11).text();
+									var bankNumber=$(this).children().eq(12).text();
 									member = {
 											memberId : memberId,
 											memberPwd : memberPwd,
@@ -131,48 +126,28 @@
 											phone : phone,
 											email : email,
 											address : address,
-											memberStatus : memberStatus
+											memberStatus : memberStatus,
+											sdeptCode : sdeptCode,
+											rankCode : rankCode,
+											bankNumber : bankNumber
 									}
 									list.push(member);
 								 });
 								 resultMember.list = list;
 								 
 								 var resultStr = JSON.stringify(resultMember);
-								 
-								 console.log(resultStr);
-								 
-								 
-								/*  
-								 var memberId= $("#memberlist tbody tr td input[name='memberId']");
-								 var memberPwd =$("#memberlist tbody tr td input[name='memberPwd']");
-								 var memberK = $("#memberlist tbody tr td input[name='memberK']");
-								 var memberE = $("#memberlist tbody tr td input[name='memberE']");
-								 var memberNo =$("#memberlist tbody tr td input[name='memberNo']");
-								 var phone=$("#memberlist tbody tr td input[name='phone']");
-								 var email = $("#memberlist tbody tr td input[name='email']");
-								 var address = $("#memberlist tbody tr td input[name='address']");
-								 */
-								 // console.log(memberId);
-								/* for(var i=1 ,i< memberId;i++){
-									member = {
-											memberId:memberId[i].val(),
-											
-									}
-								} */
-								 
-							
-								 	$.ajax({
+							 	 $.ajax({
 										url:"insertMember.me",
 										type:"post",
 										data: {resultStr : resultStr},
 										success:function(data){
-											console.log("접속성공~!");
+											console.log("hellow")
 										},
 										error:function(data){
-											console.log("접속실패~!!");
+											alert("정보삽입이 완료 되었습니다.");
 										}
 										
-									});
+									}); 
 							 });
 						 });						 
 							
@@ -186,16 +161,10 @@
 			<jsp:include page="../../common/menubar-employee.jsp" />
 		</div>
 	</div>
-	<script>
-		/* function fileUpload(){
-			$("#file").click();			
-		}	 */
+	<script>	
 		$("#fileuploader").click(function(){
 			$("#file").click();
 		}) 
-		
-		/*   */
-		
 	</script>
 </body>
 </html>
