@@ -5,10 +5,21 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.kh.finalProject.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.finalProject.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.finalProject.board.model.vo.Writer" alias="Writer"/>
+		<typeAlias type="com.kh.finalProject.board.model.vo.UploadFile" alias="UploadFile"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.StudentInfo" alias="StudentInfo"/>
+		<typeAlias type="com.kh.finalProject.enrollment.model.vo.Enrollment" alias="Enrollment"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/writer-mapper.xml"/>
+		<mapper resource="mappers/file-mapper.xml"/>
+		<mapper resource="mappers/studentInfo-mapper.xml"/>
+		<mapper resource="mappers/lectureOpen-mapper.xml"/>
+		<mapper resource="mappers/enrollment-mapper.xml"/>
 	</mappers>
 	
 </configuration>
