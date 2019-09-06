@@ -38,4 +38,21 @@
 			#{memberId},#{memberPwd},#{memberKName},#{memberEName},#{memberNo},#{phone},#{email},#{address},#{loginCheck},#{memberStatus}
 		)	
 	</insert>
+	<insert id="insertStudentInfo" parameterType="Member">
+		INSERT INTO STUDENT_INFO(STUDENT_NO,STUDENT_STATUS,SDEPT_CODE,GRADE,SECOND_MAJOR,AVG_SCORE,GRADUATED_DATE,DEGREE_NO,DEGREE_NAME,GRADUATED_NO,BANK,ACCOUNT_NO) VALUES(
+		 #{memberId},'재학생', #{sdeptCode}, 1, DEFAULT, 0.0, NULL, NULL, NULL, NULL, #{bank}, #{bankNumber}
+		)
+
+	</insert>
+	<insert id="insertProfessorInfo" parameterType="Member">
+		INSERT INTO PROFESSOR VALUES(
+			#{memberId},#{sdeptCode}
+		)
+	</insert>
+	<insert id="insertEmployeeInfo" parameterType="Member">
+		INSERT INTO EMPLOYEE VALUES(
+			#{rankCode},#{memberId},#{sdeptCode}
+		)
+		
+	</insert>
 </mapper>

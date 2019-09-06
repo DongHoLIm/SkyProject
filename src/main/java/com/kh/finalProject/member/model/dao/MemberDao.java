@@ -15,4 +15,10 @@ public interface MemberDao {
 
 	int insertMember(SqlSessionTemplate sqlSession, Member insertMember);
 
+	int insertStudentInfo(SqlSessionTemplate sqlSession, Member insertMember);
+
+	int insertProfessorInfo(SqlSessionTemplate sqlSession, Member insertMember);
+
+	int insertEmployeeInfo(SqlSessionTemplate sqlSession, Member insertMember);
+
 }

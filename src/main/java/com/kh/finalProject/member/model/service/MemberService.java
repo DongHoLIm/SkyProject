@@ -14,4 +14,10 @@ public interface MemberService {
 	void logOutLoginCheck(Member loginUser);
 
 	int insertMember(Member insertMember);
+
+	int insertStudentInfo(Member insertMember);
+
+	int insertProfessorInfo(Member insertMember);
+
+	int insertEmployeeInfo(Member insertMember);
 }

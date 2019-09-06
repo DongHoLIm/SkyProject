@@ -19,10 +19,7 @@ public class MemberServiceImpl implements MemberService{
 	private SqlSessionTemplate sqlSession;
 	@Autowired
 	private MemberDao md;
-	
-	@Autowired
-	private DataSourceTransactionManager transactionManager;
-	
+
 	@Override
 	public Member loginCheck(Member m) throws loginException {
 		Member loginUser = null;
@@ -47,6 +44,21 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int insertMember(Member insertMember) {
 		return md.insertMember(sqlSession,insertMember);
+	}
+	@Override
+	public int insertStudentInfo(Member insertMember) {
+		// TODO Auto-generated method stub
+		return md.insertStudentInfo(sqlSession,insertMember);
+	}
+	@Override
+	public int insertProfessorInfo(Member insertMember) {
+		// TODO Auto-generated method stub
+		return md.insertProfessorInfo(sqlSession,insertMember);
+	}
+	@Override
+	public int insertEmployeeInfo(Member insertMember) {
+		// TODO Auto-generated method stub
+		return md.insertEmployeeInfo(sqlSession,insertMember);
 	}
 
 	
