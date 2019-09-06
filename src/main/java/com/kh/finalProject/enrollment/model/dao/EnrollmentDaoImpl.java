@@ -10,9 +10,9 @@ import com.kh.finalProject.enrollment.model.vo.Enrollment;
 public class EnrollmentDaoImpl implements EnrollmentDao{
 
 	@Override
-	public Enrollment userEnrollment(SqlSessionTemplate sqlSession, Enrollment e, String studentNo) throws EnrollmentException {
+	public Enrollment userEnrollment(SqlSessionTemplate sqlSession, String studentNo) throws EnrollmentException {
 		
-		Enrollment memberEnrollment = sqlSession.selectOne("Enrollment.EnrollmentCheck", e);
+		Enrollment memberEnrollment = sqlSession.selectOne("Enrollment.EnrollmentCheck",studentNo);
 		
 		if(memberEnrollment == null) {
 			throw new EnrollmentException("정보가 존재하지 않습니다.");
