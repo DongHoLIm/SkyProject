@@ -5,4 +5,48 @@
   
   <mapper namespace="StudentInfo">
   
+  	<resultMap type="com.kh.finalProject.studentInfo.model.vo.StudentInfo" id="studentInfoResultSet">
+  		<id property="studentNo" column="MEMBER_ID"/>
+  		<result property="kName" column="MEMBER_KNAME"/>
+  		<result property="eName" column="MEMBER_ENAME"/>
+  		<result property="memberNo" column="MEMBER_NO"/>
+  		<result property="phone" column="PHONE"/>
+  		<result property="email" column="EMAIL"/>
+  		<result property="address" column="ADDRESS"/>
+  		<result property="studentStatus" column="STUDENT_STATUS"/>
+  		<result property="sdeptCode" column="SDEPT_CODE"/>
+  		<result property="grade" column="GRADE"/>
+  		<result property="enrolType" column="ENROL_TYPE"/>
+  		<result property="enrolDate" column="ENROL_DATE"/>
+  		<result property="enroleGrade" column="ENROL_GRADE"/>
+  		<result property="enrolNo" column="ENROL_NO"/>
+  		<result property="secondMajor" column="SECOND_MAJOR"/>
+  		<result property="avgScore" column="AVG_SCORE"/>
+  		<result property="graduatedDate" column="GRADUATED_DATE"/>
+  		<result property="degreeNo" column="DEGREE_NO"/>
+  		<result property="degreeName" column="DEGREE_NAME"/>
+  		<result property="graduatedNo" column="GRADUATED_NO"/>
+  		<result property="bank" column="BANK"/>
+  		<result property="accountNo" column="ACCOUNT_NO"/>
+  	</resultMap>
+  	
+  	<select id="selectInfo" resultType="">
+  		SELECT 
+  	
+  	</select>
+  	
+  	
+  	
+  
   </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
