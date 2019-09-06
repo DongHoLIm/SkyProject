@@ -43,6 +43,10 @@ public interface BoardDao {
 
 	int updateNormalNotice(SqlSessionTemplate sqlSession, Board b);
 
+	int sNoticeListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Board> selectsNoticeList(SqlSessionTemplate sqlSession, PageInfo pi);
+
 
 	
 }

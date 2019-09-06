@@ -40,6 +40,10 @@ public interface BoardService {
 
 	int updatenNotice(Board b) throws BoardUpdateException;
 
+	int sNoticeListCount() throws BoardSelectListException;
+
+	ArrayList<Board> selectsNoticeList(PageInfo pi);
+
 
 
 	

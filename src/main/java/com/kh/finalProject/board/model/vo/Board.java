@@ -8,7 +8,7 @@ public class Board implements java.io.Serializable{
 	private String title;
 	private String content;
 	private String writer;
-	private Date enrollDate;
+	private String enrollDate;
 	private String status;
 	private String boardType;
 	private String writeDept;
@@ -19,7 +19,7 @@ public class Board implements java.io.Serializable{
 	
 	public Board() {}
 
-	public Board(int boardNo, String memberId, String title, String content, String writer, Date enrollDate,
+	public Board(int boardNo, String memberId, String title, String content, String writer, String enrollDate,
 			String status, String boardType, String writeDept, String deadLine, Date startDate, Date endDate,
 			int count) {
 		super();
@@ -78,11 +78,11 @@ public class Board implements java.io.Serializable{
 		this.writer = writer;
 	}
 
-	public Date getEnrollDate() {
+	public String getEnrollDate() {
 		return enrollDate;
 	}
 
-	public void setEnrollDate(Date enrollDate) {
+	public void setEnrollDate(String enrollDate) {
 		this.enrollDate = enrollDate;
 	}
 

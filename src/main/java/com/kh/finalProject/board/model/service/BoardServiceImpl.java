@@ -123,6 +123,17 @@ public class BoardServiceImpl implements BoardService{
 		return result;
 	}
 
+	@Override
+	public int sNoticeListCount() throws BoardSelectListException{
+		return bd.sNoticeListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectsNoticeList(PageInfo pi) {
+		
+		return bd.selectsNoticeList(sqlSession, pi);
+	}
+
 
 	
 

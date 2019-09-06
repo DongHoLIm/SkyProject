@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalProject.board.model.exception.BoardDeleteException;
 import com.kh.finalProject.board.model.exception.BoardSearchException;
@@ -509,6 +510,198 @@ public class BoardController {
 		}
 	}
 	
+///////////////////////// 학생 일반공지 ////////////////////////////////////
+///////////////////////// 학생 일반공지 ////////////////////////////////////
+///////////////////////// 학생 일반공지 ////////////////////////////////////
+///////////////////////// 학생 일반공지 ////////////////////////////////////
+///////////////////////// 학생 일반공지 ////////////////////////////////////
+	@RequestMapping(value="st_nNoticeList.bo")
+	public String stnNoticeList(HttpServletRequest request) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.getListCount();
+			
+			System.out.println("boardCtrl listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bs.selectnNoticeList(pi);
+			
+			System.out.println("boardCtrl list :::: " + list);
+			System.out.println("boardCtrl :::: " + pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			
+			return "student/board/notice/normalNotice/st_normalNoticeList";
+			
+		} catch (BoardSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping(value="st_nNoticeDetail.bo")
+	public String stnNoticeDetail(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
+		System.out.println("emNoticeDetail boardNo :::: " + boardNo);
+		
+		Board b;
+		UploadFile uf;
+		
+		try {
+			b = bs.selectOneBoard(boardNo);
+			
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				
+				return "student/board/notice/normalNotice/st_normalNoticeDetail";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+				
+				return "student/board/notice/normalNotice/st_normalNoticeDetail";			
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="st_searchnNotice.bo")
+	public String stnNoticeSearch(String searchCondition, String searchValue, boolean searchflag, HttpServletRequest request) {		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		if(searchCondition.equals("writer")) {
+			sc.setWriter(searchValue);
+		}
+		if(searchCondition.equals("writeDept")) {
+			sc.setWriteDept(searchValue);
+		}
+		if(searchCondition.equals("title")) {
+			sc.setTitle(searchValue);
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.getSearchResultListCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo spi = Pagination.getPageInfo(currentPage, listCount);
+			
+			spi.setSearchflag(searchflag);
+			
+			System.out.println("spi :::: " + spi);
+			
+			ArrayList<Board> slist = bs.selectSearchResultList(sc, spi);
+			
+			request.setAttribute("slist", slist);
+			request.setAttribute("spi", spi);
+			request.setAttribute("searchCondition", searchCondition);
+			request.setAttribute("searchValue", searchValue);
+			
+			return "student/board/notice/normalNotice/st_normalNoticeList";
+		} catch (BoardSearchException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+///////////////////////////////교직원 장학공지///////////////////////////////
+///////////////////////////////교직원 장학공지///////////////////////////////
+///////////////////////////////교직원 장학공지///////////////////////////////
+///////////////////////////////교직원 장학공지///////////////////////////////
+	
+	@RequestMapping(value="em_showsNoticeList.bo")
+	public String emshowsNoticeList(HttpServletRequest request) {
+		
+		return "employee/board/notice/scholarshipNotice/em_scholNoticeList";
+	}
+	
+	@RequestMapping(value="em_sNoticeList.bo", produces="application/json;charset=utf8")
+	public ModelAndView emsNoticeList(ModelAndView mv, HttpServletRequest request) {
+		int currentPage = 1;
+		int listCount = 0;
+		
+		System.out.println("curr" + request.getParameter("currentPage"));
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			listCount = bs.sNoticeListCount();
+			
+			System.out.println("sNotice listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bs.selectsNoticeList(pi);
+			
+			System.out.println("sNotice list :::: " + list);
+			System.out.println("sNotice pi :::: " + pi);
+			
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			
+			mv.setViewName("jsonView");
+			
+			return mv;
+			
+		} catch (BoardSelectListException e) {
+			mv.addObject("msg", "게시글 조회 실패!");
+			
+			mv.setViewName("common/errorPage");
+			
+			return mv;
+		}
+	}
+	@RequestMapping(value="em_sNoticeDetail.bo")
+	public String emsNoticeDetail(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
+		System.out.println("교직원 sNotice 상세보기 boardNo :::: " + boardNo);
+		
+		return "";
+	}
 }
 
 

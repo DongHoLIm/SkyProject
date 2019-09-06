@@ -93,14 +93,17 @@
 							<th width="9%" style="text-align: center;">등록일자</th>
 							<th width="50%" style="text-align: center;">제목</th>
 							<th width="9%" style="text-align: center;">작성자</th>
-							<th width="9%" style="text-align: center;">작성부서</th>
-							<th width="9%" style="text-align: center;">조회수</th>
+							<th width="12%" style="text-align: center;">작성부서</th>
+							<th width="7%" style="text-align: center;">조회수</th>
 							<th width="9%" style="text-align: center;">게시기한</th>
 						</tr>
 						<c:forEach var="b" items="${slist}">
 						<tr>
 							<td style="text-align: center;" class="nNoticeNo"><c:out value="${b.boardNo}"/></td>
-							<td style="text-align: center;"><c:out value="${b.enrollDate}"/></td>
+							<td style="text-align: center;">
+								<fmt:parseDate value="${b.enrollDate}" var="enorllDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<fmt:formatDate value="${enorllDate}" pattern="yyyy/MM/dd"/>
+							</td>
 							<td style="text-align: center;" class="nNoticeTtitle"><c:out value="${b.title}"/></td>
 							<td style="text-align: center;"><c:out value="${b.writer}"/></td>
 							<td style="text-align: center;"><c:out value="${b.writeDept}"/></td>
@@ -165,14 +168,17 @@
 						<th width="9%" style="text-align: center;">등록일자</th>
 						<th width="50%" style="text-align: center;">제목</th>
 						<th width="9%" style="text-align: center;">작성자</th>
-						<th width="9%" style="text-align: center;">작성부서</th>
-						<th width="9%" style="text-align: center;">조회수</th>
+						<th width="12%" style="text-align: center;">작성부서</th>
+						<th width="7%" style="text-align: center;">조회수</th>
 						<th width="9%" style="text-align: center;">게시기한</th>
 					</tr>
 					<c:forEach var="b" items="${list}">
 					<tr>
 						<td style="text-align: center;" class="nNoticeNo"><c:out value="${b.boardNo}"/></td>
-						<td style="text-align: center;"><c:out value="${b.enrollDate}"/></td>
+						<td style="text-align: center;">
+							<fmt:parseDate value="${b.enrollDate}" var="enorllDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${enorllDate}" pattern="yyyy/MM/dd"/>
+						</td>
 						<td style="text-align: center;" class="nNoticeTtitle"><c:out value="${b.title}"/></td>
 						<td style="text-align: center;"><c:out value="${b.writer}"/></td>
 						<td style="text-align: center;"><c:out value="${b.writeDept}"/></td>

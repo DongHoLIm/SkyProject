@@ -119,4 +119,20 @@
 		WHERE BOARD_NO = #{boardNo}
 	</update>
 	
+	<!-- 아래부터 장학공지 -->
+	<select id="selectsNoticeListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS='Y' AND BOARD_TYPE = '장학공지'
+	</select>
+	
+	<select id="selectsNoticeList" resultMap="boardResultSet">
+		SELECT B.BOARD_NO, B.MEMBER_ID, B.TITLE, B.CONTENT, B.WRITER, B.ENROLL_DATE, B.STATUS, B.BOARD_TYPE, A.WRITE_DEPT, A.DEADLINE
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN SCHOLNOTICE A ON(B.BOARD_NO = A.BOARD_NO)
+		WHERE B.STATUS = 'Y' AND B.BOARD_TYPE = '장학공지'
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
 </mapper>
