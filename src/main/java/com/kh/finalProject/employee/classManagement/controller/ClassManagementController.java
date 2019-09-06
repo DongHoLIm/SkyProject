@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.common.Pagination;
@@ -21,7 +22,7 @@ public class ClassManagementController {
 
 	//강의개설등록
 	@RequestMapping("lectureOpen.em")
-	public String golectureOpen(HttpServletRequest request) {
+	public String selectSubject(HttpServletRequest request) {
 
 		int currentPage = 1;
 
@@ -47,5 +48,13 @@ public class ClassManagementController {
 			return "common/errorAlert";
 		}
 	}
-
+	@RequestMapping("lectureRegistration.em")
+	public String insertLecture(HttpServletRequest request,
+			@RequestParam(name="subC", required=false) String sub){
+		
+		System.out.println(sub);
+	
+		
+		return "employee/class/lectureRegistration";
+	}
 }
