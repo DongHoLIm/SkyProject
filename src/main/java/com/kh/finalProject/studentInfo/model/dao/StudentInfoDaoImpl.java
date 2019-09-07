@@ -11,9 +11,17 @@ import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 public class StudentInfoDaoImpl implements StudentInfoDao{
 
 	@Override
-	public HashMap<String, StudentInfo> studentInfo(SqlSessionTemplate sqlSession, String userId) {
+	public StudentInfo basicInfo(SqlSessionTemplate sqlSession, String userId) {
 		
-		return sqlSession.selectOne("StudentInfo.selectInfo", userId);
+		return sqlSession.selectOne("StudentInfo.SelectBasicInfo", userId);
 	}
+
+	@Override
+	public StudentInfo stuInfo(SqlSessionTemplate sqlSession, String userId) {
+		
+		return sqlSession.selectOne("StudentInfo.SelectStuInfo", userId);
+	}
+
+	
 
 }

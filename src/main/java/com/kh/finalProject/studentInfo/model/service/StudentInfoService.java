@@ -6,7 +6,9 @@ import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoService {
 
-	HashMap<String, StudentInfo> studentInfo(String userId);
+	StudentInfo basicInfo(String userId);
+
+	StudentInfo stuInfo(String userId);
 
 	
 

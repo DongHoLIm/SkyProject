@@ -30,14 +30,21 @@
   		<result property="accountNo" column="ACCOUNT_NO"/>
   	</resultMap>
   	
-  	<!-- <select id="selectInfo" resultType="">
-  		SELECT 
+  	<!-- 학적조회/기본정보 -->
+  	<select id="SelectBasicInfo" resultMap="studentInfoResultSet">
+  		SELECT S.STUDENT_NO, M.MEMBER_KNAME, M.MEMBER_ENAME, M.MEMBER_NO,
+       		   D.SDEPT_NAME, S.GRADE, S.STUDENT_STATUS
+		FROM STUDENT_INFO S
+		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)
+		LEFT JOIN SDEPARTMENT D ON(S.SDEPT_CODE=D.SDEPT_CODE)
+		WHERE S.STUDENT_NO=#{studentNo}
+  	</select>
   	
+  	<!-- 학적조회/학적정보 -->
+  	<!-- <select id="SelectStuInfo" resultMap="studentInfoResultSet">
   	</select> -->
   	
-  	
-  	
-  
+  	 
   </mapper>
   
   
