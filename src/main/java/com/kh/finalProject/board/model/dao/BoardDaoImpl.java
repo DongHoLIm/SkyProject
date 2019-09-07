@@ -147,6 +147,12 @@ public class BoardDaoImpl implements BoardDao{
 		return list;
 	}
 
+	@Override
+	public Board selectsNoticeOne(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.selectOne("Board.selectsNoticeOne", boardNo);
+	}
+
 	
 
 

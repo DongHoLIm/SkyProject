@@ -134,6 +134,14 @@ public class BoardServiceImpl implements BoardService{
 		return bd.selectsNoticeList(sqlSession, pi);
 	}
 
+	@Override
+	public Board selectsNoticeOne(int boardNo) throws BoardSelectOneException {
+		
+		bd.updateCount(sqlSession, boardNo);
+		
+		return bd.selectsNoticeOne(sqlSession, boardNo);
+	}
+
 
 	
 

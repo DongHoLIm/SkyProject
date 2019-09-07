@@ -42,7 +42,9 @@ public interface BoardService {
 
 	int sNoticeListCount() throws BoardSelectListException;
 
-	ArrayList<Board> selectsNoticeList(PageInfo pi);
+	ArrayList<Board> selectsNoticeList(PageInfo pi) throws BoardSelectListException;
+
+	Board selectsNoticeOne(int boardNo) throws BoardSelectOneException;
 
 
 
