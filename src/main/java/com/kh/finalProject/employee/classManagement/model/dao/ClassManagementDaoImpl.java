@@ -39,4 +39,12 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 		return list;
 	}
 
+	@Override
+	public LectureOpen selectOneSubject(SqlSessionTemplate sqlSession, String subCode) {
+		
+		return sqlSession.selectOne("LectureOpen.selectOneSubject", subCode);
+	}
+
+	
+
 }
