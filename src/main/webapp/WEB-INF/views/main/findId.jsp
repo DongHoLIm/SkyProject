@@ -79,11 +79,13 @@ address {
  <div id="wrap">
    <img src="resources/images/bg_borderTop.png">
       <div id="container">
-         <form action="login.me" method="post">
+      <h2>ID 찾기</h2>
+      <hr />
+         <form action="findIdResult.me" method="post">
           	<table id="findIdInfo" align="center">          		
           		<tr>
           			<td rowspan="3">* 사용자 구분(User Group)</td>         			
-          			<td colspan="3"><input type="radio" name="UserGroup" value="1" id="demo-priority-low"/><label for="demo-priority-low">졸업생/ 휴학생/재학생 (Students)</label></td>          			      			
+          			<td colspan="3"><input type="radio" name="UserGroup" value="1" id="demo-priority-low" checked/><label for="demo-priority-low">졸업생/ 휴학생/재학생 (Students)</label></td>          			      			
           		</tr>
           		<tr>          			
           			<td colspan="3"><input type="radio" name="UserGroup" value="2" id="demo-priority-normal"/><label for="demo-priority-normal">교수(Professor)</label></td>          			
@@ -94,11 +96,11 @@ address {
           		</tr>          		
           		<tr>
           			<td>*이름(Name)</td>
-          			<td colspan="3"><input type="text" placeholder="이름를 입력하세요"/></td>
+          			<td colspan="3"><input type="text" placeholder="이름를 입력하세요" name="memberKName" id="memberKNameA"/></td>
           		</tr>
           		<tr>
           			<td>*생년월일(BirthDay)</td>
-          			<td colspan="3"><input type="text" placeholder="생년월일를 입력하세요" maxlength="6"/></td>
+          			<td colspan="3"><input type="text" placeholder="생년월일를 입력하세요" maxlength="6" name="memberNo" id="memberNoA"/></td>
           		</tr>
           		<tr>
           			<td>*핸드폰번호(PhoneNumber)</td>
@@ -123,7 +125,7 @@ address {
           			<td><a class="button primary small" onclick="checkUser();">인증확인</a></td>
           		</tr>
           		<tr>
-          			<td colspan="4" align="center"><input type="submit" class="primary" value="아이디(학번/교번/직원번호) 찾기"/></td>
+          			<td colspan="4" align="center"><input type="button" class="primary" value="아이디(학번/교번/직원번호) 찾기" onclick="submitBtn();" id="findIdBtn"/></td>
           		</tr>
           	</table>
            
@@ -138,6 +140,7 @@ address {
 				var random = "";
 				function phoneCheck() {
 					$(function() {
+						var checkPoint = "0";
 						var phone1 = $("#phone1").val();
 						var phone2 = $("#phone2").val();
 						var phone3 = $("#phone3").val();						
@@ -149,17 +152,18 @@ address {
 							url : "sendMessage.ac",
 							data : {
 								phoneNumber : phoneNumber,
-								msg : msg
+								msg : msg,
+								checkPoint : checkPoint
 							},
 							type : "post",
 							success : function(data) {
 								
 							}
 						});
+						alert("인증번호를 확인후 기입하세요");
 					});
 				};
-				function checkUser() {
-									
+				function checkUser() {									
 					var checkNumber = $("#checkNumber").val();					
 					if (random == "") {
 						alert("핸드폰 인증을 먼저 해주세요");
@@ -173,6 +177,20 @@ address {
 							alert("핸드폰 인증실패");
 						}
 					} 
+				}
+				function submitBtn(){
+					var checkPostion =$("input[name='UserGroup']:checked").val();
+					var memberKNameA =$("#memberKNameA").val();
+					var memberNoA = $("#memberNoA").val();
+					var phone1 = $("#phone1").val();
+					var phone2 = $("#phone2").val();
+					var phone3 = $("#phone3").val();
+					
+					if(memberKNameA==""||memberNoA==""||phone1==""||phone2==""||phone3==""){
+						alert("모든 내용을 작성해주세요");						
+					}else{
+						$("#findIdBtn").attr({"type":"submit"}).click();						
+					}					
 				}
 			</script>	
 </body>
