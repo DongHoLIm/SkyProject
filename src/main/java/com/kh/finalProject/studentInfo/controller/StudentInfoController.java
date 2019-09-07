@@ -30,8 +30,8 @@ public class StudentInfoController {
 		String userId = loginUser.getMemberId();
 		System.out.println(userId);
 		
-		HashMap<String,StudentInfo> studentInfo = ss.studentInfo(userId);
-		
+		StudentInfo basicInfo = ss.basicInfo(userId);
+		StudentInfo stuInfo = ss.stuInfo(userId);
 		
 		
 		return "student/info/schoolRegister";

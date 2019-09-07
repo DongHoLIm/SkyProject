@@ -8,6 +8,10 @@ import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoDao {
 
-	HashMap<String, StudentInfo> studentInfo(SqlSessionTemplate sqlSession, String userId);
+	StudentInfo basicInfo(SqlSessionTemplate sqlSession, String userId);
+
+	StudentInfo stuInfo(SqlSessionTemplate sqlSession, String userId);
+
+	
 
 }

@@ -18,10 +18,18 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	private StudentInfoDao sd;
 
 	@Override
-	public HashMap<String, StudentInfo> studentInfo(String userId) {
+	public StudentInfo basicInfo(String userId) {
 		
-		return sd.studentInfo(sqlSession,userId);
+		return sd.basicInfo(sqlSession,userId);
 	}
+
+	@Override
+	public StudentInfo stuInfo(String userId) {
+		
+		return sd.stuInfo(sqlSession,userId);
+	}
+
+	
 	
 
 }
