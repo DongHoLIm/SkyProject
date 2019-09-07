@@ -18,6 +18,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -329,5 +330,10 @@ public class MemberController {
 	@RequestMapping("newPassword.me")
 	public String newPassword() {
 		return "main/newPassword";
+	}
+	@RequestMapping("findIdResult.me")
+	public String findIdResult(HttpServletRequest request) {
+		System.out.println(request.getParameter("UserGroup"));
+		return "index.-jsp";
 	}
 }

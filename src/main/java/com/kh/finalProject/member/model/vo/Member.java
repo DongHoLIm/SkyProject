@@ -41,6 +41,8 @@ public class Member implements java.io.Serializable{
 		this.bankNumber = bankNumber;
 		this.list = list;
 	}
+	
+	
 
 	public String getMemberId() {
 		return memberId;
