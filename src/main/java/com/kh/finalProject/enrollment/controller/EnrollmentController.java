@@ -1,6 +1,8 @@
 package com.kh.finalProject.enrollment.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalProject.enrollment.model.exception.EnrollmentException;
 import com.kh.finalProject.enrollment.model.service.EnrollmentService;
@@ -32,14 +35,26 @@ public class EnrollmentController {
 		
 		
 		try {
-			Enrollment memberEnrollment = es.userEnrollment(studentNo);
-			System.out.println("memberEnrollment :  "+memberEnrollment);
-			model.addAttribute("memberEnrollment", memberEnrollment);
+			ArrayList<Enrollment> memberEnrollment = es.userEnrollment(studentNo);
+			System.out.println("memberEnrollment :  "+ memberEnrollment);
+			//model.addAttribute("memberEnrollment", memberEnrollment);
 			
-			return "redirect:index.jsp";
+			request.setAttribute("memberEnrollment", memberEnrollment);
+			
+			return "student/register/registerInfo";
 		} catch (EnrollmentException e1) {
 			model.addAttribute("msg", e1.getMessage());
 			return "common/errorAlert";
 		}
 	}
+	
+//	@RequestMapping("enrollment.en")
+//	public ModelAndView enrollmentList(ModelAndView mav) {
+//		List<Enrollment> enrollmentList = enrollmentService.getList();
+//		
+//		mav.addObject("enrollmentList", enrollmentList);
+//		mav.setViewName("register/registerInfo");
+//		
+//		return mav;
+//	}
 }

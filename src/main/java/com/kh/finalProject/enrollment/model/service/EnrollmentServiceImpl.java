@@ -1,5 +1,8 @@
 package com.kh.finalProject.enrollment.model.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -19,11 +22,17 @@ public class EnrollmentServiceImpl implements EnrollmentService{
 	private DataSourceTransactionManager transactionManager;
 	
 	@Override
-	public Enrollment userEnrollment(String studentNo) throws EnrollmentException {
+	public ArrayList<Enrollment> userEnrollment(String studentNo) throws EnrollmentException {
 		
-		Enrollment memberEnrollment = ed.userEnrollment(sqlSession, studentNo);
+		//ArrayList<Enrollment> memberEnrollment = ed.userEnrollment(sqlSession, studentNo);
 		
-		return memberEnrollment;
+		return ed.userEnrollment(sqlSession, studentNo);
 	}
+	
+//	@Override
+//	public List<Enrollment> getList() {
+//	
+//		return enrollmentDao.getList(sqlSession);
+//	}
 
 }

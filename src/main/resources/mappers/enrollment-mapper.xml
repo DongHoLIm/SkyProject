@@ -5,8 +5,8 @@
 <mapper namespace="Enrollment">
 	<resultMap type="com.kh.finalProject.enrollment.model.vo.Enrollment" id="enrollmentResultSet">
 		<id property="enrollSemester" column="ENROLL_SEMESTER"/>
+		<id property="studentNo" column="STUDENT_NO"/>
 		
-		<result property="studentNo" column="STUDENT_NO"/>
 		<result property="enrollYear" column="ENROLL_YEAR"/>
 		<result property="tuition" column="TUITION"/>
 	</resultMap>
