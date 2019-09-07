@@ -47,6 +47,8 @@ public interface BoardDao {
 
 	ArrayList<Board> selectsNoticeList(SqlSessionTemplate sqlSession, PageInfo pi);
 
+	Board selectsNoticeOne(SqlSessionTemplate sqlSession, int boardNo);
+
 
 	
 }

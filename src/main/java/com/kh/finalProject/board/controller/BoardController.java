@@ -700,7 +700,41 @@ public class BoardController {
 		
 		System.out.println("교직원 sNotice 상세보기 boardNo :::: " + boardNo);
 		
-		return "";
+		Board b;
+		UploadFile uf;
+		
+		try {
+			b = bs.selectsNoticeOne(boardNo);
+			
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				
+				return "employee/board/notice/scholarshipNotice/em_scholNoticeDetail";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+				
+				return "employee/board/notice/scholarshipNotice/em_scholNoticeDetail";			
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
 	}
 }
 
