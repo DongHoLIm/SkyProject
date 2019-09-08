@@ -52,7 +52,13 @@
 	<insert id="insertEmployeeInfo" parameterType="Member">
 		INSERT INTO EMPLOYEE VALUES(
 			#{rankCode},#{memberId},#{sdeptCode}
-		)
-		
+		)		
 	</insert>
+	<select id="memberFindId" resultMap="memberResultSet" parameterType="Member">
+		SELECT * FROM
+		MEMBER 
+		WHERE MEMBER_NO LIKE '%'||#{memberNo}||'%'
+		AND MEMBER_CHECK = #{memberStatus}
+		AND MEMBER_KNAME = #{memberKName}
+	</select>
 </mapper>

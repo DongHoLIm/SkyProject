@@ -21,4 +21,6 @@ public interface MemberDao {
 
 	int insertEmployeeInfo(SqlSessionTemplate sqlSession, Member insertMember);
 
+	Member findIdResult(SqlSessionTemplate sqlSession, Member findId);
+
 }

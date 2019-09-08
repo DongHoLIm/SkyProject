@@ -20,4 +20,6 @@ public interface MemberService {
 	int insertProfessorInfo(Member insertMember);
 
 	int insertEmployeeInfo(Member insertMember);
+
+	Member findIdResult(Member findId);
 }

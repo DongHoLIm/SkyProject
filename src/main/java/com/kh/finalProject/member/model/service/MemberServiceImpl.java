@@ -60,6 +60,11 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return md.insertEmployeeInfo(sqlSession,insertMember);
 	}
+	@Override
+	public Member findIdResult(Member findId) {
+		
+		return md.findIdResult(sqlSession,findId);
+	}
 
 	
 }
