@@ -14,6 +14,6 @@ public interface ClassManagementDao {
 
 	ArrayList<LectureOpen> selctSubjectList(SqlSessionTemplate sqlSession, PageInfo pi) throws ClassManagementSelectListException;
 
-	LectureOpen selectOneSubject(SqlSessionTemplate sqlSession, String subCode);
+	LectureOpen seletOneSubject(SqlSessionTemplate sqlSession, String subCode);
 
 }

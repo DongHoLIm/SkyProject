@@ -31,7 +31,7 @@
 					<table class="basicinfo">
 					<tr>
 						<td class="td">과목번호</td>
-						<td colspan='5'><input type="text" id="subCoode" value="${ subCode[0] }" readonly></td>
+						<td colspan='5'><input type="text" id="subCoode" value="<c:out value="${ LectureOpen.madeDate }" />" readonly></td>
 					</tr>
 
 					<tr>
