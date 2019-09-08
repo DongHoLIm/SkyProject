@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,16 +61,18 @@
 	 					    </tr>
 	 					   </thead>
 	 					   <tbody>
+	 					   <%-- <c:forEach var="enrollment" items="${ memberEnrollment }"> --%>
 	     					 <tr style="background-color:white">
 	    					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">2019년도 2학기</td>
-	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">540,000 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${Enrollment.tuition}"/></td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br>540,000 원<br>[이월]<br>0 원</td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">0 원</td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"></td>
 	  					    </tr>
-	   					    <tr style="background-color:white">
+	  					    <%-- </c:forEach> --%>
+	   					    <!-- <tr style="background-color:white">
 	    					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">2019년도 1학기</td>
 	    					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">1,440,000 원</td>
 	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br> 1,440,000 원<br>[이월]<br>0 원 </td>
@@ -76,7 +80,7 @@
 	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
 	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
 	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"></td>
-	      	   			    </tr>
+	      	   			    </tr> -->
 	  					  </tbody>
 					  </table>
 				</div>

@@ -50,9 +50,11 @@ public class Enrollment implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Register [studentNo=" + studentNo + ", enrollYear=" + enrollYear + ", enrollSemester="
+		return "Enrollment [studentNo=" + studentNo + ", enrollYear=" + enrollYear + ", enrollSemester="
 				+ enrollSemester + ", tuition=" + tuition + "]";
 	}
+
+	
 	
 	
 
