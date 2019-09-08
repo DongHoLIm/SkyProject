@@ -55,5 +55,10 @@ public class MemberDaoImpl implements MemberDao {
 	
 		return sqlSession.insert("Member.insertEmployeeInfo",insertMember);
 	}
+	@Override
+	public Member findIdResult(SqlSessionTemplate sqlSession, Member findId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.memberFindId", findId);
+	}
 	
 }

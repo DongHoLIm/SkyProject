@@ -299,5 +299,17 @@ address {
 <c:if test="${!empty member}">
 	<jsp:forward page="main/main"/>
 </c:if>
+<c:set var="message" value="${scopeRequest.msg}"/>
+<c:if test="${!empty message}">
+	<input type="hidden" id="errorMessage" value="${message }"/>
+	<script>
+	$(function(){
+		var errorMessage = $("#errorMessage").val();
+		console.log(errorMessage);
+		alert(errorMessage);
+		
+	});
+	</script>
+</c:if>
 </body>
 </html>

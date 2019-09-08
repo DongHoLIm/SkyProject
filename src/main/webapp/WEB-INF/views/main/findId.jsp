@@ -70,28 +70,26 @@ address {
    font-style: normal;
    text-align: center;
 }
-#phone1,#phone2,#phone3{
-	
-}
+
 </style>
 </head>
 <body>
  <div id="wrap">
    <img src="resources/images/bg_borderTop.png">
       <div id="container">
-      <h2>ID 찾기</h2>
+      <h2>ID 찾기</h2>     
       <hr />
          <form action="findIdResult.me" method="post">
           	<table id="findIdInfo" align="center">          		
           		<tr>
           			<td rowspan="3">* 사용자 구분(User Group)</td>         			
-          			<td colspan="3"><input type="radio" name="UserGroup" value="1" id="demo-priority-low" checked/><label for="demo-priority-low">졸업생/ 휴학생/재학생 (Students)</label></td>          			      			
+          			<td colspan="3"><input type="radio" name="memberStatus" value="1" id="demo-priority-low" checked/><label for="demo-priority-low">졸업생/ 휴학생/재학생 (Students)</label></td>          			      			
           		</tr>
           		<tr>          			
-          			<td colspan="3"><input type="radio" name="UserGroup" value="2" id="demo-priority-normal"/><label for="demo-priority-normal">교수(Professor)</label></td>          			
+          			<td colspan="3"><input type="radio" name="memberStatus" value="2" id="demo-priority-normal"/><label for="demo-priority-normal">교수(Professor)</label></td>          			
           		</tr>
           		<tr>
-          			<td colspan="3"><input type="radio" name="UserGroup" value="3" id="demo-priority-high"/><label for="demo-priority-high">교직원(Faculty and Staff)</label></td>
+          			<td colspan="3"><input type="radio" name="memberStatus" value="3" id="demo-priority-high"/><label for="demo-priority-high">교직원(Faculty and Staff)</label></td>
           			
           		</tr>          		
           		<tr>
@@ -124,11 +122,11 @@ address {
           			<td colspan="2"><input type="text" placeholder="인증번호를 입력하세요" id="checkNumber"/></td>
           			<td><a class="button primary small" onclick="checkUser();">인증확인</a></td>
           		</tr>
-          		<tr>
-          			<td colspan="4" align="center"><input type="button" class="primary" value="아이디(학번/교번/직원번호) 찾기" onclick="submitBtn();" id="findIdBtn"/></td>
+          		<tr>          		
+          				<td colspan="2" align="center"><input type="button" class="primary" value="로그인페이지로이동" onclick="returnLogin();" id="findIdBtn"/></td>	
+          			<td colspan="2" align="center"><input type="button" class="primary" value="아이디(학번/교번/직원번호) 찾기" onclick="submitBtn();" id="findIdBtn"/></td>
           		</tr>
-          	</table>
-           
+          	</table>           
          </form>
       </div>
       <address>
@@ -189,8 +187,12 @@ address {
 					if(memberKNameA==""||memberNoA==""||phone1==""||phone2==""||phone3==""){
 						alert("모든 내용을 작성해주세요");						
 					}else{
-						$("#findIdBtn").attr({"type":"submit"}).click();						
+						$("#findIdBtn").attr({"type":"submit"}).click();
+												
 					}					
+				}
+				function returnLogin(){
+					location.href="index.jsp";
 				}
 			</script>	
 </body>

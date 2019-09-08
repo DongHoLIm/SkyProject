@@ -252,7 +252,12 @@
 		    <artifactId>xmlbeans</artifactId>
 		    <version>2.6.0</version>
 		</dependency>
-        		
+		<!-- mail 보내기 -->
+        <dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.5.1</version>
+		</dependency>		
 	</dependencies>
 	<build>
 		<plugins>

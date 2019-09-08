@@ -6,7 +6,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -28,8 +36,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.finalProject.common.CommonUtils;
+import com.kh.finalProject.common.mailController;
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.service.MemberService;
 import com.kh.finalProject.member.model.vo.Member;
@@ -332,8 +342,24 @@ public class MemberController {
 		return "main/newPassword";
 	}
 	@RequestMapping("findIdResult.me")
-	public String findIdResult(HttpServletRequest request) {
-		System.out.println(request.getParameter("UserGroup"));
-		return "index.-jsp";
+	public String findIdResult(Member findId,HttpServletRequest request) {
+		Member findMemberId = null;
+		try {
+			System.out.println(findId);
+			findMemberId = ms.findIdResult(findId);				
+			mailController mc = new mailController();
+			int result = mc.sendEmail(findMemberId, request);
+			System.out.println(result);
+			if(result == 1) {
+				request.setAttribute("msg","이메일전송되었습니다.");				
+			}else {
+				request.setAttribute("msg","메일 발송에 실패했습니다.");				
+			}			
+		}catch(Exception e) {
+			e.printStackTrace();
+			request.setAttribute("msg","해당아이디가 없습니다.");					
+		}
+		return "common/errorAlert";
+		
 	}
 }
