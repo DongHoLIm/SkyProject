@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.common.Pagination;
@@ -21,9 +21,9 @@ public class ClassManagementController {
 	private ClassManagementService cms;
 
 	//강의개설등록
-	@RequestMapping("lectureOpen.em")
+	@RequestMapping("lectureOpen.ac")
 	public String selectSubject(HttpServletRequest request) {
-
+			
 		int currentPage = 1;
 
 		if(request.getParameter("currentPage") != null) {
@@ -48,13 +48,15 @@ public class ClassManagementController {
 			return "common/errorAlert";
 		}
 	}
-	@RequestMapping("lectureRegistration.em")
-	public String insertLecture(HttpServletRequest request,
-			@RequestParam(name="subC", required=false) String sub){
+	@RequestMapping(value="lectureRegistration.ac")
+	public ModelAndView insertLecture(String subCode, ModelAndView mv) {
 		
-		System.out.println(sub);
-	
+		LectureOpen lo = new LectureOpen();
 		
-		return "employee/class/lectureRegistration";
+		lo.setSubCode(subCode);
+		lo = cms.selectOneSubject(subCode);
+		mv.addObject("LectureOpen", lo);
+		mv.setViewName("jsonView");
+		return mv;
 	}
 }

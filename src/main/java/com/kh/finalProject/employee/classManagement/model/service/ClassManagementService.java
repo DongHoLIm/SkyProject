@@ -12,4 +12,6 @@ public interface ClassManagementService {
 
 	ArrayList<LectureOpen> selectnSubjectList(PageInfo pi) throws ClassManagementSelectListException;
 
+	LectureOpen selectOneSubject(String subCode);
+
 }

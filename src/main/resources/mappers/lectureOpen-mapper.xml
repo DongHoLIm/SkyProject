@@ -21,9 +21,15 @@
 	
 	<!-- 페이징 처리된 교과목 조회 -->
 	<select id="selectSubjectList" resultMap="LectureOpenResultSet">
-		SELECT SUB_CODE,
-		SUB_NAME, SDEPT_NAME, COMPLETE_TYPE, SUB_GRADE, MADE_DATE
+		SELECT SUB_CODE, SUB_NAME, SDEPT_NAME, COMPLETE_TYPE, SUB_GRADE, MADE_DATE
 		FROM SUBJECT S
 		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
+	</select>
+	
+	<select id="selectOneSubject" resultMap="LectureOpenResultSet">
+		SELECT SUB_CODE, SUB_NAME, SDEPT_NAME, COMPLETE_TYPE, SUB_GRADE, MADE_DATE
+		FROM SUBJECT S
+		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
+		WHERE SUB_CODE = #{ subCode }
 	</select>
 </mapper>

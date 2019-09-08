@@ -42,7 +42,6 @@
 							<tr>
 								<td style="text-align: center;">
 									<input type="hidden" name="subCode" class="subCode" value="<c:out value="${ LectureOpen.subCode }" />"readonly>
-									<input type="hidden" name="subC" class="subC" value="<c:out value="${ sub }" />"readonly>
 									<c:out value="${ LectureOpen.subCode }" />
 								</td>
 								<td style="text-align: center;">
@@ -113,12 +112,23 @@
 			</div>
 	</div>
 	<script>
-		function lectureRegistration(subCode) {
-			var sub = subCode;
-			var subC = $(".subc").val();
-			location.href="lectureRegistration.em";
-		}
+		function lectureRegistration(subCode){
 
+			console.log(subCode);
+			
+			$.ajax({
+				url:"lectureRegistration.ac",
+				type:"post",
+				data:{subCode:subCode},
+				success:function(data){
+					console.log(data);
+				},
+				error:function(err){
+					console.log("실패!");
+				}
+			});
+			return false;
+		}
 	</script>
 </body>
 </html>
