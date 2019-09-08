@@ -10,6 +10,6 @@ import com.kh.finalProject.enrollment.model.vo.Enrollment;
 
 public interface EnrollmentDao {
 
-	ArrayList<Enrollment> userEnrollment(SqlSessionTemplate sqlSession, String studentNo);
+	ArrayList<Enrollment> userEnrollment(SqlSessionTemplate sqlSession, String studentNo) throws EnrollmentException;
 	//public List<Enrollment> getList(SqlSessionTemplate sqlSession);
 }

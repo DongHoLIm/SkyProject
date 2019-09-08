@@ -76,6 +76,21 @@
     <url-pattern>*.en</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>scholarship</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/config/scholarship-servlet.xml</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>scholarship</servlet-name>
+    <url-pattern>*.sc</url-pattern>
+  </servlet-mapping>
+
+  
   
   <filter>
     <filter-name>encodingFilter</filter-name>

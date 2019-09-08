@@ -59,8 +59,8 @@
 										<li>
 											<span class="opener">장학관리</span>
 											<ul>
-												<li><a href="#">장학금 신청</a></li>
-												<li><a href="#">장학금 수혜내역 조회</a></li>
+												<li><a href="apply.sc">장학금 신청</a></li>
+												<li><a href="scholarship.sc">장학금 수혜내역 조회</a></li>
 											
 											</ul>
 										</li>
