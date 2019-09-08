@@ -56,21 +56,21 @@ table.basicinfo {
             <table class="basicinfo">
                <tr>
                   <td class="td">학번</td>
-                  <td colspan='5'><input type="text" value="123456789" readonly></td>
+                  <td colspan='5'><input type="text" value=${basicInfo.studentNo } readonly></td>
                </tr>
 
                <tr>
                   <td class="td">한글 성명</td>
-                  <td><input type="text" value="홍길동" readonly></td>
+                  <td><input type="text" value=${basicInfo.kName } readonly></td>
                   <td class="td">영문 성명</td>
-                  <td><input type="text" value="In Woo Kang" readonly></td>
+                  <td><input type="text" value=${basicInfo.eName } readonly></td>
                   <td class="td">한문 성명</td>
-                  <td><input type="text" value="姜因遇" readonly></td>
+                  <td><input type="text" value=" " readonly></td>
                </tr>
 
                <tr>
                   <td class="td">주민 번호</td>
-                  <td><input type="text" value="940205-*******" readonly></td>
+                  <td><input type="text" value=${basicInfo.memberNo } readonly></td>
                   <td class="td">생년월일</td>
                   <td><input type="text" value="2000.07.26" readonly></td>
                   <td class="td">성별</td>
@@ -88,7 +88,7 @@ table.basicinfo {
 
                <tr>
                   <td class="td">학적 상태</td>
-                  <td><input type="text" value="재학" readonly></td>
+                  <td><input type="text" value=${basicInfo.studentStatus } readonly></td>
                   <td class="td">주야</td>
                   <td><input type="text" value="주간" readonly></td>
                   <td class="td">병역 구분</td>
@@ -100,20 +100,20 @@ table.basicinfo {
 
 
 
-            <h4 id="basic">입력 사항</h4>
+            <h4 id="basic">입학 사항</h4>
 
             <table class="basicinfo">
                <tr>
                   <td class="td">입학 구분</td>
-                  <td><input type="text" value="신입" readonly></td>
+                  <td><input type="text" value=${stuInfo.enrolType } readonly></td>
                   <td class="td">입학 일자</td>
-                  <td><input type="text" value="2019.03.03" readonly></td>
+                  <td><input type="text" value=${stuInfo.enrolDate } readonly></td>
                </tr>
                <tr>
                   <td class="td">입학 학년</td>
-                  <td><input type="text" value="4" readonly></td>
+                  <td><input type="text" value=${stuInfo.enroleGrade } readonly></td>
                   <td class="td">수험 번호</td>
-                  <td><input type="text" value="201346027" readonly></td>
+                  <td><input type="text" value=${stuInfo.enrolNo } readonly></td>
                </tr>
             </table>
 
