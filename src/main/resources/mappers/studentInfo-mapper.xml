@@ -40,9 +40,14 @@
 		WHERE S.STUDENT_NO=#{studentNo}
   	</select>
   	
-  	<!-- 학적조회/학적정보 -->
-  	<!-- <select id="SelectStuInfo" resultMap="studentInfoResultSet">
-  	</select> -->
+  	<!-- 학적조회/학적정보_입학정보 -->
+  	<select id="SelectStuInfo" resultMap="studentInfoResultSet">
+  		SELECT S.ENROL_TYPE, S.ENROL_DATE, S.ENROL_GRADE, S.ENROL_NO
+		FROM STUDENT_INFO S
+		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)
+		LEFT JOIN SDEPARTMENT D ON(S.SDEPT_CODE=D.SDEPT_CODE)
+		WHERE S.STUDENT_NO=#{studentNo} 
+  	</select> 
   	
   	 
   </mapper>
