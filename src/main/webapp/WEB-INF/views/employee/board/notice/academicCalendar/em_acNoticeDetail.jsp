@@ -29,7 +29,7 @@
 			<div class="inner">
 				<jsp:include page="/WEB-INF/views/common/header.jsp" />
 			</div>
-			<h4 id="basic">장학 공지</h4>
+			<h4 id="basic">학사 일정</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
 			<c:if test="${sessionScope.loginUser.memberId == b.memberId}">
@@ -46,6 +46,21 @@
 					<td>${b.writer}</td>
 					<th style="text-align: center;">작성부서</th>
 					<td>${b.writeDept}</td>
+					<th style="text-align: center;">조회수</th>
+					<td>${b.count}</td>
+					
+				</tr>
+				<tr>
+					<th style="text-align: center;">시작일시</th>
+					<td>
+						<fmt:parseDate value="${b.startDate}" var="startDate" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate value="${startDate}" pattern="yyyy/MM/dd"/>
+					</td>
+					<th style="text-align: center;">종료일시</th>
+					<td>
+						<fmt:parseDate value="${b.endDate}" var="endDate" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate value="${endDate}" pattern="yyyy/MM/dd"/>
+					</td>					
 					<th style="text-align: center;">게시기한</th>
 					<td>
 						<fmt:parseDate value="${b.deadLine}" var="deadLine" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -54,10 +69,8 @@
 				</tr>
 				<tr>
 					<th style="text-align: center;">제목</th>
-					<td colspan="3">${b.title}</td>
-					<th style="text-align: center;">조회수</th>
-					<td>${b.count}</td>
-				</tr>
+					<td colspan="6">${b.title}</td>
+				</tr>				
 				<tr>
 					<td colspan="6" style="text-align: left; height: 100px;">
 						<c:if test="${!empty uf}">
@@ -69,7 +82,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6"><button onclick="em_sNoticeList()">목록으로</button>
+					<td colspan="6"><button onclick="em_acNoticeList()">목록으로</button>
 				</tr>
 			</table>
 		</div>
@@ -77,9 +90,8 @@
 		<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
 	</div>
 	<script>
-		function em_sNoticeList(){		
-			
-			location.href="em_showsNoticeList.bo";
+		function em_acNoticeList(){
+			location.href="em_acNoticeList.bo";
 		}
 		
 		function deleteBoard() {
@@ -87,13 +99,13 @@
 			
 			alert("게시글을 삭제하시겠습니까?");
 			
-			location.href="em_deletesNotice.bo?boardNo="+boardNo;
+			location.href=".bo?boardNo="+boardNo;
 		}
 		
 		function updateBoard(){
-			var boardNo = ${b.boardNo};
+			var boardNo = ${b.boardNo};			
 			
-			location.href="em_showUpdatesNotice.bo?boardNo="+boardNo;
+			location.href="em_showUpdateacNotice.bo?boardNo="+boardNo;
 		}
 		
 		$(function(){

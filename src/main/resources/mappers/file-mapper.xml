@@ -12,7 +12,7 @@
 		<result property="path" column="PATH"/>
 	</resultMap>
 	
-	<insert id="insertnNoticeFile">
+	<insert id="insertNoticeFile">
 		INSERT INTO UPLOAD_FILE
 		VALUES(SEQ_FILECODE.NEXTVAL, SEQ_BOARDNO.CURRVAL, #{oldName}, #{changeName}, #{path})
 	</insert>	
@@ -28,4 +28,16 @@
 		SET OLD_NAME = #{oldName}, CHANGE_NAME = #{changeName}, PATH = #{path} 
 		WHERE BOARD_NO = #{boardNo}
 	</update>	
+	
+	<update id="updatesNoticeFile">
+		UPDATE UPLOAD_FILE 
+		SET OLD_NAME = #{oldName}, CHANGE_NAME = #{changeName}, PATH = #{path} 
+		WHERE BOARD_NO = #{boardNo}
+	</update>	
+	
+	<update id="updateacNoticeFile">
+		UPDATE UPLOAD_FILE 
+		SET OLD_NAME = #{oldName}, CHANGE_NAME = #{changeName}, PATH = #{path} 
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 </mapper>

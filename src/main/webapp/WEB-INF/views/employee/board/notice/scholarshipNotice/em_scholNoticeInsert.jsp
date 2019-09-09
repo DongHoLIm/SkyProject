@@ -41,10 +41,13 @@
 			<div class="inner">
 				<jsp:include page="/WEB-INF/views/common/header.jsp" />
 			</div>
-			<h4 id="basic">일반 공지</h4>
+			<h4 id="basic">장학 공지</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<form action="em_nNoticeInsert.bo?memberId=${sessionScope.loginUser.memberId}&writer=${writerInfo.memberName}&writeDept=${writerInfo.edeptName}" method="post" enctype="multipart/form-data">
+			<form action="em_sNoticeInsert.bo" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="memberId" value="${sessionScope.loginUser.memberId}">
+				<input type="hidden" name="writer" value="${writerInfo.memberName}">
+				<input type="hidden" name="writeDept" value="${writerInfo.edeptName}">				
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
 						<th style="text-align: center;">카테고리</th>
@@ -94,7 +97,7 @@
 		function writeCancel(){
 			alert("게시글 작성을 취소하시겠습니까?");
 			
-			location.href = "em_nNoticeList.bo";
+			location.href = "em_showsNoticeList.bo";
 		}
 		
 	</script>

@@ -77,15 +77,15 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	
 	@Override
-	public int insertnNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf) {		
+	public int insertNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf) {		
 		
-		return sqlSession.insert("UploadFile.insertnNoticeFile", uf);
+		return sqlSession.insert("UploadFile.insertNoticeFile", uf);
 	}
 
 	@Override
-	public int deletenNotice(SqlSessionTemplate sqlSession, String boardNo) {
+	public int deleteNotice(SqlSessionTemplate sqlSession, String boardNo) {
 		
-		return sqlSession.update("Board.deletenNotice", boardNo);
+		return sqlSession.update("Board.deleteNotice", boardNo);
 	}
 
 	@Override
@@ -153,9 +153,128 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectOne("Board.selectsNoticeOne", boardNo);
 	}
 
-	
+	@Override
+	public int insertsNotice(SqlSessionTemplate sqlSession, Board b) {	
+		
+		return sqlSession.insert("Board.insertsNotice", b);
+	}
+
+	@Override
+	public int insertscholNotice(SqlSessionTemplate sqlSession, Board b) {
+		
+		return sqlSession.insert("Board.insertscholNotice", b);
+	}
+
+	@Override
+	public int updatesNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("Board.updatesNotice", b);
+	}
+
+	@Override
+	public int updateScholNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("Board.updateScholNotice", b);
+	}
+
+	@Override
+	public int updatesNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf) {
+		return sqlSession.update("UploadFile.updatesNoticeFile", uf);
+	}
+
+	@Override
+	public int SearchsNoticeResultCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("Board.SearchsNoticeResultCount", sc);
+	}
+
+	@Override
+	public ArrayList<Board> SearchsNoticeResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.SearchsNoticeResultList", sc, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public int selectacNoticeCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.selectacNoticeCount");
+	}
+
+	@Override
+	public ArrayList<Board> selectacNoticeList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.selectacNoticeList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int SearchacNoticeResultCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("Board.SearchacNoticeResultCount", sc);
+	}
+
+	@Override
+	public ArrayList<Board> SearchacNoticeResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.SearchacNoticeResultList", sc, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public int selectacNoticeMonthCount(SqlSessionTemplate sqlSession, String month) {
+		
+		return sqlSession.selectOne("Board.selectacNoticeMonthCount", month);
+	}
+
+	@Override
+	public ArrayList<Board> selectacNoticeMonthList(SqlSessionTemplate sqlSession, String month, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.selectacNoticeMonthList", month, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public Board selectacNoticeOne(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("Board.selectacNoticeOne", boardNo);
+	}
+
+	@Override
+	public int updateacNotice(SqlSessionTemplate sqlSession, Board b) {
+		return  sqlSession.update("Board.updateacNotice", b);	
+	}
 
 
+	@Override
+	public int updateSchoolSchedule(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("Board.updateSchoolSchedule", b);
+	}
 
-	
+	@Override
+	public int updateacNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf) {
+		return  sqlSession.update("UploadFile.updateacNoticeFile", uf);
+	}
 }

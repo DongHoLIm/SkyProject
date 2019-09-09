@@ -1,11 +1,13 @@
 package com.kh.finalProject.board.controller;
 
 import java.io.File;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -204,7 +206,7 @@ public class BoardController {
 		System.out.println("delectnNotice boardNo ::::" + boardNo);
 		
 		try {
-			bs.deletenNotice(boardNo);
+			bs.deleteNotice(boardNo);
 			
 			return "forward:em_nNoticeList.bo";
 		} catch (BoardDeleteException e) {			
@@ -736,7 +738,847 @@ public class BoardController {
 			return "common/errorAlert";
 		}	
 	}
+	
+	@RequestMapping(value="em_showInsertsNotice.bo")
+	public String emShowsNoticeInsert(Writer writerInfo, HttpServletRequest request) {
+		String memberId = request.getParameter("memberId");
+		
+		System.out.println("emNoticeInsert memberId :::: " + memberId);
+		
+		writerInfo = bs.selectWriterInfo(memberId);
+		
+		System.out.println("selectWriterInfo writerInfo :::: " + writerInfo);
+		
+		request.setAttribute("writerInfo", writerInfo);
+		
+		return "employee/board/notice/scholarshipNotice/em_scholNoticeInsert";
+	} 
+	
+	@RequestMapping(value="em_sNoticeInsert.bo")
+	public String emsNoticeInsert(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {
+		System.out.println("em_sNoticeInsert.bo photo :::: " + photo);
+		System.out.println("em_sNoticeInsert.bo b :::: " + b);	
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;
+		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			System.out.println("em_sNoticeInsert.bo root :::: " + root);
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();
+			
+			System.out.println("em_sNoticeInsert.bo originFileName :::: " + originFileName);
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.insertsNoticewithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				
+				return "redirect:em_showsNoticeList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글쓰기 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			
+			bs.insertsNotice(b);
+			
+			model.addAttribute("b", b);
+			
+			return "redirect:em_showsNoticeList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글쓰기 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("em_deletesNotice.bo")
+	public String emNoticeDelete(String boardNo, HttpServletRequest request) {
+		System.out.println("delectnNotice boardNo ::::" + boardNo);
+		
+		try {
+			bs.deleteNotice(boardNo);
+			
+			return "forward:em_showsNoticeList.bo";
+		} catch (BoardDeleteException e) {			
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+		
+	}
+	
+	@RequestMapping("em_showUpdatesNotice.bo")
+	public String emShowUpdatesNotice(int boardNo, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectsNoticeOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("장학공지 상세보기 Ctrl b :::: " + b);
+				
+				return "employee/board/notice/scholarshipNotice/em_scholNoticeUpdate";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("장학공지 상세보기 Ctrl b :::: " + b);
+				System.out.println("장학공지 상세보기 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "employee/board/notice/scholarshipNotice/em_scholNoticeUpdate";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="em_sNoticeUpdate.bo")
+	public String emsNoticeUpdate(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {
+		
+		System.out.println("장학공지 글 수정 b :::: " + b);
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("장학공지 글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updatesNoticewithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				
+				return "redirect:em_showsNoticeList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			System.out.println("if문 바깥으로 들어옴");
+			bs.updatesNotice(b);
+			
+			model.addAttribute("b", b);
+			
+			return "redirect:em_showsNoticeList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("em_searchsNotice.bo")
+	public ModelAndView emsearchsNotice(ModelAndView mv, String searchCondition, String searchValue, boolean searchflag, HttpServletRequest request) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		if(searchCondition.equals("writer")) {
+			sc.setWriter(searchValue);
+		}
+		if(searchCondition.equals("writeDept")) {
+			sc.setWriteDept(searchValue);
+		}
+		if(searchCondition.equals("title")) {
+			sc.setTitle(searchValue);
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.SearchsNoticeResultCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			pi.setSearchflag(searchflag);			
+			
+			ArrayList<Board> list = bs.SearchsNoticeResultList(sc, pi);
+			
+			System.out.println("list :::: " + list);
+			System.out.println("pi :::: " + pi);
+			
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			
+			mv.setViewName("jsonView");
+			
+			return mv;
+			
+		} catch (BoardSearchException e) {
+			mv.addObject("msg", e.getMessage());
+			
+			mv.setViewName("common/errorPage");
+			
+			return mv;	
+		}
+	}
+	
+///////////////////////////////교수 장학공지///////////////////////////////
+///////////////////////////////교수 장학공지///////////////////////////////
+///////////////////////////////교수 장학공지///////////////////////////////
+///////////////////////////////교수 장학공지///////////////////////////////
+	
+	@RequestMapping(value="pro_showsNoticeList.bo")
+	public String proshowsNoticeList(HttpServletRequest request) {
+		
+		return "professor/board/notice/scholarshipNotice/pro_scholNoticeList";
+	}
+	
+	@RequestMapping(value="pro_sNoticeList.bo", produces="application/json;charset=utf8")
+	public ModelAndView prosNoticeList(ModelAndView mv, HttpServletRequest request) {
+		int currentPage = 1;
+		int listCount = 0;
+		
+		System.out.println("curr" + request.getParameter("currentPage"));
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			listCount = bs.sNoticeListCount();
+			
+			System.out.println("sNotice listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bs.selectsNoticeList(pi);
+			
+			System.out.println("sNotice list :::: " + list);
+			System.out.println("sNotice pi :::: " + pi);
+			
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			
+			mv.setViewName("jsonView");
+			
+			return mv;
+			
+		} catch (BoardSelectListException e) {
+			mv.addObject("msg", "게시글 조회 실패!");
+			
+			mv.setViewName("common/errorPage");
+			
+			return mv;
+		}
+	}
+	
+	@RequestMapping(value="pro_sNoticeDetail.bo")
+	public String prosNoticeDetail(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
+		System.out.println("교수 sNotice 상세보기 boardNo :::: " + boardNo);
+		
+		Board b;
+		UploadFile uf;
+		
+		try {
+			b = bs.selectsNoticeOne(boardNo);
+			
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				
+				return "professor/board/notice/scholarshipNotice/pro_scholNoticeDetail";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+				
+				return "professor/board/notice/scholarshipNotice/pro_scholNoticeDetail";			
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping("pro_searchsNotice.bo")
+	public ModelAndView prosearchsNotice(ModelAndView mv, String searchCondition, String searchValue, boolean searchflag, HttpServletRequest request) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		if(searchCondition.equals("writer")) {
+			sc.setWriter(searchValue);
+		}
+		if(searchCondition.equals("writeDept")) {
+			sc.setWriteDept(searchValue);
+		}
+		if(searchCondition.equals("title")) {
+			sc.setTitle(searchValue);
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.SearchsNoticeResultCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			pi.setSearchflag(searchflag);			
+			
+			ArrayList<Board> list = bs.SearchsNoticeResultList(sc, pi);
+			
+			System.out.println("list :::: " + list);
+			System.out.println("pi :::: " + pi);
+			
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			
+			mv.setViewName("jsonView");
+			
+			return mv;
+			
+		} catch (BoardSearchException e) {
+			mv.addObject("msg", e.getMessage());
+			
+			mv.setViewName("common/errorPage");
+			
+			return mv;	
+		}
+	}
+	
+///////////////////////////////학생 장학공지///////////////////////////////
+///////////////////////////////학생 장학공지///////////////////////////////
+///////////////////////////////학생 장학공지///////////////////////////////
+///////////////////////////////학생 장학공지///////////////////////////////
+
+	@RequestMapping(value="st_showsNoticeList.bo")
+	public String stshowsNoticeList(HttpServletRequest request) {
+
+		return "student/board/notice/scholarshipNotice/st_scholNoticeList";
+	}
+
+	@RequestMapping(value="st_sNoticeList.bo", produces="application/json;charset=utf8")
+	public ModelAndView stsNoticeList(ModelAndView mv, HttpServletRequest request) {
+		int currentPage = 1;
+		int listCount = 0;
+
+		System.out.println("curr" + request.getParameter("currentPage"));
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		try {
+			listCount = bs.sNoticeListCount();
+
+			System.out.println("sNotice listCount :::: " + listCount);
+
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+			ArrayList<Board> list = bs.selectsNoticeList(pi);
+
+			System.out.println("sNotice list :::: " + list);
+			System.out.println("sNotice pi :::: " + pi);
+
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+
+			mv.setViewName("jsonView");
+
+			return mv;
+
+		} catch (BoardSelectListException e) {
+			mv.addObject("msg", "게시글 조회 실패!");
+
+			mv.setViewName("common/errorPage");
+
+			return mv;
+		}
+	}
+
+	@RequestMapping(value="st_sNoticeDetail.bo")
+	public String stsNoticeDetail(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("교수 sNotice 상세보기 boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selectsNoticeOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+
+				return "student/board/notice/scholarshipNotice/st_scholNoticeDetail";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "student/board/notice/scholarshipNotice/st_scholNoticeDetail";			
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}	
+	}
+
+	@RequestMapping("st_searchsNotice.bo")
+	public ModelAndView stsearchsNotice(ModelAndView mv, String searchCondition, String searchValue, boolean searchflag, HttpServletRequest request) {
+
+		int currentPage = 1;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+
+		SearchCondition sc = new SearchCondition();
+
+		if(searchCondition.equals("writer")) {
+			sc.setWriter(searchValue);
+		}
+		if(searchCondition.equals("writeDept")) {
+			sc.setWriteDept(searchValue);
+		}
+		if(searchCondition.equals("title")) {
+			sc.setTitle(searchValue);
+		}
+
+		int listCount;
+
+		try {
+			listCount = bs.SearchsNoticeResultCount(sc);
+
+			System.out.println("검색후 listCount :::: " + listCount);
+
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+			pi.setSearchflag(searchflag);			
+
+			ArrayList<Board> list = bs.SearchsNoticeResultList(sc, pi);
+
+			System.out.println("list :::: " + list);
+			System.out.println("pi :::: " + pi);
+
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+
+			mv.setViewName("jsonView");
+
+			return mv;
+
+		} catch (BoardSearchException e) {
+			mv.addObject("msg", e.getMessage());
+
+			mv.setViewName("common/errorPage");
+
+			return mv;	
+		}
+	}
+	
+///////////////////////////////////////////////////////교직원 학사일정///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교직원 학사일정///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교직원 학사일정///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교직원 학사일정///////////////////////////////////////////////////////
+	@RequestMapping(value="em_acNoticeList.bo")
+	public String emacNoticeList(HttpServletRequest request) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.selectacNoticeCount();
+			
+			System.out.println("boardCtrl listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bs.selectacNoticeList(pi);
+			
+			System.out.println("boardCtrl list :::: " + list);
+			System.out.println("boardCtrl :::: " + pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			
+			return "employee/board/notice/academicCalendar/em_acNoticeList";
+			
+		} catch (BoardSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}		
+	}
+	
+	@RequestMapping("em_searchacNotice.bo")
+	public String emacNoticeSearch(String searchCondition, String searchValue, boolean searchflag, HttpServletRequest request) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		if(searchCondition.equals("writer")) {
+			sc.setWriter(searchValue);
+		}
+		if(searchCondition.equals("writeDept")) {
+			sc.setWriteDept(searchValue);
+		}
+		if(searchCondition.equals("title")) {
+			sc.setTitle(searchValue);
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.SearchacNoticeResultCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			pi.setSearchflag(searchflag);
+			
+			System.out.println("검색후 pi :::: " + pi);
+			
+			ArrayList<Board> list = bs.SearchacNoticeResultList(sc, pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("searchCondition", searchCondition);
+			request.setAttribute("searchValue", searchValue);
+			
+			return "employee/board/notice/academicCalendar/em_acNoticeList";
+		} catch (BoardSearchException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping(value="em_acNoticeSearchMonth.bo")
+	public String emacNoticeSearchMonth(HttpServletRequest request, String month, boolean monthflag) {	
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.selectacNoticeMonthCount(month);
+			
+			System.out.println("emacNoticeSearchMonth listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			pi.setMonthflag(monthflag);
+			
+			ArrayList<Board> list = bs.selectacNoticeMonthList(pi, month);
+			
+			System.out.println("emacNoticeSearchMonth list :::: " + list);
+			System.out.println("emacNoticeSearchMonth :::: " + pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("month", month);
+			
+			return "employee/board/notice/academicCalendar/em_acNoticeList";
+			
+		} catch (BoardSearchException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}		
+	}
+	
+	@RequestMapping(value="em_acNoticeDetail.bo")
+	public String emacNoticeDetail(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
+		System.out.println("em_acNoticeDetail boardNo :::: " + boardNo);
+		
+		Board b;
+		UploadFile uf;
+		
+		try {
+			b = bs.selectacNoticeOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("학사일정 상세보기 Ctrl b :::: " + b);
+				
+				return "employee/board/notice/academicCalendar/em_acNoticeDetail";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("학사일정 상세보기 Ctrl b :::: " + b);
+				System.out.println("학사일정 상세보기 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+				
+				return "employee/board/notice/academicCalendar/em_acNoticeDetail";			
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+		
+	}
+	
+	@RequestMapping("em_showUpdateacNotice.bo")
+	public String emShowUpdateacNotice(int boardNo, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectacNoticeOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("학사일정 상세보기 Ctrl b :::: " + b);
+				
+				return "employee/board/notice/academicCalendar/em_acNoticeUpdate";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("학사일정 상세보기 Ctrl b :::: " + b);
+				System.out.println("학사일정 상세보기 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "employee/board/notice/academicCalendar/em_acNoticeUpdate";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="em_acNoticeUpdate.bo")
+	public String emacNoticeUpdate(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("학사일정 글 수정 b :::: " + b);
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("학사일정 글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updateacNoticewithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				
+				return "redirect:em_acNoticeList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updateacNotice(b);
+			
+			model.addAttribute("b", b);
+			
+			return "redirect:em_acNoticeList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
 }
+
 
 
 

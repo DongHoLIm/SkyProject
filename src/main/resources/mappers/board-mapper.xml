@@ -62,7 +62,7 @@
 		VALUES(SEQ_BOARDNO.CURRVAL, #{writeDept}, #{deadLine})
 	</insert>
 	
-	<update id="deletenNotice">
+	<update id="deleteNotice">
 		UPDATE BOARD SET STATUS = 'N' WHERE BOARD_NO = #{boardNo}
 	</update>
 	
@@ -143,5 +143,168 @@
 		JOIN SCHOLNOTICE N ON(B.BOARD_NO = N.BOARD_NO)
 		WHERE B.BOARD_NO = #{boardNo} AND B.STATUS = 'Y'
 	</select>
+	
+	<insert id="insertsNotice">
+		INSERT INTO BOARD
+		VALUES(SEQ_BOARDNO.NEXTVAL, #{memberId}, #{title}, #{content}, #{writer}, SYSDATE, 'Y', '장학공지', DEFAULT)
+	</insert>
+	
+	<insert id="insertscholNotice">
+		INSERT INTO SCHOLNOTICE
+		VALUES(SEQ_BOARDNO.CURRVAL, #{writeDept}, #{deadLine})
+	</insert>
+	
+	<update id="updatesNotice">
+		UPDATE BOARD 
+		SET TITLE = #{title}, CONTENT = #{content} 
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<update id="updateScholNotice">
+		UPDATE SCHOLNOTICE
+		SET DEADLINE = #{deadLine}
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<select id="SearchsNoticeResultCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN SCHOLNOTICE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.STATUS = 'Y' 
+		AND B.BOARD_TYPE = '장학공지'
+		<choose>
+			<when test="writer != null">
+				AND B.WRITER = #{writer}
+			</when>
+			<when test="title != null">
+				AND B.TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND N.WRITE_DEPT = #{writeDept}
+			</otherwise>
+		</choose>		
+	</select>
+	
+	<select id="SearchsNoticeResultList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN SCHOLNOTICE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.STATUS = 'Y'
+		AND B.BOARD_TYPE = '장학공지'
+		<choose>
+			<when test="writer != null">
+				AND B.WRITER = #{writer}
+			</when>
+			<when test="title != null">
+				AND B.TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND N.WRITE_DEPT = #{writeDept}
+			</otherwise>
+		</choose>
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<!-- 여기부터 학사일정 -->
+	<select id="selectacNoticeCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS='Y' AND BOARD_TYPE = '학사일정'
+	</select>
+	
+	<select id="selectacNoticeList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN SCHOOLSCHEDULE A ON(B.BOARD_NO = A.BOARD_NO)
+		WHERE B.STATUS = 'Y' AND B.BOARD_TYPE = '학사일정'
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<select id="SearchacNoticeResultCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN SCHOOLSCHEDULE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.STATUS = 'Y' 
+		AND B.BOARD_TYPE = '학사일정'
+		<choose>
+			<when test="writer != null">
+				AND B.WRITER = #{writer}
+			</when>
+			<when test="title != null">
+				AND B.TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND N.WRITE_DEPT = #{writeDept}
+			</otherwise>
+		</choose>		
+	</select>
+	
+	<select id="SearchacNoticeResultList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN SCHOOLSCHEDULE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.STATUS = 'Y'
+		AND B.BOARD_TYPE = '학사일정'
+		<choose>
+			<when test="writer != null">
+				AND B.WRITER = #{writer}
+			</when>
+			<when test="title != null">
+				AND B.TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND N.WRITE_DEPT = #{writeDept}
+			</otherwise>
+		</choose>
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<select id="selectacNoticeMonthCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN SCHOOLSCHEDULE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.STATUS = 'Y' 
+		AND B.BOARD_TYPE = '학사일정'
+		AND TO_CHAR(START_DATE, 'YYYY/MM') = #{month}
+	</select>
+	
+	<select id="selectacNoticeMonthList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN SCHOOLSCHEDULE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.STATUS = 'Y' 
+		AND B.BOARD_TYPE = '학사일정'
+		AND TO_CHAR(START_DATE, 'YYYY/MM') = #{month}
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<select id="selectacNoticeOne" resultMap="boardResultSet" parameterType="_int">
+		SELECT B.BOARD_NO, B.MEMBER_ID, B.TITLE, B.CONTENT, B.WRITER, B.ENROLL_DATE, B.STATUS, B.BOARD_TYPE, B.COUNT, N.WRITE_DEPT, N.DEADLINE, N.START_DATE, N.END_DATE
+		FROM BOARD B
+		JOIN EMPLOYEE E ON(B.MEMBER_ID = E.EMPLOYEE_NO)
+		JOIN E_DEPARTMENT D ON(E.EDEPT_CODE = D.EDEPT_CODE)
+		JOIN SCHOOLSCHEDULE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.BOARD_NO = #{boardNo} AND B.STATUS = 'Y'
+	</select>
+	
+	<update id="updateacNotice">
+		UPDATE BOARD 
+		SET TITLE = #{title}, CONTENT = #{content} 
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<update id="updateSchoolSchedule">
+		UPDATE SCHOOLSCHEDULE
+		SET DEADLINE = #{deadLine}, START_DATE = TO_DATE(#{startDate}, 'YY/MM/DD'), END_DATE = TO_DATE(#{endDate}, 'YY/MM/DD')
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
 	
 </mapper>

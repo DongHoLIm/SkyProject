@@ -45,7 +45,7 @@
 <script>	
 	$(function(){
 		$.ajax({
-			url:"em_sNoticeList.bo",
+			url:"pro_sNoticeList.bo",
 			type:"get",
 			success:function(data){
 				console.log("접속 성공!");
@@ -168,7 +168,7 @@
 				$(".sNoticeTitle").click(function(){
 					var boardNo = $(this).parent().children().eq(0).text();
 					
-					location.href="em_sNoticeDetail.bo?boardNo=" + boardNo;
+					location.href="pro_sNoticeDetail.bo?boardNo=" + boardNo;
 				});
 			}
 		});
@@ -178,7 +178,7 @@
 		var currentPage = curr;
 		
 		$.ajax({
-			url:"em_sNoticeList.bo",
+			url:"pro_sNoticeList.bo",
 			type:"get",
 			data:{currentPage:currentPage},
 			success:function(data){
@@ -301,7 +301,7 @@
 				$(".sNoticeTitle").click(function(){
 					var boardNo = $(this).parent().children().eq(0).text();
 					
-					location.href="em_sNoticeDetail.bo?boardNo=" + boardNo;
+					location.href="pro_sNoticeDetail.bo?boardNo=" + boardNo;
 				});
 			}
 		});
@@ -338,7 +338,6 @@
 				<div id="writeArea">
 					<div align="right" style="margin-bottom: 10px;">
 						<input type="hidden" name="memberId" value="${sessionScope.loginUser.memberId}">
-						<button id="writeBtn" onclick="insertsNotice()">글쓰기</button>
 					</div>
 				</div>
 			</c:if>
@@ -363,17 +362,10 @@
 			</div>
 		</div>
 		<div>
-			<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-professor.jsp" />
 		</div>
 	</div>
-	<script>
-		function insertsNotice(){
-			var memberId = $("input[name=memberId]").val();			
-			
-			location.href = "em_showInsertsNotice.bo?memberId=" + memberId;			
-			
-		}
-		
+	<script>		
 		function loadAjax2(curr){
 			var currentPage = curr;
 			var searchflag = $("input[name=searchflag]").val();	
@@ -381,7 +373,7 @@
 			var searchValue = $("input[name=searchValue]").val();	
 			
 			$.ajax({
-				url:"em_searchsNotice.bo",
+				url:"pro_searchsNotice.bo",
 				type:"GET",					
 				data:{
 					"currentPage":currentPage,
@@ -509,7 +501,7 @@
 					$(".sNoticeTitle").click(function(){
 						var boardNo = $(this).parent().children().eq(0).text();
 						
-						location.href="em_sNoticeDetail.bo?boardNo=" + boardNo;
+						location.href="pro_sNoticeDetail.bo?boardNo=" + boardNo;
 					});
 				}
 			});
@@ -521,7 +513,7 @@
 			var searchValue = $("input[name=searchValue]").val();				
 			
 				$.ajax({
-					url:"em_searchsNotice.bo",
+					url:"pro_searchsNotice.bo",
 					type:"GET",
 					data:{
 						"searchCondition":searchCondition,
@@ -649,7 +641,7 @@
 						$(".sNoticeTitle").click(function(){
 							var boardNo = $(this).parent().children().eq(0).text();
 							
-							location.href="em_sNoticeDetail.bo?boardNo=" + boardNo;
+							location.href="pro_sNoticeDetail.bo?boardNo=" + boardNo;
 						});
 					}
 				});			

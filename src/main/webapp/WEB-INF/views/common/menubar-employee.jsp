@@ -96,7 +96,7 @@
 												
 												<li><a href="em_nNoticeList.bo">일반 공지</a></li>
 												<li><a href="em_showsNoticeList.bo">장학 공지</a></li>
-												<li><a href="#">학사 일정</a></li>
+												<li><a href="em_acNoticeList.bo">학사 일정</a></li>
 												<li><a href="#">교내외 행사</a></li>
 												
 												<li><hr></li>
