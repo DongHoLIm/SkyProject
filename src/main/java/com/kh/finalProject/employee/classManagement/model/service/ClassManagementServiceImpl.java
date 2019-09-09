@@ -30,10 +30,10 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 		return cmd.selctSubjectList(sqlSession, pi);
 	}
 
+
 	@Override
 	public LectureOpen selectOneSubject(String subCode) {
-		
-		return cmd.selectOneSubject(sqlSession, subCode);
+		return cmd.seletOneSubject(sqlSession, subCode);
 	}
 
 }

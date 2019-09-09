@@ -21,7 +21,7 @@ public class ClassManagementController {
 	private ClassManagementService cms;
 
 	//강의개설등록
-	@RequestMapping("lectureOpen.ac")
+	@RequestMapping("lectureOpen.em")
 	public String selectSubject(HttpServletRequest request) {
 			
 		int currentPage = 1;
@@ -48,15 +48,19 @@ public class ClassManagementController {
 			return "common/errorAlert";
 		}
 	}
-	@RequestMapping(value="lectureRegistration.ac")
+	@RequestMapping(value="lectureRegistration.em")
 	public ModelAndView insertLecture(String subCode, ModelAndView mv) {
 		
 		LectureOpen lo = new LectureOpen();
 		
-		lo.setSubCode(subCode);
+		System.out.println("시작합니다");
 		lo = cms.selectOneSubject(subCode);
-		mv.addObject("LectureOpen", lo);
+		
+		System.out.println("다시돌아옴 !!" + lo);
+		mv.addObject("lo", lo);
 		mv.setViewName("jsonView");
+		System.out.println("mv::" + mv);
+		
 		return mv;
 	}
 }

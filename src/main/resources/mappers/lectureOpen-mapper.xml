@@ -12,6 +12,7 @@
 		<result property="completeType" column="COMPLETE_TYPE" />
 		<result property="subGrade" column="SUB_GRADE" />
 		<result property="madeDate" column="MADE_DATE" />
+		<result property="enrolType" column="ENROL_TYPE"/> 
 	</resultMap>
 	<!-- 교과목 수 조회 -->
 	<select id="selectListCount" resultType="_int">
@@ -27,9 +28,9 @@
 	</select>
 	
 	<select id="selectOneSubject" resultMap="LectureOpenResultSet">
-		SELECT SUB_CODE, SUB_NAME, SDEPT_NAME, COMPLETE_TYPE, SUB_GRADE, MADE_DATE
+		SELECT SUB_CODE, SUB_NAME, SDEPT_NAME, COMPLETE_TYPE, SUB_GRADE, TO_CHAR(TO_DATE(MADE_DATE), 'YY/MM/DD')
 		FROM SUBJECT S
 		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
-		WHERE SUB_CODE = #{ subCode }
+		WHERE SUB_CODE = #{subCode}
 	</select>
 </mapper>

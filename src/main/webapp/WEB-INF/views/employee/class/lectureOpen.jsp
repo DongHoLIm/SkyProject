@@ -78,7 +78,7 @@
 			   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 				</c:if>
 				<c:if test="${pi.currentPage > 1}">
-					<c:url var="blistBack" value="lectureOpen.em">
+					<c:url var="blistBack" value="lectureOpen.ac">
 						<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 					</c:url>
 					<li class="page-item"><a class="page-link" href="${blistBack}">이전</a></li>	
@@ -88,14 +88,14 @@
 					    <li class="page-item"><a class="page-link">${p}</a></li>					
 					</c:if>
 					<c:if test="${p ne pi.currentPage}">
-						<c:url var="blistCheck" value="lectureOpen.em">
+						<c:url var="blistCheck" value="lectureOpen.ac">
 							<c:param name="currentPage" value="${p}"/>
 						</c:url>
 						 <li class="page-item"><a class="page-link" href="${blistCheck}">${p}</a></li>
 					</c:if>
 				</c:forEach>
 				<c:if test="${pi.currentPage < pi.maxPage }">
-					<c:url var="blistEnd" value="lectureOpen.em">
+					<c:url var="blistEnd" value="lectureOpen.ac">
 						<c:param name="currentPage" value="${pi.currentPage + 1}"/>
 					</c:url>
 			    	<li class="page-item"><a class="page-link" href="${blistEnd}">다음</a></li>				
@@ -117,11 +117,12 @@
 			console.log(subCode);
 			
 			$.ajax({
-				url:"lectureRegistration.ac",
+				url:"lectureRegistration.em",
 				type:"post",
 				data:{subCode:subCode},
 				success:function(data){
-					console.log(data);
+					href=""
+					
 				},
 				error:function(err){
 					console.log("실패!");
