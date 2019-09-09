@@ -123,7 +123,7 @@ address {
           			<td><a class="button primary small" onclick="checkUser();">인증확인</a></td>
           		</tr>
           		<tr>          		
-          				<td colspan="2" align="center"><input type="button" class="primary" value="로그인페이지로이동" onclick="returnLogin();" id="findIdBtn"/></td>	
+          			<td colspan="2" align="center"><input type="button" class="primary" value="로그인페이지로이동" onclick="returnLogin();" id="findIdBtn"/></td>	
           			<td colspan="2" align="center"><input type="button" class="primary" value="아이디(학번/교번/직원번호) 찾기" onclick="submitBtn();" id="findIdBtn"/></td>
           		</tr>
           	</table>           

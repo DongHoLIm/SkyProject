@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -196,18 +197,6 @@ public class MemberController {
 			
 		}
 	}
-//	@RequestMapping(value="insertMember.me")
-//	public String insertMember(@RequestParam(value="listmember", required=true) List<String> values) {
-//		
-//		
-//		for(int i =0;i<values.size();i++) {
-//			System.out.println("[start]" + values.get(i) + "[end]");
-//		}
-//		ms.insertMember(values);
-//		
-//		
-//		return "employee/systemAccountManagement/createSystemAccount";
-//	}
 	@RequestMapping(value="insertMember.me")
 	public ModelAndView insertMember(ModelAndView mv,String resultStr,Model model) {
 		System.out.println(resultStr);
@@ -344,22 +333,68 @@ public class MemberController {
 	@RequestMapping("findIdResult.me")
 	public String findIdResult(Member findId,HttpServletRequest request) {
 		Member findMemberId = null;
+		int status = 0;
 		try {
-			System.out.println(findId);
 			findMemberId = ms.findIdResult(findId);				
 			mailController mc = new mailController();
-			int result = mc.sendEmail(findMemberId, request);
+			int result = mc.sendEmail(findMemberId, request,status);
 			System.out.println(result);
 			if(result == 1) {
 				request.setAttribute("msg","이메일전송되었습니다.");				
 			}else {
 				request.setAttribute("msg","메일 발송에 실패했습니다.");				
 			}			
-		}catch(Exception e) {
-			e.printStackTrace();
+		}catch(Exception e) {			
 			request.setAttribute("msg","해당아이디가 없습니다.");					
 		}
 		return "common/errorAlert";
 		
+	}
+	@RequestMapping("findPwd.me")
+	public String findPwdResult (Member findPwd,HttpServletRequest request) {
+		Member findMemberPwd = null;
+		int status = 1;
+		StringBuffer temp = new StringBuffer();
+		Random rnd = new Random();
+		for (int i = 0; i < 8; i++) {
+		    int rIndex = rnd.nextInt(3);
+		    switch (rIndex) {
+		    case 0:
+		        // a-z
+		        temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+		        break;
+		    case 1:
+		        // A-Z
+		        temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+		        break;
+		    case 2:
+		        // 0-9
+		        temp.append((rnd.nextInt(10)));
+		        break;
+		    }
+		}
+		String password = temp.toString() ;
+		try {
+			findMemberPwd = ms.findPwd(findPwd);
+			findMemberPwd.setMemberPwd(password);
+			int result1 = ms.changeNewpassword(findMemberPwd);
+			if(result1>0) {
+				mailController mc= new mailController();
+				int result = mc.sendEmail(findMemberPwd,request,status);
+				if(result == 1) {
+					request.setAttribute("msg", "새로운 비밀번호가 이메일로 전송되었습니다.");
+				}else {
+					request.setAttribute("msg", "이메일 전송에 실패 했습니다.");
+				}
+			}
+		}catch(Exception e) {
+			request.setAttribute("msg","해당 아이디가 없습니다.");
+		}
+		return "common/errorAlert";
+	}
+	@RequestMapping("account.me")
+	public String accountMember () {
+		
+		return "employee/systemAccountManagement/systemAccount";
 	}
 }

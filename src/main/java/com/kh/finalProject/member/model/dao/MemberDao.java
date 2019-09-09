@@ -23,4 +23,8 @@ public interface MemberDao {
 
 	Member findIdResult(SqlSessionTemplate sqlSession, Member findId);
 
+	Member findPwdResult(SqlSessionTemplate sqlSession, Member findPwd);
+
+	int changeNewPassword(SqlSessionTemplate sqlSession, Member findMemberPwd);
+
 }

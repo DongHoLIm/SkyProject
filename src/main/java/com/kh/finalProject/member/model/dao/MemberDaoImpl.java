@@ -60,5 +60,15 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("Member.memberFindId", findId);
 	}
+	@Override
+	public Member findPwdResult(SqlSessionTemplate sqlSession, Member findPwd) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.memberFidPwd",findPwd);
+	}
+	@Override
+	public int changeNewPassword(SqlSessionTemplate sqlSession, Member findMemberPwd) {
+		
+		return sqlSession.update("Member.memberchangeNewPassword", findMemberPwd);
+	}
 	
 }

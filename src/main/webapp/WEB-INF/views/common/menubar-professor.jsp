@@ -35,7 +35,7 @@
 											<span class="opener">공통관리</span>
 											<ul>
 												<li><h4>문자보내기</h4></li>
-												<li><a href="#">SMS 보내기</a></li>
+												<li><a href="sendSMS.pro">SMS 보내기</a></li>
 												<li><a href="#">SMS 전송내역 조회</a></li>
 												<li><h4>학사 일정 신청</h4></li>
 												<li><a href="#">학사 일정 신청</a></li>
