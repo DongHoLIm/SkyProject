@@ -13,8 +13,8 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.employee.classManagement.model.service.ClassManagementService;
+import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
-import com.kh.finalProject.professor.model.vo.Professor;
 
 @Controller
 public class ClassManagementController {
@@ -60,7 +60,7 @@ public class ClassManagementController {
 		System.out.println("다시돌아옴 !!" + lo);
 
 		System.out.println(lo.getSdeptName());
-		ArrayList<Professor> pf = cms.selectProfessorList(lo.getSdeptName());
+		ArrayList<DepartmentProfessor> pf = cms.selectProfessorList(lo.getSdeptName());
 
 		System.out.println("pf다시옴!!" + pf);
 
