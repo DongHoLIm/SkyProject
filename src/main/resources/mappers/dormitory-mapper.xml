@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Dormitory">
+	<resultMap type="com.kh.finalProject.dormitory.model.vo.Dormitory" id="dormitoryResultSet">
+		<id property="applyCode" column="APPLY_CODE"/>
+		
+		<result property="year" column="YEAR"/>
+		<result property="semester" column="SEMESTER"/>
+		<result property="status" column="STATUS"/>
+		<result property="studentNo" column="STUDENT_NO"/>
+	</resultMap>
+	
+	<select id="DormitoryCheck" resultMap="dormitoryResultSet" parameterType="String">
+		SELECT *
+		FROM DORM_APPLY
+		WHERE STUDENT_NO = #{studentNo}
+	</select>
+</mapper>
