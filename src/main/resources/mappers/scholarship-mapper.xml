@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Scholarship">
+	<resultMap type="com.kh.finalProject.scholarship.model.vo.Scholarship" id="scholarshipResultSet">
+		<id property="schoSemester" column="SCHO_SEMESTER"/>
+		<id property="studentNo" column="STUDENT_NO"/>
+		
+		<result property="tuition" column="TUITION"/>
+		<result property="schoType" column="SCHO_TYPE"/>
+	</resultMap>
+	
+	<select id="ScholarshipCheck" resultMap="scholarshipResultSet" parameterType="String">
+		SELECT *
+		FROM SCHOLARSHIP
+		WHERE STUDENT_NO = #{studentNo}
+	</select>
+</mapper>

@@ -14,7 +14,7 @@ public class EnrollmentDaoImpl implements EnrollmentDao{
 
 
 	@Override
-	public ArrayList<Enrollment> userEnrollment(SqlSessionTemplate sqlSession, String studentNo) {
+	public ArrayList<Enrollment> userEnrollment(SqlSessionTemplate sqlSession, String studentNo) throws EnrollmentException {
 		
 //		ArrayList<Enrollment> memberEnrollment = sqlSession.selectOne("Enrollment.EnrollmentCheck",studentNo);
 //		
@@ -27,7 +27,8 @@ public class EnrollmentDaoImpl implements EnrollmentDao{
 		memberEnrollment = (ArrayList) sqlSession.selectList("Enrollment.EnrollmentCheck", studentNo);
 		
 		if(memberEnrollment == null) {
-			sqlSession.close();
+			
+			throw new EnrollmentException("정보가 존재하지 않습니다.");
 		}
 		
 		return memberEnrollment;
