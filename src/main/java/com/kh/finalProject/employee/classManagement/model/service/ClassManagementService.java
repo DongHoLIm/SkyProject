@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
+import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
-import com.kh.finalProject.professor.model.vo.Professor;
 
 public interface ClassManagementService {
 
@@ -15,6 +15,6 @@ public interface ClassManagementService {
 
 	LectureOpen selectOneSubject(String subCode);
 
-	ArrayList<Professor> selectProfessorList(String sdeptName);
+	ArrayList<DepartmentProfessor> selectProfessorList(String sdeptName);
 
 }
