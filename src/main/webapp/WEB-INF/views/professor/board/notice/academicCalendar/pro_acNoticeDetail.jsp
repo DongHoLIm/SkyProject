@@ -82,33 +82,17 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6"><button onclick="em_acNoticeList()">목록으로</button>
+					<td colspan="6"><button onclick="pro_acNoticeList()">목록으로</button>
 				</tr>
 			</table>
 		</div>
 		<div>
-		<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
+		<jsp:include page="/WEB-INF/views/common/menubar-professor.jsp" />
 	</div>
 	<script>
-		function em_acNoticeList(){
-			location.href="em_acNoticeList.bo";
-		}
-		
-		function deleteBoard() {
-			var boardNo = ${b.boardNo};
-			
-			alert("게시글을 삭제하시겠습니까?");
-			
-			location.href="em_deleteacNotice.bo?boardNo="+boardNo;
-		}
-		
-		function updateBoard(){
-			var boardNo = ${b.boardNo};			
-			
-			location.href="em_showUpdateacNotice.bo?boardNo="+boardNo;
-		}
-		
-		
+		function pro_acNoticeList(){
+			location.href="pro_acNoticeList.bo";
+		}		
 	</script>
 </div>
 </body>
