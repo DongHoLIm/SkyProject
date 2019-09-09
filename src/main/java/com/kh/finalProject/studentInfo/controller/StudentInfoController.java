@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.common.Pagination;
@@ -76,9 +77,60 @@ public class StudentInfoController {
 		} catch (StudentInfoSelectListException e) {
 			request.setAttribute("msg",e.getMessage());
 			
-			return "common/errorAlert";
+			return "common/errorPage";
+		}
+		
+	}
+	
+	//교직원_학생 전체조회 (ajax페이징)
+	@RequestMapping(value="em_studentListNext.si",produces="application/json;charset=utf8")
+	public ModelAndView studentListNext(ModelAndView mv, HttpServletRequest request) {
+		
+		System.out.println("requestCurrentPage::" + request.getParameter("currentPage"));
+		
+		int currentPage=1;
+		int listCount=0;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			listCount = ss.getListCount();
+			
+			System.out.println("listCount::" + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+			
+			ArrayList<StudentInfo> list = ss.selectStudentList(pi);
+			
+			System.out.println("list ::" + list);
+			System.out.println("pi ::" + pi);
+			
+			mv.addObject("list",list);
+			mv.addObject("pi",pi);
+			
+			mv.setViewName("jsonView");
+			
+			return mv;
+			
+		} catch (StudentInfoSelectListException e) {
+			mv.addObject("msg",e.getMessage());
+			
+			mv.setViewName("common/errorPage");
+			
+			return mv;
 		}
 		
 	}
 
 }
+
+
+
+
+
+
+
+
+

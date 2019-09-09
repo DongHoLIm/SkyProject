@@ -14,7 +14,8 @@
   		<result property="email" column="EMAIL"/>
   		<result property="address" column="ADDRESS"/>
   		<result property="studentStatus" column="STUDENT_STATUS"/>
-  		<result property="sdeptCode" column="SDEPT_CODE"/>
+  		<result property="college" column="COLLEGE_NAME"/>
+  		<result property="sdeptName" column="SDEPT_NAME"/> 
   		<result property="grade" column="GRADE"/>
   		<result property="enrolType" column="ENROL_TYPE"/>
   		<result property="enrolDate" column="ENROL_DATE"/>
@@ -28,6 +29,7 @@
   		<result property="graduatedNo" column="GRADUATED_NO"/>
   		<result property="bank" column="BANK"/>
   		<result property="accountNo" column="ACCOUNT_NO"/>
+  		
   	</resultMap>
   	
   	<!-- 학적조회/기본정보 -->
