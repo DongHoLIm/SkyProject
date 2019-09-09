@@ -51,7 +51,7 @@
 											<span class="opener">학적관리</span>
 											<ul>
 												<li><h4>학생관리</h4></li>
-												<li><a href="#">학생 전체 성적조회</a></li>
+												<li><a href="em_studentInfoList.si">학생 전체 성적조회</a></li>
 												<li><a href="#">학사경고 관리</a></li>
 												<li><a href="#">자퇴처리</a></li>
 												<li><a href="#">제적처리</a></li>
