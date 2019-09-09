@@ -34,7 +34,7 @@
 										<li>
 											<span class="opener">학적관리</span>
 											<ul>
-												<li><a href="studentInfo.st">학적정보 조회</a></li>
+												<li><a href="st_studentInfo.si">학적정보 조회</a></li>
 												<li><a href="#">신상 관리</a></li>
 												<li><a href="#">학적 변동 조회</a></li>
 												<li><a href="#">복수(부)전공 신청</a></li>

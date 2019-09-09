@@ -1,64 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div id="wrapper">
+	<div id="wrapper">
 		<div id="main">
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			</div>
 			<!-- 입력 라인  -->
 			<br>
-			
-			
+
+
 
 			<div class="container">
-				<h2>학생전체 조회</h2>
+				<h2>학생전체조회</h2>
 				
-				<input class="form-control" id="myInput" type="text"
-					placeholder="Search.."> <br>
-				<table class="table table-bordered table-striped">
+				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>단과대학</th>
-							<th>학과</th>
-							<th>학년</th>
-							<th>학번</th>
-							<th>이름</th>
-							<th>학적상태</th>
+							<th>Firstname</th>
+							<th>Lastname</th>
+							<th>Email</th>
 						</tr>
 					</thead>
-					<tbody id="myTable">
+					<tbody>
 						<tr>
-							<td>공과대학</td>
-							<td>컴퓨터공학과</td>
-							<td>1</td>
-							<td>201901303</td>
-							<td>홍길동</td>
-							<td>재학</td>
+							<td>John</td>
+							<td>Doe</td>
+							<td>john@example.com</td>
 						</tr>
 						<tr>
-							<td>공과대학</td>
-							<td>컴퓨터공학과</td>
-							<td>3</td>
-							<td>201401303</td>
-							<td>채지은</td>
-							<td>휴학</td>
+							<td>Mary</td>
+							<td>Moe</td>
+							<td>mary@example.com</td>
 						</tr>
-						
+						<tr>
+							<td>July</td>
+							<td>Dooley</td>
+							<td>july@example.com</td>
+						</tr>
 					</tbody>
 				</table>
-
-				
 			</div>
 
 			<script>
@@ -71,15 +65,15 @@
   					});
 				});
 			</script>
-			
-			
-			
-						
+
+
+
+
 		</div>
 		<div>
-		<jsp:include page="../../common/menubar-student.jsp" />
+			<jsp:include page="../../common/menubar-student.jsp" />
+		</div>
 	</div>
-</div>
 
 </body>
 </html>
