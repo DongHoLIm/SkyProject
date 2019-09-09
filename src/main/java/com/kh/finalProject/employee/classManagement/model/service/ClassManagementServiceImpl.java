@@ -10,6 +10,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.employee.classManagement.model.dao.ClassManagementDao;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
+import com.kh.finalProject.professor.model.vo.Professor;
 
 @Service
 public class ClassManagementServiceImpl implements ClassManagementService{
@@ -34,6 +35,11 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 	@Override
 	public LectureOpen selectOneSubject(String subCode) {
 		return cmd.seletOneSubject(sqlSession, subCode);
+	}
+
+	@Override
+	public ArrayList<Professor> selectProfessorList(String sdeptName) {
+		return cmd.selectProfessorList(sqlSession, sdeptName);
 	}
 
 }

@@ -10,6 +10,7 @@
 		<typeAlias type="com.kh.finalProject.board.model.vo.UploadFile" alias="UploadFile"/>
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.StudentInfo" alias="StudentInfo"/>
 		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.LectureOpen" alias="LectureOpen"/>
+		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor" alias="DepartmentProfessor"/>
 		<typeAlias type="com.kh.finalProject.enrollment.model.vo.Enrollment" alias="Enrollment"/>
 		<typeAlias type="com.kh.finalProject.scholarship.model.vo.Scholarship" alias="Scholarship"/>
 	</typeAliases>
@@ -21,6 +22,7 @@
 		<mapper resource="mappers/file-mapper.xml"/>
 		<mapper resource="mappers/studentInfo-mapper.xml"/>
 		<mapper resource="mappers/lectureOpen-mapper.xml"/>
+		<mapper resource="mappers/lectureprofessor-mapper.xml"/>
 		<mapper resource="mappers/enrollment-mapper.xml"/>
 		<mapper resource="mappers/scholarship-mapper.xml"/>
 	</mappers>
