@@ -22,4 +22,8 @@ public interface MemberService {
 	int insertEmployeeInfo(Member insertMember);
 
 	Member findIdResult(Member findId);
+
+	Member findPwd(Member findPwd);
+
+	int changeNewpassword(Member findMemberPwd);
 }

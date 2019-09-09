@@ -65,6 +65,16 @@ public class MemberServiceImpl implements MemberService{
 		
 		return md.findIdResult(sqlSession,findId);
 	}
+	@Override
+	public Member findPwd(Member findPwd) {
+		// TODO Auto-generated method stub
+		return md.findPwdResult(sqlSession,findPwd);
+	}
+	@Override
+	public int changeNewpassword(Member findMemberPwd) {
+		// TODO Auto-generated method stub
+		return md.changeNewPassword(sqlSession,findMemberPwd);
+	}
 
 	
 }

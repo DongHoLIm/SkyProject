@@ -61,4 +61,14 @@
 		AND MEMBER_CHECK = #{memberStatus}
 		AND MEMBER_KNAME = #{memberKName}
 	</select>
+	<select id ="memberFidPwd" resultMap="memberResultSet" parameterType="Member">
+		SELECT * FROM
+		MEMBER 
+		WHERE MEMBER_ID =#{memberId}
+		AND MEMBER_CHECK=#{memberStatus}	
+	</select>
+	<update id="memberchangeNewPassword" parameterType="Member">
+		UPDATE MEMBER SET MEMBER_PWD=#{memberPwd}
+		WHERE MEMBER_ID =#{memberId}
+	</update>
 </mapper>
