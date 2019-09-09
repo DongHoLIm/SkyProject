@@ -67,7 +67,7 @@ public class BoardServiceImpl implements BoardService{
 			
 			bd.insertNormalNotice(sqlSession, b);			
 			
-			bd.insertnNoticeFile(sqlSession, uf);
+			bd.insertNoticeFile(sqlSession, uf);
 		}
 		 
 		return result;
@@ -85,9 +85,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int deletenNotice(String boardNo) throws BoardDeleteException{
+	public int deleteNotice(String boardNo) throws BoardDeleteException{
 		
-		return bd.deletenNotice(sqlSession, boardNo);
+		return bd.deleteNotice(sqlSession, boardNo);
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class BoardServiceImpl implements BoardService{
 		
 		if(result > 0) {
 			bd.updateNormalNotice(sqlSession, b);
-			System.out.println("파일수정");
+			
 			bd.updatenNoticeFile(sqlSession, uf);
 		}
 		return result;
@@ -140,6 +140,124 @@ public class BoardServiceImpl implements BoardService{
 		bd.updateCount(sqlSession, boardNo);
 		
 		return bd.selectsNoticeOne(sqlSession, boardNo);
+	}
+
+	@Override
+	public int insertsNoticewithFile(Board b, UploadFile uf) throws BoardInsertException{				
+		 
+		int result = bd.insertsNotice(sqlSession, b);
+		
+		if(result > 0) {			
+			
+			bd.insertscholNotice(sqlSession, b);			
+			
+			bd.insertNoticeFile(sqlSession, uf);
+		}
+		 
+		return result;
+	}
+
+	@Override
+	public int insertsNotice(Board b) throws BoardInsertException{
+		int result = bd.insertsNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.insertscholNotice(sqlSession, b);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int updatesNoticewithFile(Board b, UploadFile uf) throws BoardUpdateException {
+		int result = bd.updatesNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.updateScholNotice(sqlSession, b);
+			
+			bd.updatesNoticeFile(sqlSession, uf);
+		}
+		return result;
+	}
+
+	@Override
+	public int updatesNotice(Board b) throws BoardUpdateException {
+		int result = bd.updatesNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.updateScholNotice(sqlSession, b);
+		}
+		return result;
+	}
+
+	@Override
+	public int SearchsNoticeResultCount(SearchCondition sc) throws BoardSearchException {
+		return bd.SearchsNoticeResultCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Board> SearchsNoticeResultList(SearchCondition sc, PageInfo pi) throws BoardSearchException {
+		return bd.SearchsNoticeResultList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public int selectacNoticeCount() {
+		return bd.selectacNoticeCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectacNoticeList(PageInfo pi) throws BoardSelectListException {
+		return  bd.selectacNoticeList(sqlSession, pi);
+	}
+
+	@Override
+	public int SearchacNoticeResultCount(SearchCondition sc) throws BoardSearchException {
+		return bd.SearchacNoticeResultCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Board> SearchacNoticeResultList(SearchCondition sc, PageInfo pi) throws BoardSearchException {
+		return bd.SearchacNoticeResultList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public int selectacNoticeMonthCount(String month) {
+		return bd.selectacNoticeMonthCount(sqlSession, month);
+	}
+
+	@Override
+	public ArrayList<Board> selectacNoticeMonthList(PageInfo pi, String month) {
+		return bd.selectacNoticeMonthList(sqlSession, month, pi);
+	}
+
+	@Override
+	public Board selectacNoticeOne(int boardNo) throws BoardSelectOneException {
+		
+			bd.updateCount(sqlSession, boardNo);
+		
+		return bd.selectacNoticeOne(sqlSession, boardNo);
+	}
+
+	@Override
+	public int updateacNoticewithFile(Board b, UploadFile uf) throws BoardUpdateException {
+		int result = bd.updateacNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.updateSchoolSchedule(sqlSession, b);
+			
+			bd.updateacNoticeFile(sqlSession, uf);
+		}
+		return result;
+	}
+
+	@Override
+	public int updateacNotice(Board b) throws BoardUpdateException {
+		int result = bd.updateacNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.updateSchoolSchedule(sqlSession, b);
+		}
+		return result;
 	}
 
 

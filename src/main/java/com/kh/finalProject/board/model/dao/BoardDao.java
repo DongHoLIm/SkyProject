@@ -25,13 +25,13 @@ public interface BoardDao {
 
 	int insertnNotice(SqlSessionTemplate sqlSession, Board b);
 
-	int insertnNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf);
+	int insertNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf);
 
 	int insertNormalNotice(SqlSessionTemplate sqlSession, Board b);
 
 	UploadFile selectUploadFile(SqlSessionTemplate sqlSession, int boardNo);
 
-	int deletenNotice(SqlSessionTemplate sqlSession, String boardNo);
+	int deleteNotice(SqlSessionTemplate sqlSession, String boardNo);
 
 	int getSearchResultListCount(SqlSessionTemplate sqlSession, SearchCondition sc);
 
@@ -48,6 +48,41 @@ public interface BoardDao {
 	ArrayList<Board> selectsNoticeList(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	Board selectsNoticeOne(SqlSessionTemplate sqlSession, int boardNo);
+
+	int insertsNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int insertscholNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int updatesNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int updateScholNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int updatesNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
+	int SearchsNoticeResultCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<Board> SearchsNoticeResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);
+
+	int selectacNoticeCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Board> selectacNoticeList(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int SearchacNoticeResultCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<Board> SearchacNoticeResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);
+
+	int selectacNoticeMonthCount(SqlSessionTemplate sqlSession, String month);
+
+	ArrayList<Board> selectacNoticeMonthList(SqlSessionTemplate sqlSession, String month, PageInfo pi);
+
+	Board selectacNoticeOne(SqlSessionTemplate sqlSession, int boardNo);
+
+	int updateacNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int updateSchoolSchedule(SqlSessionTemplate sqlSession, Board b);
+
+	int updateacNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
 
 
 	

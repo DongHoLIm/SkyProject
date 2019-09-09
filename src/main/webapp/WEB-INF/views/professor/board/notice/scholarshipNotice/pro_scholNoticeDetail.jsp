@@ -69,41 +69,18 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6"><button onclick="em_sNoticeList()">목록으로</button>
+					<td colspan="6"><button onclick="pro_sNoticeList()">목록으로</button>
 				</tr>
 			</table>
 		</div>
 		<div>
-		<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
+		<jsp:include page="/WEB-INF/views/common/menubar-professor.jsp" />
 	</div>
 	<script>
-		function em_sNoticeList(){		
+		function pro_sNoticeList(){		
 			
-			location.href="em_showsNoticeList.bo";
-		}
-		
-		function deleteBoard() {
-			var boardNo = ${b.boardNo};
-			
-			alert("게시글을 삭제하시겠습니까?");
-			
-			location.href="em_deletesNotice.bo?boardNo="+boardNo;
-		}
-		
-		function updateBoard(){
-			var boardNo = ${b.boardNo};
-			
-			location.href="em_showUpdatesNotice.bo?boardNo="+boardNo;
-		}
-		
-		$(function(){
-			var width = $("img").width();
-			var height = $("img").height();
-			
-			console.log(width);
-			console.log(height);
-		});
-		
+			location.href="pro_showsNoticeList.bo";
+		}		
 	</script>
 </div>
 </body>

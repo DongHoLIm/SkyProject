@@ -8,8 +8,24 @@ public class PageInfo implements java.io.Serializable{
 	private int startPage;
 	private int endPage;
 	private boolean searchflag;
+	private boolean monthflag;
 	
 	public PageInfo() {}
+
+	public PageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage,
+			boolean searchflag, boolean monthflag) {
+		super();
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		this.limit = limit;
+		this.maxPage = maxPage;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.searchflag = searchflag;
+		this.monthflag = monthflag;
+	}
+	
+	
 
 	public PageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage,
 			boolean searchflag) {
@@ -22,9 +38,8 @@ public class PageInfo implements java.io.Serializable{
 		this.endPage = endPage;
 		this.searchflag = searchflag;
 	}
-	
-	
 
+	
 	public PageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage) {
 		super();
 		this.currentPage = currentPage;
@@ -83,7 +98,7 @@ public class PageInfo implements java.io.Serializable{
 		this.endPage = endPage;
 	}
 
-	public boolean getSearchflag() {
+	public boolean isSearchflag() {
 		return searchflag;
 	}
 
@@ -91,11 +106,22 @@ public class PageInfo implements java.io.Serializable{
 		this.searchflag = searchflag;
 	}
 
+	public boolean isMonthflag() {
+		return monthflag;
+	}
+
+	public void setMonthflag(boolean monthflag) {
+		this.monthflag = monthflag;
+	}
+
 	@Override
 	public String toString() {
 		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit + ", maxPage="
-				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", searchflag=" + searchflag + "]";
+				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", searchflag=" + searchflag
+				+ ", monthflag=" + monthflag + "]";
 	}
+	
+	
 
 	
 }
