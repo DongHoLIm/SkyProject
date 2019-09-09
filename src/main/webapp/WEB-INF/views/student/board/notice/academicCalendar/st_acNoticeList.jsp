@@ -57,7 +57,7 @@
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
 			
-			<form action="em_searchacNotice.bo" method="get">
+			<form action="st_searchacNotice.bo" method="get">
 				<input type="hidden" name="searchflag" id="searchflag" value="true">
 				<table style="width: 88.5%; text-align: center; margin: 0 auto;">
 					<tr>
@@ -150,7 +150,7 @@
 				   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 					</c:if>
 					<c:if test="${pi.currentPage > 1}">
-						<c:url var="blistBack" value="em_acNoticeList.bo">
+						<c:url var="blistBack" value="st_acNoticeList.bo">
 							<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 						</c:url>
 						<li class="page-item"><a class="page-link" href="${blistBack}">이전</a></li>	
@@ -160,14 +160,14 @@
 						    <li class="page-item"><a class="page-link">${p}</a></li>					
 						</c:if>
 						<c:if test="${p ne pi.currentPage}">
-							<c:url var="blistCheck" value="em_acNoticeList.bo">
+							<c:url var="blistCheck" value="st_acNoticeList.bo">
 								<c:param name="currentPage" value="${p}"/>
 							</c:url>
 							 <li class="page-item"><a class="page-link" href="${blistCheck}">${p}</a></li>
 						</c:if>
 					</c:forEach>
 					<c:if test="${pi.currentPage < pi.maxPage }">
-						<c:url var="blistEnd" value="em_acNoticeList.bo">
+						<c:url var="blistEnd" value="st_acNoticeList.bo">
 							<c:param name="currentPage" value="${pi.currentPage + 1}"/>
 						</c:url>
 				    	<li class="page-item"><a class="page-link" href="${blistEnd}">다음</a></li>				
@@ -224,7 +224,7 @@
 				   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 					</c:if>
 					<c:if test="${pi.currentPage > 1}">
-						<c:url var="blistBack" value="em_searchacNotice.bo">
+						<c:url var="blistBack" value="st_searchacNotice.bo">
 							<c:param name="searchCondition" value="${searchCondition}"/>																					
 							<c:param name="searchValue" value="${searchValue}"/>
 							<c:param name="currentPage" value="${pi.currentPage - 1}"/>
@@ -237,7 +237,7 @@
 						    <li class="page-item"><a class="page-link">${p}</a></li>					
 						</c:if>
 						<c:if test="${p ne pi.currentPage}">
-							<c:url var="blistCheck" value="em_searchacNotice.bo">
+							<c:url var="blistCheck" value="st_searchacNotice.bo">
 								<c:param name="searchCondition" value="${searchCondition}"/>													
 								<c:param name="searchValue" value="${searchValue}"/>
 								<c:param name="currentPage" value="${p}"/>	
@@ -247,7 +247,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${pi.currentPage < pi.maxPage }">
-						<c:url var="blistEnd" value="em_searchacNotice.bo">
+						<c:url var="blistEnd" value="st_searchacNotice.bo">
 							<c:param name="searchCondition" value="${searchCondition}"/>														
 							<c:param name="searchValue" value="${searchValue}"/>
 							<c:param name="currentPage" value="${pi.currentPage + 1}"/>
@@ -307,7 +307,7 @@
 				   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 					</c:if>
 					<c:if test="${pi.currentPage > 1}">
-						<c:url var="blistBack" value="em_acNoticeSearchMonth.bo">
+						<c:url var="blistBack" value="st_acNoticeSearchMonth.bo">
 							<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 							<c:param name="month" value="${month}"/>
 							<c:param name="monthflag" value="${pi.monthflag}"/>
@@ -319,7 +319,7 @@
 						    <li class="page-item"><a class="page-link">${p}</a></li>					
 						</c:if>
 						<c:if test="${p ne pi.currentPage}">
-							<c:url var="blistCheck" value="em_acNoticeSearchMonth.bo">
+							<c:url var="blistCheck" value="st_acNoticeSearchMonth.bo">
 								<c:param name="currentPage" value="${p}"/>
 								<c:param name="month" value="${month}"/>
 								<c:param name="monthflag" value="${pi.monthflag}"/>
@@ -328,7 +328,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${pi.currentPage < pi.maxPage }">
-						<c:url var="blistEnd" value="em_acNoticeSearchMonth.bo">
+						<c:url var="blistEnd" value="st_acNoticeSearchMonth.bo">
 							<c:param name="currentPage" value="${pi.currentPage + 1}"/>
 							<c:param name="month" value="${month}"/>
 							<c:param name="monthflag" value="${pi.monthflag}"/>
@@ -343,7 +343,7 @@
 			</c:if>
 		</div>
 		<div>
-			<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
 		</div>
 	</div>
 	<script>
@@ -370,14 +370,14 @@
 		});
 		
 		function searchAllDate(){
-			location.href="em_acNoticeList.bo";
+			location.href="st_acNoticeList.bo";
 		}
 		
 		function searchMonth(){
 			var month = $("#mSearch").val();
 			var monthflag = $("#monthflag").val();
 			
-			location.href="em_acNoticeSearchMonth.bo?month=" + month + "&monthflag=" + monthflag;
+			location.href="st_acNoticeSearchMonth.bo?month=" + month + "&monthflag=" + monthflag;
 		}
 		
 		$(function(){
@@ -386,15 +386,10 @@
 				
 				console.log(boardNo);
 				
-				location.href = "em_acNoticeDetail.bo?boardNo=" + boardNo;				
+				location.href = "st_acNoticeDetail.bo?boardNo=" + boardNo;				
 			 });
 		});
 		
-		function insertacNotice(){
-			var memberId = $("input[name=memberId]").val();			
-			
-			location.href = "em_showInsertacNotice.bo?memberId=" + memberId;
-		}
 		
 	</script>
 </body>

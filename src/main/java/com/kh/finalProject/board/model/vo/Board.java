@@ -13,14 +13,14 @@ public class Board implements java.io.Serializable{
 	private String boardType;
 	private String writeDept;
 	private String deadLine;
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	private int count;
 	
 	public Board() {}
 
 	public Board(int boardNo, String memberId, String title, String content, String writer, String enrollDate,
-			String status, String boardType, String writeDept, String deadLine, Date startDate, Date endDate,
+			String status, String boardType, String writeDept, String deadLine, String startDate, String endDate,
 			int count) {
 		super();
 		this.boardNo = boardNo;
@@ -118,19 +118,19 @@ public class Board implements java.io.Serializable{
 		this.deadLine = deadLine;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

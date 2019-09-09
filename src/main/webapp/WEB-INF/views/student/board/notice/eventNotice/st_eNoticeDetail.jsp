@@ -51,7 +51,7 @@
 					
 				</tr>
 				<tr>
-					<th style="text-align: center;">시작일시</th>
+					<th style="text-align: center;">행사일자</th>
 					<td>
 						<fmt:parseDate value="${b.startDate}" var="startDate" pattern="yyyy-MM-dd"/>
 						<fmt:formatDate value="${startDate}" pattern="yyyy/MM/dd"/>
@@ -82,33 +82,17 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6"><button onclick="em_acNoticeList()">목록으로</button>
+					<td colspan="6"><button onclick="st_eNoticeList()">목록으로</button>
 				</tr>
 			</table>
 		</div>
 		<div>
-		<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
+		<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
 	</div>
 	<script>
-		function em_acNoticeList(){
-			location.href="em_acNoticeList.bo";
-		}
-		
-		function deleteBoard() {
-			var boardNo = ${b.boardNo};
-			
-			alert("게시글을 삭제하시겠습니까?");
-			
-			location.href="em_deleteacNotice.bo?boardNo="+boardNo;
-		}
-		
-		function updateBoard(){
-			var boardNo = ${b.boardNo};			
-			
-			location.href="em_showUpdateacNotice.bo?boardNo="+boardNo;
-		}
-		
-		
+		function st_eNoticeList(){
+			location.href="st_eNoticeList.bo";
+		}		
 	</script>
 </div>
 </body>

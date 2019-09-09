@@ -260,6 +260,105 @@ public class BoardServiceImpl implements BoardService{
 		return result;
 	}
 
+	@Override
+	public int insertacNoticewithFile(Board b, UploadFile uf) throws BoardInsertException {
+		int result = bd.insertacNotice(sqlSession, b);
+		
+		if(result > 0) {			
+			
+			bd.insertSchoolSchedule(sqlSession, b);			
+			
+			bd.insertNoticeFile(sqlSession, uf);
+		}
+		 
+		return result;
+	}
+
+	@Override
+	public int insertacNotice(Board b) {
+		int result = bd.insertacNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.insertSchoolSchedule(sqlSession, b);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int selecteNoticeCount() throws BoardSelectListException {
+		return bd.eNoticeListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selecteNoticeList(PageInfo pi) throws BoardSelectListException {
+		return bd.selecteNoticeList(sqlSession, pi);
+	}
+
+	@Override
+	public int SearcheNoticeResultCount(SearchCondition sc) throws BoardSearchException {
+		return bd.SearcheNoticeResultCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Board> SearcheNoticeResultList(SearchCondition sc, PageInfo pi) throws BoardSearchException {
+		return bd.SearcheNoticeResultList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public Board selecteNoticeOne(int boardNo) throws BoardSelectOneException {
+			bd.updateCount(sqlSession, boardNo);
+		
+		return bd.selecteNoticeOne(sqlSession, boardNo);
+	}
+
+	@Override
+	public int inserteNoticewithFile(Board b, UploadFile uf) throws BoardInsertException {
+		int result = bd.inserteNotice(sqlSession, b);
+		
+		if(result > 0) {			
+			
+			bd.insertEvent(sqlSession, b);			
+			
+			bd.insertNoticeFile(sqlSession, uf);
+		}
+		 
+		return result;
+	}
+
+	@Override
+	public int inserteNotice(Board b) throws BoardInsertException {
+		int result = bd.inserteNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.insertEvent(sqlSession, b);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int updateeNoticewithFile(Board b, UploadFile uf) throws BoardUpdateException {
+		int result = bd.updateeNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.updateEvent(sqlSession, b);
+			
+			bd.updateeNoticeFile(sqlSession, uf);
+		}
+		return result;
+	}
+
+	@Override
+	public int updateeNotice(Board b) throws BoardUpdateException {
+		int result = bd.updateeNotice(sqlSession, b);
+		
+		if(result > 0) {
+			bd.updateEvent(sqlSession, b);
+		}
+		return result;
+	}
+
 
 	
 

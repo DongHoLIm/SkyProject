@@ -306,5 +306,103 @@
 		WHERE BOARD_NO = #{boardNo}
 	</update>
 	
+	<insert id="insertacNotice">
+		INSERT INTO BOARD
+		VALUES(SEQ_BOARDNO.NEXTVAL, #{memberId}, #{title}, #{content}, #{writer}, SYSDATE, 'Y', '학사일정', DEFAULT)
+	</insert>
+	
+	<insert id="insertSchoolSchedule">
+		INSERT INTO SCHOOLSCHEDULE
+		VALUES(SEQ_BOARDNO.CURRVAL, #{startDate}, #{endDate}, #{deadLine}, #{writeDept})
+	</insert>
+	
+	<!-- 여기부터 교내외행사   -->
+	<select id="selecteNoticeCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS='Y' AND BOARD_TYPE = '교내외행사'
+	</select>
+	
+	<select id="selecteNoticeList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN EVENT A ON(B.BOARD_NO = A.BOARD_NO)
+		WHERE B.STATUS = 'Y' AND B.BOARD_TYPE = '교내외행사'
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<select id="SearcheNoticeResultCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN EVENT N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.STATUS = 'Y' 
+		AND B.BOARD_TYPE = '교내외행사'
+		<choose>
+			<when test="writer != null">
+				AND B.WRITER = #{writer}
+			</when>
+			<when test="title != null">
+				AND B.TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND N.WRITE_DEPT = #{writeDept}
+			</otherwise>
+		</choose>		
+	</select>
+	
+	<select id="SearcheNoticeResultList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		JOIN EVENT N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.STATUS = 'Y'
+		AND B.BOARD_TYPE = '교내외행사'
+		<choose>
+			<when test="writer != null">
+				AND B.WRITER = #{writer}
+			</when>
+			<when test="title != null">
+				AND B.TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND N.WRITE_DEPT = #{writeDept}
+			</otherwise>
+		</choose>
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<select id="selecteNoticeOne" resultMap="boardResultSet" parameterType="_int">
+		SELECT B.BOARD_NO, B.MEMBER_ID, B.TITLE, B.CONTENT, B.WRITER, B.ENROLL_DATE, B.STATUS, B.BOARD_TYPE, B.COUNT, N.WRITE_DEPT, N.DEADLINE, N.START_DATE, N.END_DATE
+		FROM BOARD B
+		JOIN EMPLOYEE E ON(B.MEMBER_ID = E.EMPLOYEE_NO)
+		JOIN E_DEPARTMENT D ON(E.EDEPT_CODE = D.EDEPT_CODE)
+		JOIN EVENT N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE B.BOARD_NO = #{boardNo} AND B.STATUS = 'Y'
+	</select>
+	
+	<insert id="inserteNotice">
+		INSERT INTO BOARD
+		VALUES(SEQ_BOARDNO.NEXTVAL, #{memberId}, #{title}, #{content}, #{writer}, SYSDATE, 'Y', '교내외행사', DEFAULT)
+	</insert>
+	
+	<insert id="insertEvent">
+		INSERT INTO EVENT
+		VALUES(SEQ_BOARDNO.CURRVAL, #{writeDept}, #{startDate}, #{endDate}, #{deadLine})
+	</insert>
+	
+	<update id="updateeNotice">
+		UPDATE BOARD 
+		SET TITLE = #{title}, CONTENT = #{content} 
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<update id="updateEvent">
+		UPDATE EVENT
+		SET DEADLINE = #{deadLine}, START_DATE = TO_DATE(#{startDate}, 'YY/MM/DD'), END_DATE = TO_DATE(#{endDate}, 'YY/MM/DD')
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
 	
 </mapper>

@@ -76,6 +76,28 @@ public interface BoardService {
 
 	int updateacNotice(Board b) throws BoardUpdateException;
 
+	int insertacNoticewithFile(Board b, UploadFile uf) throws BoardInsertException;
+
+	int insertacNotice(Board b);
+
+	int selecteNoticeCount() throws BoardSelectListException;
+
+	ArrayList<Board> selecteNoticeList(PageInfo pi) throws BoardSelectListException;
+
+	int SearcheNoticeResultCount(SearchCondition sc) throws BoardSearchException;
+
+	ArrayList<Board> SearcheNoticeResultList(SearchCondition sc, PageInfo pi) throws BoardSearchException;
+
+	Board selecteNoticeOne(int boardNo) throws BoardSelectOneException;
+
+	int inserteNoticewithFile(Board b, UploadFile uf) throws BoardInsertException;
+
+	int inserteNotice(Board b) throws BoardInsertException;
+
+	int updateeNoticewithFile(Board b, UploadFile uf) throws BoardUpdateException;
+
+	int updateeNotice(Board b) throws BoardUpdateException;
+
 
 
 

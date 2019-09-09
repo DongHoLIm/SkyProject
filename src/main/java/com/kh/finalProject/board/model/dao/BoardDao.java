@@ -83,6 +83,31 @@ public interface BoardDao {
 
 	int updateacNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf);
 
+	int insertacNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int insertSchoolSchedule(SqlSessionTemplate sqlSession, Board b);
+
+	int eNoticeListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Board> selecteNoticeList(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int SearcheNoticeResultCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<Board> SearcheNoticeResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);
+
+	Board selecteNoticeOne(SqlSessionTemplate sqlSession, int boardNo);
+
+	int inserteNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int insertEvent(SqlSessionTemplate sqlSession, Board b);
+
+	int updateeNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int updateEvent(SqlSessionTemplate sqlSession, Board b);
+
+	int updateeNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
+
 
 
 	

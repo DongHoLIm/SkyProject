@@ -42,7 +42,7 @@
 			<h4 id="basic">학사 일정</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<form action="em_acNoticeUpdate.bo" method="post" enctype="multipart/form-data">
+			<form action="em_eNoticeUpdate.bo" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="boardNo" value="${b.boardNo}">
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
@@ -116,7 +116,7 @@
 			
 			var boardNo = ${b.boardNo};
 			
-			location.href = "em_acNoticeDetail.bo?boardNo=" + boardNo;
+			location.href = "em_eNoticeDetail.bo?boardNo=" + boardNo;
 		}
 		
 		$(function(){

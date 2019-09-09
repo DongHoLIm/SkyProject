@@ -277,4 +277,85 @@ public class BoardDaoImpl implements BoardDao{
 	public int updateacNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf) {
 		return  sqlSession.update("UploadFile.updateacNoticeFile", uf);
 	}
+
+	@Override
+	public int insertacNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("Board.insertacNotice", b);
+	}
+
+	@Override
+	public int insertSchoolSchedule(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("Board.insertSchoolSchedule", b);
+	}
+
+	@Override
+	public int eNoticeListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.selecteNoticeCount");
+	}
+
+	@Override
+	public ArrayList<Board> selecteNoticeList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.selecteNoticeList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int SearcheNoticeResultCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("Board.SearcheNoticeResultCount", sc);
+	}
+
+	@Override
+	public ArrayList<Board> SearcheNoticeResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.SearcheNoticeResultList", sc, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public Board selecteNoticeOne(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("Board.selecteNoticeOne", boardNo);
+	}
+
+	@Override
+	public int inserteNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("Board.inserteNotice", b);
+	}
+
+	@Override
+	public int insertEvent(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("Board.insertEvent", b);
+	}
+
+	@Override
+	public int updateeNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("Board.updateeNotice", b);
+	}
+
+	@Override
+	public int updateEvent(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("Board.updateEvent", b);
+	}
+
+	@Override
+	public int updateeNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf) {
+		return sqlSession.update("UploadFile.updateeNoticeFile", uf);
+	}
+
 }

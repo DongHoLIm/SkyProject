@@ -82,8 +82,8 @@
 												
 												<li><a href="st_nNoticeList.bo">일반 공지</a></li>
 												<li><a href="st_showsNoticeList.bo">장학 공지</a></li>
-												<li><a href="#">학사 일정</a></li>
-												<li><a href="#">교내외 행사</a></li>
+												<li><a href="st_acNoticeList.bo">학사 일정</a></li>
+												<li><a href="st_eNoticeList.bo">교내외 행사</a></li>
 												
 												<hr>
 												
