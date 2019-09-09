@@ -78,22 +78,22 @@ address {
       <div id="container">
       	<h2>비밀번호 찾기</h2>
       	<hr />
-         <form action="login.me" method="post">
+         <form action="findPwd.me" method="post">
           	<table id="findIdInfo" align="center">          		
           		<tr>
           			<td rowspan="3">* 사용자 구분(User Group)</td>         			
-          			<td colspan="3"><input type="radio" name="UserGroup" value="1" id="demo-priority-low"/><label for="demo-priority-low">졸업생/ 휴학생/재학생 (Students)</label></td>          			      			
+          			<td colspan="3"><input type="radio" name="memberStatus" value="1" id="demo-priority-low" checked/><label for="demo-priority-low">졸업생/ 휴학생/재학생 (Students)</label></td>          			      			
           		</tr>
           		<tr>          			
-          			<td colspan="3"><input type="radio" name="UserGroup" value="2" id="demo-priority-normal"/><label for="demo-priority-normal">교수(Professor)</label></td>          			
+          			<td colspan="3"><input type="radio" name="memberStatus" value="2" id="demo-priority-normal"/><label for="demo-priority-normal">교수(Professor)</label></td>          			
           		</tr>
           		<tr>
-          			<td colspan="3"><input type="radio" name="UserGroup" value="3" id="demo-priority-high"/><label for="demo-priority-high">교직원(Faculty and Staff)</label></td>
+          			<td colspan="3"><input type="radio" name="memberStatus" value="3" id="demo-priority-high"/><label for="demo-priority-high">교직원(Faculty and Staff)</label></td>
           			
           		</tr>          		
           		<tr>
           			<td>* 학교(교번)(ID No)</td>
-          			<td colspan="3"><input type="text" placeholder="학번(교번)를 입력하세요" name="memberId"/></td>
+          			<td colspan="3"><input type="text" placeholder="학번(교번)를 입력하세요" name="memberId" id="idInfo"/></td>
           		</tr>
           		<tr>
           			<td>*핸드폰번호(PhoneNumber)</td>
@@ -114,11 +114,12 @@ address {
           			<td colspan="3"><a class="button primary fit" onclick="phoneCheck();">핸드폰인증</a></td>
           		</tr>
           		<tr>
-          			<td colspan="2"><input type="text" placeholder="인증번호를 입력하세요"/></td>
-          			<td><a href="#" class="button primary small">인증확인</a></td>
+          			<td colspan="2"><input type="text" placeholder="인증번호를 입력하세요" id="checkNumber"/></td>
+          			<td><a href="#" class="button primary small" onclick="checkUser();">인증확인</a></td>
           		</tr>
           		<tr>
-          			<td colspan="4" align="center"><input type="submit" class="primary" value="비밀번호(학번/교번/직원번호) 찾기"/></td>
+          			<td colspan="2" align="center"><input type="button" class="primary" value="로그인페이지로이동" onclick="returnLogin();" id="findIdBtn"/></td>	
+          			<td colspan="4" align="center"><input type="button" class="primary" value="비밀번호(학번/교번/직원번호) 찾기" onclick="submitBtn();"/></td>
           		</tr>
           	</table>
            
@@ -127,6 +128,68 @@ address {
       <address>
          <span>COPYRIGHT</span>&copy; 2019 KH UNIV. ALL RIGHTS RESERVED.
       </address>
-   </div>	
+   </div>
+   <script>
+	var random = "";
+   function phoneCheck() {
+		$(function() {
+			var checkPoint = "0";
+			var phone1 = $("#phone1").val();
+			var phone2 = $("#phone2").val();
+			var phone3 = $("#phone3").val();						
+			var phoneNumber =phone1+"-"+phone2+"-"+phone3;
+			var result = Math.floor(Math.random() * 999999) + 100000;
+			random = result;
+			var msg = "인증번호는 " + result + "입니다.";
+			$.ajax({
+				url : "sendMessage.ac",
+				data : {
+					phoneNumber : phoneNumber,
+					msg : msg,
+					checkPoint : checkPoint
+				},
+				type : "post",
+				success : function(data) {
+					
+				}
+			});
+			alert("인증번호를 확인후 기입하세요");
+		});
+	};
+	function checkUser() {									
+		var checkNumber = $("#checkNumber").val();					
+		if (random == "") {
+			alert("핸드폰 인증을 먼저 해주세요");
+		}else{
+			if(random==checkNumber){
+				alert("핸드폰 인증완료");
+				$("#checkNumber").css({"background-color": "lightgray"});
+				$("#checkNumber").attr({"readonly":""});
+				
+			}else{
+				alert("핸드폰 인증실패");
+			}
+		} 
+	}
+   function returnLogin(){
+		location.href="index.jsp";
+	}
+   function submitBtn(){
+		var checkPostion =$("input[name='UserGroup']:checked").val();		
+		var findId = $("#idInfo").val();
+		var phone1 = $("#phone1").val();
+		var phone2 = $("#phone2").val();
+		var phone3 = $("#phone3").val();
+		
+		if(findId==""||phone1==""||phone2==""||phone3==""){	
+			alert("모든 내용을 작성해주세요");	
+			
+						
+		}else{
+			$("#findIdBtn").attr({"type":"submit"}).click();
+									
+		}					
+	}
+   </script>	
 </body>
 </html>

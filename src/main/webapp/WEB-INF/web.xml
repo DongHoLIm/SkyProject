@@ -102,7 +102,7 @@
     <servlet-name>scholarship</servlet-name>
     <url-pattern>*.sc</url-pattern>
   </servlet-mapping>
-
+  
   <servlet>
     <servlet-name>studentInfo</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet
@@ -115,6 +115,34 @@
   <servlet-mapping>
     <servlet-name>studentInfo</servlet-name>
     <url-pattern>*.si</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>professor</servlet-name>\
+  	 <servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+		 	<param-name>contextConfigLocation</param-name>
+      		<param-value>/WEB-INF/config/professor-servlet.xml</param-value>
+       </init-param>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>professor</servlet-name>
+    <url-pattern>*.pro</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>dormitory</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/config/dormitory-servlet.xml</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dormitory</servlet-name>
+    <url-pattern>*.dor</url-pattern>
   </servlet-mapping>
   
   <filter>
@@ -137,5 +165,5 @@
   <session-config>
     <session-timeout>180</session-timeout>
   </session-config>
-  
+
 </web-app>
