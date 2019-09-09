@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,53 +24,53 @@
 				<hr style="margin: 0 auto;">
 				<br> <br>
 				
-
-				<table class="" style="margin: 0 auto;">
-					<thead>
-						<tr>
-							<th width="10%" style="text-align: center;">과목번호</th>
-							<th width="20%" style="text-align: center;">과목명</th>
-							<th width="15%" style="text-align: center;">학과명</th>
-							<th width="15%" style="text-align: center;">이수구분</th>
-							<th width="15%" style="text-align: center;">인정학점</th>
-							<th width="20%" style="text-align: center;">개설일자</th>
-							<th style="text-align: center;">강의등록</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="LectureOpen" items="${ subjectList }" varStatus="status">
-							
+				<form action="goLectureRegistration.em" method="post">
+					<table class="" style="margin: 0 auto;">
+						<thead>
 							<tr>
-								<td style="text-align: center;">
-									<input type="hidden" name="subCode" class="subCode" value="<c:out value="${ LectureOpen.subCode }" />"readonly>
-									<c:out value="${ LectureOpen.subCode }" />
-								</td>
-								<td style="text-align: center;">
-									<input type="hidden" name="subName" id="subName" value="<c:out value="${ LectureOpen.subName }" />"readonly>
-									<c:out value="${ LectureOpen.subName }" />
-								</td>
-								<td style="text-align: center;">
-									<input type="hidden" name="sdeptName" value="<c:out value="${ LectureOpen.sdeptName }" />"readonly>
-									<c:out value="${ LectureOpen.sdeptName }" />
-								</td>
-								<td style="text-align: center;">
-									<input type="hidden" name="completeType" value="<c:out value="${ LectureOpen.completeType }" />"readonly>
-									<c:out value="${ LectureOpen.completeType }" />
-								</td>
-								<td style="text-align: center;">
-									<input type="hidden" name="subGrade" value="<c:out value="${ LectureOpen.subGrade }" />"readonly>
-									<c:out value="${ LectureOpen.subGrade }" />
-								</td>
-								<td style="text-align: center;">
-									<input type="hidden" name="madeDate" value="<c:out value="${ LectureOpen.madeDate }" />"readonly>
-									<c:out value="${ LectureOpen.madeDate }" />
-								</td>
-								<td style="text-align: center;"><button onclick="lectureRegistration('${ LectureOpen.subCode }');">등록</button></td>
+								<th width="10%" style="text-align: center;">과목번호</th>
+								<th width="20%" style="text-align: center;">과목명</th>
+								<th width="15%" style="text-align: center;">학과명</th>
+								<th width="15%" style="text-align: center;">이수구분</th>
+								<th width="15%" style="text-align: center;">인정학점</th>
+								<th width="20%" style="text-align: center;">개설일자</th>
+								<th style="text-align: center;">강의등록</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-		
+						</thead>
+						<tbody>
+							<c:forEach var="LectureOpen" items="${ subjectList }">
+								
+								<tr>
+									<td style="text-align: center;">
+										<input type="hidden" name="subCode" class="subCode" value="<c:out value="${ LectureOpen.subCode }" />"readonly>
+										<c:out value="${ LectureOpen.subCode }" />
+									</td>
+									<td style="text-align: center;">
+										<input type="hidden" name="subName" id="subName" value="<c:out value="${ LectureOpen.subName }" />"readonly>
+										<c:out value="${ LectureOpen.subName }" />
+									</td>
+									<td style="text-align: center;">
+										<input type="hidden" name="sdeptName" value="<c:out value="${ LectureOpen.sdeptName }" />"readonly>
+										<c:out value="${ LectureOpen.sdeptName }" />
+									</td>
+									<td style="text-align: center;">
+										<input type="hidden" name="completeType" value="<c:out value="${ LectureOpen.completeType }" />"readonly>
+										<c:out value="${ LectureOpen.completeType }" />
+									</td>
+									<td style="text-align: center;">
+										<input type="hidden" name="subGrade" value="<c:out value="${ LectureOpen.subGrade }" />"readonly>
+										<c:out value="${ LectureOpen.subGrade }" />
+									</td>
+									<td style="text-align: center;">
+										<fmt:parseDate value="${LectureOpen.madeDate}" var="madeDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${madeDate}" pattern="yyyy/MM/dd"/>
+									</td>
+									<td style="text-align: center;"><button type="button" class="submitBtn">등록</button></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</form>	
 				<br><br>
 				<input type="hidden" id="currentPage" value="${pi.currentPage}">
 			<div class="pagingArea">
@@ -112,7 +113,7 @@
 			</div>
 	</div>
 	<script>
-		function lectureRegistration(subCode){
+		/* function lectureRegistration(subCode){
 
 			console.log(subCode);
 			
@@ -121,7 +122,10 @@
 				type:"post",
 				data:{subCode:subCode},
 				success:function(data){
-					href=""
+					
+					var obj = JSON.parse(data);
+					console.log(lecture);
+					location.href="goLectureRegistration.em?lectureOpen="+encodeURI(obj);
 					
 				},
 				error:function(err){
@@ -129,7 +133,15 @@
 				}
 			});
 			return false;
-		}
+		} */
+		
+		$(function(){
+			$(".submitBtn").click(function(){
+				var $subCode = $(this).parent().siblings().eq(0).children().val();
+				
+				location.href="lectureRegistration.em?subCode="+$subCode;
+			})
+		})
 	</script>
 </body>
 </html>

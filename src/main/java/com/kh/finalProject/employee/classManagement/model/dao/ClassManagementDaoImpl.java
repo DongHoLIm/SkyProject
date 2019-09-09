@@ -6,10 +6,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
+import com.kh.finalProject.professor.model.vo.Professor;
 
 @Repository
 public class ClassManagementDaoImpl implements ClassManagementDao{
@@ -44,6 +44,20 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 	public LectureOpen seletOneSubject(SqlSessionTemplate sqlSession,String subCode) {
 		System.out.println("Dao in!!!!");
 		return sqlSession.selectOne("LectureOpen.selectOneSubject", subCode);
+	}
+
+	@Override
+	public ArrayList<Professor> selectProfessorList(SqlSessionTemplate sqlSession, String sdeptName) {
+		
+		ArrayList<Professor> list = null;
+		System.out.println("proDao !!!!");
+		
+		System.out.println(sdeptName);
+		list = (ArrayList) sqlSession.selectList("lectureprofessor.selectProfessorList", sdeptName);
+		
+		System.out.println(list);
+		
+		return list;
 	}
 
 	

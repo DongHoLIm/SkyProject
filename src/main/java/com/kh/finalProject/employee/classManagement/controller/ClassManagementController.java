@@ -7,13 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.employee.classManagement.model.service.ClassManagementService;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
+import com.kh.finalProject.professor.model.vo.Professor;
 
 @Controller
 public class ClassManagementController {
@@ -23,7 +24,7 @@ public class ClassManagementController {
 	//강의개설등록
 	@RequestMapping("lectureOpen.em")
 	public String selectSubject(HttpServletRequest request) {
-			
+
 		int currentPage = 1;
 
 		if(request.getParameter("currentPage") != null) {
@@ -44,23 +45,28 @@ public class ClassManagementController {
 			return "employee/class/lectureOpen";
 		} catch (ClassManagementSelectListException e) {
 			request.setAttribute("msg", e.getMessage());
-			
+
 			return "common/errorAlert";
 		}
 	}
 	@RequestMapping(value="lectureRegistration.em")
-	public ModelAndView insertLecture(String subCode, ModelAndView mv) {
-		
+	public String goLectureRegistration(HttpServletRequest request,@RequestParam(name="subCode", required=false) String subCode) {
+
 		LectureOpen lo = new LectureOpen();
-		
+
 		System.out.println("시작합니다");
+		System.out.println("subCode :::::" + subCode);
 		lo = cms.selectOneSubject(subCode);
-		
 		System.out.println("다시돌아옴 !!" + lo);
-		mv.addObject("lo", lo);
-		mv.setViewName("jsonView");
-		System.out.println("mv::" + mv);
-		
-		return mv;
+
+		System.out.println(lo.getSdeptName());
+		ArrayList<Professor> pf = cms.selectProfessorList(lo.getSdeptName());
+
+		System.out.println("pf다시옴!!" + pf);
+
+		request.setAttribute("lo", lo);
+
+		return "employee/class/lectureRegistration";
 	}
+
 }

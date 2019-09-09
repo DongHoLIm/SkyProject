@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,59 +28,61 @@
 				<h2>강의개설등록</h2>
 				<hr style="margin: 0 auto;">
 				<br> <br>
-				<form action="" method="post">
-					<table class="basicinfo">
-					<tr>
-						<td class="td">과목번호</td>
-						<td colspan='5'><input type="text" id="subCoode" value="<c:out value="${ LectureOpen.madeDate }" />" readonly></td>
-					</tr>
-
-					<tr>
-						<td class="td">한글 성명</td>
-						<td><input type="text" value="홍길동" readonly></td>
-						<td class="td">영문 성명</td>
-						<td><input type="text" value="In Woo Kang" readonly></td>
-						<td class="td">한문 성명</td>
-						<td><input type="text" value="姜因遇" readonly></td>
-					</tr>
-
-					<tr>
-						<td class="td">주민 번호</td>
-						<td><input type="text" value="940205-*******" readonly></td>
-						<td class="td">생년월일</td>
-						<td><input type="text" value="2000.07.26" readonly></td>
-						<td class="td">성별</td>
-						<td><input type="text" value="남" readonly></td>
-					</tr>
-
-					<tr>
-						<td class="td">학부(과)</td>
-						<td><input type="text" value="소프트웨어 응용" readonly></td>
-						<td class="td">전공</td>
-						<td><input type="text" value="컴퓨터 공학" readonly></td>
-						<td class="td">학년</td>
-						<td><input type="text" value="1" readonly></td>
-					</tr>
-
-					<tr>
-						<td class="td">학적 상태</td>
-						<td><input type="text" value="재학" readonly></td>
-						<td class="td">주야</td>
-						<td><input type="text" value="주간" readonly></td>
-						<td class="td">병역 구분</td>
-						<td><input type="text" value="" readonly></td>
-					</tr>
-					</table>
-				</form>
+				<div style="width:80%; margin:0 auto;"> 
+					<form action="" method="post">
+						<table>
+						<span>
+						<label style="background:lightgray;width:11%;"><h2>과목번호</h2></label>
+						<label style="background:lightgray;width:11%;"><h2><c:out value="${ lo.subCode }"/></h2></label>
+								<td class="td">과목번호</td>
+								<td colspan='1'><input type="text" value="<c:out value="${ lo.subCode }"/>"readonly></td>
+								<td class="td">과목명</td>
+								<td><input type="text" value="<c:out value="${ lo.subName }"/>" readonly></td>
+								<td class="td">학과</td>
+								<td><input type="text" value="<c:out value="${ lo.sdeptName }"/>" readonly></td>
+								<td class="td">인정 학점</td>
+								<td><input type="text" value="<c:out value="${ lo.subGrade }"/>" readonly></td>
+							</tr>
+		
+							<tr>
+								<td class="td">이수구분</td>
+								<td><input type="text" value="<c:out value="${ lo.completeType }"/>" readonly></td>
+								<td class="td">개설일자</td>
+								<td>
+									<fmt:parseDate value="${lo.madeDate}" var="madeDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<input type="text" value="<fmt:formatDate value="${madeDate}" pattern="yyyy/MM/dd"/>" readonly>
+								</td>
+							</tr>
+		
+							<tr>
+								<td class="td">수강인원</td>
+								<td colspan=""><input type="text" value=""></td>
+							</tr>
+		
+							<tr>
+								<td class="td">개강학기</td>
+								<td><input type="text" value=""></td>
+								<td class="td">교수명</td>
+								<td>
+									<select></select>
+								</td>
+								<td class="td">강의실정보</td>
+								<td><input type="text" value=""></td>
+							</tr>
+		
+							<tr>
+								<td class="td">강의시간</td>
+								<td><input type="text" value=""></td>
+							</tr>
+						</table>
+					</form>
+				</div>
 			</div>
 		</div>
 			<div>
 				<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
 			</div>
 	</div>
-	<script>
-		var subCode = $("#subCode").val();
-		console.log(subCode);
-	</script>
+	
 </body>
 </html>

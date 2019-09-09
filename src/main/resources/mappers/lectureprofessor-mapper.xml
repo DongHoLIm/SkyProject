@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lectureprofessor">
+	<resultMap
+		type="com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor"
+		id="professorResultSet">
+		<id property="professorNo" column="PROFESSOR_NO" />
+		<result property="professorName" column="MEMBER_KNAME" />
+	</resultMap>
+
+	<select id="selectProfessorList" resultMap="professorResultSet">
+		SELECT PROFESSOR_NO, MEMBER_KNAME
+		FROM PROFESSOR P
+		JOIN SDEPARTMENT SD ON(SD.SDEPT_CODE = P.PDEPT_CODE)
+		JOIN MEMBER M ON(M.MEMBER_ID = P.PROFESSOR_NO)
+		WHERE SD.SDEPT_NAME = #{sdeptName}
+	</select>
+</mapper>

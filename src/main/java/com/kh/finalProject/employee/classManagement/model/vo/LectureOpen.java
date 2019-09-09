@@ -8,7 +8,7 @@ public class LectureOpen {
 	private String sdeptName;
 	private String completeType;
 	private int subGrade;
-	private Date madeDate;
+	private String madeDate;
 	private int enrolType;
 
 
@@ -16,7 +16,7 @@ public class LectureOpen {
 
 
 	public LectureOpen(String subCode, String subName, String sdeptName, String completeType, int subGrade,
-			Date madeDate, int enrolType) {
+			String madeDate, int enrolType) {
 		super();
 		this.subCode = subCode;
 		this.subName = subName;
@@ -78,12 +78,12 @@ public class LectureOpen {
 	}
 
 
-	public Date getMadeDate() {
+	public String getMadeDate() {
 		return madeDate;
 	}
 
 
-	public void setMadeDate(Date madeDate) {
+	public void setMadeDate(String madeDate) {
 		this.madeDate = madeDate;
 	}
 
@@ -105,5 +105,6 @@ public class LectureOpen {
 				+ ", enrolType=" + enrolType + "]";
 	}
 
-	
+
+		
 }
