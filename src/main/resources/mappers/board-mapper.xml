@@ -479,5 +479,136 @@
 		UPDATE BOARD SET STATUS = 'N' WHERE BOARD_NO = #{boardNo}
 	</update>
 	
+	<!-- 여기부터 칭찬합시다 -->
+	<select id="selectpraiseBoardCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS='Y' AND BOARD_TYPE = '칭찬합시다'
+	</select>
+	
+	<select id="selectpraiseBoardList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		WHERE B.STATUS = 'Y' AND B.BOARD_TYPE = '칭찬합시다'
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<select id="SearchepraiseBoardResultCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		WHERE B.STATUS = 'Y' 
+		AND B.BOARD_TYPE = '칭찬합시다'
+		<choose>
+			<when test="writer != null">
+				AND B.WRITER = #{writer}
+			</when>
+			<when test="title != null">
+				AND B.TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND N.WRITE_DEPT = #{writeDept}
+			</otherwise>
+		</choose>		
+	</select>
+	
+	<select id="SearchpraiseBoardResultList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		WHERE B.STATUS = 'Y' 
+		AND B.BOARD_TYPE = '칭찬합시다'
+		<choose>
+			<when test="writer != null">
+				AND B.WRITER = #{writer}
+			</when>
+			<when test="title != null">
+				AND B.TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND N.WRITE_DEPT = #{writeDept}
+			</otherwise>
+		</choose>
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<select id="selectpraiseBoardOne" resultMap="boardResultSet" parameterType="_int">
+		SELECT *
+		FROM BOARD B		
+		WHERE B.BOARD_NO = #{boardNo} AND B.STATUS = 'Y'
+	</select>
+	
+	<insert id="insertpraiseBoard">
+		INSERT INTO BOARD
+		VALUES(SEQ_BOARDNO.NEXTVAL, #{memberId}, #{title}, #{content}, #{writer}, SYSDATE, 'Y', '칭찬합시다', DEFAULT)
+	</insert>
+	
+	<update id="updatepraiseBoard">
+		UPDATE BOARD 
+		SET TITLE = #{title}, CONTENT = #{content} 
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<update id="deletepraiseBoard">
+		UPDATE BOARD SET STATUS = 'N' WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<!-- 여기부터 학생 내 게시물 조회 -->
+	<select id="searchMyBoardListCount" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS='Y' AND MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="searchMyBoardList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		WHERE B.STATUS = 'Y' AND B.MEMBER_ID = #{memberId}
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<select id="searchMyBoardSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		WHERE B.STATUS = 'Y' AND B.MEMBER_ID = #{memberId}
+		<choose>
+			<when test="all != null">
+				AND B.COUNT >= 0
+			</when>
+			<when test="praise != null">
+				AND B.BOARD_TYPE = '칭찬합시다'
+			</when>
+			<otherwise>
+				AND B.BOARD_TYPE = '자유게시판'
+			</otherwise>
+		</choose>		
+	</select>
+	
+	<select id="searchMyBoardSearchList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_ID = M.MEMBER_ID)
+		WHERE B.STATUS = 'Y' AND B.MEMBER_ID = #{memberId}
+		<choose>
+			<when test="all != null">
+				AND B.COUNT >= 0
+			</when>
+			<when test="praise != null">
+				AND B.BOARD_TYPE = '칭찬합시다'
+			</when>
+			<otherwise>
+				AND B.BOARD_TYPE = '자유게시판'
+			</otherwise>
+		</choose>	
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<update id="searchMyBoardDelete" parameterType="java.lang.String">
+		UPDATE BOARD SET STATUS = 'N' WHERE BOARD_NO = #{boardNo}
+	</update>
+	
 	
 </mapper>

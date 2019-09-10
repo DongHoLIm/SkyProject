@@ -84,7 +84,7 @@
 												<li><hr></li>
 												
 												<li><h4>학교 생활</h4></li>
-												<li><a href="#">칭찬합시다</a></li>
+												<li><a href="pro_praiseBoardList.bo">칭찬합시다</a></li>
 												<li><a href="pro_freeBoardList.bo">자유게시판</a></li>
 												<li><a href="#">내 게시물 조회</a></li>
 												

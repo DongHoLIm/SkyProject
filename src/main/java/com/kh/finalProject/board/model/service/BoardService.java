@@ -124,6 +124,37 @@ public interface BoardService {
 
 	Writer selectFreeBoardemWriter(String memberId);
 
+	int selectpraiseBoardCount() throws BoardSelectListException;
+
+	ArrayList<Board> selectpraiseBoardList(PageInfo pi) throws BoardSelectListException;
+
+	int SearchepraiseBoardResultCount(SearchCondition sc) throws BoardSearchException;
+
+	ArrayList<Board> SearchpraiseBoardResultList(SearchCondition sc, PageInfo pi) throws BoardSearchException;
+
+	Board selectpraiseBoardOne(int boardNo) throws BoardSelectOneException;
+
+	Writer selectpraiseBoardstWriter(String memberId);
+
+	int insertpraiseBoardwithFile(Board b, UploadFile uf) throws BoardInsertException;
+
+	int insertpraiseBoard(Board b) throws BoardInsertException;
+
+	int updatepraiseBoardwithFile(Board b, UploadFile uf) throws BoardUpdateException;
+
+	int updatepraiseBoard(Board b) throws BoardUpdateException;
+
+	int deletepraiseBoard(String boardNo) throws BoardDeleteException;
+
+	int searchMyBoardListCount(String memberId) throws BoardSelectListException;
+
+	ArrayList<Board> searchMyBoardList(PageInfo pi, String memberId) throws BoardSelectListException;
+
+	int searchMyBoardSearchListCount(SearchCondition sc) throws BoardSearchException;
+
+	ArrayList<Board> searchMyBoardSearchList(SearchCondition sc, PageInfo pi) throws BoardSearchException;
+
+	int searchMyBoardDelete(String boardNo) throws BoardDeleteException;
 
 
 

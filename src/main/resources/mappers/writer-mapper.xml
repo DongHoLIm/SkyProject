@@ -39,4 +39,10 @@
 		WHERE M.MEMBER_ID = #{memberId}
 	</select>
 	
+	<select id="selectpraiseBoardstWriter" resultMap="writerResultSet" parameterType="Writer">
+		SELECT MEMBER_ID, MEMBER_KNAME
+		FROM MEMBER
+		WHERE MEMBER_ID =  #{memberId}
+	</select>
+	
 </mapper>
