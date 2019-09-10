@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.employee.classManagement.model.dao.ClassManagementDao;
+import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation;
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
+import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 
 @Service
 public class ClassManagementServiceImpl implements ClassManagementService{
@@ -40,6 +42,17 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 	@Override
 	public ArrayList<DepartmentProfessor> selectProfessorList(String sdeptName) {
 		return cmd.selectProfessorList(sqlSession, sdeptName);
+	}
+
+	@Override
+	public ArrayList<ClassRoomInformation> selectClassRoomList() {
+		return cmd.selectClassRoomList(sqlSession);
+	}
+
+	@Override
+	public int insertCourseOffered(LectureRegistration lr) {
+		
+		return cmd.insertCourseOffered(sqlSession, lr);
 	}
 
 }

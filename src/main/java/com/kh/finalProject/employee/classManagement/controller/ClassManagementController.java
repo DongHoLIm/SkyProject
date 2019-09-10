@@ -13,8 +13,10 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.employee.classManagement.model.service.ClassManagementService;
+import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation;
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
+import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 
 @Controller
 public class ClassManagementController {
@@ -61,13 +63,48 @@ public class ClassManagementController {
 
 		System.out.println(lo.getSdeptName());
 		ArrayList<DepartmentProfessor> proList = cms.selectProfessorList(lo.getSdeptName());
+		
+		ArrayList<ClassRoomInformation> room = cms.selectClassRoomList();
 
 		
 
 		request.setAttribute("lo", lo);
 		request.setAttribute("proList", proList);
+		request.setAttribute("room", room);
 
 		return "employee/class/lectureRegistration";
 	}
-
+	@RequestMapping(value="insertCoursesOffered.em")
+	public String insertCourseOffered(LectureOpen lo, HttpServletRequest request,
+			@RequestParam(name="proList", required=false) String proList,
+			@RequestParam(name="dayWeek", required=false)String dayWeek,
+			@RequestParam(name="year", required=false)int year,
+			@RequestParam(name="semester", required=false)int semester,
+			@RequestParam(name="period", required=false)String period,
+			@RequestParam(name="room", required=false)String room,
+			@RequestParam(name="personnel", required=false)int personnel)	{
+		
+		String pCode[] = proList.split("/");
+		String rCode[] = room.split("/");
+		
+		
+		System.out.println(pCode);
+		LectureRegistration lr = new LectureRegistration();
+		lr.setOpenSubCode(lo.getSubCode());
+		lr.setStudentMax(personnel);
+		lr.setOpenYear(year);
+		lr.setOpenSemester(semester);
+		lr.setProfessorNo(pCode[0]);
+		lr.setBuildingName(rCode[1]);
+		lr.setRoomName(rCode[0]);
+		lr.setDayInfo(dayWeek);
+		lr.setTimeInfo(period);
+		
+		System.out.println("lr::::" + lr);
+		
+		cms.insertCourseOffered(lr);
+		
+		
+		return "employee/class/lectureOpen";
+	}
 }

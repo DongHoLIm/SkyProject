@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
+import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation;
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
+import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 
 @Repository
 public class ClassManagementDaoImpl implements ClassManagementDao{
@@ -58,6 +60,26 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 		System.out.println(list);
 		
 		return list;
+	}
+
+	@Override
+	public ArrayList<ClassRoomInformation> selectClassRoomList(SqlSessionTemplate sqlSession) {
+		ArrayList<ClassRoomInformation> list = null;
+		
+		
+		list = (ArrayList) sqlSession.selectList("classroominformation.selectroomList");
+		
+		System.out.println("list::!!!" + list);
+		return list;
+	}
+
+	
+
+	@Override
+	public int insertCourseOffered(SqlSessionTemplate sqlSession, LectureRegistration lr) {
+		//sqlSession.insert("LectureRegistration.insertCouserOffered", lr)
+		System.out.println(lr);
+		return 1;
 	}
 
 	

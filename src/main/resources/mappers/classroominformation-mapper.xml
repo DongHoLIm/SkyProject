@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="classroominformation">
+	<resultMap
+		type="com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation"
+		id="classRoomResultSet">
+		<id property="buildingName" column="BUILDING_NAME" />
+		<result property="roomName" column="ROOM_NAME" />
+	</resultMap>
+
+	<select id="selectroomList" resultMap="classRoomResultSet">
+		SELECT BUILDING_NAME, ROOM_NAME
+		FROM BUILDING B
+		JOIN ROOM R ON(B.BUILDING_CODE = R.BUILDING_CODE)
+	</select>
+</mapper>

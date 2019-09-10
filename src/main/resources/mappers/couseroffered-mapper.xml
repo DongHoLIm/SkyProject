@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LectureRegistration">
+	<resultMap
+		type="com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration"
+		id="LectureRegistrationResultSet">
+		<id property="openSubCode" column="OPENSUB_CODE" />
+		<result property="studentMax" column="STUDENT_MAX" />
+		<result property="studentCount" column="STUDENT_COUNT" />
+		<result property="openYear" column="OPEN_YEAR" />
+		<result property="openSemester" column="OPEN_SEMESTER" />
+		<result property="professorNo" column="PROFESSOR_NO" />
+		<result property="closeCheck" column="CLOSE_CHECK"/>
+		<result property="closeReason" column="CLOSE_REASON"/>
+		<result property="buildingName" column="BUILDING_NAME"/>
+		<result property="roomName" column="ROOM_NAME"/>
+		<result property="dayInfo" column="DAY_INFO"/>
+		<result property="timeInfo" column="TIME_INFO"/>
+	</resultMap>
+	
+	<!-- <insert id="insertCouserOffered" parameterType="LectureRegistration">
+		INSERT INTO OPEN_SUBJECT VALUES(#{openSubCode}, #{studentMax}, NULL, #{openYear}, #{openSemester}, #{professorNo}, 'n', NULL, (SELECT ROOM_CODE FROM ROOM R JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE) WHERE R.ROOM_NAME = #{roomName} AND B.BUILDING_NAME=#{buildingName), #{dayInfo}, #{timeInfo})
+	</insert> -->
+	
+
+</mapper>
