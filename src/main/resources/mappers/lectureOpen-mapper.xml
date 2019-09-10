@@ -18,6 +18,7 @@
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM SUBJECT
+		WHERE ENROL_TYPE=0
 	</select>
 	
 	<!-- 페이징 처리된 교과목 조회 -->
@@ -25,6 +26,7 @@
 		SELECT SUB_CODE, SUB_NAME, SDEPT_NAME, COMPLETE_TYPE, SUB_GRADE, MADE_DATE
 		FROM SUBJECT S
 		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
+		WHERE ENROL_TYPE=0
 	</select>
 	
 	<select id="selectOneSubject" resultMap="LectureOpenResultSet">
@@ -33,4 +35,9 @@
 		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
 		WHERE SUB_CODE = #{subCode}
 	</select>
+	
+	<update id="updateSubject">
+		UPDATE SUBJECT SET ENROL_TYPE = 1
+		WHERE SUB_CODE = #{subCode}
+	</update>
 </mapper>

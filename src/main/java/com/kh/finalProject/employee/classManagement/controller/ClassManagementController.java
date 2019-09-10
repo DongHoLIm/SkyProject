@@ -51,6 +51,7 @@ public class ClassManagementController {
 			return "common/errorAlert";
 		}
 	}
+	//개강과목등록 정보받아오기
 	@RequestMapping(value="lectureRegistration.em")
 	public String goLectureRegistration(HttpServletRequest request,@RequestParam(name="subCode", required=false) String subCode) {
 
@@ -74,6 +75,7 @@ public class ClassManagementController {
 
 		return "employee/class/lectureRegistration";
 	}
+	//개강과목등록
 	@RequestMapping(value="insertCoursesOffered.em")
 	public String insertCourseOffered(LectureOpen lo, HttpServletRequest request,
 			@RequestParam(name="proList", required=false) String proList,
@@ -94,9 +96,9 @@ public class ClassManagementController {
 		lr.setStudentMax(personnel);
 		lr.setOpenYear(year);
 		lr.setOpenSemester(semester);
-		lr.setProfessorNo(pCode[0]);
-		lr.setBuildingName(rCode[1]);
-		lr.setRoomName(rCode[0]);
+		lr.setProfessorNo(pCode[1]);
+		lr.setBuildingName(rCode[0]);
+		lr.setRoomName(rCode[1]);
 		lr.setDayInfo(dayWeek);
 		lr.setTimeInfo(period);
 		
@@ -104,7 +106,14 @@ public class ClassManagementController {
 		
 		cms.insertCourseOffered(lr);
 		
+		cms.updateSubject(lr.getOpenSubCode());
+		
 		
 		return "employee/class/lectureOpen";
+	}
+	@RequestMapping(value="openCourseRegistration.em")
+	public String selectCoursesOffered(HttpServletRequest request) {
+		
+		return "employee/class/openCourseRegistration";
 	}
 }

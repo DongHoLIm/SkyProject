@@ -77,9 +77,16 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 
 	@Override
 	public int insertCourseOffered(SqlSessionTemplate sqlSession, LectureRegistration lr) {
-		//sqlSession.insert("LectureRegistration.insertCouserOffered", lr)
-		System.out.println(lr);
-		return 1;
+	
+		return sqlSession.insert("LectureRegistration.insertCouserOffered", lr);
+	}
+
+	@Override
+	public int updateSubject(SqlSessionTemplate sqlSession, String subCode) {
+		
+		
+		System.out.println("subCode");
+		return sqlSession.update("LectureOpen.updateSubject", subCode);
 	}
 
 	
