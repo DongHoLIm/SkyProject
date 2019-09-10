@@ -1,8 +1,13 @@
 package com.kh.finalProject.member.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.vo.Member;
 
@@ -69,6 +74,23 @@ public class MemberDaoImpl implements MemberDao {
 	public int changeNewPassword(SqlSessionTemplate sqlSession, Member findMemberPwd) {
 		
 		return sqlSession.update("Member.memberchangeNewPassword", findMemberPwd);
+	}
+
+	@Override
+	public int getMemberListCount(SqlSessionTemplate sqlSession, String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.MemberListCount",memberId);
+	}
+	@Override
+	public ArrayList<Member> memberAllList(SqlSessionTemplate sqlSession, String userId, PageInfo pi) {
+		ArrayList<Member> list =null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Member.MemberAllList", userId, rowBounds);
+		return list;
 	}
 	
 }
