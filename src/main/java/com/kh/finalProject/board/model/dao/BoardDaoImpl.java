@@ -358,4 +358,89 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.update("UploadFile.updateeNoticeFile", uf);
 	}
 
+	@Override
+	public int freeBoardListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.selectfreeBoardCount");
+	}
+
+	@Override
+	public ArrayList<Board> selectfreeBoardList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.selectfreeBoardList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int SearchefreeBoardResultCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("Board.SearchefreeBoardResultCount", sc);
+	}
+
+	@Override
+	public ArrayList<Board> SearchfreeBoardResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.SearchfreeBoardResultList", sc, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public Board selectfreeBoardOne(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("Board.selectfreeBoardOne", boardNo);
+	}
+
+	@Override
+	public int insertfreeBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("Board.insertfreeBoard", b);
+	}
+
+	@Override
+	public int insertFreeBoardFile(SqlSessionTemplate sqlSession, UploadFile uf) {
+		return  sqlSession.insert("UploadFile.insertfreeBoardFile", uf);
+	}
+
+	@Override
+	public Writer selectFreeBoardstWriter(SqlSessionTemplate sqlSession, String memberId) {
+		return sqlSession.selectOne("Writer.selectFreeBoardstWriter", memberId);
+	}
+
+	@Override
+	public int updatefreeBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("Board.updatefreeBoard", b);
+	}
+
+	@Override
+	public int updatefreeBoardFile(SqlSessionTemplate sqlSession, UploadFile uf) {
+		return sqlSession.update("UploadFile.updatefreeBoardFile", uf);
+	}
+
+	@Override
+	public int deletefreeBoard(SqlSessionTemplate sqlSession, String boardNo) {
+		return sqlSession.update("Board.deletefreeBoard", boardNo);
+	}
+
+	@Override
+	public Writer selectFreeBoardproWriter(SqlSessionTemplate sqlSession, String memberId) {
+		return sqlSession.selectOne("Writer.selectFreeBoardproWriter", memberId);
+	}
+
+	@Override
+	public Writer selectFreeBoardemWriter(SqlSessionTemplate sqlSession, String memberId) {
+		return sqlSession.selectOne("Writer.selectFreeBoardemWriter", memberId);
+	}
+
 }

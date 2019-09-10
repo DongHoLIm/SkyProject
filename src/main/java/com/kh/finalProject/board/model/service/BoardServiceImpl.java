@@ -359,6 +359,86 @@ public class BoardServiceImpl implements BoardService{
 		return result;
 	}
 
+	@Override
+	public int selectfreeBoardCount() throws BoardSelectListException {
+		return bd.freeBoardListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectfreeBoardList(PageInfo pi) throws BoardSelectListException {
+		return bd.selectfreeBoardList(sqlSession, pi);
+	}
+
+	@Override
+	public int SearchefreeBoardResultCount(SearchCondition sc) throws BoardSearchException {
+		return bd.SearchefreeBoardResultCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Board> SearchfreeBoardResultList(SearchCondition sc, PageInfo pi) throws BoardSearchException {
+		return bd.SearchfreeBoardResultList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public Board selectfreeBoardOne(int boardNo) throws BoardSelectOneException {
+		bd.updateCount(sqlSession, boardNo);
+		
+		return bd.selectfreeBoardOne(sqlSession, boardNo);
+	}
+
+	@Override
+	public int insertfreeBoardwithFile(Board b, UploadFile uf) throws BoardInsertException {
+		int result = bd.insertfreeBoard(sqlSession, b);
+		
+		if(result > 0) {			
+			
+			bd.insertFreeBoardFile(sqlSession, uf);
+		}
+		 
+		return result;
+	}
+
+	@Override
+	public int insertfreeBoard(Board b) throws BoardInsertException {
+		return bd.insertfreeBoard(sqlSession, b);
+	}
+
+	@Override
+	public Writer selectFreeBoardstWriter(String memberId) {
+		return bd.selectFreeBoardstWriter(sqlSession, memberId);
+	}
+
+	@Override
+	public int updatefreeBoardwithFile(Board b, UploadFile uf) throws BoardUpdateException {
+		int result = bd.updatefreeBoard(sqlSession, b);
+		
+		if(result > 0) {
+			
+			bd.updatefreeBoardFile(sqlSession, uf);
+		}
+		return result;
+	}
+
+	@Override
+	public int updatefreeBoard(Board b) throws BoardUpdateException {
+		return bd.updatefreeBoard(sqlSession, b);
+	}
+
+	@Override
+	public int deletefreeBoard(String boardNo) throws BoardDeleteException {
+		return bd.deletefreeBoard(sqlSession, boardNo);
+	}
+
+	@Override
+	public Writer selectFreeBoardproWriter(String memberId) {
+		return bd.selectFreeBoardproWriter(sqlSession, memberId);
+	}
+
+	@Override
+	public Writer selectFreeBoardemWriter(String memberId) {
+		return bd.selectFreeBoardemWriter(sqlSession, memberId);
+	}
+
 
 	
 

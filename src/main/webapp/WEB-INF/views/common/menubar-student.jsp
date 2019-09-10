@@ -88,8 +88,8 @@
 												<hr>
 												
 												<h4>학교 생활</h4>
-												<li><a href="#">학교 행사</a></li>
-												<li><a href="#">자유게시판</a></li>
+												<li><a href="#">칭찬합시다</a></li>
+												<li><a href="st_freeBoardList.bo">자유게시판</a></li>
 												<li><a href="#">내 게시물 조회</a></li>
 												
 												<hr>

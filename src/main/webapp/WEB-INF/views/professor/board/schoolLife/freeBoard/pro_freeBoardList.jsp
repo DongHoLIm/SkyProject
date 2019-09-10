@@ -54,7 +54,7 @@
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
 			
-			<form action="st_freeBoardsearch.bo" method="get">
+			<form action="pro_freeBoardsearch.bo" method="get">
 				<input type="hidden" name="searchflag" id="searchflag" value="true">
 				<table style="width: 88.5%; text-align: center; margin: 0 auto;">
 					<tr>
@@ -119,7 +119,7 @@
 				   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 					</c:if>
 					<c:if test="${pi.currentPage > 1}">
-						<c:url var="blistBack" value="st_freeBoardsearch.bo">
+						<c:url var="blistBack" value="pro_freeBoardsearch.bo">
 							<c:param name="searchCondition" value="${searchCondition}"/>																					
 							<c:param name="searchValue" value="${searchValue}"/>
 							<c:param name="currentPage" value="${pi.currentPage - 1}"/>
@@ -132,7 +132,7 @@
 						    <li class="page-item"><a class="page-link">${p}</a></li>					
 						</c:if>
 						<c:if test="${p ne pi.currentPage}">
-							<c:url var="blistCheck" value="st_freeBoardsearch.bo">
+							<c:url var="blistCheck" value="pro_freeBoardsearch.bo">
 								<c:param name="searchCondition" value="${searchCondition}"/>													
 								<c:param name="searchValue" value="${searchValue}"/>
 								<c:param name="currentPage" value="${p}"/>	
@@ -142,7 +142,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${pi.currentPage < pi.maxPage }">
-						<c:url var="blistEnd" value="st_freeBoardsearch.bo">
+						<c:url var="blistEnd" value="pro_freeBoardsearch.bo">
 							<c:param name="searchCondition" value="${searchCondition}"/>														
 							<c:param name="searchValue" value="${searchValue}"/>
 							<c:param name="currentPage" value="${pi.currentPage + 1}"/>
@@ -190,7 +190,7 @@
 				   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 					</c:if>
 					<c:if test="${pi.currentPage > 1}">
-						<c:url var="blistBack" value="st_freeBoardList.bo">
+						<c:url var="blistBack" value="pro_freeBoardList.bo">
 							<c:param name="searchCondition" value="${searchCondition}"/>																					
 							<c:param name="searchValue" value="${searchValue}"/>
 							<c:param name="currentPage" value="${pi.currentPage - 1}"/>
@@ -203,7 +203,7 @@
 						    <li class="page-item"><a class="page-link">${p}</a></li>					
 						</c:if>
 						<c:if test="${p ne pi.currentPage}">
-							<c:url var="blistCheck" value="st_freeBoardList.bo">
+							<c:url var="blistCheck" value="pro_freeBoardList.bo">
 								<c:param name="searchCondition" value="${searchCondition}"/>													
 								<c:param name="searchValue" value="${searchValue}"/>
 								<c:param name="currentPage" value="${p}"/>	
@@ -213,7 +213,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${pi.currentPage < pi.maxPage }">
-						<c:url var="blistEnd" value="st_freeBoardList.bo">
+						<c:url var="blistEnd" value="pro_freeBoardList.bo">
 							<c:param name="searchCondition" value="${searchCondition}"/>														
 							<c:param name="searchValue" value="${searchValue}"/>
 							<c:param name="currentPage" value="${pi.currentPage + 1}"/>
@@ -229,7 +229,7 @@
 			</c:if>
 		</div>
 		<div>
-			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-professor.jsp" />
 		</div>
 	</div>
 	<script>
@@ -237,14 +237,14 @@
 			 $("#boardArea").find(".freeBoardTitle").click(function(){
 				var boardNo = $(this).parents().children("td").eq(0).text(); 				
 				
-				location.href = "st_freeBoardDetail.bo?boardNo=" + boardNo;				
+				location.href = "pro_freeBoardDetail.bo?boardNo=" + boardNo;				
 			 });
 		});
 		
 		function insertfreeBoard(){
 			var memberId = $("input[name=memberId]").val();			
 			
-			location.href = "st_showInsertfreeBoard.bo?memberId=" + memberId;
+			location.href = "pro_showInsertfreeBoard.bo?memberId=" + memberId;
 		}	
 	</script>	
 </body>
