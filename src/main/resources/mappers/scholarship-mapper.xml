@@ -17,7 +17,7 @@
 		WHERE STUDENT_NO = #{studentNo}
 	</select>
 	
-	<resultMap type="com.kh.finalProject.scholarship.model.vo.ScholarshipApply" id="scholarshipResultSet">
+	<!-- <resultMap type="com.kh.finalProject.scholarship.model.vo.ScholarshipApply" id="scholarshipResultSet">
 		<id property="schoApplyCode" column="SCHO_APPLY_CODE"/>
 		
 		<result property="schoStatus" column="SCHO_STATUS"/>
@@ -37,5 +37,5 @@
 	<insert id="insertScholarshipApply" parameterType="String">
 		INSERT INTO SCHO_APPLY
 		VALUES()
-	</insert>
+	</insert> -->
 </mapper>
