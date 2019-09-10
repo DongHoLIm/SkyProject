@@ -68,23 +68,16 @@ table.basicinfo {
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach var="openSubject" items="${openSubjectList }">
 						<tr>
-							<td>A1001</td>
+							<td>${ openSubject.opensubCode }</td>
 							<td>전공필수</td>
 							<td>인터넷과 홈페이지</td>
 							<td>만우관/(7-10)</td>
 							<td>3(3)</td>
 							<td><button>입력</button></td>
 						</tr>
-						
-						<tr>
-							<td>A1001</td>
-							<td>전공필수</td>
-							<td>인터넷과 홈페이지</td>
-							<td>만우관/(7-10)</td>
-							<td>3(3)</td>
-							<td><button>수정</button></td>
-						</tr>
+					</c:forEach>
 						
 						</tbody>
 				</table>
