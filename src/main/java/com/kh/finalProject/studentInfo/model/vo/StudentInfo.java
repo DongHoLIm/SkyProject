@@ -12,7 +12,8 @@ public class StudentInfo implements Serializable{
 	private String email;			//이메일
 	private String address;			//주소
 	private String studentStatus; 	//학적상태
-	private String sdeptCode;		//학과
+	private String college;			//단과대학
+	private String sdeptName;		//학과
 	private int grade;				//학년
 	private String enrolType;		//입학구분
 	private Date enrolDate;			//입학일자
@@ -32,9 +33,9 @@ public class StudentInfo implements Serializable{
 
 
 	public StudentInfo(String studentNo, String kName, String eName, String memberNo, String phone, String email,
-			String address, String studentStatus, String sdeptCode, int grade, String enrolType, Date enrolDate,
-			int enroleGrade, int enrolNo, String secondMajor, double avgScore, Date graduatedDate, String degreeNo,
-			String degreeName, String graduatedNo, String bank, String accountNo) {
+			String address, String studentStatus, String college, String sdeptName, int grade, String enrolType,
+			Date enrolDate, int enroleGrade, int enrolNo, String secondMajor, double avgScore, Date graduatedDate,
+			String degreeNo, String degreeName, String graduatedNo, String bank, String accountNo) {
 		super();
 		this.studentNo = studentNo;
 		this.kName = kName;
@@ -44,7 +45,8 @@ public class StudentInfo implements Serializable{
 		this.email = email;
 		this.address = address;
 		this.studentStatus = studentStatus;
-		this.sdeptCode = sdeptCode;
+		this.college = college;
+		this.sdeptName = sdeptName;
 		this.grade = grade;
 		this.enrolType = enrolType;
 		this.enrolDate = enrolDate;
@@ -141,13 +143,23 @@ public class StudentInfo implements Serializable{
 	}
 
 
-	public String getSdeptCode() {
-		return sdeptCode;
+	public String getCollege() {
+		return college;
 	}
 
 
-	public void setSdeptCode(String sdeptCode) {
-		this.sdeptCode = sdeptCode;
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+
+	public String getSdeptName() {
+		return sdeptName;
+	}
+
+
+	public void setSdeptName(String sdeptName) {
+		this.sdeptName = sdeptName;
 	}
 
 
@@ -285,17 +297,14 @@ public class StudentInfo implements Serializable{
 	public String toString() {
 		return "StudentInfo [studentNo=" + studentNo + ", kName=" + kName + ", eName=" + eName + ", memberNo="
 				+ memberNo + ", phone=" + phone + ", email=" + email + ", address=" + address + ", studentStatus="
-				+ studentStatus + ", sdeptCode=" + sdeptCode + ", grade=" + grade + ", enrolType=" + enrolType
-				+ ", enrolDate=" + enrolDate + ", enroleGrade=" + enroleGrade + ", enrolNo=" + enrolNo
-				+ ", secondMajor=" + secondMajor + ", avgScore=" + avgScore + ", graduatedDate=" + graduatedDate
-				+ ", degreeNo=" + degreeNo + ", degreeName=" + degreeName + ", graduatedNo=" + graduatedNo + ", bank="
-				+ bank + ", accountNo=" + accountNo + "]";
+				+ studentStatus + ", college=" + college + ", sdeptName=" + sdeptName + ", grade=" + grade
+				+ ", enrolType=" + enrolType + ", enrolDate=" + enrolDate + ", enroleGrade=" + enroleGrade
+				+ ", enrolNo=" + enrolNo + ", secondMajor=" + secondMajor + ", avgScore=" + avgScore
+				+ ", graduatedDate=" + graduatedDate + ", degreeNo=" + degreeNo + ", degreeName=" + degreeName
+				+ ", graduatedNo=" + graduatedNo + ", bank=" + bank + ", accountNo=" + accountNo + "]";
 	}
-	
-	
 
 
-	
 	
 	
 	
