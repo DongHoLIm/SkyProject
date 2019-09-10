@@ -14,6 +14,27 @@
 	
 	<insert id="insertFreeBoardRP">
 		INSERT INTO FREEBOARD
-		VALUES(#{boardNo}, SEQ_COMMENTNO.NEXTVAL, #{cContent}, #{cWriter}, SYSDATE)
+		VALUES(#{boardNo}, SEQ_COMMENTNO.NEXTVAL, #{cContent}, #{cWriter}, SYSDATE, 'Y')
 	</insert>
+	
+	<select id="selectFreeBoardRPListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM FREEBOARD
+		WHERE STATUS='Y' AND BOARD_NO = #{boardNo}
+	</select>
+	
+	<select id="selectFreeBoardRPList" resultMap="replyResultSet">
+		SELECT *
+		FROM FREEBOARD
+		WHERE STATUS = 'Y' AND BOARD_NO = #{boardNo}
+		ORDER BY COMMENT_NO DESC
+	</select>
+	
+	<update id="deleteFreeBoardRP">
+		UPDATE FREEBOARD SET STATUS = 'N' WHERE COMMENT_NO = #{cNo}
+	</update>
+	
+	<update id="updateFreeBoardRP">
+		UPDATE FREEBOARD SET COMMENT_CONTENT = #{cContent} WHERE COMMENT_NO = #{cNo}
+	</update>
 </mapper>
