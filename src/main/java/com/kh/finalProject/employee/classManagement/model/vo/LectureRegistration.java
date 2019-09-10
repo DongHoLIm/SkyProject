@@ -1,6 +1,6 @@
 package com.kh.finalProject.employee.classManagement.model.vo;
 
-public class LectureRegistration {
+public class LectureRegistration implements java.io.Serializable{
 	private String openSubCode;
 	private int studentMax;
 	private int studentCount;
@@ -9,15 +9,16 @@ public class LectureRegistration {
 	private String professorNo;
 	private String closeCheck;
 	private String closeReason;
-	private String roomCode;
+	private String buildingName;
+	private String roomName;
 	private String dayInfo;
 	private String timeInfo;
 	
 	public LectureRegistration() {}
 
 	public LectureRegistration(String openSubCode, int studentMax, int studentCount, int openYear, int openSemester,
-			String professorNo, String closeCheck, String closeReason, String roomCode, String dayInfo,
-			String timeInfo) {
+			String professorNo, String closeCheck, String closeReason, String buildingName, String roomName,
+			String dayInfo, String timeInfo) {
 		super();
 		this.openSubCode = openSubCode;
 		this.studentMax = studentMax;
@@ -27,7 +28,8 @@ public class LectureRegistration {
 		this.professorNo = professorNo;
 		this.closeCheck = closeCheck;
 		this.closeReason = closeReason;
-		this.roomCode = roomCode;
+		this.buildingName = buildingName;
+		this.roomName = roomName;
 		this.dayInfo = dayInfo;
 		this.timeInfo = timeInfo;
 	}
@@ -96,12 +98,20 @@ public class LectureRegistration {
 		this.closeReason = closeReason;
 	}
 
-	public String getRoomCode() {
-		return roomCode;
+	public String getBuildingName() {
+		return buildingName;
 	}
 
-	public void setRoomCode(String roomCode) {
-		this.roomCode = roomCode;
+	public void setBuildingName(String buildingName) {
+		this.buildingName = buildingName;
+	}
+
+	public String getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
 	}
 
 	public String getDayInfo() {
@@ -124,9 +134,10 @@ public class LectureRegistration {
 	public String toString() {
 		return "LectureRegistration [openSubCode=" + openSubCode + ", studentMax=" + studentMax + ", studentCount="
 				+ studentCount + ", openYear=" + openYear + ", openSemester=" + openSemester + ", professorNo="
-				+ professorNo + ", closeCheck=" + closeCheck + ", closeReason=" + closeReason + ", roomCode=" + roomCode
-				+ ", dayInfo=" + dayInfo + ", timeInfo=" + timeInfo + "]";
+				+ professorNo + ", closeCheck=" + closeCheck + ", closeReason=" + closeReason + ", buildingName="
+				+ buildingName + ", roomName=" + roomName + ", dayInfo=" + dayInfo + ", timeInfo=" + timeInfo + "]";
 	}
+
 	
-	
+		
 }
