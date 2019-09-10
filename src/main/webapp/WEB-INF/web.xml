@@ -35,6 +35,7 @@
     <servlet-name>member</servlet-name>
     <url-pattern>*.me</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>board</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet
@@ -48,6 +49,21 @@
     <servlet-name>board</servlet-name>
     <url-pattern>*.bo</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>reply</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/config/reply-servlet.xml</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reply</servlet-name>
+    <url-pattern>*.rp</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>student</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet

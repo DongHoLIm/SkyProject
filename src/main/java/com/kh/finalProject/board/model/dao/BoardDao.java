@@ -107,6 +107,32 @@ public interface BoardDao {
 
 	int updateeNoticeFile(SqlSessionTemplate sqlSession, UploadFile uf);
 
+	int freeBoardListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Board> selectfreeBoardList(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int SearchefreeBoardResultCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<Board> SearchfreeBoardResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);
+
+	Board selectfreeBoardOne(SqlSessionTemplate sqlSession, int boardNo);
+
+	int insertfreeBoard(SqlSessionTemplate sqlSession, Board b);
+
+	int insertFreeBoardFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
+	Writer selectFreeBoardstWriter(SqlSessionTemplate sqlSession, String memberId);
+
+	int updatefreeBoard(SqlSessionTemplate sqlSession, Board b);
+
+	int updatefreeBoardFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
+	int deletefreeBoard(SqlSessionTemplate sqlSession, String boardNo);
+
+	Writer selectFreeBoardproWriter(SqlSessionTemplate sqlSession, String memberId);
+
+	Writer selectFreeBoardemWriter(SqlSessionTemplate sqlSession, String memberId);
+
 
 
 

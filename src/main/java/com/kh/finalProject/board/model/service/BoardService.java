@@ -98,6 +98,32 @@ public interface BoardService {
 
 	int updateeNotice(Board b) throws BoardUpdateException;
 
+	int selectfreeBoardCount() throws BoardSelectListException;
+
+	ArrayList<Board> selectfreeBoardList(PageInfo pi) throws BoardSelectListException;
+
+	int SearchefreeBoardResultCount(SearchCondition sc) throws BoardSearchException;
+
+	ArrayList<Board> SearchfreeBoardResultList(SearchCondition sc, PageInfo pi) throws BoardSearchException;
+
+	Board selectfreeBoardOne(int boardNo) throws BoardSelectOneException;
+
+	int insertfreeBoardwithFile(Board b, UploadFile uf) throws BoardInsertException;
+
+	int insertfreeBoard(Board b) throws BoardInsertException;
+
+	Writer selectFreeBoardstWriter(String memberId);
+
+	int updatefreeBoardwithFile(Board b, UploadFile uf) throws BoardUpdateException;
+
+	int updatefreeBoard(Board b) throws BoardUpdateException;
+
+	int deletefreeBoard(String boardNo) throws BoardDeleteException;
+
+	Writer selectFreeBoardproWriter(String memberId);
+
+	Writer selectFreeBoardemWriter(String memberId);
+
 
 
 

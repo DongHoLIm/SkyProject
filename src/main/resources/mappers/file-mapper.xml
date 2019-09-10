@@ -46,4 +46,17 @@
 		SET OLD_NAME = #{oldName}, CHANGE_NAME = #{changeName}, PATH = #{path} 
 		WHERE BOARD_NO = #{boardNo}
 	</update>
+	
+	
+	
+	<insert id="insertfreeBoardFile">
+		INSERT INTO UPLOAD_FILE
+		VALUES(SEQ_FILECODE.NEXTVAL, SEQ_BOARDNO.CURRVAL, #{oldName}, #{changeName}, #{path})
+	</insert>	
+	
+	<update id="updatefreeBoardFile">
+		UPDATE UPLOAD_FILE 
+		SET OLD_NAME = #{oldName}, CHANGE_NAME = #{changeName}, PATH = #{path} 
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 </mapper>

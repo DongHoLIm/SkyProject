@@ -19,4 +19,24 @@
 		WHERE M.MEMBER_ID = #{memberId}
 	</select>
 	
+	<select id="selectFreeBoardstWriter" resultMap="writerResultSet" parameterType="Writer">
+		SELECT MEMBER_ID, MEMBER_KNAME
+		FROM MEMBER
+		WHERE MEMBER_ID =  #{memberId}
+	</select>
+	
+	<select id="selectFreeBoardproWriter" resultMap="writerResultSet" parameterType="Writer">
+		SELECT MEMBER_ID, MEMBER_KNAME
+		FROM MEMBER
+		WHERE MEMBER_ID =  #{memberId}
+	</select>
+	
+	<select id="selectFreeBoardemWriter" resultMap="writerResultSet" parameterType="Writer">
+		SELECT M.MEMBER_ID, M.MEMBER_KNAME, D.EDEPT_NAME
+		FROM MEMBER M
+		JOIN EMPLOYEE E ON(M.MEMBER_ID = E.EMPLOYEE_NO)
+		JOIN E_DEPARTMENT D ON(E.EDEPT_CODE = D.EDEPT_CODE)
+		WHERE M.MEMBER_ID = #{memberId}
+	</select>
+	
 </mapper>
