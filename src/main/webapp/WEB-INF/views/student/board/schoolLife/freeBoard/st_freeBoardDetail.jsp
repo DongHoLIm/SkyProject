@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style>
 	#basic {
 		padding: 10px 0px 0px 100px;
@@ -20,6 +26,14 @@
 	td {
 		background: white;
 		text-align: center;
+	}
+	.updateSpan	{
+		padding-left: 10px;
+	}
+	
+	.deleteSpan:hover, .updateSpan:hover{
+		cursor: pointer;
+		color: black;
 	}
 </style>	
 </head>
@@ -40,60 +54,54 @@
 					</div>
 				</div>
 			</c:if>
+			<input type="hidden" id="boardNo" name="boardNo" value="${b.boardNo}">
 			<table style="width: 88.5%; margin: 0 auto;">				
-				<tr>
-					<th style="text-align: center;">글번호</th>
-					<td>${b.boardNo}</td>
-					<th style="text-align: center;">제목</th>
-					<td colspan="4">${b.title}</td>
-				</tr>
-				<tr>
-					<th style="text-align: center;">작성자</th>
-					<td>${b.writer}</td>
-					<th style="text-align: center;">작성일자</th>
-					<td>
-						<fmt:parseDate value="${b.enrollDate}" var="enrollDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${enrollDate}" pattern="yyyy/MM/dd"/>
-					</td>
-					<th style="text-align: center;">조회수</th>
-					<td>${b.count}</td>
-				</tr>
-				<tr>
-					<td colspan="6" style="text-align: left; height: 100px;">
-						<c:if test="${!empty uf}">
-							<div align="center">
-								<img src="${uf.path}" width="50%" height="70%">
-							</div>
-						</c:if>
-						${b.content}
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4">
-						<input type="hidden" name="cWriter" id="cWriter" value="${sessionScope.loginUser.memberKName}">
-						<textarea id="cContent" name="cContent" style="resize: none;" rows="3" cols="80" placeholder="댓글을 작성하세요."></textarea>
-					</td>
-					<td colspan="2" style="margin: 0 auto; vertical-align: middle;">
-						<button onclick="insertReply()">작성</button>
-					</td>					
-				</tr>
-				<tr>
-					<th>
-						<span>작성자</span>
-					</th>
-					<td colspan="3" style="border-right: 1px solid #E5E6E7;">
-						<span>댓글내용</span>
-					</td>
-					<td colspan="2" style="border-right:  1px solid #E5E6E7;">
-						<button>수정</button>
-						<button>삭제</button>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="6" style="text-align: right;">
-						<button onclick="st_freeBoardList()">목록으로</button>
-					</td>
-				</tr>									
+				<tbody id="tbody">
+					<tr>
+						<td colspan="6" style="text-align: right;">
+							<button onclick="st_freeBoardList()">목록</button>
+						</td>
+					</tr>
+					<tr>
+						<th style="text-align: center;">글번호</th>
+						<td>${b.boardNo}</td>
+						<th style="text-align: center;">제목</th>
+						<td colspan="4">${b.title}</td>
+					</tr>
+					<tr>
+						<th style="text-align: center;">작성자</th>
+						<td>${b.writer}</td>
+						<th style="text-align: center;">작성일자</th>
+						<td>
+							<fmt:parseDate value="${b.enrollDate}" var="enrollDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${enrollDate}" pattern="yyyy/MM/dd"/>
+						</td>
+						<th style="text-align: center;">조회수</th>
+						<td>${b.count}</td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: left; height: 100px;">
+							<c:if test="${!empty uf}">
+								<div align="center">
+									<img src="${uf.path}" width="50%" height="70%">
+								</div>
+							</c:if>
+							${b.content}
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<input type="hidden" name="cWriter" id="cWriter" value="${sessionScope.loginUser.memberKName}">
+							<textarea id="cContent" name="cContent" style="resize: none;" rows="3" cols="80" placeholder="댓글을 작성하세요."></textarea>
+						</td>
+						<td colspan="2" style="margin: 0 auto; vertical-align: middle;">
+							<button onclick="insertReply()">작성</button>
+						</td>					
+					</tr>
+					<tr id="replyArea">
+					
+					</tr>
+				</tbody>									
 			</table>
 		</div>
 		<div>
@@ -137,12 +145,203 @@
 				},
 				success:function(data){
 					alert("댓글이 등록되었습니다!");
-					$("#cContent").val("");
+					$("#cContent").val("");		
+					
+					loadAjax();
+					
 				}
 			});
 		}
 		
+		$(function(){
+			var boardNo = $("#boardNo").val();
+			var replyWriter = $("#cWriter").val();
+			
+			$.ajax({
+				url:"st_selectfreeBoardRP.rp",
+				type:"get",
+				data:{
+					"boardNo":boardNo
+				},
+				success:function(data){
+					console.log("연결성공!");
+					console.log("data :::: " + data.list[0].cContent);
+					console.log("data.list.length :::: " + data.list.length);					
+					console.log("replyWriter :::: " + replyWriter);
+					
+					$tbody = $("#tbody");
+					
+					$tbody.children("#replyArea").remove();				
+					
+					for(var i = 0; i < data.list.length; i++){
+						
+						var $tr = $("<tr id='replyArea'>");
+						var $th = $("<th style='text-align: center; text-align: center; vertical-align: middle;'>");
+						var $td1 = $("<td colspan='4' style='text-align: center; vertical-align: middle;'>");
+						var $td2 = $("<td style='text-align: center; vertical-align: middle; border-right: 1px solid #E5E6E7;'>");
+						var $span1 = $("<span>");
+						var $span2 = $("<span>");
+						var $input = $("<input type='hidden' name='cNo' class='cNo'>");
+						
+						
+						$th.text(data.list[i].cWriter);
+						
+						$td1.text(data.list[i].cContent);
+						$td1.addClass('cContentTd');
+						
+						$input.val(data.list[i].cNo);
+						
+						var cNo = $input.val();
+						
+						$span1.addClass('deleteSpan');
+						$span2.addClass('updateSpan');
+						
+						$span1.text('삭제');
+						$span2.text('수정');
+						
+						$span1.attr({
+							"onclick":"deleteReply("+cNo+")"
+						});
+						
+						/* $span2.attr({
+							"onclick":"updateReply("+cNo+")"
+						}); */
+						
+						
+						if(replyWriter == $th.text()){
+							$td2.append($span1);
+							$td2.append($span2);
+						}
+						
+						$tr.append($input);
+						$tr.append($th);
+						$tr.append($td1);			
+						$tr.append($td2);	
+						
+						$tbody.append($tr);
+					}
+					
+					$(".updateSpan").click(function(){
+						var beforeContent = $(this).parent().parent().children().eq(2).text();
+						
+						$(this).parent().parent().children().eq(2).text("");
+						
+						$(this).parent().parent().children().eq(2).append("<input type='text' class='newcContent' name='newcContent' value='"+beforeContent+"'>");
+						
+					});	
+				}
+			});
+		});
 		
+		function loadAjax(){
+			var boardNo = $("#boardNo").val();
+			var replyWriter = $("#cWriter").val();
+			
+			$.ajax({
+				url:"st_selectfreeBoardRP.rp",
+				type:"get",
+				data:{
+					"boardNo":boardNo
+				},
+				success:function(data){
+					console.log("연결성공!");
+					console.log("data :::: " + data.list[0].cContent);
+					console.log("data.list.length :::: " + data.list.length);					
+					console.log("replyWriter :::: " + replyWriter);
+					
+					$tbody = $("#tbody");
+					
+					$tbody.children("#replyArea").remove();				
+					
+					for(var i = 0; i < data.list.length; i++){
+						
+						var $tr = $("<tr id='replyArea'>");
+						var $th = $("<th style='text-align: center; text-align: center; vertical-align: middle;'>");
+						var $td1 = $("<td colspan='4' style='text-align: center; vertical-align: middle;'>");
+						var $td2 = $("<td style='text-align: center; vertical-align: middle; border-right: 1px solid #E5E6E7;'>");
+						var $span1 = $("<span>");
+						var $span2 = $("<span>");
+						var $input = $("<input type='hidden' name='cNo' class='cNo'>");
+						
+						$th.text(data.list[i].cWriter);
+						
+						$td1.text(data.list[i].cContent);
+						$td1.addClass('cContentTd');
+						
+						$input.val(data.list[i].cNo);
+						
+						var cNo = $input.val();
+						
+						$span1.addClass('deleteSpan');
+						$span2.addClass('updateSpan');
+						
+						$span1.text('삭제');
+						$span2.text('수정');
+						
+						$span1.attr({
+							"onclick":"deleteReply("+cNo+")"
+						});
+						
+						/* $span2.attr({
+							"onclick":"updateReply("+cNo+")"
+						}); */
+						
+						if(replyWriter == $th.text()){
+							$td2.append($span1);
+							$td2.append($span2);
+						}
+						
+						$tr.append($input);
+						$tr.append($th);
+						$tr.append($td1);			
+						$tr.append($td2);	
+						
+						$tbody.append($tr);
+					}					
+				}
+			});
+		}
+		
+		function deleteReply(cNo){			
+			$.ajax({
+				url:"st_deletefreeBoardRP.rp",
+				type:"POST",
+				data:{
+					"cNo":cNo
+				},
+				success:function(data){
+					alert("댓글이 삭제되었습니다!");
+					
+					loadAjax();
+				}
+			});
+		};
+	
+		/* function updateReply(cNo){
+			var a = $(".cContentTd").parent().children().eq(2).text();
+			
+			console.log("a :::: " + a)
+			
+			$(".updateSpan").click(function(){	
+				
+			})
+			
+			
+				
+			 $.ajax({
+				url:"st_updatefreeBoardRP.rp",
+				type:"POST",
+				data:{
+					"cNo":cNo,
+					"cContent":cContent
+				},
+				success:function(data){
+					alert("댓글이 수정되었습니다!");
+					
+					loadAjax();
+				}
+			}); 
+		}	*/	
 	</script>
 </div>
 </body>
