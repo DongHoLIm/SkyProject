@@ -4,17 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Dormitory">
 	<resultMap type="com.kh.finalProject.dormitory.model.vo.Dormitory" id="dormitoryResultSet">
-		<id property="applyCode" column="APPLY_CODE"/>
+		<id property="dormitoryApplyNo" column="DORMITORY_APPLY_NO"/>
 		
-		<result property="year" column="YEAR"/>
-		<result property="semester" column="SEMESTER"/>
-		<result property="status" column="STATUS"/>
 		<result property="studentNo" column="STUDENT_NO"/>
+		<result property="dorApplyYear" column="DOR_APPLY_YEAR"/>
+		<result property="dorApplySemester" column="DOR_APPLY_SEMESTER"/>
+		<result property="dorApplyDate" column="DOR_APPLY_DATE"/>
+		<result property="aggrementStatus" column="AGGREMENT_STATUS"/>
+		<result property="memberKname" column="MEMBER_KNAME"/>
 	</resultMap>
 	
 	<select id="DormitoryCheck" resultMap="dormitoryResultSet" parameterType="String">
-		SELECT *
-		FROM DORM_APPLY
-		WHERE STUDENT_NO = #{studentNo}
+		SELECT D.STUDENT_NO, D.DOR_APPLY_YEAR, D.DOR_APPLY_SEMESTER, D.DOR_APPLY_DATE, D.AGGREMENT_STATUS, M.MEMBER_KNAME
+		FROM DORMITORY_APPLY D JOIN MEMBER M ON (D.STUDENT_NO = M.MEMBER_ID) 
+		WHERE D.STUDENT_NO = #{studentNo}
 	</select>
 </mapper>

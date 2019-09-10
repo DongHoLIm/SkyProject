@@ -88,7 +88,8 @@
 					
 					<hr>
 					
-					<div class="container">         
+					<div class="container">
+						      
 	  					<table class="table" text-align="center" style="border:2px solid lightgray">
 	  					  <thead style="background-color:#eff1f2">
 	  					  	<tr>

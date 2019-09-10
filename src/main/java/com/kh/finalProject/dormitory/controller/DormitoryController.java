@@ -45,4 +45,19 @@ public class DormitoryController {
 		}
 		
 	}
+	
+	@RequestMapping(value="apply.dor")
+	public String DormitoryApplyAgreement() {
+		return "student/dormitory/dormitoryApplyAgreement";
+	}
+	
+	@RequestMapping(value="applyView.dor")
+	public String DormitoryApplyView() {
+		return "student/dormitory/dormitoryApply";
+	}
+	
+	@RequestMapping(value="applyCancle.dor")
+	public String DormitoryApplyCancle() {
+		return "main/main";
+	}
 }

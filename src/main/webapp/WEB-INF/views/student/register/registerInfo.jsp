@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+2<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -55,20 +55,22 @@
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">등록금</th>
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">감면액</th>
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">납부한 금액</th>
+	  					      <c:if test="${ sessionScope.memberEnrollment.payAmount != 0}">
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">등록금 확인증 출력</th>
-	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">학생회비 확인증 출력</th>
+	  					      </c:if>
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">비고</th>
 	 					    </tr>
 	 					   </thead>
 	 					   <tbody>
 	 					   <c:forEach var="enrollment" items="${ memberEnrollment }">
 	     					 <tr style="background-color:white">
-	    					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">2019년도 2학기</td>
+	    					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ enrollment.enrollYear }"/>학년도 <c:out value="${ enrollment.enrollSemester }"/>학기</td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${enrollment.tuition}"/> 원</td>
-	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br>540,000 원<br>[이월]<br>0 원</td>
-	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">0 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br><c:out value="${ enrollment.schoAmount }"/> 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ enrollment.payAmount }"/> 원</td>
+	     					   <c:if test="${ sessionScope.memberEnrollment.payAmount != 0}">
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
-	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
+	     					   </c:if>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"></td>
 	  					    </tr>
 	  					    </c:forEach>
