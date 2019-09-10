@@ -1,5 +1,6 @@
 package com.kh.finalProject.member.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.security.auth.login.LoginException;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
+import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.member.model.dao.MemberDao;
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.vo.Member;
@@ -74,6 +76,16 @@ public class MemberServiceImpl implements MemberService{
 	public int changeNewpassword(Member findMemberPwd) {
 		// TODO Auto-generated method stub
 		return md.changeNewPassword(sqlSession,findMemberPwd);
+	}
+	@Override
+	public int getMemberListCount(String memberId) {
+		// TODO Auto-generated method stub
+		return md.getMemberListCount(sqlSession,memberId);
+	}
+	@Override
+	public ArrayList<Member> memberAllList(String userId, PageInfo pi) {
+		// TODO Auto-generated method stub
+		return md.memberAllList(sqlSession,userId,pi);
 	}
 
 	

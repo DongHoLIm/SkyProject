@@ -33,13 +33,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.common.CommonUtils;
+import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.common.mailController;
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.service.MemberService;
@@ -396,5 +399,57 @@ public class MemberController {
 	public String accountMember () {
 		
 		return "employee/systemAccountManagement/systemAccount";
+	}
+	
+	@RequestMapping("MemberListview.me")
+	public String MemberListView(@ModelAttribute("loginUser") Member loginUser,HttpServletRequest request) {
+		ArrayList <Member> list = null;
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		System.out.println("Memberlist:"+currentPage);
+		int listCount;
+		try {
+		listCount = ms.getMemberListCount(loginUser.getMemberId());
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		list = ms.memberAllList(loginUser.getMemberId(),pi);
+		
+		request.setAttribute("MemberList", list);
+		request.setAttribute("pi", pi);
+		return "employee/systemAccountManagement/MemberList";		
+		}catch(Exception e){			
+			request.setAttribute("msg","MemberList실패");
+			return "common/errorAlert";			 
+		}	
+	}
+	@RequestMapping(value="MemberList.me")
+	public ModelAndView MemberList(@ModelAttribute("loginUser") Member loginUser,HttpServletRequest request,ModelAndView mv){
+		ArrayList <Member> list = null;
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		System.out.println("Memberlist:"+currentPage);
+		int listCount;
+		try {
+		listCount = ms.getMemberListCount(loginUser.getMemberId());
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		list = ms.memberAllList(loginUser.getMemberId(),pi);
+		
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("jsonView");			
+		}catch(Exception e){			
+			mv.addObject("msg","MemberList실패");		
+			mv.setViewName("common/errorAlert");
+		}
+		return mv;	
+		
+		
 	}
 }

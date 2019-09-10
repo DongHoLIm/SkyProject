@@ -124,7 +124,7 @@
 											<span class="opener">시스템 계정관리</span>
 											<ul>
 												<li><h4>시스템 계정관리</h4></li>
-												<li><a href="#">계정 조회및 수정</a></li>
+												<li><a href="MemberListview.me">계정 조회및 수정</a></li>
 												<li><a href="insert.me">계정 발급</a></li>
 												<li><a href="account.me">권한부여/수정</a></li>
 											</ul>

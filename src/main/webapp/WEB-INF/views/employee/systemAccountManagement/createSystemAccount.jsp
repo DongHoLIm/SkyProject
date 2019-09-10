@@ -69,7 +69,7 @@
 						<tbody>
 						<c:forEach var="insertMember" items="${insertMember_parent}">
 								<tr class="trClass">		
-									<td><input type="checkbox" value="selectOne" id="Allcheck"><label for="Allcheck"></label></td>
+									<td><input type="checkbox" value="${insertMember.memberId}" id="${insertMember.memberId}"><label for="${insertMember.memberId}"></label></td>
 									<td>${insertMember.memberId}</td>
 									<td>${insertMember.memberPwd}</td>
 									<td>${insertMember.memberKName}</td>

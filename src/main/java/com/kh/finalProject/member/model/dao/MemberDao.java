@@ -1,7 +1,10 @@
 package com.kh.finalProject.member.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.vo.Member;
 
@@ -26,5 +29,9 @@ public interface MemberDao {
 	Member findPwdResult(SqlSessionTemplate sqlSession, Member findPwd);
 
 	int changeNewPassword(SqlSessionTemplate sqlSession, Member findMemberPwd);
+	
+	ArrayList<Member> memberAllList(SqlSessionTemplate sqlSession, String userId, PageInfo pi);
+
+	int getMemberListCount(SqlSessionTemplate sqlSession, String memberId);
 
 }

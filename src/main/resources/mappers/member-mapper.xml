@@ -71,4 +71,16 @@
 		UPDATE MEMBER SET MEMBER_PWD=#{memberPwd}
 		WHERE MEMBER_ID =#{memberId}
 	</update>
+	<select id="MemberAllList" resultMap="memberResultSet">
+		SELECT *FROM 
+		MEMBER
+		WHERE MEMBER_ID != #{memberId}
+		ORDER BY MEMBER_CHECK DESC
+	</select>
+	<select id="MemberListCount" resultType="_int">
+		SELECT COUNT(MEMBER_ID)
+		FROM 
+		MEMBER
+		WHERE MEMBER_ID != #{memberId}
+	</select>
 </mapper>
