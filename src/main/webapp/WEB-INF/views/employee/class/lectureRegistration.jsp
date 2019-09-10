@@ -64,7 +64,11 @@
 								<td><input type="text" value=""></td>
 								<td class="td">교수명</td>
 								<td>
-									<select></select>
+									<select>
+										<c:forEach var="proList" items="${ proList }">
+											<option><c:out value="${ proList.professorName }/${ proList.professorNo }" /></option>
+										</c:forEach>
+									</select>
 								</td>
 								<td class="td">강의실정보</td>
 								<td><input type="text" value=""></td>

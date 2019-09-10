@@ -60,11 +60,12 @@ public class ClassManagementController {
 		System.out.println("다시돌아옴 !!" + lo);
 
 		System.out.println(lo.getSdeptName());
-		ArrayList<DepartmentProfessor> pf = cms.selectProfessorList(lo.getSdeptName());
+		ArrayList<DepartmentProfessor> proList = cms.selectProfessorList(lo.getSdeptName());
 
-		System.out.println("pf다시옴!!" + pf);
+		
 
 		request.setAttribute("lo", lo);
+		request.setAttribute("proList", proList);
 
 		return "employee/class/lectureRegistration";
 	}
