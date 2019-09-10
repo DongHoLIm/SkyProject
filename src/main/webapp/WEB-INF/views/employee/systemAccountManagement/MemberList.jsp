@@ -84,26 +84,26 @@
 				<c:set var = "pageInfo" value="${pi }"/>
 				<ul class="pagination" align="center">
 					<c:if test = "${pi.currentPage<=1 }">
-						<li><span class="button disabled">Prev</span></li>
+						<li><span class="button disabled" >Prev</span></li>
 					</c:if>
 					<c:if test = "${pi.currentPage>1 }">
-						<li><span class="button">Prev</span></li>
+						<li><span class="button" id="prevBtn">Prev</span></li>
 					</c:if>
 					<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}"> 
 						<c:if test="${p eq pi.currentPage }">
-							<li><p class="page active">${p}</p></li>
+							<li class="pageNumber"><p class="page active">${p}</p></li>
 						</c:if>
 						<c:if test ="${p ne pi.currentPage }">
-							<li><a class="page" onclick="pagingAjax(${p});">${p}</a></li>
+							<li class="pageNumber"><a class="page">${p}</a></li>
 						</c:if>
 					</c:forEach>
 					<c:if test="${pi.currentPage < pi.maxPage }">					
-					<li><span class="button">next</span></li>
+					<li><span class="button" id="nextBtn">next</span></li>
 					</c:if>
 					<c:if test = "${pi.currentPage ==pi.maxPage }">
 					<li><span class="button disabled">Next</span></li>
 					</c:if>
-				</ul>		
+				</ul> 		
 		</div>
 			</div>
 		<div>		
@@ -113,20 +113,31 @@
 	<c:if test="${empty loginUser}">		
 		<jsp:forward page="Login.jsp"/>
 	</c:if>
-	<script type="application/json">
-	function pagingAjax(index){		
-		var currentPage =index;
-			$.ajax({
-				uri : "MemberList.me",
-				data: {"currentPage":currentPage},					
-				type:"post",
-				success: function(data){
-					console.log("성공"+data);
-				}				
-						
-			});
+	<script>
+	$(function(){
+		$("a[class='page']").click(function(){
+			var currentPage =$(this).text();
+			 	location.href ="MemberListview.me?currentPage="+currentPage;
+		});
+		$("#nextBtn").click(function(){
+			var currentPage =$("p[class='page active']").text();
+			var nextPage =Number(currentPage);
+			var nextPageNum = nextPage+1;
+			location.href ="MemberListview.me?currentPage="+nextPageNum;
+		});
+		$("#prevBtn").click(function(){
+			var currentPage =$("p[class='page active']").text();
+			var prePage = Number(currentPage);
+			var prePageNum = prePage-1;
 			
-		}
+			location.href ="MemberListview.me?currentPage="+prePageNum;
+		});
+		$("#MemberList tbody tr").click(function(){
+			var test = $(this);
+			var userId = test.children().eq(0).text();
+			location.href = "MemberDetailList.me?userId="+userId;
+		});
+	})		
 	</script>
 </body>
 </html>
