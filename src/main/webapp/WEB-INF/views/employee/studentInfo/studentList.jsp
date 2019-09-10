@@ -23,8 +23,9 @@
 			<!-- 입력 라인  -->
 			<br>
 			
-			<h2>학생전체조회</h2>
-			<div id="searchArea">
+			<h2 style="width:88.5%; margin: 0 auto;">학생전체조회</h2>
+			<br>
+			<div id="searchArea" style="width:88.5%; text-align: center; margin: 0 auto;">
 			<table>
 			<tr>
 				<td>
@@ -55,15 +56,14 @@
 						<option value="2">2학년</option>
 						<option value="3">3학년</option>
 						<option value="4">4학년</option>
-						<option value="5">5학년 이상</option>
 					</select>
 				</td>
 				<td>
-					<select id="collegeCondition" name="collegeCondition">
-						<option value="학정상태">학정상태</option>
-						<option value="">재학</option>
-						<option value="">휴학</option>
-						<option value="">졸업</option>
+					<select id="statusCondition" name="statusCondition">
+						<option value="학적상태">학적상태</option>
+						<option value="재학">재학</option>
+						<option value="휴학">휴학</option>
+						<option value="졸업">졸업</option>
 					</select>
 				</td>
 				<td>
@@ -77,19 +77,19 @@
 			
 			</div>
 			
-			<table id="tableArea" align="center">
+			<table id="tableArea" style="width:88.5%; text-align: center; margin: 0 auto;">
 			<thead>
 				<tr>
-					<th>단과대학</th>
-					<th>학과</th>
-					<th>학년</th>
-					<th>학번</th>
-					<th>이름</th>
-					<th>학적상태</th>
+					<th width="15%" style="text-align:center">단과대학</th>
+					<th width="20%" style="text-align:center">학과</th>
+					<th width="11%" style="text-align:center">학년</th>
+					<th width="20%" style="text-align:center">학번</th>
+					<th width="17%" style="text-align:center">이름</th>
+					<th width="17%" style="text-align:center">학적상태</th>
 				</tr>
 			</thead>	
 			
-			<tbody>
+			<tbody id="tbody">
 				<c:forEach var="list" items="${list }">
 					<tr>
 						<td><c:out value="${list.college }"/></td>
@@ -103,13 +103,13 @@
 			</tbody>
 			</table>
 			
-			<div class="pageingArea" align="center">
+			<div class="pagingArea" align="center">
 			<ul class="pagination" style="justify-content: center; cursor: pointer;">
 				<c:if test="${pi.currentPage <= 1}">
 			   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 				</c:if>
 				<c:if test="${pi.currentPage > 1}">
-					<c:url var="loadPage" value="em_studentListNext.si">
+					<c:url var="loadPage" value="loadPage">
 						<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 					</c:url>
 					<li class="page-item"><a class="page-link" href="${loadPage}">이전</a></li>	
@@ -119,14 +119,14 @@
 					    <li class="page-item"><a class="page-link">${p}</a></li>					
 					</c:if>
 					<c:if test="${p ne pi.currentPage}">
-						<c:url var="loadPage" value="em_studentListNext.si">
+						<c:url var="loadPage" value="loadPage">
 							<c:param name="currentPage" value="${p}"/>
 						</c:url>
 						 <li class="page-item"><a class="page-link" href="${loadPage}">${p}</a></li>
 					</c:if>
 				</c:forEach>
 				<c:if test="${pi.currentPage < pi.maxPage }">
-					<c:url var="loadPage" value="em_studentListNext.si">
+					<c:url var="loadPage" value="loadPage">
 						<c:param name="currentPage" value="${pi.currentPage + 1}"/>
 					</c:url>
 			    	<li class="page-item"><a class="page-link" href="${loadPage}">다음</a></li>				
@@ -256,10 +256,11 @@
 					}
 				});
 			});
-			
+			 
 			
 			function loadPage(curr){
 				var currentPage = curr;
+				console.log(currentPage);
 				
 				$.ajax({
 					url:"em_studentListNext.si",
@@ -268,9 +269,9 @@
 					success:function(data){
 						console.log("접속성공");
 						console.log("data.list.length::" + data.list.length);
-						console.log( data.list[0].college);
+						console.log( data.list[0].kName);
 						
-var $tbody = 			$("#tbody");
+						var $tbody = $("#tbody");
 						
 						$tbody.children().remove();
 						
@@ -380,26 +381,26 @@ var $tbody = 			$("#tbody");
 			};
 			
 			
-			</script>
-
-	</div>
-		<div>
-			<jsp:include page="../../common/menubar-student.jsp" />
-		</div>
-	</div>
-	
-	<script>
+			
 			function searchStudent(){
-				var searchCondition = $("#searchCondition").val();
-				var searchVale = $("searchValue").val();
+				var collegeCondition = $("#collegeCondition").val();
+				var sdeptCondition = $("#sdeptCondition").val();
+				var gradeCondition = $("#gradeCondition").val();
+				var statusCondition = $("#statusCondition").val();
 				
-				console.log(searchCondition);
-				console.log(searchVale);
+				console.log(collegeCondition);
+				console.log(sdeptCondition);
+				console.log(gradeCondition);
+				console.log(statusCondition);
+				
 				
 				$.ajax({
 					url:"em_studentListFilter.si",
-					data:{searchCondition:searchCondition,
-						  searchVale:searchVale},
+					data:{"college":collegeCondition,
+						  "sdept":sdeptCondition,
+						  "grade":gradeCondition,
+						  "status":statusCondition
+						  },
 					type:"post",
 					success:function(data){
 						console.log("접속성공");
@@ -411,7 +412,16 @@ var $tbody = 			$("#tbody");
 				
 			}
 			
-			</script>
 			
+			
+			</script>
+
+	</div>
+		<div>
+			<jsp:include page="../../common/menubar-student.jsp" />
+		</div>
+	</div>
+	
+	
 </body>
 </html>

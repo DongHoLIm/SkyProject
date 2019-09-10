@@ -16,6 +16,7 @@ import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.service.StudentInfoService;
+import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 
@@ -112,6 +113,9 @@ public class StudentInfoController {
 			
 			mv.setViewName("jsonView");
 			
+			System.out.println(mv.getViewName());
+			System.out.println(mv.getModel());
+			
 			return mv;
 			
 		} catch (StudentInfoSelectListException e) {
@@ -122,6 +126,41 @@ public class StudentInfoController {
 			return mv;
 		}
 		
+	}
+	
+	//교직원_학생전체 조회 필터링후 페이징
+	@RequestMapping("em_studentListFilter.si")
+	public ModelAndView studentListFilter(ModelAndView mv, HttpServletRequest request,
+										String college, String sdept, String grade, String status) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("college::" + college);
+		System.out.println("sdept::" + sdept);
+		System.out.println("grade::" + grade);
+		System.out.println("status::" + status);
+		
+		FilterCondition fc = new FilterCondition();
+		
+		fc.setCollege(college);
+		fc.setSdeptName(sdept);
+		fc.setGrade(grade);
+		fc.setStudentStatus(status);
+		
+		
+		int listCount;
+		
+		try {
+			listCount = ss.getFilterListCount(fc);
+		} catch (StudentInfoSelectListException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return mv;
 	}
 
 }

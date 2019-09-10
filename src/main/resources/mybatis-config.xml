@@ -15,6 +15,7 @@
 		<typeAlias type="com.kh.finalProject.enrollment.model.vo.Enrollment" alias="Enrollment"/>
 		<typeAlias type="com.kh.finalProject.scholarship.model.vo.Scholarship" alias="Scholarship"/>
 		<typeAlias type="com.kh.finalProject.dormitory.model.vo.Dormitory" alias="Dormitory"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.FilterCondition" alias="FilterCondition"/>
 	</typeAliases>
 	
 	<mappers>
