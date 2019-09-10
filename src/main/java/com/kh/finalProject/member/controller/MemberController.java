@@ -402,7 +402,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("MemberListview.me")
-	public String MemberListView(@ModelAttribute("loginUser") Member loginUser,HttpServletRequest request) {
+	public String MemberListView(@ModelAttribute("loginUser") Member loginUser, HttpServletRequest request) {
 		ArrayList <Member> list = null;
 		int currentPage=1;
 		if(request.getParameter("currentPage") != null) {
@@ -417,6 +417,7 @@ public class MemberController {
 		
 		list = ms.memberAllList(loginUser.getMemberId(),pi);
 		
+		System.out.println("listResult"+list);
 		request.setAttribute("MemberList", list);
 		request.setAttribute("pi", pi);
 		return "employee/systemAccountManagement/MemberList";		
@@ -425,31 +426,10 @@ public class MemberController {
 			return "common/errorAlert";			 
 		}	
 	}
-	@RequestMapping(value="MemberList.me")
-	public ModelAndView MemberList(@ModelAttribute("loginUser") Member loginUser,HttpServletRequest request,ModelAndView mv){
-		ArrayList <Member> list = null;
-		int currentPage=1;
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		System.out.println("Memberlist:"+currentPage);
-		int listCount;
-		try {
-		listCount = ms.getMemberListCount(loginUser.getMemberId());
-		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		list = ms.memberAllList(loginUser.getMemberId(),pi);
-		
-		mv.addObject("list", list);
-		mv.addObject("pi", pi);
-		mv.setViewName("jsonView");			
-		}catch(Exception e){			
-			mv.addObject("msg","MemberList실패");		
-			mv.setViewName("common/errorAlert");
-		}
-		return mv;	
-		
-		
+	@RequestMapping("MemberDetailList.me")
+	public String MemberDetailList(HttpServletRequest request) {
+		String userId = request.getParameter("userId");
+		System.out.println(userId);
+		return "employee/systemAccountManagement/MemberDetailList";
 	}
 }
