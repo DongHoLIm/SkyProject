@@ -67,6 +67,29 @@
 		LEFT JOIN COLLEGE C ON(D.COLLEGE_CODE=C.COLLEGE_CODE)
   	</select>
   	
+  	<!-- 교직원_학생정보 조회 필터링페이징 -->
+  	<select id="selectFilterListCount" resultType="_int">
+  		SELECT COUNT(*)
+  		FROM STUDENT_INFO S
+  		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)
+  		LEFT JOIN SDEPARTMENT D ON(S.SDEPT_CODE=D.SDEPT_CODE)
+		LEFT JOIN COLLEGE C ON(D.COLLEGE_CODE=C.COLLEGE_CODE)
+		<where>
+			<if test = "college != '단과대학'">
+				college = #{college}
+			</if> 
+			<if test = "sdeptName != '학과'">
+				AND sdeptName= #{sdeptName}
+			</if>
+			<if test = "grade != '학년'">
+				AND grade= #{grade}
+			</if>
+			<if test = "studentStatus != '학적상태'">
+				AND studentStatus= #{studentStatus}
+			</if>
+		</where>
+  	</select>
+  	
   	 
   </mapper>
   

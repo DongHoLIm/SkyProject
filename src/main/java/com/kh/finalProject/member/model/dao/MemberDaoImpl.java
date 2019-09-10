@@ -17,10 +17,10 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Member loginCheck(SqlSessionTemplate sqlSession, Member m) throws loginException {		
 		Member loginUser =  sqlSession.selectOne("Member.loginCheck",m);
-//		
-//		if(loginUser==null) {
-//			throw new loginException("해당아이디가 없습니다.");
-//		}
+		
+		if(loginUser==null) {
+			throw new loginException("해당아이디가 없습니다.");
+		}
 			
 		return loginUser;
 	}
