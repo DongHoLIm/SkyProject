@@ -9,11 +9,12 @@
 		
 		<result property="enrollYear" column="ENROLL_YEAR"/>
 		<result property="tuition" column="TUITION"/>
+		<result property="schoAmount" column="SCHO_AMOUNT"/>
 	</resultMap>
 	
 	<select id="EnrollmentCheck" resultMap="enrollmentResultSet" parameterType="String">
-		SELECT *
-		FROM ENROLLMENT
-		WHERE STUDENT_NO = #{studentNo}
+		SELECT E.STUDENT_NO, E.ENROLL_SEMESTER, E.TUITION, E.ENROLL_YEAR, E.PAY_STATUS, E.PAY_AMOUNT, S.SCHO_AMOUNT
+		FROM ENROLLMENT E JOIN SCHOLARSHIP S ON(E.STUDENT_NO = S.STUDENT_NO)
+		WHERE E.STUDENT_NO = #{studentNo}
 	</select>
 </mapper>

@@ -76,7 +76,7 @@
 		       				<br><br>
 		       				- 기본증명서
 					</div>
-					<input type="button" value="동의함" style="width:686px;"><input type="button" value="동의안함" style="width:686px">
+					<button style="width:527px" onclick="location.href='applyView.dor'">동의함</button><button style="width:527px" onclick="location.href='applyCancle.dor'">동의안함</button>
 				</div>		
 		</div>
 		</div>

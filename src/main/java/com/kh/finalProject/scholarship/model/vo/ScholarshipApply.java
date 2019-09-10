@@ -151,7 +151,4 @@ public class ScholarshipApply implements java.io.Serializable{
 				+ ", schoApplyDate=" + schoApplyDate + ", schoAggrementDate=" + schoAggrementDate + "]";
 	}
 
-	
-	
-	
 }

@@ -1,53 +1,36 @@
 package com.kh.finalProject.dormitory.model.vo;
 
+import java.sql.Date;
+
 public class Dormitory implements java.io.Serializable{
-	private int year;
-	private int semester;
-	private String status;
-	private String applyCode;
+	private String dormitoryApplyNo;
 	private String studentNo;
+	private int dorApplyYear;
+	private int dorApplySemester;
+	private Date dorApplyDate;
+	private String aggrementStatus;
+	private String memberKname;
 	
 	public Dormitory() {}
 
-	public Dormitory(int year, int semester, String status, String applyCode, String studentNo) {
+	public Dormitory(String dormitoryApplyNo, String studentNo, int dorApplyYear, int dorApplySemester,
+			Date dorApplyDate, String aggrementStatus, String memberKname) {
 		super();
-		this.year = year;
-		this.semester = semester;
-		this.status = status;
-		this.applyCode = applyCode;
+		this.dormitoryApplyNo = dormitoryApplyNo;
 		this.studentNo = studentNo;
+		this.dorApplyYear = dorApplyYear;
+		this.dorApplySemester = dorApplySemester;
+		this.dorApplyDate = dorApplyDate;
+		this.aggrementStatus = aggrementStatus;
+		this.memberKname = memberKname;
 	}
 
-	public int getYear() {
-		return year;
+	public String getDormitoryApplyNo() {
+		return dormitoryApplyNo;
 	}
 
-	public void setYear(int year) {
-		this.year = year;
-	}
-
-	public int getSemester() {
-		return semester;
-	}
-
-	public void setSemester(int semester) {
-		this.semester = semester;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getApplyCode() {
-		return applyCode;
-	}
-
-	public void setApplyCode(String applyCode) {
-		this.applyCode = applyCode;
+	public void setDormitoryApplyNo(String dormitoryApplyNo) {
+		this.dormitoryApplyNo = dormitoryApplyNo;
 	}
 
 	public String getStudentNo() {
@@ -58,11 +41,55 @@ public class Dormitory implements java.io.Serializable{
 		this.studentNo = studentNo;
 	}
 
+	public int getDorApplyYear() {
+		return dorApplyYear;
+	}
+
+	public void setDorApplyYear(int dorApplyYear) {
+		this.dorApplyYear = dorApplyYear;
+	}
+
+	public int getDorApplySemester() {
+		return dorApplySemester;
+	}
+
+	public void setDorApplySemester(int dorApplySemester) {
+		this.dorApplySemester = dorApplySemester;
+	}
+
+	public Date getDorApplyDate() {
+		return dorApplyDate;
+	}
+
+	public void setDorApplyDate(Date dorApplyDate) {
+		this.dorApplyDate = dorApplyDate;
+	}
+
+	public String getAggrementStatus() {
+		return aggrementStatus;
+	}
+
+	public void setAggrementStatus(String aggrementStatus) {
+		this.aggrementStatus = aggrementStatus;
+	}
+
+	public String getMemberKname() {
+		return memberKname;
+	}
+
+	public void setMemberKname(String memberKname) {
+		this.memberKname = memberKname;
+	}
+
 	@Override
 	public String toString() {
-		return "Dormitory [year=" + year + ", semester=" + semester + ", status=" + status + ", applyCode=" + applyCode
-				+ ", studentNo=" + studentNo + "]";
+		return "Dormitory [dormitoryApplyNo=" + dormitoryApplyNo + ", studentNo=" + studentNo + ", dorApplyYear="
+				+ dorApplyYear + ", dorApplySemester=" + dorApplySemester + ", dorApplyDate=" + dorApplyDate
+				+ ", aggrementStatus=" + aggrementStatus + ", memberKname=" + memberKname + "]";
 	}
+
+	
+
 	
 	
 }
