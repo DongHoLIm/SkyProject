@@ -228,6 +228,16 @@
 						
 						$(this).parent().parent().children().eq(2).append("<input type='text' class='newcContent' name='newcContent' value='"+beforeContent+"'>");
 						
+						$(this).hide();
+						
+						$span3 = $("<span>");
+						$span3.addClass('updateSpan');
+						$span3.text("완료");
+						
+						#span3.attr({
+							"onclick":"updateReply("+cNo+")"
+						});
+						
 					});	
 				}
 			});
@@ -317,16 +327,7 @@
 			});
 		};
 	
-		/* function updateReply(cNo){
-			var a = $(".cContentTd").parent().children().eq(2).text();
-			
-			console.log("a :::: " + a)
-			
-			$(".updateSpan").click(function(){	
-				
-			})
-			
-			
+		function updateReply(cNo){		
 				
 			 $.ajax({
 				url:"st_updatefreeBoardRP.rp",
@@ -341,7 +342,7 @@
 					loadAjax();
 				}
 			}); 
-		}	*/	
+		}	
 	</script>
 </div>
 </body>
