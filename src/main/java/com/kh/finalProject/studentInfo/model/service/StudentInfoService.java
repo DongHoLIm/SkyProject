@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
+import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoService {
@@ -16,6 +17,8 @@ public interface StudentInfoService {
 	int getListCount() throws StudentInfoSelectListException;
 
 	ArrayList<StudentInfo> selectStudentList(PageInfo pi) throws StudentInfoSelectListException;
+
+	int getFilterListCount(FilterCondition fc) throws StudentInfoSelectListException;
 
 	
 

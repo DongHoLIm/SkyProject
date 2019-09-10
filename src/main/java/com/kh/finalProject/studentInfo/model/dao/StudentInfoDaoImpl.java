@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
+import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 @Repository
@@ -54,6 +55,19 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		}
 		
 		return list;
+	}
+
+	@Override
+	public int getFilterListCount(SqlSessionTemplate sqlSession, FilterCondition fc) throws StudentInfoSelectListException {
+		
+		int listCount = sqlSession.selectOne("StudentInfo.selectFilterListCount", fc);
+		
+		if(listCount <= 0) {
+			sqlSession.close();
+			throw new StudentInfoSelectListException("필터 학생리스트 카운트 실패");
+		}
+		
+		return listCount;
 	}
 
 	
