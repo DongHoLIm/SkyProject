@@ -16,4 +16,26 @@
 		FROM SCHOLARSHIP
 		WHERE STUDENT_NO = #{studentNo}
 	</select>
+	
+	<resultMap type="com.kh.finalProject.scholarship.model.vo.ScholarshipApply" id="scholarshipResultSet">
+		<id property="schoApplyCode" column="SCHO_APPLY_CODE"/>
+		
+		<result property="schoStatus" column="SCHO_STATUS"/>
+		<result property="schoYear" column="SCHO_YEAR"/>
+		<result property="schoSemester" column="SCHO_SEMESTER"/>
+		<result property="studentId" column="MEMBER_ID"/>
+		<result property="memberKname" column="MEMBER_KNAME"/>
+		<result property="sdeptCode" column="SDEPT_CODE"/>
+		<result property="sdeptName" column="SDEPT_NAME"/>
+		<result property="memberGender" column="MEMBER_GENDER"/>
+		<result property="schoApplyName" column="SCHO_APPLY_NAME"/>
+		<result property="schoApplyYn" column="SCHO_APPLY_YN"/>
+		<result property="schoApplyDate" column="SCHO_APPLY_DATE"/>
+		<result property="schoAggrementDate" column="SCHO_AGGREMENT_DATE"/>
+	</resultMap>
+	
+	<insert id="insertScholarshipApply" parameterType="String">
+		INSERT INTO SCHO_APPLY
+		VALUES()
+	</insert>
 </mapper>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.finalProject.scholarship.model.dao.ScholarshipDao;
 import com.kh.finalProject.scholarship.model.exception.ScholarshipException;
 import com.kh.finalProject.scholarship.model.vo.Scholarship;
+import com.kh.finalProject.scholarship.model.vo.ScholarshipApply;
 
 @Service
 public class ScholarshipServiceImpl implements ScholarshipService{
@@ -24,6 +25,13 @@ public class ScholarshipServiceImpl implements ScholarshipService{
 	public ArrayList<Scholarship> userScholarship(String studentNo) throws ScholarshipException {
 		
 		return sd.userScholarship(sqlSession, studentNo);
+	}
+
+	@Override
+	public ArrayList<ScholarshipApply> userScholarshipApply(String studentNo) throws ScholarshipException {
+		
+		return sd.userScholarshipApply(sqlSession, studentNo);	
+		
 	}
 
 }

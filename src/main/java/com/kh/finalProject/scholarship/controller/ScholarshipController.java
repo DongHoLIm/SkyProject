@@ -15,6 +15,7 @@ import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.scholarship.model.exception.ScholarshipException;
 import com.kh.finalProject.scholarship.model.service.ScholarshipService;
 import com.kh.finalProject.scholarship.model.vo.Scholarship;
+import com.kh.finalProject.scholarship.model.vo.ScholarshipApply;
 
 @Controller
 @SessionAttributes("memberScholarship")
@@ -41,5 +42,27 @@ public class ScholarshipController {
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorAlert";
 		}
+	}
+	
+	@RequestMapping(value="scholarshipApply.sc")
+	public String showScholarshipApplyView(Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
+		String studentNo = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
+		
+		System.out.println("studentNo ::: " + studentNo);
+		
+		ArrayList<ScholarshipApply> memberScholarshipApply;
+		
+		try {
+			memberScholarshipApply = ss.userScholarshipApply(studentNo);
+			System.out.println("memberScholarshipApply ::: " + memberScholarshipApply);
+			
+			request.setAttribute("memberScholarshipApply", memberScholarshipApply);
+			
+			return "student/scholarship/scholarshipApply";
+		} catch (ScholarshipException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorAlert";
+		}
+		
 	}
 }
