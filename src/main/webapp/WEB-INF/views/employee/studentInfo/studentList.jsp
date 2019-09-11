@@ -396,20 +396,123 @@
 				
 				$.ajax({
 					url:"em_studentListFilter.si",
-					data:{"college":collegeCondition,
-						  "sdept":sdeptCondition,
-						  "grade":gradeCondition,
-						  "status":statusCondition
+					data:{collegeCondition:collegeCondition,
+						  sdeptCondition:sdeptCondition,
+						  gradeCondition:gradeCondition,
+						  statusCondition:statusCondition
 						  },
 					type:"post",
 					success:function(data){
 						console.log("접속성공");
-					},
-					error:function(data){
-						console.log("접속실패");
+						console.log("data.list.length::" + data.list.length);
+						console.log( data.list[0].kName);
+						
+						var $tbody = $("#tbody");
+						
+						$tbody.children().remove();
+						
+						console.log("data.list.length::" + data.list.length);
+						
+						for(var i=0 ; i<data.list.length ; i++){
+							var $tr = $("<tr>");
+							var $td1 = $("<td style='text-align:center;'>");
+							var $td2 = $("<td style='text-align:center;'>");
+							var $td3 = $("<td style='text-align:center;'>");
+							var $td4 = $("<td style='text-align:center;'>");
+							var $td5 = $("<td style='text-align:center;'>");
+							var $td6 = $("<td style='text-align:center;'>");
+							
+							$td1.text(data.list[i].college);
+							$td2.text(data.list[i].sdeptName);
+							$td3.text(data.list[i].grade);
+							$td4.text(data.list[i].studentNo);
+							$td5.text(data.list[i].kName);
+							$td6.text(data.list[i].studentStatus);
+							
+							$tr.append($td1);
+							$tr.append($td2);
+							$tr.append($td3);
+							$tr.append($td4);
+							$tr.append($td5);
+							$tr.append($td6);
+							
+							$tbody.append($tr);
+						}
+						
+						var currentPage = data.pi.currentPage;
+						var listCount = data.pi.listCount;
+						var limit = data.pi.limit;
+						var maxPage = data.pi.maxPage;
+						var startPage = data.pi.startPage;
+						var endPage = data.pi.endPage;
+						
+						console.log(currentPage);
+						
+						var $ul = $("<ul>");
+						$ul.addClass("pagination");
+						$ul.attr({
+							"style":"justify-content: center; cursor: pointer;"
+						});
+						
+						
+						var $li1 = $("<li>");
+						var $a1 = $("<a>");
+						
+						if(currentPage <= 1){
+							$li1.addClass("page-item disabled");
+							$a1.addClass("page-link");					
+							$a1.html("이전");
+							$li1.append($a1);
+							$ul.append($li1);					
+						}else if(currentPage > 1){
+							$li1.addClass("page-item");
+							$a1.addClass("page-link");
+							$a1.attr({
+								"onclick":"loadPage("+(currentPage-1)+")",
+							});
+							$a1.html("이전");
+							$li1.append($a1);
+							$ul.append($li1);
+						}					
+						
+						for(var p = startPage; p <= endPage; p++){
+							var $li2 = $("<li>");
+							var $a2 = $("<a>");		
+							$li2.addClass("page-item");
+							$a2.addClass("page-link");
+							$a2.attr({
+								"onclick":"loadPage("+p+")",
+							});
+							$a2.html(p);
+							$li2.append($a2);
+							$ul.append($li2);				
+						}
+						
+						var $li3 = $("<li>");
+						var $a3 = $("<a>");	
+						
+						if(currentPage < maxPage){
+							$li3.addClass("page-item");
+							$a3.addClass("page-link");
+							$a3.attr({
+								"onclick":"loadPage("+(currentPage+1)+")",
+							});
+							$a3.html("다음");
+							$li3.append($a3);
+							$ul.append($li3);	
+						}else{
+							$li3.addClass("page-item disabled");
+							$a3.addClass("page-link");
+							$a3.html("다음");
+							$li3.append($a3);
+							$ul.append($li3);
+						}
+						
+						$(".pagingArea").children().remove();
+						$(".pagingArea").append($ul);
+			
 					}
-				})
-				
+				});
 			}
 			
 			
@@ -418,7 +521,7 @@
 
 	</div>
 		<div>
-			<jsp:include page="../../common/menubar-student.jsp" />
+			<jsp:include page="../../common/menubar-employee.jsp" />
 		</div>
 	</div>
 	

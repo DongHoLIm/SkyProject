@@ -70,6 +70,26 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		return listCount;
 	}
 
+	@Override
+	public ArrayList<StudentInfo> selectFilterStudent(SqlSessionTemplate sqlSession, FilterCondition fc, PageInfo pi) throws StudentInfoSelectListException {
+		
+		ArrayList<StudentInfo> list = null;
+		
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset,pi.getLimit());
+		 
+		list = (ArrayList) sqlSession.selectList("StudentInfo.selectFilterStudent", fc, rowBounds);
+		
+		if(list==null) {
+			sqlSession.close();
+			throw new StudentInfoSelectListException("학생정보 조회 실패");
+		}
+		
+		return list;
+	}
+
+	
 	
 
 }
