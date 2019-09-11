@@ -133,6 +133,38 @@ public interface BoardDao {
 
 	Writer selectFreeBoardemWriter(SqlSessionTemplate sqlSession, String memberId);
 
+	int praiseBoardListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Board> selectpraiseBoardList(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int SearchepraiseBoardResultCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<Board> SearchpraiseBoardResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);
+
+	Board selectpraiseBoardOne(SqlSessionTemplate sqlSession, int boardNo);
+
+	Writer selectpraiseBoardstWriter(SqlSessionTemplate sqlSession, String memberId);
+
+	int insertpraiseBoard(SqlSessionTemplate sqlSession, Board b);
+
+	int insertpraiseBoardFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
+	int updatepraiseBoard(SqlSessionTemplate sqlSession, Board b);
+
+	int updatepraiseBoardFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
+	int deletepraiseBoard(SqlSessionTemplate sqlSession, String boardNo);
+
+	int searchMyBoardListCount(SqlSessionTemplate sqlSession, String memberId);
+
+	ArrayList<Board> searchMyBoardList(SqlSessionTemplate sqlSession, PageInfo pi, String memberId);
+
+	int searchMyBoardSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<Board> searchMyBoardSearchList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);
+
+	int searchMyBoardDelete(SqlSessionTemplate sqlSession, String boardNo);
+
 
 
 

@@ -443,4 +443,124 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectOne("Writer.selectFreeBoardemWriter", memberId);
 	}
 
+	@Override
+	public int praiseBoardListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.selectpraiseBoardCount");
+	}
+
+	@Override
+	public ArrayList<Board> selectpraiseBoardList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.selectpraiseBoardList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int SearchepraiseBoardResultCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("Board.SearchepraiseBoardResultCount", sc);
+	}
+
+	@Override
+	public ArrayList<Board> SearchpraiseBoardResultList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.SearchpraiseBoardResultList", sc, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public Board selectpraiseBoardOne(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("Board.selectpraiseBoardOne", boardNo);
+	}
+
+	@Override
+	public Writer selectpraiseBoardstWriter(SqlSessionTemplate sqlSession, String memberId) {
+		return sqlSession.selectOne("Writer.selectpraiseBoardstWriter", memberId);
+	}
+
+	@Override
+	public int insertpraiseBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("Board.insertpraiseBoard", b);
+	}
+
+	@Override
+	public int insertpraiseBoardFile(SqlSessionTemplate sqlSession, UploadFile uf) {
+		return sqlSession.insert("UploadFile.insertpraiseBoardFile", uf);
+	}
+
+	@Override
+	public int updatepraiseBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("Board.updatepraiseBoard", b);
+	}
+
+	@Override
+	public int updatepraiseBoardFile(SqlSessionTemplate sqlSession, UploadFile uf) {
+		return sqlSession.update("UploadFile.updatepraiseBoardFile", uf);
+	}
+
+	@Override
+	public int deletepraiseBoard(SqlSessionTemplate sqlSession, String boardNo) {
+		return sqlSession.update("Board.deletepraiseBoard", boardNo);
+	}
+
+	@Override
+	public int searchMyBoardListCount(SqlSessionTemplate sqlSession, String memberId) {
+		return sqlSession.selectOne("Board.searchMyBoardListCount", memberId);
+	}
+
+	@Override
+	public ArrayList<Board> searchMyBoardList(SqlSessionTemplate sqlSession, PageInfo pi, String memberId) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.searchMyBoardList", memberId, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int searchMyBoardSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("Board.searchMyBoardSearchListCount", sc);
+	}
+
+	@Override
+	public ArrayList<Board> searchMyBoardSearchList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Board.searchMyBoardSearchList", sc, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public int searchMyBoardDelete(SqlSessionTemplate sqlSession, String boardNo) {
+		return sqlSession.update("Board.searchMyBoardDelete", boardNo);
+	}
+
 }

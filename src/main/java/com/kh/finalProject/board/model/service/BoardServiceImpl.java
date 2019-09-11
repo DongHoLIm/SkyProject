@@ -439,6 +439,101 @@ public class BoardServiceImpl implements BoardService{
 		return bd.selectFreeBoardemWriter(sqlSession, memberId);
 	}
 
+	@Override
+	public int selectpraiseBoardCount() throws BoardSelectListException {
+		return bd.praiseBoardListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectpraiseBoardList(PageInfo pi) throws BoardSelectListException {
+		return bd.selectpraiseBoardList(sqlSession, pi);
+	}
+
+	@Override
+	public int SearchepraiseBoardResultCount(SearchCondition sc) throws BoardSearchException {
+		return bd.SearchepraiseBoardResultCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Board> SearchpraiseBoardResultList(SearchCondition sc, PageInfo pi) throws BoardSearchException {
+		return bd.SearchpraiseBoardResultList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public Board selectpraiseBoardOne(int boardNo) throws BoardSelectOneException {
+		bd.updateCount(sqlSession, boardNo);
+		
+		return bd.selectpraiseBoardOne(sqlSession, boardNo);
+	}
+
+	@Override
+	public Writer selectpraiseBoardstWriter(String memberId) {
+		return bd.selectpraiseBoardstWriter(sqlSession, memberId);
+	}
+
+	@Override
+	public int insertpraiseBoardwithFile(Board b, UploadFile uf) throws BoardInsertException {
+		int result = bd.insertpraiseBoard(sqlSession, b);
+		
+		if(result > 0) {			
+			
+			bd.insertpraiseBoardFile(sqlSession, uf);
+		}
+		 
+		return result;
+	}
+
+	@Override
+	public int insertpraiseBoard(Board b) throws BoardInsertException {
+		return bd.insertpraiseBoard(sqlSession, b);
+	}
+
+	@Override
+	public int updatepraiseBoardwithFile(Board b, UploadFile uf) throws BoardUpdateException {
+		int result = bd.updatepraiseBoard(sqlSession, b);
+		
+		if(result > 0) {
+			
+			bd.updatepraiseBoardFile(sqlSession, uf);
+		}
+		return result;
+	}
+
+	@Override
+	public int updatepraiseBoard(Board b) throws BoardUpdateException {
+		return bd.updatepraiseBoard(sqlSession, b);
+	}
+
+	@Override
+	public int deletepraiseBoard(String boardNo) throws BoardDeleteException {
+		return bd.deletepraiseBoard(sqlSession, boardNo);
+	}
+
+	@Override
+	public int searchMyBoardListCount(String memberId) throws BoardSelectListException {
+		return bd.searchMyBoardListCount(sqlSession, memberId);
+	}
+
+	@Override
+	public ArrayList<Board> searchMyBoardList(PageInfo pi, String memberId) throws BoardSelectListException {
+		return bd.searchMyBoardList(sqlSession, pi, memberId);
+	}
+
+	@Override
+	public int searchMyBoardSearchListCount(SearchCondition sc) throws BoardSearchException {
+		return bd.searchMyBoardSearchListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Board> searchMyBoardSearchList(SearchCondition sc, PageInfo pi) throws BoardSearchException {
+		return  bd.searchMyBoardSearchList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public int searchMyBoardDelete(String boardNo) throws BoardDeleteException {
+		return bd.searchMyBoardDelete(sqlSession, boardNo);
+	}
+
 
 	
 

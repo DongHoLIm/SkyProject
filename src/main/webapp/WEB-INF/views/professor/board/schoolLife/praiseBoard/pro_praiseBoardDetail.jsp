@@ -43,7 +43,7 @@
 			<div class="inner">
 				<jsp:include page="/WEB-INF/views/common/header.jsp" />
 			</div>
-			<h4 id="basic">자유게시판</h4>
+			<h4 id="basic">칭찬합시다</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
 				<div align="right" style="margin: 0 auto; width:88.5%;">
@@ -52,7 +52,7 @@
 						<button onclick="updateBoard()">수정</button>
 						<button onclick="deleteBoard()">삭제</button>				
 					</c:if>
-						<button onclick="st_freeBoardList()">목록</button>
+						<button onclick="pro_freeBoardList()">목록</button>
 					</div>
 				</div>
 			<input type="hidden" id="boardNo" name="boardNo" value="${b.boardNo}">
@@ -101,11 +101,11 @@
 			</table>
 		</div>
 		<div>
-		<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
+		<jsp:include page="/WEB-INF/views/common/menubar-professor.jsp" />
 	</div>
 	<script>
-		function st_freeBoardList(){
-			location.href="st_freeBoardList.bo";
+		function pro_freeBoardList(){
+			location.href="pro_praiseBoardList.bo";
 		}
 		
 		function deleteBoard() {
@@ -113,13 +113,13 @@
 			
 			alert("게시글을 삭제하시겠습니까?");
 			
-			location.href="st_deletefreeBoard.bo?boardNo="+boardNo;
+			location.href="pro_deletepraiseBoard.bo?boardNo="+boardNo;
 		}
 		
 		function updateBoard(){
 			var boardNo = ${b.boardNo};			
 			
-			location.href="st_showUpdatefreeBoard.bo?boardNo="+boardNo;
+			location.href="pro_showUpdatepraiseBoard.bo?boardNo="+boardNo;
 		}
 		
 		function insertReply(){
@@ -132,7 +132,7 @@
 			console.log("cContent :::: " + cContent);
 			
 			$.ajax({
-				url:"insertfreeBoardRP.rp",
+				url:"insertpraiseBoardRP.rp",
 				type:"POST",
 				data:{
 					"boardNo":boardNo,
@@ -154,7 +154,7 @@
 			var replyWriter = $("#cWriter").val();
 			
 			$.ajax({
-				url:"selectfreeBoardRP.rp",
+				url:"selectpraiseBoardRP.rp",
 				type:"get",
 				data:{
 					"boardNo":boardNo
@@ -242,7 +242,7 @@
 			var replyWriter = $("#cWriter").val();
 			
 			$.ajax({
-				url:"selectfreeBoardRP.rp",
+				url:"selectpraiseBoardRP.rp",
 				type:"get",
 				data:{
 					"boardNo":boardNo
@@ -326,7 +326,7 @@
 		
 		function deleteReply(cNo){			
 			$.ajax({
-				url:"deletefreeBoardRP.rp",
+				url:"deletepraiseBoardRP.rp",
 				type:"POST",
 				data:{
 					"cNo":cNo
@@ -347,7 +347,7 @@
 			console.log("cContent :::: " + cContent);
 			
 			 $.ajax({
-				url:"updatefreeBoardRP.rp",
+				url:"updatepraiseBoardRP.rp",
 				type:"POST",
 				data:{
 					"cNo":cNo,
