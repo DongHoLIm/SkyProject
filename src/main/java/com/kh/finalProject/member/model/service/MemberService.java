@@ -32,4 +32,6 @@ public interface MemberService {
 	ArrayList<Member> memberAllList(String userId, PageInfo pi);
 
 	int getMemberListCount(String memberId);
+
+	Member memberDetail(Member findMemberDetail);
 }

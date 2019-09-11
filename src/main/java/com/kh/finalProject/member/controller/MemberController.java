@@ -174,7 +174,7 @@ public class MemberController {
 	                        		insertMember.setAddress(value);
 	                        	}else if(columnindex==8) {
 	                        		insertMember.setLoginCheck(value);
-	                        	}else if(columnindex==9) {
+	                        	}else if(columnindex==9) {	                        		
 	                        		insertMember.setMemberStatus(value);
 	                        	}else if(columnindex==10) {
 	                        		insertMember.setSdeptCode(value);
@@ -429,7 +429,12 @@ public class MemberController {
 	@RequestMapping("MemberDetailList.me")
 	public String MemberDetailList(HttpServletRequest request) {
 		String userId = request.getParameter("userId");
-		System.out.println(userId);
+		Member findMemberDetail = new Member();
+		findMemberDetail.setMemberId(userId);
+		
+		Member memberDetail = ms.memberDetail(findMemberDetail);
+		
+		request.setAttribute("memberDetail",memberDetail);
 		return "employee/systemAccountManagement/MemberDetailList";
 	}
 }

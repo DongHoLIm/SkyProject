@@ -87,6 +87,11 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return md.memberAllList(sqlSession,userId,pi);
 	}
+	@Override
+	public Member memberDetail(Member findMemberDetail) {
+		// TODO Auto-generated method stub
+		return md.memberDetail(sqlSession,findMemberDetail);
+	}
 
 	
 }
