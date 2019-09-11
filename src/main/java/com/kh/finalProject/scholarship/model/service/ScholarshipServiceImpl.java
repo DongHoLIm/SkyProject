@@ -28,7 +28,7 @@ public class ScholarshipServiceImpl implements ScholarshipService{
 	}
 
 	@Override
-	public ArrayList<ScholarshipApply> userScholarshipApply(String studentNo) throws ScholarshipException {
+	public ArrayList<Scholarship> userScholarshipApply(String studentNo) throws ScholarshipException {
 		
 		return sd.userScholarshipApply(sqlSession, studentNo);	
 		

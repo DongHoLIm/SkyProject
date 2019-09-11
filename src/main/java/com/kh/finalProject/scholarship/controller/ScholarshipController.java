@@ -50,7 +50,7 @@ public class ScholarshipController {
 		
 		System.out.println("studentNo ::: " + studentNo);
 		
-		ArrayList<ScholarshipApply> memberScholarshipApply;
+		ArrayList<Scholarship> memberScholarshipApply;
 		
 		try {
 			memberScholarshipApply = ss.userScholarshipApply(studentNo);
