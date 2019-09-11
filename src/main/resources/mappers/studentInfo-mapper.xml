@@ -68,7 +68,7 @@
   	</select>
   	
   	<!-- 교직원_학생정보 조회 필터링페이징 -->
-  	<select id="selectFilterListCount" resultType="_int" parameterType="FilterCoundition">
+  	<select id="selectFilterListCount" resultType="_int" parameterType="FilterCondition">
   		SELECT COUNT(*)
   		FROM STUDENT_INFO S
   		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)
@@ -90,7 +90,7 @@
 		</where>
   	</select>
   	
-  	<select id="selectFilterStudent" resultMap="studentInfoResultSet" parameterType="FilterCoundition">
+  	<select id="selectFilterStudent" resultMap="studentInfoResultSet" parameterType="FilterCondition">
   		SELECT C.COLLEGE_NAME, D.SDEPT_NAME, S.GRADE, S.STUDENT_NO,
        	   	   M.MEMBER_KNAME, S.STUDENT_STATUS
 		FROM STUDENT_INFO S
