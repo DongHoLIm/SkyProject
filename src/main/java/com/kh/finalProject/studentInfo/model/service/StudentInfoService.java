@@ -20,6 +20,8 @@ public interface StudentInfoService {
 
 	int getFilterListCount(FilterCondition fc) throws StudentInfoSelectListException;
 
+	ArrayList<StudentInfo> selectFilterStudent(FilterCondition fc, PageInfo pi) throws StudentInfoSelectListException ;
+
 	
 
 }

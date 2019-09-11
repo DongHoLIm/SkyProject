@@ -22,6 +22,9 @@ public interface StudentInfoDao {
 
 	int getFilterListCount(SqlSessionTemplate sqlSession, FilterCondition fc) throws StudentInfoSelectListException;
 
+	ArrayList<StudentInfo> selectFilterStudent(SqlSessionTemplate sqlSession, FilterCondition fc, PageInfo pi) throws StudentInfoSelectListException;
+
+	
 	
 
 }

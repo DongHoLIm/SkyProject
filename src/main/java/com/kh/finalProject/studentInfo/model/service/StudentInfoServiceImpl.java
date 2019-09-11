@@ -51,6 +51,12 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		return sd.getFilterListCount(sqlSession,fc);
 	}
 
+	@Override
+	public ArrayList<StudentInfo> selectFilterStudent(FilterCondition fc, PageInfo pi) throws StudentInfoSelectListException {
+		
+		return sd.selectFilterStudent(sqlSession,fc,pi);
+	}
+
 	
 	
 

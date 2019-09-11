@@ -130,13 +130,17 @@ public class StudentInfoController {
 	
 	//교직원_학생전체 조회 필터링후 페이징
 	@RequestMapping("em_studentListFilter.si")
-	public ModelAndView studentListFilter(ModelAndView mv, HttpServletRequest request,
-										String college, String sdept, String grade, String status) {
+	public ModelAndView studentListFilter(ModelAndView mv, HttpServletRequest request) {
 		int currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+		
+		String college = request.getParameter("collegeCondition");
+		String sdept = request.getParameter("sdeptCondition");
+		String grade = request.getParameter("gradeCondition");
+		String status = request.getParameter("statusCondition");
 		
 		System.out.println("college::" + college);
 		System.out.println("sdept::" + sdept);
@@ -155,12 +159,35 @@ public class StudentInfoController {
 		
 		try {
 			listCount = ss.getFilterListCount(fc);
+			
+			System.out.println("필터링후 listCount::" + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+			
+			ArrayList<StudentInfo> list = ss.selectFilterStudent(fc,pi);
+			
+			System.out.println("list ::" + list);
+			System.out.println("pi ::" + pi);
+			
+			mv.addObject("list",list);
+			mv.addObject("pi",pi);
+			
+			mv.setViewName("jsonView");
+			
+			System.out.println(mv.getViewName());
+			System.out.println(mv.getModel());
+			
+			return mv;
+			
+			
 		} catch (StudentInfoSelectListException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			mv.addObject("msg",e.getMessage());
+			
+			mv.setViewName("common/errorPage");
+			
+			return mv;
 		}
 		
-		return mv;
 	}
 
 }
