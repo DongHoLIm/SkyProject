@@ -18,7 +18,7 @@
 				<table>
 					<tr>
 						<td>아이디</td>
-						<td><input type="text" /></td>
+						<td><input type="text" value="${memberDetail.memberId}"/></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>

@@ -16,6 +16,41 @@
 		<result property="memberStatus" column="MEMBER_CHECK"/>
 		<result property="loginCheck" column="LOGIN_CHECK"/>
 	</resultMap>
+	 <resultMap type="com.kh.finalProject.member.model.vo.Member" id="memberStuResultSet">
+		<id property="memberId" column = "MEMBER_ID"/>
+		<result property="memberPwd" column="MEMBER_PWD"/>
+		<result property="memberKName" column="MEMBER_KNAME"/>
+		<result property="memberEName" column="MEMBER_ENAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="sdeptCode" column="SDEPT_NAME"/>
+		<result property="memberStatus" column="STUDENT_STATUS"/>
+		<result property="loginCheck" column="MEMBER_CHECK"/>		
+	</resultMap>
+	<resultMap type="com.kh.finalProject.member.model.vo.Member" id="memberProResultSet">
+		<id property="memberId" column = "MEMBER_ID"/>
+		<result property="memberPwd" column="MEMBER_PWD"/>
+		<result property="memberKName" column="MEMBER_KNAME"/>
+		<result property="memberEName" column="MEMBER_ENAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="sdeptCode" column="SDEPT_NAME"/>
+		<result property="loginCheck" column="MEMBER_CHECK"/>		
+	</resultMap>
+	<resultMap type="com.kh.finalProject.member.model.vo.Member" id="memberEmpResultSet">
+		<id property="memberId" column = "MEMBER_ID"/>
+		<result property="memberPwd" column="MEMBER_PWD"/>
+		<result property="memberKName" column="MEMBER_KNAME"/>
+		<result property="memberEName" column="MEMBER_ENAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="sdeptCode" column="EDEPT_NAME"/>
+		<result property="memberStatus" column="RANK_NAME"/>
+		<result property="loginCheck" column="MEMBER_CHECK"/>		
+	</resultMap>
 	<!-- 로그인 체크  -->
 	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
 		SELECT *
@@ -83,4 +118,36 @@
 		MEMBER
 		WHERE MEMBER_ID != #{memberId}
 	</select>
+	
+	<select id="memberOneSelect" resultMap="memberResultSet" parameterType="Member">
+		SELECT * FROM 
+		MEMBER 
+		WHERE MEMBER_ID=#{memberId}
+	</select>
+	  
+	<select id="memberDetailStu" resultMap="memberStuResultSet" parameterType="Member">
+		SELECT M.MEMBER_ID,M.MEMBER_PWD,M.MEMBER_KNAME,M.MEMBER_ENAME,M.PHONE,M.EMAIL,M.ADDRESS,SI.STUDENT_STATUS,SP.SDEPT_NAME
+		FROM MEMBER M
+		JOIN STUDENT_INFO SI ON(M.MEMBER_ID=SI.STUDENT_NO) 
+		JOIN SDEPARTMENT SP ON(SI.SDEPT_CODE = SP.SDEPT_CODE)
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="memberDetailPro" resultMap="memberProResultSet" parameterType="Member">
+		SELECT  M.MEMBER_ID,M.MEMBER_PWD,M.MEMBER_KNAME,M.MEMBER_ENAME,M.PHONE,M.EMAIL,M.ADDRESS,M.MEMBER_CHECK,SP.SDEPT_NAME
+		FROM MEMBER M 
+		JOIN PROFESSOR P ON (M.MEMBER_ID=P.PROFESSOR_NO)
+		JOIN SDEPARTMENT SP ON(P.PDEPT_CODE=SP.SDEPT_CODE)
+		WHERE M.MEMBER_ID=#{memberId}
+	</select>
+	
+	<select id="memberDetailEmp" resultMap="memberEmpResultSet" parameterType="Member">
+		SELECT M.MEMBER_ID,M.MEMBER_PWD,M.MEMBER_KNAME,M.MEMBER_ENAME,M.PHONE,M.EMAIL,M.ADDRESS,M.MEMBER_CHECK,R.RANK_NAME,ED.EDEPT_NAME
+		FROM MEMBER M 
+		JOIN EMPLOYEE E ON(M.MEMBER_ID = E.EMPLOYEE_NO)
+		JOIN RANK R ON(E.RANK_CODE = R.RANK_CODE)
+		JOIN E_DEPARTMENT ED ON (E.EDEPT_CODE = ED.EDEPT_CODE)
+		WHERE M.MEMBER_ID=#{memberId}
+	</select> 
+	
 </mapper>

@@ -34,4 +34,6 @@ public interface MemberDao {
 
 	int getMemberListCount(SqlSessionTemplate sqlSession, String memberId);
 
+	Member memberDetail(SqlSessionTemplate sqlSession, Member findMemberDetail);
+
 }

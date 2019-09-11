@@ -92,5 +92,17 @@ public class MemberDaoImpl implements MemberDao {
 		list = (ArrayList) sqlSession.selectList("Member.MemberAllList", userId, rowBounds);
 		return list;
 	}
+	@Override
+	public Member memberDetail(SqlSessionTemplate sqlSession, Member findMemberDetail) {
+		Member memberDetailUser = sqlSession.selectOne("Member.memberOneSelect",findMemberDetail);
+		
+		if(memberDetailUser.getMemberStatus().equals("1")) {
+			return sqlSession.selectOne("Member.memberDetailStu",findMemberDetail);
+		}else if(memberDetailUser.getMemberStatus().equals("2")){
+			return sqlSession.selectOne("Member.memberDetailPro",findMemberDetail);
+		}else {
+			return sqlSession.selectOne("Member.memberDetailEmp", findMemberDetail);
+		}		
+	}
 	
 }
