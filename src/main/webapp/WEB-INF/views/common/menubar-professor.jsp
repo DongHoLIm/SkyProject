@@ -55,7 +55,7 @@
 											<li>
 											<span class="opener">수업관리</span>
 											<ul>
-												<li><a href="#">강의 계획서 입력,수정</a></li>
+												<li><a href="opensubject.pro">강의 계획서 입력,수정</a></li>
 												<li><a href="#">학생 출결 관리</a></li>
 												<li><a href="#">강의 평가 조회</a></li>
 												<li><a href="#">과목별 학생 조회</a></li>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="OpenSubject">
+
+	<resultMap type="com.kh.finalProject.professor.openSubject.model.vo.OpenSubject" id="OpenSubjectResultSet">
+		<id property="opensubCode" column="OPENSUB_CODE"/>
+		<result property="studentMax" column="STUDENT_MAX"/>
+		<result property="studentCount" column="STUDENT_COUNT"/>
+		<result property="openYear" column="OPEN_YEAR"/>
+		<result property="openSemester" column="OPEN_SEMESTER"/>
+		<result property="professorNo" column="PROFESSOR_NO"/>
+		<result property="closeCheck" column="CLOSE_CHECK"/>
+		<result property="closeReason" column="CLOSE_REASON"/>
+		<result property="roomCode" column="ROOM_CODE"/>
+		<result property="dayInfo" column="DAY_INFO"/>
+		<result property="timeInfo" column="TIME_INFO"/>
+		
+	</resultMap>
+	
+	
+	
+	<!-- 게시글 수 조회  -->
+	<select id="selectOpenSubjectList" resultMap="OpenSubjectResultSet">
+		SELECT *
+		FROM OPEN_SUBJECT
+	</select>
+	
+	
+	
+</mapper>

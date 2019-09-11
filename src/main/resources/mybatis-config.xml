@@ -18,6 +18,7 @@
 		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation" alias="classroominformation"/>
 		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration" alias="LectureRegistration"/>
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.FilterCondition" alias="FilterCondition"/>
+		<typeAlias type="com.kh.finalProject.professor.openSubject.model.vo.OpenSubject" alias="OpenSubject"/>
 	</typeAliases>
 	
 	<mappers>
@@ -34,6 +35,7 @@
 		<mapper resource="mappers/dormitory-mapper.xml"/>
 		<mapper resource="mappers/classroominformation-mapper.xml"/>
 		<mapper resource="mappers/couseroffered-mapper.xml"/>		
+			<mapper resource="mappers/openSubject/openSubject-mapper.xml"/>	
 	</mappers>
 	
 </configuration>
