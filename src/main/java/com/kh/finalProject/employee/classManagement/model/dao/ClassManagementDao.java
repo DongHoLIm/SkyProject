@@ -25,4 +25,6 @@ public interface ClassManagementDao {
 
 	int insertCourseOffered(SqlSessionTemplate sqlSession, LectureRegistration lr);
 
+	int updateSubject(SqlSessionTemplate sqlSession, String subCode);
+
 }

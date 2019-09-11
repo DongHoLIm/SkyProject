@@ -55,4 +55,10 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 		return cmd.insertCourseOffered(sqlSession, lr);
 	}
 
+	@Override
+	public int updateSubject(String subCode) {
+		
+		return cmd.updateSubject(sqlSession, subCode);
+	}
+
 }

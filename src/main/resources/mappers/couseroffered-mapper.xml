@@ -20,9 +20,9 @@
 		<result property="timeInfo" column="TIME_INFO"/>
 	</resultMap>
 	
-	<!-- <insert id="insertCouserOffered" parameterType="LectureRegistration">
-		INSERT INTO OPEN_SUBJECT VALUES(#{openSubCode}, #{studentMax}, NULL, #{openYear}, #{openSemester}, #{professorNo}, 'n', NULL, (SELECT ROOM_CODE FROM ROOM R JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE) WHERE R.ROOM_NAME = #{roomName} AND B.BUILDING_NAME=#{buildingName), #{dayInfo}, #{timeInfo})
-	</insert> -->
+	<insert id="insertCouserOffered" parameterType="LectureRegistration">
+		INSERT INTO OPEN_SUBJECT VALUES(#{openSubCode}, #{studentMax}, NULL, #{openYear}, #{openSemester},#{professorNo}, 'n', NULL, (SELECT ROOM_CODE FROM ROOM R JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE) WHERE R.ROOM_NAME = #{roomName} AND B.BUILDING_NAME=#{buildingName}),0, #{dayInfo}, #{timeInfo})
+	</insert> 	
 	
 
 </mapper>

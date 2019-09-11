@@ -23,4 +23,6 @@ public interface ClassManagementService {
 
 	int insertCourseOffered(LectureRegistration lr);
 
+	int updateSubject(String openSubCode);
+
 }

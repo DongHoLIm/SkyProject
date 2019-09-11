@@ -97,7 +97,7 @@ table.basicinfo {
 
 							<tr>
 								<td class="td">개강년도</td>
-								<td><input type="text" name="year"readonly></td>
+								<td><input type="text" name="year" value="2019" readonly></td>
 								<td class="td">개강학기</td>
 								<td><input type="text" name="semester" value="2" readonly></td>
 								<td class="td">강의실정보</td>
