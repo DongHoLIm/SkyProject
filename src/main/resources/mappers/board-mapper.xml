@@ -581,8 +581,20 @@
 			<when test="praise != null">
 				AND B.BOARD_TYPE = '칭찬합시다'
 			</when>
-			<otherwise>
+			<when test="free != null">
 				AND B.BOARD_TYPE = '자유게시판'
+			</when>
+			<when test="normal != null">
+				AND B.BOARD_TYPE = '일반공지'
+			</when>
+			<when test="schol != null">
+				AND B.BOARD_TYPE = '장학공지'
+			</when>
+			<when test="schedule != null">
+				AND B.BOARD_TYPE = '학사일정'
+			</when>
+			<otherwise>
+				AND B.BOARD_TYPE = '교내외행사'
 			</otherwise>
 		</choose>		
 	</select>
@@ -599,8 +611,20 @@
 			<when test="praise != null">
 				AND B.BOARD_TYPE = '칭찬합시다'
 			</when>
-			<otherwise>
+			<when test="free != null">
 				AND B.BOARD_TYPE = '자유게시판'
+			</when>
+			<when test="normal != null">
+				AND B.BOARD_TYPE = '일반공지'
+			</when>
+			<when test="schol != null">
+				AND B.BOARD_TYPE = '장학공지'
+			</when>
+			<when test="schedule != null">
+				AND B.BOARD_TYPE = '학사일정'
+			</when>
+			<otherwise>
+				AND B.BOARD_TYPE = '교내외행사'
 			</otherwise>
 		</choose>	
 		ORDER BY B.BOARD_NO DESC

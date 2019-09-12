@@ -32,14 +32,8 @@
 			<h4 id="basic">교내외행사</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<c:if test="${sessionScope.loginUser.memberId == b.memberId}">
-				<div align="right" style="margin: 0 auto; width:88.5%;">
-					<div style="margin-bottom: 10px">
-						<button onclick="updateBoard()">수정</button>
-						<button onclick="deleteBoard()">삭제</button>				
-					</div>
-				</div>
-			</c:if>
+			<input type="hidden" name="memberId" id="memberId" value="${b.memberId}">
+			<input type="hidden" id="boardNo" name="boardNo" value="${b.boardNo}">
 			<table style="width: 88.5%; margin: 0 auto;">
 				<tr>
 					<th style="text-align: center;">작성자</th>
@@ -82,17 +76,20 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6"><button onclick="pro_eNoticeList()">목록으로</button>
+					<td colspan="6"><button onclick="em_eNoticeList()">목록으로</button>
 				</tr>
 			</table>
 		</div>
 		<div>
-		<jsp:include page="/WEB-INF/views/common/menubar-professor.jsp" />
+		<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
 	</div>
 	<script>
-		function pro_eNoticeList(){
-			location.href="pro_eNoticeList.bo";
-		}		
+		function em_eNoticeList(){
+			var memberId = $("#memberId").val();
+			
+			location.href="em_searchMyBoardList.bo?memberId="+memberId;
+		}	
+		
 	</script>
 </div>
 </body>

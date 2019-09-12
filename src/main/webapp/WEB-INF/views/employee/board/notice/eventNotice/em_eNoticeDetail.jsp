@@ -29,7 +29,7 @@
 			<div class="inner">
 				<jsp:include page="/WEB-INF/views/common/header.jsp" />
 			</div>
-			<h4 id="basic">학사 일정</h4>
+			<h4 id="basic">교내외행사</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
 			<c:if test="${sessionScope.loginUser.memberId == b.memberId}">

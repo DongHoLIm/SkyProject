@@ -42,8 +42,9 @@
 			<h4 id="basic">교내외행사</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<form action="em_eNoticeUpdate.bo" method="post" enctype="multipart/form-data">
+			<form action="em_searchMyBoardUpdateEvent.bo" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="boardNo" value="${b.boardNo}">
+				<input type="hidden" name="memberId" id="memberId" value="${b.memberId}">
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
 						<th style="text-align: center;">카테고리</th>
@@ -116,7 +117,7 @@
 			
 			var boardNo = ${b.boardNo};
 			
-			location.href = "em_eNoticeDetail.bo?boardNo=" + boardNo;
+			location.href = "em_searchMyBoardDetailEvent.bo?boardNo=" + boardNo;
 		}
 		
 		$(function(){

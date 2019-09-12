@@ -41,7 +41,7 @@
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
 			
-			<form action="st_searchMyBoardSearchList.bo" method="get">
+			<form action="em_searchMyBoardSearchList.bo" method="get">
 				<input type="hidden" name="searchflag" id="searchflag" value="true">
 				<input type="hidden" name="memberId" id="memberId" value="${loginUser.memberId}">
 				<table style="width: 88.5%; text-align: center; margin: 0 auto;">
@@ -112,7 +112,7 @@
 				   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 					</c:if>
 					<c:if test="${pi.currentPage > 1}">
-						<c:url var="blistBack" value="st_searchMyBoardList.bo">
+						<c:url var="blistBack" value="em_searchMyBoardList.bo">
 							<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 							<c:param name="memberId" value="${loginUser.memberId}"/>
 						</c:url>
@@ -123,7 +123,7 @@
 						    <li class="page-item"><a class="page-link">${p}</a></li>					
 						</c:if>
 						<c:if test="${p ne pi.currentPage}">
-							<c:url var="blistCheck" value="st_searchMyBoardList.bo">
+							<c:url var="blistCheck" value="em_searchMyBoardList.bo">
 								<c:param name="currentPage" value="${p}"/>	
 								<c:param name="memberId" value="${loginUser.memberId}"/>
 							</c:url>
@@ -131,7 +131,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${pi.currentPage < pi.maxPage }">
-						<c:url var="blistEnd" value="st_searchMyBoardList.bo">
+						<c:url var="blistEnd" value="em_searchMyBoardList.bo">
 							<c:param name="currentPage" value="${pi.currentPage + 1}"/>
 							<c:param name="memberId" value="${loginUser.memberId}"/>
 						</c:url>
@@ -183,7 +183,7 @@
 				   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 					</c:if>
 					<c:if test="${pi.currentPage > 1}">
-						<c:url var="blistBack" value="st_searchMyBoardSearchList.bo">
+						<c:url var="blistBack" value="em_searchMyBoardSearchList.bo">
 							<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 							<c:param name="memberId" value="${loginUser.memberId}"/>
 							<c:param name="searchCondition" value="${searchCondition}"/>
@@ -196,7 +196,7 @@
 						    <li class="page-item"><a class="page-link">${p}</a></li>					
 						</c:if>
 						<c:if test="${p ne pi.currentPage}">
-							<c:url var="blistCheck" value="st_searchMyBoardSearchList.bo">
+							<c:url var="blistCheck" value="em_searchMyBoardSearchList.bo">
 								<c:param name="currentPage" value="${p}"/>	
 								<c:param name="memberId" value="${loginUser.memberId}"/>
 								<c:param name="searchCondition" value="${searchCondition}"/>
@@ -206,7 +206,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${pi.currentPage < pi.maxPage }">
-						<c:url var="blistEnd" value="st_searchMyBoardSearchList.bo">
+						<c:url var="blistEnd" value="em_searchMyBoardSearchList.bo">
 							<c:param name="currentPage" value="${pi.currentPage + 1}"/>
 							<c:param name="memberId" value="${loginUser.memberId}"/>
 							<c:param name="searchCondition" value="${searchCondition}"/>
@@ -222,7 +222,7 @@
 			</c:if>		
 		</div>
 		<div>
-			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
 		</div>
 	</div>
 	<script>		
@@ -232,7 +232,7 @@
 			
 			alert("삭제하시겠습니까?");
 			
-			location.href="st_searchMyBoardDelete.bo?boardNo="+boardNo+"&memberId="+memberId;
+			location.href="em_searchMyBoardDelete.bo?boardNo="+boardNo+"&memberId="+memberId;
 		});
 		
 		$(".updateBtn").click(function(){
@@ -246,12 +246,25 @@
 			
 			if(boardType == "자유게시판"){
 				
-				location.href="st_showsearchMyBoardUpdateFree.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
-				
+				location.href="em_showsearchMyBoardUpdateFree.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;				
 			}else if(boardType == "칭찬합시다"){
 				
-				location.href="st_showsearchMyBoardUpdatePraise.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
+				location.href="em_showsearchMyBoardUpdatePraise.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
+			}else if(boardType == "일반공지"){
+				
+				location.href="em_showsearchMyBoardUpdateNormal.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
+			}else if(boardType == "장학공지"){
+				
+				location.href="em_showsearchMyBoardUpdateSchol.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
+			}else if(boardType == "학사일정"){
+				
+				location.href="em_showsearchMyBoardUpdateSchedule.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
+			}else if(boardType == "교내외행사"){
+				
+				location.href="em_showsearchMyBoardUpdateEvent.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
 			}
+			
+			
 			
 		});
 		
@@ -266,11 +279,22 @@
 			
 			if(boardType == "자유게시판"){
 				
-				location.href="st_searchMyBoardDetailFree.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
+				location.href="em_searchMyBoardDetailFree.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
 				
-			}else if(boardType == "칭찬합시다"){
+			}else if(boardType == "칭찬합시다"){				
+				location.href="em_searchMyBoardDetailPraise.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
 				
-				location.href="st_searchMyBoardDetailPraise.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
+			}else if(boardType == "일반공지"){				
+				location.href="em_searchMyBoardDetailNormal.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
+				
+			}else if(boardType == "장학공지"){				
+				location.href="em_searchMyBoardDetailSchol.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
+				
+			}else if(boardType == "학사일정"){				
+				location.href="em_searchMyBoardDetailSchedule.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
+				
+			}else if(boardType == "교내외행사"){				
+				location.href="em_searchMyBoardDetailEvent.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
 			}
 			
 		});
