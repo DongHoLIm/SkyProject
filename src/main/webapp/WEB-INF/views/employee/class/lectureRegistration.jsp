@@ -33,8 +33,6 @@ table.basicinfo {
 	margin-left: 80%;
 }
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -53,7 +51,7 @@ table.basicinfo {
 				<jsp:include page="../../common/header.jsp" />
 				<br>
 				<h2>강의개설등록</h2>
-				<hr style="margin: 0 auto;">
+				<hr>
 				<br> <br>
 				<div>
 					<form action="insertCoursesOffered.em" method="post">

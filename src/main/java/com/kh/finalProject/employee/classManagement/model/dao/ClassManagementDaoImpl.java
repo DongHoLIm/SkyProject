@@ -12,6 +12,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformatio
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
+import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 
 @Repository
 public class ClassManagementDaoImpl implements ClassManagementDao{
@@ -49,13 +50,18 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 	}
 
 	@Override
-	public ArrayList<DepartmentProfessor> selectProfessorList(SqlSessionTemplate sqlSession, String sdeptName) {
+	public ArrayList<DepartmentProfessor> selectProfessorList(SqlSessionTemplate sqlSession, String sdeptName) throws ClassManagementSelectListException {
 		
 		ArrayList<DepartmentProfessor> list = null;
 		System.out.println("proDao !!!!");
 		
 		System.out.println(sdeptName);
 		list = (ArrayList) sqlSession.selectList("lectureprofessor.selectProfessorList", sdeptName);
+		
+		if(list == null) {
+			sqlSession.close();
+			throw new ClassManagementSelectListException("실패!");
+		}
 		
 		System.out.println(list);
 		
@@ -87,6 +93,14 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 		
 		System.out.println("subCode");
 		return sqlSession.update("LectureOpen.updateSubject", subCode);
+	}
+
+	@Override
+	public ArrayList<OpenSubject> selectOpenSubjectList(SqlSessionTemplate sqlSession) {
+		ArrayList<OpenSubject> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("courseRegistration.selectOpenSubjectList");
+		return list;
 	}
 
 	

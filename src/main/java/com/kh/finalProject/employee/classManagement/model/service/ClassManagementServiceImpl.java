@@ -13,6 +13,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformatio
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
+import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 
 @Service
 public class ClassManagementServiceImpl implements ClassManagementService{
@@ -40,7 +41,7 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 	}
 
 	@Override
-	public ArrayList<DepartmentProfessor> selectProfessorList(String sdeptName) {
+	public ArrayList<DepartmentProfessor> selectProfessorList(String sdeptName) throws ClassManagementSelectListException {
 		return cmd.selectProfessorList(sqlSession, sdeptName);
 	}
 
@@ -59,6 +60,12 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 	public int updateSubject(String subCode) {
 		
 		return cmd.updateSubject(sqlSession, subCode);
+	}
+
+	@Override
+	public ArrayList<OpenSubject> selectOpenSubjectList() {
+
+		return cmd.selectOpenSubjectList(sqlSession);
 	}
 
 }
