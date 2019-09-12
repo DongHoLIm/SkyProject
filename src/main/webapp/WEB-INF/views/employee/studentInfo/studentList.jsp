@@ -23,9 +23,9 @@
 			<!-- 입력 라인  -->
 			<br>
 			
-			<h2 style="width:88.5%; margin: 0 auto;">학생전체조회</h2>
+			<h2 style="width:85%; margin: 0 auto;">학생전체조회</h2>
 			<br>
-			<div id="searchArea" style="width:88.5%; text-align: center; margin: 0 auto;">
+			<div id="searchArea" style="width:85%; text-align: center; margin: 0 auto;">
 			<table>
 			<tr>
 				<td>
@@ -251,10 +251,64 @@
 							$(".pagingArea").children().remove();
 							$(".pagingArea").append($ul);
 				
-						
-					
 					}
 				});
+				
+				$.ajax({
+					url:"em_studentSelectBox.si",
+					type:"get",
+					success:function(data){
+						console.log("접속성공");
+						
+						var $select1 = $("#collegeCondition");
+						
+						$select1.children().remove();
+						console.log("단과대학 갯수::" + data.collegeList.length);
+						
+						var $option1 = $("<option>");
+						
+						$option1.text("단과대학");
+						$option1.val("단과대학");
+						
+						$select1.append($option1);
+						
+						for(var i=0 ; i<data.collegeList.length ; i++){
+							
+							var $option1 = $("<option>");
+							
+							$option1.text(data.collegeList[i].college);
+							$option1.val(data.collegeList[i].college);
+							
+							$select1.append($option1);
+						}
+						
+						
+						var $select2 = $("#sdeptCondition");
+						
+						$select2.children().remove();
+						console.log("학과 갯수:: " + data.sdeptList.length);
+						
+						var $option2 = $("<option>");
+						
+						$option2.text("학과");
+						$option2.val("학과");
+						
+						$select2.append($option2);	
+						
+						for(var i = 0; i < data.sdeptList.length; i++){
+							
+							var $option2 = $("<option>");
+							
+							$option2.text(data.sdeptList[i].sdeptName);
+							$option2.val(data.sdeptList[i].sdeptName);
+							
+							$select2.append($option2);	
+						}
+						
+					}
+				})
+				
+				
 			});
 			 
 			
@@ -654,14 +708,11 @@
 			
 			$(function(){
 				$("#collegeCondition").change(function(){
-					alert(this.value);
 					
 					var change = $(this).val();
-					alert("change::" + change);
 					console.log("change::" + change);
 					
 					var college = $("#collegeCondition").val();
-					alert("college::" + college);
 					console.log("college::" + college);
 					
 					$.ajax({
@@ -676,12 +727,22 @@
 							
 							$select.children().remove();
 							
+							console.log("data.list.length :::: " + data.list.length);
 							
+							for(var i = 0; i < data.list.length; i++){
+								
+								var $option = $("<option>");
+								
+								console.log(data.list[i].sdeptName);
+								
+								$option.text(data.list[i].sdeptName);
+								$option.val(data.list[i].sdeptName);
+								
+								$select.append($option);	
+							}
 							
 						}
 					})
-					
-					
 					
 				})
 			})

@@ -32,7 +32,7 @@ table.basicinfo {
    border: 1px solid #dde1e3;
    margin-left: auto;
    margin-right: auto;
-}
+} 
 
 #Change {
    text-align: center;
@@ -52,47 +52,49 @@ table.basicinfo {
             <jsp:include page="../../common/header.jsp" />
          </div>
          <h4 id="basic">기본 정보</h4>
-         <form class="ba">
+       
             <table class="basicinfo">
                <tr>
                   <td class="td">학번</td>
-                  <td colspan='5'><input type="text" value=${basicInfo.studentNo } readonly></td>
+                  <td colspan='5'>${basicInfo.studentNo }</td>
                </tr>
 
                <tr>
-                  <td class="td">한글 성명</td>
-                  <td><input type="text" value=${basicInfo.kName } readonly></td>
-                  <td class="td">영문 성명</td>
-                  <td><input type="text" value=${basicInfo.eName } readonly></td>
-                  <td class="td">한문 성명</td>
-                  <td><input type="text" value=" " readonly></td>
+                  <td class="td" width="15%">한글 성명</td>
+                  <td width="21%">${basicInfo.kName }</td>
+                  <td class="td" width="15%">영문 성명</td>
+                  <td width="21%">${basicInfo.eName }</td>
+                  <td class="td" width="15%">한문 성명</td>
+                  <td width="13%"> </td>
                </tr>
+               
+              
 
                <tr>
                   <td class="td">주민 번호</td>
-                  <td><input type="text" value=${basicInfo.memberNo } readonly></td>
+                  <td>${basicInfo.memberNo }</td>
                   <td class="td">생년월일</td>
-                  <td><input type="text" value="2000.07.26" readonly></td>
+                  <td></td>
                   <td class="td">성별</td>
-                  <td><input type="text" value="남" readonly></td>
+                  <td></td>
                </tr>
 
                <tr>
-                  <td class="td">학부(과)</td>
-                  <td><input type="text" value="소프트웨어 응용" readonly></td>
+                  <td class="td">학과</td>
+                  <td>${basicInfo.sdeptName }</td>
                   <td class="td">전공</td>
-                  <td><input type="text" value="컴퓨터 공학" readonly></td>
+                  <td>${basicInfo.sdeptName }</td>
                   <td class="td">학년</td>
-                  <td><input type="text" value="1" readonly></td>
+                  <td>${basicInfo.grade }</td>
                </tr>
 
                <tr>
                   <td class="td">학적 상태</td>
-                  <td><input type="text" value=${basicInfo.studentStatus } readonly></td>
+                  <td>${basicInfo.studentStatus }</td>
                   <td class="td">주야</td>
-                  <td><input type="text" value="주간" readonly></td>
+                  <td></td>
                   <td class="td">병역 구분</td>
-                  <td><input type="text" value="" readonly></td>
+                  <td></td>
                </tr>
 
             </table>
@@ -104,16 +106,16 @@ table.basicinfo {
 
             <table class="basicinfo">
                <tr>
-                  <td class="td">입학 구분</td>
-                  <td><input type="text" value=${stuInfo.enrolType } readonly></td>
-                  <td class="td">입학 일자</td>
-                  <td><input type="text" value=${stuInfo.enrolDate } readonly></td>
+                  <td class="td" width="20%">입학 구분</td>
+                  <td width="30%">${stuInfo.enrolType }</td>
+                  <td class="td" width="20%">입학 일자</td>
+                  <td width="30%">${stuInfo.enrolDate }</td>
                </tr>
                <tr>
                   <td class="td">입학 학년</td>
-                  <td><input type="text" value=${stuInfo.enroleGrade } readonly></td>
+                  <td>${stuInfo.enroleGrade }</td>
                   <td class="td">수험 번호</td>
-                  <td><input type="text" value=${stuInfo.enrolNo } readonly></td>
+                  <td>${stuInfo.enrolNo }</td>
                </tr>
             </table>
 
@@ -124,16 +126,16 @@ table.basicinfo {
 
             <table class="basicinfo">
                <tr>
-                  <td class="td">복수 전공 1</td>
-                  <td><input type="text" value="" readonly></td>
-                  <td class="td">복수 전공 2</td>
-                  <td><input type="text" value="" readonly></td>
+                  <td class="td" width="20%">복수 전공 1</td>
+                  <td width="30%"></td>
+                  <td class="td" width="20%">복수 전공 2</td>
+                  <td width="30%"></td>
                </tr>
                <tr>
                   <td class="td">부 전공 1</td>
-                  <td><input type="text" value="" readonly></td>
+                  <td></td>
                   <td class="td">부 전공 2</td>
-                  <td><input type="text" value="" readonly></td>
+                  <td></td>
                </tr>
             </table>
 
@@ -141,24 +143,20 @@ table.basicinfo {
 
             <table class="basicinfo">
                <tr>
-                  <td class="td">졸업 일자</td>
-                  <td><input type="text" value="" readonly></td>
-                  <td class="td">학위 등록 번호</td>
-                  <td><input type="text" value="" readonly></td>
-                  <td class="td">졸업 증서 번호</td>
-                  <td><input type="text" value="" readonly></td>
+                  <td class="td" width="20%">졸업 일자</td>
+                  <td width="30%"></td>
+                  <td class="td" width="20%">졸업 증서 번호</td>
+                  <td width="30%"></td>
                </tr>
                <tr>
                   <td class="td">학위명</td>
-                  <td><input type="text" value="" readonly></td>
-                  <td class="td"></td>
-                  <td><input type="text" value="" readonly></td>
-                  <td class="td">조기 졸업 구분</td>
-                  <td><input type="text" value="" readonly></td>
+                  <td></td>
+                  <td class="td">학위 등록 번호</td>
+                  <td></td>
                </tr>
 
             </table>
-         </form>
+         
       </div>
       <div>
          <jsp:include page="../../common/menubar-student.jsp" />

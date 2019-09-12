@@ -58,11 +58,26 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	}
 
 	@Override
-	public ArrayList<String> selectCollegeFilter(String col) {
+	public ArrayList selectCollegeFilter(String col) throws StudentInfoSelectListException {
 		
 		return sd.selectCollegeFilter(sqlSession,col);
 	}
 
+	@Override
+	public ArrayList selectcollege() throws StudentInfoSelectListException {
+		
+		return sd.selectCollege(sqlSession);
+	}
+
+	@Override
+	public ArrayList selectSdeptList() throws StudentInfoSelectListException {
+		
+		return sd.selectSdeptList(sqlSession);
+	}
+
+	
+
+	
 	
 	
 	
