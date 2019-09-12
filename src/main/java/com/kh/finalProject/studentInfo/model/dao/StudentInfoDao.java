@@ -24,6 +24,8 @@ public interface StudentInfoDao {
 
 	ArrayList<StudentInfo> selectFilterStudent(SqlSessionTemplate sqlSession, FilterCondition fc, PageInfo pi) throws StudentInfoSelectListException;
 
+	ArrayList<String> selectCollegeFilter(SqlSessionTemplate sqlSession, String col);
+
 	
 	
 

@@ -189,6 +189,21 @@ public class StudentInfoController {
 		}
 		
 	}
+	
+	//교직원_학생조회 필터링 단과대선택
+	@RequestMapping("em_selectCollege.si")
+	public ModelAndView selectCollege(ModelAndView mv, HttpServletRequest request) {
+		
+		String college = request.getParameter("college");
+		
+		System.out.println(college);
+		
+		ArrayList<String> list = ss.selectCollegeFilter(college);
+		
+		
+		return mv;
+	}
+	
 
 }
 

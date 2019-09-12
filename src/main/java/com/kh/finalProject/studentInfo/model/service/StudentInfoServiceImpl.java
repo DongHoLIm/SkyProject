@@ -57,6 +57,13 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		return sd.selectFilterStudent(sqlSession,fc,pi);
 	}
 
+	@Override
+	public ArrayList<String> selectCollegeFilter(String col) {
+		
+		return sd.selectCollegeFilter(sqlSession,col);
+	}
+
+	
 	
 	
 
