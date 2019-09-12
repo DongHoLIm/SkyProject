@@ -39,47 +39,27 @@
 			<div class="inner">
 				<jsp:include page="/WEB-INF/views/common/header.jsp" />
 			</div>
-			<h4 id="basic">교내외행사</h4>
+			<h4 id="basic">칭찬합시다</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<form action="em_eNoticeUpdate.bo" method="post" enctype="multipart/form-data">
+			<form action="st_searchMyBoardUpdatePraise.bo" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="boardNo" value="${b.boardNo}">
+				<input type="hidden" name="memberId" id="memberId" value="${b.memberId}">
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
 						<th style="text-align: center;">카테고리</th>
-						<td>일반공지</td>
-						<th style="text-align: center;">작성자</th>
-						<td><input type="text" name="writer" value="${b.writer}" readonly></td>
-						<th style="text-align: center;">작성부서</th>
-						<td style="border-right: 1px solid #E5E6E7"><input type="text" name="writeDept" value="${b.writeDept}" readonly></td>
-					</tr>
-					<tr>
-						<th style="text-align: center;">시작일시</th>
-						<td width="100px;">
-							<fmt:parseDate value="${b.startDate}" var="startDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<input type='text' class='datepicker-here' data-language='kr' id="dateInput" name="startDate" value="<fmt:formatDate value="${startDate}" pattern="yyyy/MM/dd"/>"/>
-						</td>
-						<th style="text-align: center;">종료일시</th>
-						<td width="100px;">
-							<fmt:parseDate value="${b.endDate}" var="endDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<input type='text' class='datepicker-here' data-language='kr' id="dateInput" name="endDate" value="<fmt:formatDate value="${endDate}" pattern="yyyy/MM/dd"/>"/>
-						</td>
-						<th style="text-align: center;">게시기한</th>
-						<td width="100px;">
-							<fmt:parseDate value="${b.deadLine}" var="deadLine" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<input type='text' class='datepicker-here' data-language='kr' id="deadLine" name="deadLine" value="<fmt:formatDate value="${deadLine}" pattern="yyyy/MM/dd"/>"/>
-						</td>											
-					</tr>
-					<tr>
+						<td>칭찬합시다</td>
 						<th style="text-align: center;">제목</th>
-						<td colspan="6" style="border-right: 1px solid #E5E6E7">
+						<td colspan="4" style="border-right: 1px solid #E5E6E7">
 							<input type="text" name="title" value="${b.title}">
-						</td>	
+						</td>
 					</tr>
 					<tr>
 						<th style="text-align: center; vertical-align: middle;">내용</th>
 						<td colspan="6" style="text-align: left; height: 100px; border-right: 1px solid #E5E6E7;">
-							<textarea name="content" rows="13" cols="40" style="resize: none;">${b.content}</textarea>
+							<textarea name="content" rows="13" cols="40" style="resize: none;">
+								${b.content}
+							</textarea>
 						</td>
 					</tr>
 					<tr>
@@ -107,7 +87,7 @@
 			</form>
 		</div>
 		<div>
-			<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
 		</div>
 	</div>
 	<script>
@@ -116,7 +96,7 @@
 			
 			var boardNo = ${b.boardNo};
 			
-			location.href = "em_eNoticeDetail.bo?boardNo=" + boardNo;
+			location.href = "st_searchMyBoardDetailPraise.bo?boardNo=" + boardNo;
 		}
 		
 		$(function(){
@@ -138,10 +118,7 @@
 				}
 				reader.readAsDataURL(value.files[0]);
 			}
-		}
-		
-		
-		
+		}	
 	</script>
 </body>
 </html>

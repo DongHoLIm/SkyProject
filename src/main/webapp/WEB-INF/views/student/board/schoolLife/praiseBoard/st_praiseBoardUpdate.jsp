@@ -47,7 +47,7 @@
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
 						<th style="text-align: center;">카테고리</th>
-						<td>자유게시판</td>
+						<td>칭찬합시다</td>
 						<th style="text-align: center;">제목</th>
 						<td colspan="4" style="border-right: 1px solid #E5E6E7">
 							<input type="text" name="title" value="${b.title}">

@@ -31,6 +31,9 @@
 		width:75px;
 		vertical-align:center
 	}
+	#dateInput {
+		width: 100px;
+	}
 </style>
 </head>
 <body>
@@ -39,11 +42,12 @@
 			<div class="inner">
 				<jsp:include page="/WEB-INF/views/common/header.jsp" />
 			</div>
-			<h4 id="basic">교내외행사</h4>
+			<h4 id="basic">일반 공지</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<form action="em_eNoticeUpdate.bo" method="post" enctype="multipart/form-data">
+			<form action="em_searchMyBoardUpdateNormal.bo" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="boardNo" value="${b.boardNo}">
+				<input type="hidden" name="memberId" id="memberId" value="${b.memberId}">
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
 						<th style="text-align: center;">카테고리</th>
@@ -54,27 +58,15 @@
 						<td style="border-right: 1px solid #E5E6E7"><input type="text" name="writeDept" value="${b.writeDept}" readonly></td>
 					</tr>
 					<tr>
-						<th style="text-align: center;">시작일시</th>
-						<td width="100px;">
-							<fmt:parseDate value="${b.startDate}" var="startDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<input type='text' class='datepicker-here' data-language='kr' id="dateInput" name="startDate" value="<fmt:formatDate value="${startDate}" pattern="yyyy/MM/dd"/>"/>
-						</td>
-						<th style="text-align: center;">종료일시</th>
-						<td width="100px;">
-							<fmt:parseDate value="${b.endDate}" var="endDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<input type='text' class='datepicker-here' data-language='kr' id="dateInput" name="endDate" value="<fmt:formatDate value="${endDate}" pattern="yyyy/MM/dd"/>"/>
-						</td>
 						<th style="text-align: center;">게시기한</th>
 						<td width="100px;">
 							<fmt:parseDate value="${b.deadLine}" var="deadLine" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<input type='text' class='datepicker-here' data-language='kr' id="deadLine" name="deadLine" value="<fmt:formatDate value="${deadLine}" pattern="yyyy/MM/dd"/>"/>
-						</td>											
-					</tr>
-					<tr>
+							<input type='text' class='datepicker-here' data-language='kr' id="dateInput" name="deadLine" value="<fmt:formatDate value="${deadLine}" pattern="yyyy/MM/dd"/>"/>
+						</td>
 						<th style="text-align: center;">제목</th>
-						<td colspan="6" style="border-right: 1px solid #E5E6E7">
+						<td colspan="3" style="border-right: 1px solid #E5E6E7">
 							<input type="text" name="title" value="${b.title}">
-						</td>	
+						</td>					
 					</tr>
 					<tr>
 						<th style="text-align: center; vertical-align: middle;">내용</th>
@@ -116,7 +108,7 @@
 			
 			var boardNo = ${b.boardNo};
 			
-			location.href = "em_eNoticeDetail.bo?boardNo=" + boardNo;
+			location.href = "em_searchMyBoardDetailNormal.bo?boardNo=" + boardNo;
 		}
 		
 		$(function(){

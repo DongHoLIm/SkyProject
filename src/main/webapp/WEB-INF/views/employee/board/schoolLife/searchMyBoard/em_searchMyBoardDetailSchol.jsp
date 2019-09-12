@@ -29,38 +29,17 @@
 			<div class="inner">
 				<jsp:include page="/WEB-INF/views/common/header.jsp" />
 			</div>
-			<h4 id="basic">교내외행사</h4>
+			<h4 id="basic">장학 공지</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<c:if test="${sessionScope.loginUser.memberId == b.memberId}">
-				<div align="right" style="margin: 0 auto; width:88.5%;">
-					<div style="margin-bottom: 10px">
-						<button onclick="updateBoard()">수정</button>
-						<button onclick="deleteBoard()">삭제</button>				
-					</div>
-				</div>
-			</c:if>
+			<input type="hidden" name="memberId" id="memberId" value="${b.memberId}">
+			<input type="hidden" id="boardNo" name="boardNo" value="${b.boardNo}">
 			<table style="width: 88.5%; margin: 0 auto;">
 				<tr>
 					<th style="text-align: center;">작성자</th>
 					<td>${b.writer}</td>
 					<th style="text-align: center;">작성부서</th>
 					<td>${b.writeDept}</td>
-					<th style="text-align: center;">조회수</th>
-					<td>${b.count}</td>
-					
-				</tr>
-				<tr>
-					<th style="text-align: center;">행사일자</th>
-					<td>
-						<fmt:parseDate value="${b.startDate}" var="startDate" pattern="yyyy-MM-dd"/>
-						<fmt:formatDate value="${startDate}" pattern="yyyy/MM/dd"/>
-					</td>
-					<th style="text-align: center;">종료일시</th>
-					<td>
-						<fmt:parseDate value="${b.endDate}" var="endDate" pattern="yyyy-MM-dd"/>
-						<fmt:formatDate value="${endDate}" pattern="yyyy/MM/dd"/>
-					</td>					
 					<th style="text-align: center;">게시기한</th>
 					<td>
 						<fmt:parseDate value="${b.deadLine}" var="deadLine" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -69,8 +48,10 @@
 				</tr>
 				<tr>
 					<th style="text-align: center;">제목</th>
-					<td colspan="6">${b.title}</td>
-				</tr>				
+					<td colspan="3">${b.title}</td>
+					<th style="text-align: center;">조회수</th>
+					<td>${b.count}</td>
+				</tr>
 				<tr>
 					<td colspan="6" style="text-align: left; height: 100px;">
 						<c:if test="${!empty uf}">
@@ -82,17 +63,21 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6"><button onclick="pro_eNoticeList()">목록으로</button>
+					<td colspan="6"><button onclick="em_sNoticeList()">목록으로</button>
 				</tr>
 			</table>
 		</div>
 		<div>
-		<jsp:include page="/WEB-INF/views/common/menubar-professor.jsp" />
+		<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
 	</div>
 	<script>
-		function pro_eNoticeList(){
-			location.href="pro_eNoticeList.bo";
-		}		
+		function em_sNoticeList(){		
+			var memberId = $("#memberId").val();
+			
+			location.href="em_searchMyBoardList.bo?memberId="+memberId;
+		}
+		
+		
 	</script>
 </div>
 </body>

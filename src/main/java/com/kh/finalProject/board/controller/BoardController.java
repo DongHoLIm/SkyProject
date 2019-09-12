@@ -4772,6 +4772,1817 @@ public class BoardController {
 		}
 		
 	}
+	
+	@RequestMapping("st_showsearchMyBoardUpdateFree.bo")
+	public String stshowsearchMyBoardUpdateFree(int boardNo, String memberId, String boardType, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		System.out.println("update전 select용 memberId :::: " + memberId);
+		System.out.println("update전 select용 boardType :::: " + boardType);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectfreeBoardOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("학생 내 게시물 업데이트 Ctrl b :::: " + b);
+				
+				return "student/board/schoolLife/searchMyBoard/st_searchMyBoardUpdateFree";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("학생 내 게시물 업데이트 Ctrl b :::: " + b);
+				System.out.println("학생 내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "student/board/schoolLife/searchMyBoard/st_searchMyBoardUpdateFree";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping("st_showsearchMyBoardUpdatePraise.bo")
+	public String stshowsearchMyBoardUpdatePraise(int boardNo, String memberId, String boardType, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		System.out.println("update전 select용 memberId :::: " + memberId);
+		System.out.println("update전 select용 boardType :::: " + boardType);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectpraiseBoardOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("학생 내 게시물 업데이트 Ctrl b :::: " + b);
+				
+				return "student/board/schoolLife/searchMyBoard/st_searchMyBoardUpdatePraise";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("학생 내 게시물 업데이트 Ctrl b :::: " + b);
+				System.out.println("학생 내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "student/board/schoolLife/searchMyBoard/st_searchMyBoardUpdatePraise";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="st_searchMyBoardUpdateFree.bo")
+	public String stsearchMyBoardUpdateFree(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("학생 내 게시즐 조회 자유게시판 글 수정 b :::: " + b);
+		String memberId = b.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("학생 내 게시즐 조회 자유게시판  글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updatefreeBoardwithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:st_searchMyBoardList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updatefreeBoard(b);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:st_searchMyBoardList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping(value="st_searchMyBoardUpdatePraise.bo")
+	public String stsearchMyBoardUpdatePraise(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("학생 내 게시즐 조회 칭찬합시다 글 수정 b :::: " + b);
+		
+		String memberId = b.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("학생 내 게시즐 조회 칭찬합시다  글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updatepraiseBoardwithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:st_searchMyBoardList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updatepraiseBoard(b);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:st_searchMyBoardList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping(value="st_searchMyBoardDetailFree.bo")
+	public String stsearchMyBoardDetailFree(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("stsearchMyBoardDetailFree boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selectfreeBoardOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시글 조회 자유게시판 상세보기 Ctrl b :::: " + b);
+
+				return "student/board/schoolLife/searchMyBoard/st_searchMyBoardDetailFree";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("내 게시글 조회 자유게시판 상세보기 :::: " + b);
+				System.out.println("내 게시글 조회 자유게시판 상세보기 :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "student/board/schoolLife/searchMyBoard/st_searchMyBoardDetailFree";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping(value="st_searchMyBoardDetailPraise.bo")
+	public String stsearchMyBoardDetailPraise(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("stsearchMyBoardDetailFree boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selectfreeBoardOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 Ctrl b :::: " + b);
+
+				return "student/board/schoolLife/searchMyBoard/st_searchMyBoardDetailPraise";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "student/board/schoolLife/searchMyBoard/st_searchMyBoardDetailPraise";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+///////////////////////////////////////////////////////교수 내 게시글 조회///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교수 내 게시글 조회///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교수 내 게시글 조회///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교수 내 게시글 조회///////////////////////////////////////////////////////
+	
+	@RequestMapping("pro_searchMyBoardList.bo")
+	public String prosearchMyBoardList(HttpServletRequest request, String memberId) {
+		
+		System.out.println("prosearchMyBoardList memberId :::: " + memberId);
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.searchMyBoardListCount(memberId);
+			
+			System.out.println("st_searchMyBoardList listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bs.searchMyBoardList(pi, memberId);
+			
+			System.out.println("prosearchMyBoardList list :::: " + list);
+			System.out.println("prosearchMyBoardList pi :::: " + pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			
+			return "professor/board/schoolLife/searchMyBoard/pro_searchMyBoardList";
+			
+		} catch (BoardSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}		
+	}
+	
+	@RequestMapping("pro_searchMyBoardSearchList.bo")
+	public String prosearchMyBoardSearchList(String searchCondition, String memberId, boolean searchflag, HttpServletRequest request) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		sc.setMemberId(memberId);		
+		
+		if(searchCondition.equals("all")) {
+			sc.setAll(searchCondition);
+		}
+		if(searchCondition.equals("praise")) {
+			sc.setPraise(searchCondition);
+		}
+		if(searchCondition.equals("free")) {
+			sc.setFree(searchCondition);
+		}
+		
+		System.out.println("sc :::: " + sc);
+		
+		int listCount;
+		
+		try {
+			listCount = bs.searchMyBoardSearchListCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			pi.setSearchflag(searchflag);
+			
+			System.out.println("검색후 pi :::: " + pi);
+			
+			ArrayList<Board> list = bs.searchMyBoardSearchList(sc, pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("searchCondition", searchCondition);
+			
+			return "professor/board/schoolLife/searchMyBoard/pro_searchMyBoardList";
+		} catch (BoardSearchException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("pro_searchMyBoardDelete.bo")
+	public String prosearchMyBoardDelete(String boardNo, String memberId, HttpServletRequest request) {
+		System.out.println("prosearchMyBoardDelete boardNo ::::" + boardNo);
+		
+		try {
+			bs.searchMyBoardDelete(boardNo);
+			
+			request.setAttribute("memberId", memberId);
+			
+			return "forward:pro_searchMyBoardList.bo";
+		} catch (BoardDeleteException e) {			
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+		
+	}
+	
+	@RequestMapping("pro_showsearchMyBoardUpdateFree.bo")
+	public String proshowsearchMyBoardUpdateFree(int boardNo, String memberId, String boardType, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		System.out.println("update전 select용 memberId :::: " + memberId);
+		System.out.println("update전 select용 boardType :::: " + boardType);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectfreeBoardOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("교수 내 게시물 업데이트 Ctrl b :::: " + b);
+				
+				return "professor/board/schoolLife/searchMyBoard/pro_searchMyBoardUpdateFree";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("교수 내 게시물 업데이트 Ctrl b :::: " + b);
+				System.out.println("교수 내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "professor/board/schoolLife/searchMyBoard/pro_searchMyBoardUpdateFree";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping("pro_showsearchMyBoardUpdatePraise.bo")
+	public String proshowsearchMyBoardUpdatePraise(int boardNo, String memberId, String boardType, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		System.out.println("update전 select용 memberId :::: " + memberId);
+		System.out.println("update전 select용 boardType :::: " + boardType);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectpraiseBoardOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("학생 내 게시물 업데이트 Ctrl b :::: " + b);
+				
+				return "professor/board/schoolLife/searchMyBoard/pro_searchMyBoardUpdatePraise";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("교수 내 게시물 업데이트 Ctrl b :::: " + b);
+				System.out.println("교수 내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "professor/board/schoolLife/searchMyBoard/pro_searchMyBoardUpdatePraise";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="pro_searchMyBoardUpdateFree.bo")
+	public String prosearchMyBoardUpdateFree(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("교수 내 게시즐 조회 자유게시판 글 수정 b :::: " + b);
+		String memberId = b.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("교수 내 게시즐 조회 자유게시판  글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updatefreeBoardwithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:pro_searchMyBoardList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updatefreeBoard(b);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:pro_searchMyBoardList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping(value="pro_searchMyBoardUpdatePraise.bo")
+	public String prosearchMyBoardUpdatePraise(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("학생 내 게시즐 조회 칭찬합시다 글 수정 b :::: " + b);
+		
+		String memberId = b.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("교수 내 게시즐 조회 칭찬합시다  글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updatepraiseBoardwithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:pro_searchMyBoardList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updatepraiseBoard(b);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:pro_searchMyBoardList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping(value="pro_searchMyBoardDetailFree.bo")
+	public String prosearchMyBoardDetailFree(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("prosearchMyBoardDetailFree boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selectfreeBoardOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시글 조회 자유게시판 상세보기 Ctrl b :::: " + b);
+
+				return "professor/board/schoolLife/searchMyBoard/pro_searchMyBoardDetailFree";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("내 게시글 조회 자유게시판 상세보기 :::: " + b);
+				System.out.println("내 게시글 조회 자유게시판 상세보기 :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "professor/board/schoolLife/searchMyBoard/pro_searchMyBoardDetailFree";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping(value="pro_searchMyBoardDetailPraise.bo")
+	public String prosearchMyBoardDetailPraise(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("prosearchMyBoardDetailPraise boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selectfreeBoardOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 Ctrl b :::: " + b);
+
+				return "professor/board/schoolLife/searchMyBoard/pro_searchMyBoardDetailPraise";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "professor/board/schoolLife/searchMyBoard/pro_searchMyBoardDetailPraise";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+///////////////////////////////////////////////////////교직원 내 게시글 조회///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교직원 내 게시글 조회///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교직원 내 게시글 조회///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교직원 내 게시글 조회///////////////////////////////////////////////////////
+	@RequestMapping("em_searchMyBoardList.bo")
+	public String emsearchMyBoardList(HttpServletRequest request, String memberId) {
+		
+		System.out.println("emsearchMyBoardList memberId :::: " + memberId);
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.searchMyBoardListCount(memberId);
+			
+			System.out.println("emsearchMyBoardList listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bs.searchMyBoardList(pi, memberId);
+			
+			System.out.println("emsearchMyBoardList list :::: " + list);
+			System.out.println("emsearchMyBoardList pi :::: " + pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			
+			return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardList";
+			
+		} catch (BoardSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}		
+	}
+	
+	@RequestMapping("em_searchMyBoardSearchList.bo")
+	public String emsearchMyBoardSearchList(String searchCondition, String memberId, boolean searchflag, HttpServletRequest request) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		sc.setMemberId(memberId);		
+		
+		if(searchCondition.equals("all")) {
+			sc.setAll(searchCondition);
+		}
+		if(searchCondition.equals("praise")) {
+			sc.setPraise(searchCondition);
+		}
+		if(searchCondition.equals("free")) {
+			sc.setFree(searchCondition);
+		}
+		if(searchCondition.equals("normal")) {
+			sc.setNormal(searchCondition);
+		}
+		if(searchCondition.equals("schol")) {
+			sc.setSchol(searchCondition);
+		}
+		if(searchCondition.equals("event")) {
+			sc.setEvent(searchCondition);
+		}
+		if(searchCondition.equals("schedule")) {
+			sc.setSchedule(searchCondition);
+		}
+		
+		System.out.println("sc :::: " + sc);
+		
+		int listCount;
+		
+		try {
+			listCount = bs.searchMyBoardSearchListCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			pi.setSearchflag(searchflag);
+			
+			System.out.println("검색후 pi :::: " + pi);
+			
+			ArrayList<Board> list = bs.searchMyBoardSearchList(sc, pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("searchCondition", searchCondition);
+			
+			return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardList";
+		} catch (BoardSearchException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("em_searchMyBoardDelete.bo")
+	public String emsearchMyBoardDelete(String boardNo, String memberId, HttpServletRequest request) {
+		System.out.println("emsearchMyBoardDelete boardNo ::::" + boardNo);
+		
+		try {
+			bs.searchMyBoardDelete(boardNo);
+			
+			request.setAttribute("memberId", memberId);
+			
+			return "forward:em_searchMyBoardList.bo";
+		} catch (BoardDeleteException e) {			
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}		
+	}
+	
+	@RequestMapping("em_showsearchMyBoardUpdateFree.bo")
+	public String emshowsearchMyBoardUpdateFree(int boardNo, String memberId, String boardType, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		System.out.println("update전 select용 memberId :::: " + memberId);
+		System.out.println("update전 select용 boardType :::: " + boardType);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectfreeBoardOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("교직원 내 게시물 업데이트 Ctrl b :::: " + b);
+				
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdateFree";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("교수 내 게시물 업데이트 Ctrl b :::: " + b);
+				System.out.println("교수 내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdateFree";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="em_searchMyBoardUpdateFree.bo")
+	public String emsearchMyBoardUpdateFree(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("교수 내 게시즐 조회 자유게시판 글 수정 b :::: " + b);
+		String memberId = b.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("교수 내 게시즐 조회 자유게시판  글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updatefreeBoardwithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:em_searchMyBoardList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updatefreeBoard(b);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:em_searchMyBoardList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("em_showsearchMyBoardUpdatePraise.bo")
+	public String emshowsearchMyBoardUpdatePraise(int boardNo, String memberId, String boardType, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		System.out.println("update전 select용 memberId :::: " + memberId);
+		System.out.println("update전 select용 boardType :::: " + boardType);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectpraiseBoardOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시물 업데이트 Ctrl b :::: " + b);
+				
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdatePraise";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("내 게시물 업데이트 Ctrl b :::: " + b);
+				System.out.println("내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdatePraise";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="em_searchMyBoardUpdatePraise.bo")
+	public String emsearchMyBoardUpdatePraise(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("학생 내 게시즐 조회 칭찬합시다 글 수정 b :::: " + b);
+		
+		String memberId = b.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("내 게시즐 조회 칭찬합시다  글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updatepraiseBoardwithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:em_searchMyBoardList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updatepraiseBoard(b);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:em_searchMyBoardList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("em_showsearchMyBoardUpdateNormal.bo")
+	public String emshowsearchMyBoardUpdateNormal(int boardNo, String memberId, String boardType, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		System.out.println("update전 select용 memberId :::: " + memberId);
+		System.out.println("update전 select용 boardType :::: " + boardType);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectOneBoard(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시물 업데이트 Ctrl b :::: " + b);
+				
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdateNormal";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("내 게시물 업데이트 Ctrl b :::: " + b);
+				System.out.println("내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdateNormal";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="em_searchMyBoardUpdateNormal.bo")
+	public String emsearchMyBoardUpdateNormal(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("내 게시즐 조회 칭찬합시다 글 수정 b :::: " + b);
+		
+		String memberId = b.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("내 게시즐 조회 칭찬합시다  글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updatenNoticewithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:em_searchMyBoardList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updatenNotice(b);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:em_searchMyBoardList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("em_showsearchMyBoardUpdateSchol.bo")
+	public String emshowsearchMyBoardUpdateSchol(int boardNo, String memberId, String boardType, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		System.out.println("update전 select용 memberId :::: " + memberId);
+		System.out.println("update전 select용 boardType :::: " + boardType);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectsNoticeOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시물 업데이트 Ctrl b :::: " + b);
+				
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdateSchol";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("내 게시물 업데이트 Ctrl b :::: " + b);
+				System.out.println("내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdateSchol";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="em_searchMyBoardUpdateSchol.bo")
+	public String emsearchMyBoardUpdateSchol(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("내 게시즐 조회 칭찬합시다 글 수정 b :::: " + b);
+		
+		String memberId = b.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("내 게시즐 조회 칭찬합시다  글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updatesNoticewithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:em_searchMyBoardList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updatesNotice(b);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:em_searchMyBoardList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("em_showsearchMyBoardUpdateSchedule.bo")
+	public String emshowsearchMyBoardUpdateSchedule(int boardNo, String memberId, String boardType, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		System.out.println("update전 select용 memberId :::: " + memberId);
+		System.out.println("update전 select용 boardType :::: " + boardType);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selectacNoticeOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시물 업데이트 Ctrl b :::: " + b);
+				
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdateSchedule";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("내 게시물 업데이트 Ctrl b :::: " + b);
+				System.out.println("내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdateSchedule";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="em_searchMyBoardUpdateSchedule.bo")
+	public String emsearchMyBoardUpdateSchedule(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("내 게시즐 조회 칭찬합시다 글 수정 b :::: " + b);
+		
+		String memberId = b.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("내 게시즐 조회 칭찬합시다  글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updateacNoticewithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:em_searchMyBoardList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updateacNotice(b);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:em_searchMyBoardList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("em_showsearchMyBoardUpdateEvent.bo")
+	public String emshowsearchMyBoardUpdateEvent(int boardNo, String memberId, String boardType, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 boardNo :::: " + boardNo);
+		System.out.println("update전 select용 memberId :::: " + memberId);
+		System.out.println("update전 select용 boardType :::: " + boardType);
+		
+		Board b;
+		UploadFile uf;
+		try {
+			b = bs.selecteNoticeOne(boardNo);
+			uf = bs.selectUploadFile(boardNo);
+			
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시물 업데이트 Ctrl b :::: " + b);
+				
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdateEvent";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("내 게시물 업데이트 Ctrl b :::: " + b);
+				System.out.println("내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+			
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardUpdateEvent";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="em_searchMyBoardUpdateEvent.bo")
+	public String emsearchMyBoardUpdateEvent(Model model, Board b, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("내 게시즐 조회 칭찬합시다 글 수정 b :::: " + b);
+		
+		String memberId = b.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("내 게시즐 조회 칭찬합시다  글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updateeNoticewithFile(b, uf);
+				
+				model.addAttribute("b", b);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:em_searchMyBoardList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updateeNotice(b);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:em_searchMyBoardList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping(value="em_searchMyBoardDetailFree.bo")
+	public String emsearchMyBoardDetailFree(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("emsearchMyBoardDetailFree boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selectfreeBoardOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시글 조회 자유게시판 상세보기 Ctrl b :::: " + b);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailFree";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("내 게시글 조회 자유게시판 상세보기 :::: " + b);
+				System.out.println("내 게시글 조회 자유게시판 상세보기 :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailFree";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping(value="em_searchMyBoardDetailPraise.bo")
+	public String emsearchMyBoardDetailPraise(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("emsearchMyBoardDetailPraise boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selectfreeBoardOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 Ctrl b :::: " + b);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailPraise";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailPraise";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping(value="em_searchMyBoardDetailNormal.bo")
+	public String emsearchMyBoardDetailNormal(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("emsearchMyBoardDetailPraise boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selectOneBoard(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 Ctrl b :::: " + b);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailNormal";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailNormal";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping(value="em_searchMyBoardDetailSchol.bo")
+	public String emsearchMyBoardDetailSchol(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("emsearchMyBoardDetailPraise boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selectsNoticeOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 Ctrl b :::: " + b);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailSchol";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailSchol";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping(value="em_searchMyBoardDetailSchedule.bo")
+	public String emsearchMyBoardDetailSchedule(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("emsearchMyBoardDetailPraise boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selectacNoticeOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 Ctrl b :::: " + b);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailSchedule";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailSchedule";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping(value="em_searchMyBoardDetailEvent.bo")
+	public String emsearchMyBoardDetailEvent(HttpServletRequest request) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		System.out.println("emsearchMyBoardDetailPraise boardNo :::: " + boardNo);
+
+		Board b;
+		UploadFile uf;
+
+		try {
+			b = bs.selecteNoticeOne(boardNo);
+
+			uf = bs.selectUploadFile(boardNo);
+
+
+			if(uf == null) {
+				request.setAttribute("b", b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 Ctrl b :::: " + b);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailEvent";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + b);
+				System.out.println("내 게시글 조회 칭찬합시다 상세보기 :::: " + uf);
+
+				request.setAttribute("b", b);
+				request.setAttribute("uf", uf);
+
+				return "employee/board/schoolLife/searchMyBoard/em_searchMyBoardDetailEvent";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+///////////////////////////////////////////////////////학생 시스템 문의///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////학생 시스템 문의///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////학생 시스템 문의///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////학생 시스템 문의///////////////////////////////////////////////////////
+	
+//	@RequestMapping(value="st_systemQuestionList.bo")
+//	public String stsystemQuestionList(HttpServletRequest request, String memberId) {
+//		
+//		System.out.println("시스템문의 List memberId :::: " + memberId);
+//		
+//		int currentPage = 1;
+//		
+//		if(request.getParameter("currentPage") != null) {
+//			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+//		}
+//		
+//		int listCount;
+//		
+//		try {
+//			listCount = bs.systemQuestionListCount(memberId);
+//			
+//			System.out.println("시스템문의 List listCount :::: " + listCount);
+//			
+//			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+//			
+//			ArrayList<Board> list = bs.systemQuestionList(pi, memberId);
+//			
+//			System.out.println("시스템문의 list list :::: " + list);
+//			System.out.println("시스템문의 List pi :::: " + pi);
+//			
+//			request.setAttribute("list", list);
+//			request.setAttribute("pi", pi);
+//			
+//			return "student/board/systemQuestion/st_systemQuestionList";
+//			
+//		} catch (BoardSelectListException e) {
+//			request.setAttribute("msg", e.getMessage());
+//			
+//			return "common/errorAlert";
+//		}	
+//	}
 }
 
 
