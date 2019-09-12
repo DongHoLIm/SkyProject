@@ -5,7 +5,7 @@
   
   <mapper namespace="StudentInfo">
   
-  	<resultMap type="com.kh.finalProject.studentInfo.model.vo.StudentInfo" id="studentInfoResultSet">
+  	<resultMap type="StudentInfo" id="studentInfoResultSet">
   		<id property="studentNo" column="MEMBER_ID"/>
   		<result property="kName" column="MEMBER_KNAME"/>
   		<result property="eName" column="MEMBER_ENAME"/>
@@ -32,8 +32,14 @@
   		
   	</resultMap>
   	
+  	<!-- <resultMap type="sdept" id="sdeptResultSet">
+  		<id property="sd"
+  	
+  	</resultMap>
+  	 -->
+  	
   	<!-- 학적조회/기본정보 -->
-  	<select id="selectBasicInfo" resultMap="studentInfoResultSet" parameterType="StudentInfo">
+  	<select id="selectBasicInfo" resultMap="studentInfoResultSet">
   		SELECT S.STUDENT_NO, M.MEMBER_KNAME, M.MEMBER_ENAME, M.MEMBER_NO,
        		   D.SDEPT_NAME, S.GRADE, S.STUDENT_STATUS
 		FROM STUDENT_INFO S
@@ -43,7 +49,7 @@
   	</select>
   	
   	<!-- 학적조회/학적정보_입학정보 -->
-  	<select id="selectStuInfo" resultMap="studentInfoResultSet" parameterType="StudentInfo">
+  	<select id="selectStuInfo" resultMap="studentInfoResultSet">
   		SELECT S.ENROL_TYPE, S.ENROL_DATE, S.ENROL_GRADE, S.ENROL_NO
 		FROM STUDENT_INFO S
 		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)
@@ -58,7 +64,7 @@
   	</select>
   	
   	<!-- 교직원_학생정보 게시글 조회 페이징후 -->
-  	<select id="selectStudentList" resultMap="studentInfoResultSet" parameterType="StudentInfo">
+  	<select id="selectStudentList" resultMap="studentInfoResultSet">
   		SELECT C.COLLEGE_NAME, D.SDEPT_NAME, S.GRADE, S.STUDENT_NO,
        	   	   M.MEMBER_KNAME, S.STUDENT_STATUS
 		FROM STUDENT_INFO S
@@ -76,16 +82,16 @@
 		LEFT JOIN COLLEGE C ON(D.COLLEGE_CODE=C.COLLEGE_CODE)
 		<where>
 			<if test = "college != '단과대학'">
-				college = #{college}
+				COLLEGE_NAME = #{college}
 			</if> 
 			<if test = "sdeptName != '학과'">
-				AND sdeptName= #{sdeptName}
+				AND SDEPT_NAME = #{sdeptName}
 			</if>
 			<if test = "grade != '학년'">
-				AND grade= #{grade}
+				AND GRADE= #{grade}
 			</if>
 			<if test = "studentStatus != '학적상태'">
-				AND studentStatus= #{studentStatus}
+				AND STUDENT_STATUS= #{studentStatus}
 			</if>
 		</where>
   	</select>
@@ -99,20 +105,25 @@
 		LEFT JOIN COLLEGE C ON(D.COLLEGE_CODE=C.COLLEGE_CODE)
 		<where>
 			<if test = "college != '단과대학'">
-				college = #{college}
+				COLLEGE_NAME = #{college}
 			</if> 
 			<if test = "sdeptName != '학과'">
-				AND sdeptName= #{sdeptName}
+				AND SDEPT_NAME= #{sdeptName}
 			</if>
 			<if test = "grade != '학년'">
-				AND grade= #{grade}
+				AND GRADE= #{grade}
 			</if>
 			<if test = "studentStatus != '학적상태'">
-				AND studentStatus= #{studentStatus}
+				AND STUDENT_STATUS= #{studentStatus}
 			</if>
 		</where>
   	</select>
   	
+  	<!-- <select id="selectCollege">
+  	
+  	
+  	</select>
+  	 -->
   	 
   </mapper>
   

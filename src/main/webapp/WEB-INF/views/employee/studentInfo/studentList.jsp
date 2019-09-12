@@ -41,9 +41,9 @@
 						<option value="학과">학과</option>
 						<option value="경영학과">경영학과</option>
 						<option value="경제학과">경제학과</option>
-						<option value="정치외교학과">정치외교학과</option>
+						<option value="정치외교과">정치외교과</option>
 						<option value="실용음악과">실용음악과</option>
-						<option value="체육학과">체육학과</option>
+						<option value="사회체육과">사회체육과</option>
 						<option value="컴퓨터공학과">컴퓨터공학과</option>
 						<option value="전자공학과">전자공학과</option>
 						<option value="건축학과">건축학과</option>
@@ -61,9 +61,9 @@
 				<td>
 					<select id="statusCondition" name="statusCondition">
 						<option value="학적상태">학적상태</option>
-						<option value="재학">재학</option>
-						<option value="휴학">휴학</option>
-						<option value="졸업">졸업</option>
+						<option value="재학생">재학</option>
+						<option value="휴학생">휴학</option>
+						<option value="졸업생">졸업</option>
 					</select>
 				</td>
 				<td>
@@ -401,7 +401,7 @@
 						  gradeCondition:gradeCondition,
 						  statusCondition:statusCondition
 						  },
-					type:"post",
+					type:"get",
 					success:function(data){
 						console.log("접속성공");
 						console.log("data.list.length::" + data.list.length);
@@ -468,7 +468,7 @@
 							$li1.addClass("page-item");
 							$a1.addClass("page-link");
 							$a1.attr({
-								"onclick":"loadPage("+(currentPage-1)+")",
+								"onclick":"loadPage2("+(currentPage-1)+")",
 							});
 							$a1.html("이전");
 							$li1.append($a1);
@@ -481,7 +481,7 @@
 							$li2.addClass("page-item");
 							$a2.addClass("page-link");
 							$a2.attr({
-								"onclick":"loadPage("+p+")",
+								"onclick":"loadPage2("+p+")",
 							});
 							$a2.html(p);
 							$li2.append($a2);
@@ -495,7 +495,7 @@
 							$li3.addClass("page-item");
 							$a3.addClass("page-link");
 							$a3.attr({
-								"onclick":"loadPage("+(currentPage+1)+")",
+								"onclick":"loadPage2("+(currentPage+1)+")",
 							});
 							$a3.html("다음");
 							$li3.append($a3);
@@ -515,6 +515,176 @@
 				});
 			}
 			
+			function loadPage2(curr){
+				var currentPage = curr;
+				var collegeCondition = $("#collegeCondition").val();
+				var sdeptCondition = $("#sdeptCondition").val();
+				var gradeCondition = $("#gradeCondition").val();
+				var statusCondition = $("#statusCondition").val();
+				
+				console.log(currentPage);
+				console.log(collegeCondition);
+				console.log(sdeptCondition);
+				console.log(gradeCondition);
+				console.log(statusCondition);
+				
+				
+				$.ajax({
+					url:"em_studentListFilter.si",
+					data:{currentPage:currentPage,
+						  collegeCondition:collegeCondition,
+						  sdeptCondition:sdeptCondition,
+						  gradeCondition:gradeCondition,
+						  statusCondition:statusCondition
+						  },
+					type:"get",
+					success:function(data){
+						console.log("접속성공");
+						console.log("data.list.length::" + data.list.length);
+						console.log( data.list[0].kName);
+						
+						var $tbody = $("#tbody");
+						
+						$tbody.children().remove();
+						
+						console.log("data.list.length::" + data.list.length);
+						
+						for(var i=0 ; i<data.list.length ; i++){
+							var $tr = $("<tr>");
+							var $td1 = $("<td style='text-align:center;'>");
+							var $td2 = $("<td style='text-align:center;'>");
+							var $td3 = $("<td style='text-align:center;'>");
+							var $td4 = $("<td style='text-align:center;'>");
+							var $td5 = $("<td style='text-align:center;'>");
+							var $td6 = $("<td style='text-align:center;'>");
+							
+							$td1.text(data.list[i].college);
+							$td2.text(data.list[i].sdeptName);
+							$td3.text(data.list[i].grade);
+							$td4.text(data.list[i].studentNo);
+							$td5.text(data.list[i].kName);
+							$td6.text(data.list[i].studentStatus);
+							
+							$tr.append($td1);
+							$tr.append($td2);
+							$tr.append($td3);
+							$tr.append($td4);
+							$tr.append($td5);
+							$tr.append($td6);
+							
+							$tbody.append($tr);
+						}
+						
+						var currentPage = data.pi.currentPage;
+						var listCount = data.pi.listCount;
+						var limit = data.pi.limit;
+						var maxPage = data.pi.maxPage;
+						var startPage = data.pi.startPage;
+						var endPage = data.pi.endPage;
+						
+						console.log(currentPage);
+						
+						var $ul = $("<ul>");
+						$ul.addClass("pagination");
+						$ul.attr({
+							"style":"justify-content: center; cursor: pointer;"
+						});
+						
+						
+						var $li1 = $("<li>");
+						var $a1 = $("<a>");
+						
+						if(currentPage <= 1){
+							$li1.addClass("page-item disabled");
+							$a1.addClass("page-link");					
+							$a1.html("이전");
+							$li1.append($a1);
+							$ul.append($li1);					
+						}else if(currentPage > 1){
+							$li1.addClass("page-item");
+							$a1.addClass("page-link");
+							$a1.attr({
+								"onclick":"loadPage2("+(currentPage-1)+")",
+							});
+							$a1.html("이전");
+							$li1.append($a1);
+							$ul.append($li1);
+						}					
+						
+						for(var p = startPage; p <= endPage; p++){
+							var $li2 = $("<li>");
+							var $a2 = $("<a>");		
+							$li2.addClass("page-item");
+							$a2.addClass("page-link");
+							$a2.attr({
+								"onclick":"loadPage2("+p+")",
+							});
+							$a2.html(p);
+							$li2.append($a2);
+							$ul.append($li2);				
+						}
+						
+						var $li3 = $("<li>");
+						var $a3 = $("<a>");	
+						
+						if(currentPage < maxPage){
+							$li3.addClass("page-item");
+							$a3.addClass("page-link");
+							$a3.attr({
+								"onclick":"loadPage2("+(currentPage+1)+")",
+							});
+							$a3.html("다음");
+							$li3.append($a3);
+							$ul.append($li3);	
+						}else{
+							$li3.addClass("page-item disabled");
+							$a3.addClass("page-link");
+							$a3.html("다음");
+							$li3.append($a3);
+							$ul.append($li3);
+						}
+						
+						$(".pagingArea").children().remove();
+						$(".pagingArea").append($ul);
+			
+					}
+				});
+			}
+			
+			
+			$(function(){
+				$("#collegeCondition").change(function(){
+					alert(this.value);
+					
+					var change = $(this).val();
+					alert("change::" + change);
+					console.log("change::" + change);
+					
+					var college = $("#collegeCondition").val();
+					alert("college::" + college);
+					console.log("college::" + college);
+					
+					$.ajax({
+						url:"em_selectCollege.si",
+						type:"get",
+						data:{college:college},
+						success:function(data){
+							console.log("접속성공");
+							console.log("college::" + college);
+							
+							var $select = $("#sdeptCondition");
+							
+							$select.children().remove();
+							
+							
+							
+						}
+					})
+					
+					
+					
+				})
+			})
 			
 			
 			</script>

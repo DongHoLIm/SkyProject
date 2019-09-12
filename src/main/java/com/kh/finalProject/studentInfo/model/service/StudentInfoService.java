@@ -22,6 +22,10 @@ public interface StudentInfoService {
 
 	ArrayList<StudentInfo> selectFilterStudent(FilterCondition fc, PageInfo pi) throws StudentInfoSelectListException ;
 
+	ArrayList<String> selectCollegeFilter(String college);
+
+	
+
 	
 
 }

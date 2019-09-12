@@ -89,6 +89,16 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		return list;
 	}
 
+	@Override
+	public ArrayList<String> selectCollegeFilter(SqlSessionTemplate sqlSession, String col) {
+		
+		ArrayList<String> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("StudentIfo.selectCollege",col);
+		
+		return list;
+	}
+
 	
 	
 
