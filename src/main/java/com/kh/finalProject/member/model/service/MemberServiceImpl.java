@@ -92,6 +92,17 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return md.memberDetail(sqlSession,findMemberDetail);
 	}
+	
+	@Override
+	public int stuUpdate(Member updateMember) {
+		// TODO Auto-generated method stub
+		return md.memberUpdate(sqlSession,updateMember);
+	}
+	@Override
+	public int proUpdate(Member updateMember) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	
 }

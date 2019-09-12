@@ -34,4 +34,8 @@ public interface MemberService {
 	int getMemberListCount(String memberId);
 
 	Member memberDetail(Member findMemberDetail);
+
+	int proUpdate(Member updateMember);
+
+	int stuUpdate(Member updateMember);
 }
