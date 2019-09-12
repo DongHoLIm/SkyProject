@@ -10,6 +10,6 @@ public interface ScholarshipService {
 
 	ArrayList<Scholarship> userScholarship(String studentNo) throws ScholarshipException;
 
-	ArrayList<ScholarshipApply> userScholarshipApply(String studentNo) throws ScholarshipException;
+	ArrayList<Scholarship> userScholarshipApply(String studentNo) throws ScholarshipException;
 
 }

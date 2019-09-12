@@ -26,10 +26,10 @@ public class ScholarshipDaoImpl implements ScholarshipDao{
 	}
 
 	@Override
-	public ArrayList<ScholarshipApply> userScholarshipApply(SqlSessionTemplate sqlSession, String studentNo) throws ScholarshipException {
-		ArrayList<ScholarshipApply> memberScholarshipApply = null;
+	public ArrayList<Scholarship> userScholarshipApply(SqlSessionTemplate sqlSession, String studentNo) throws ScholarshipException {
+		ArrayList<Scholarship> memberScholarshipApply = null;
 		
-		memberScholarshipApply = (ArrayList) sqlSession.selectList("ScholarshipApply.showScholarshipApplyView", studentNo);
+		memberScholarshipApply = (ArrayList) sqlSession.selectList("Scholarship.showScholarshipApplyView", studentNo);
 		
 		if(memberScholarshipApply == null) {
 			throw new ScholarshipException("신청에 실패했습니다.");

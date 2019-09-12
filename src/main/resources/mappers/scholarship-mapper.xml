@@ -6,9 +6,22 @@
 	<resultMap type="com.kh.finalProject.scholarship.model.vo.Scholarship" id="scholarshipResultSet">
 		<id property="schoSemester" column="SCHO_SEMESTER"/>
 		<id property="studentNo" column="STUDENT_NO"/>
+		<id property="schoApplyCode" column="SCHO_APPLY_CODE"/>
 		
-		<result property="tuition" column="TUITION"/>
+		<result property="schoAmount" column="SCHO_AMOUNT"/>
 		<result property="schoType" column="SCHO_TYPE"/>
+		
+		
+		<result property="schoStatus" column="SCHO_STATUS"/>
+		<result property="schoYear" column="SCHO_YEAR"/>
+		<result property="memberKname" column="MEMBER_KNAME"/>
+		<result property="sdeptCode" column="SDEPT_CODE"/>
+		<result property="sdeptName" column="SDEPT_NAME"/>
+		<result property="memberGender" column="MEMBER_GENDER"/>
+		<result property="schoApplyName" column="SCHO_APPLY_NAME"/>
+		<result property="schoApplyYn" column="SCHO_APPLY_YN"/>
+		<result property="schoApplyDate" column="SCHO_APPLY_DATE"/>
+		<result property="schoAggrementDate" column="SCHO_AGGREMENT_DATE"/>
 	</resultMap>
 	
 	<select id="ScholarshipCheck" resultMap="scholarshipResultSet" parameterType="String">
@@ -17,7 +30,7 @@
 		WHERE STUDENT_NO = #{studentNo}
 	</select>
 	
-	<resultMap type="com.kh.finalProject.scholarship.model.vo.ScholarshipApply" id="scholarshipApplyResultSet">
+	<!-- <resultMap type="com.kh.finalProject.scholarship.model.vo.ScholarshipApply" id="scholarshipApplyResultSet">
 		<id property="schoApplyCode" column="SCHO_APPLY_CODE"/>
 		
 		<result property="schoStatus" column="SCHO_STATUS"/>
@@ -32,9 +45,9 @@
 		<result property="schoApplyYn" column="SCHO_APPLY_YN"/>
 		<result property="schoApplyDate" column="SCHO_APPLY_DATE"/>
 		<result property="schoAggrementDate" column="SCHO_AGGREMENT_DATE"/>
-	</resultMap>
+	</resultMap> -->
 	
-	<select id="showScholarshipApplyView" resultMap="scholarshipApplyResultSet" parameterType="String">
+	<select id="showScholarshipApplyView" resultMap="scholarshipResultSet" parameterType="String">
 		SELECT *
 		FROM SCHO_APPLY
 		WHERE MEMBER_ID = #{studentNo}

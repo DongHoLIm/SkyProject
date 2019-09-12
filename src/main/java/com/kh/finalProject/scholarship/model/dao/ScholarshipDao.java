@@ -12,6 +12,6 @@ public interface ScholarshipDao {
 
 	ArrayList<Scholarship> userScholarship(SqlSessionTemplate sqlSession, String studentNo) throws ScholarshipException;
 
-	ArrayList<ScholarshipApply> userScholarshipApply(SqlSessionTemplate sqlSession, String studentNo) throws ScholarshipException;
+	ArrayList<Scholarship> userScholarshipApply(SqlSessionTemplate sqlSession, String studentNo) throws ScholarshipException;
 
 }
