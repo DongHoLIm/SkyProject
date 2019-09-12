@@ -48,7 +48,7 @@
 		<result property="email" column="EMAIL"/>
 		<result property="address" column="ADDRESS"/>
 		<result property="sdeptCode" column="EDEPT_NAME"/>
-		<result property="memberStatus" column="RANK_NAME"/>
+		<result property="rankCode" column="RANK_NAME"/>
 		<result property="loginCheck" column="MEMBER_CHECK"/>		
 	</resultMap>
 	<!-- 로그인 체크  -->
@@ -150,4 +150,8 @@
 		WHERE M.MEMBER_ID=#{memberId}
 	</select> 
 	
+	<update id="memberUpdate" parameterType="Member">
+		UPDATE MEMBER SET EMAIL=#{email},PHONE=#{phone},MEMBER_KNAME=#{memberKName},MEMBER_ENAME=#{memberEName},ADDRESS = #{address}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
 </mapper>

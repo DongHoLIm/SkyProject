@@ -433,8 +433,19 @@ public class MemberController {
 		findMemberDetail.setMemberId(userId);
 		
 		Member memberDetail = ms.memberDetail(findMemberDetail);
-		
+		System.out.println("memberDetail:" + memberDetail);
 		request.setAttribute("memberDetail",memberDetail);
+		return "employee/systemAccountManagement/MemberDetailList";
+	}
+	@RequestMapping("upDateMemberInfo.me")
+	public String upDateMemberInfo(Member updateMember) {
+		int result = 0;
+		if(updateMember.getMemberStatus().equals("교직원")) {			
+			result = ms.proUpdate(updateMember);
+		}else {
+			result = ms.stuUpdate(updateMember);
+		}
+		
 		return "employee/systemAccountManagement/MemberDetailList";
 	}
 }
