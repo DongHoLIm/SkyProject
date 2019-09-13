@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="courseRegistration">
+	<resultMap
+		type="com.kh.finalProject.employee.classManagement.model.vo.OpenSubject"
+		id="courseRegistrationResultSet">
+		<id property="openSubCode" column="OPENSUB_CODE" />
+		<result property="subName" column="SUB_NAME" />
+		<result property="sdeptName" column="SDEPT_NAME" />
+		<result property="professorName" column="MEMBER_KNAME" />
+		<result property="subGrade" column="SUB_GRADE" />
+		<result property="completeType" column="COMPLETE_TYPE" />
+		<result property="studentMax" column="STUDENT_MAX" />
+		<result property="roomName" column="ROOM_NAME" />
+		<result property="buildingName" column="BUILDING_NAME" />
+		<result property="dayInfo" column="DAY_INFO" />
+		<result property="timeInfo" column="TIME_INFO" />
+		<result property="enrolType" column="ENROL_TYPE" />
+	</resultMap>
+
+
+
+	<select id="selectOpenSubjectList"
+		resultMap="courseRegistrationResultSet">
+		SELECT OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
+		SUB_GRADE,
+		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
+		FROM OPEN_SUBJECT OS
+		JOIN SUBJECT S ON(OS.OPENSUB_CODE = S.SUB_CODE)
+		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
+		JOIN MEMBER M ON(OS.PROFESSOR_NO = M.MEMBER_ID)
+		JOIN ROOM R ON(OS.ROOM_CODE = R.ROOM_CODE)
+		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
+		WHERE OS.ENROL_TYPE = 0
+	</select>
+</mapper>

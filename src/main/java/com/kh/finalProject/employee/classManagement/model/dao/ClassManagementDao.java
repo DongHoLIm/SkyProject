@@ -10,6 +10,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformatio
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
+import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 
 public interface ClassManagementDao {
 
@@ -19,12 +20,14 @@ public interface ClassManagementDao {
 
 	LectureOpen seletOneSubject(SqlSessionTemplate sqlSession, String subCode);
 
-	ArrayList<DepartmentProfessor> selectProfessorList(SqlSessionTemplate sqlSession, String sdeptName);
+	ArrayList<DepartmentProfessor> selectProfessorList(SqlSessionTemplate sqlSession, String sdeptName) throws ClassManagementSelectListException;
 
 	ArrayList<ClassRoomInformation> selectClassRoomList(SqlSessionTemplate sqlSession);
 
 	int insertCourseOffered(SqlSessionTemplate sqlSession, LectureRegistration lr);
 
 	int updateSubject(SqlSessionTemplate sqlSession, String subCode);
+
+	ArrayList<OpenSubject> selectOpenSubjectList(SqlSessionTemplate sqlSession);
 
 }

@@ -17,6 +17,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformatio
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
+import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 
 @Controller
 public class ClassManagementController {
@@ -63,17 +64,26 @@ public class ClassManagementController {
 		System.out.println("다시돌아옴 !!" + lo);
 
 		System.out.println(lo.getSdeptName());
-		ArrayList<DepartmentProfessor> proList = cms.selectProfessorList(lo.getSdeptName());
+		ArrayList<DepartmentProfessor> proList;
+		try {
+			proList = cms.selectProfessorList(lo.getSdeptName());
+			ArrayList<ClassRoomInformation> room = cms.selectClassRoomList();
+			
+			
+			request.setAttribute("lo", lo);
+			request.setAttribute("proList", proList);
+			request.setAttribute("room", room);
+			
+			return "employee/class/lectureRegistration";
+		} catch (ClassManagementSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
 		
-		ArrayList<ClassRoomInformation> room = cms.selectClassRoomList();
-
 		
 
-		request.setAttribute("lo", lo);
-		request.setAttribute("proList", proList);
-		request.setAttribute("room", room);
-
-		return "employee/class/lectureRegistration";
+		
 	}
 	//개강과목등록
 	@RequestMapping(value="insertCoursesOffered.em")
@@ -114,6 +124,9 @@ public class ClassManagementController {
 	@RequestMapping(value="openCourseRegistration.em")
 	public String selectCoursesOffered(HttpServletRequest request) {
 		
+		ArrayList<OpenSubject> crList = cms.selectOpenSubjectList();
+		
+		request.setAttribute("crList", crList);
 		return "employee/class/openCourseRegistration";
 	}
 }

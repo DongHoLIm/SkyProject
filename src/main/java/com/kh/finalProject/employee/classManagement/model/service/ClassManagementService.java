@@ -8,6 +8,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformatio
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
+import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 
 public interface ClassManagementService {
 
@@ -17,12 +18,14 @@ public interface ClassManagementService {
 
 	LectureOpen selectOneSubject(String subCode);
 
-	ArrayList<DepartmentProfessor> selectProfessorList(String sdeptName);
+	ArrayList<DepartmentProfessor> selectProfessorList(String sdeptName) throws ClassManagementSelectListException;
 
 	ArrayList<ClassRoomInformation> selectClassRoomList();
 
 	int insertCourseOffered(LectureRegistration lr);
 
 	int updateSubject(String openSubCode);
+
+	ArrayList<OpenSubject> selectOpenSubjectList();
 
 }
