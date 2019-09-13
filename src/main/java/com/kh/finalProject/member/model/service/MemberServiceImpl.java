@@ -103,6 +103,11 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	@Override
+	public ArrayList<Member> employeeList() {
+		
+		return md.employeelist(sqlSession);
+	}
 
 	
 }

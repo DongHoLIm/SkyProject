@@ -21,6 +21,7 @@
 				<jsp:include page="../../common/header.jsp" />
 				<br>
 				<h3 class="updateAccount">권한 부여/수정</h3>
+				<form action="" method="post">
 				<div style="float: right;">
 				<button class="updateAccount" >수정</button>
 				<button type="reset"class="updateAccount" >취소</button>
@@ -41,27 +42,31 @@
 						</tr>
 					</thead>
 					<tbody>
+						<c:forEach var='eml' items="${list}">
 						<tr>
-							<td>아이디</td>
-							<td>이름</td>
-							<td>부서</td>
-							<td><input type="checkbox" value="1" id="selectOne" /><label
+							<td>${eml.memberId}</td>
+							<td>${eml.memberKName }</td>
+							<td>${eml.sdeptCode}</td>
+							<td><input type="checkbox" value="1" id="selectOne" name="classManager"/><label
 								for="selectOne"></label></td>
-							<td><input type="checkbox" value="2" id="selectTwo" /><label
+							<td><input type="checkbox" value="1" id="selectTwo" name="scholarlyManager"/><label
 								for="selectTwo"></label></td>
-							<td><input type="checkbox" value="3" id="selectThree" /><label
+							<td><input type="checkbox" value="1" id="selectThree" name="enrollManager" /><label
 								for="selectThree"></label></td>
-							<td><input type="checkbox" value="4" id="selectFore" /><label
+							<td><input type="checkbox" value="1" id="selectFore" name="scholManager"/><label
 								for="selectFore"></label></td>
-							<td><input type="checkbox" value="5" id="selectFive" /><label
+							<td><input type="checkbox" value="1" id="selectFive" name="dormitoryManager"/><label
 								for="selectFive"></label></td>
-							<td><input type="checkbox" value="6" id="selectSix" /><label
+							<td><input type="checkbox" value="1" id="selectSix" name="boardManager"/><label
 								for="selectSix"></label></td>
 						</tr>
+						</c:forEach>
 					</tbody>
 				</table>
+				</form>
 			</div>
 		</div>
+		
 		<div>			
 			<jsp:include page="../../common/menubar-employee.jsp" />		
 		</div>

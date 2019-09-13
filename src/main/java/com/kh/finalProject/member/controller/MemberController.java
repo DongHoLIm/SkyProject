@@ -87,9 +87,10 @@ public class MemberController {
 		return "main/Login";
 	}
 
-	//교직원 계정 발급 Page 이동 
+	//교직원 권한발급 Page 이동 
 	@RequestMapping("insert.me")
-	public String changePage() {		
+	public String changePage() {
+		
 	  return "employee/systemAccountManagement/createSystemAccount";
 	}
 	
@@ -202,7 +203,7 @@ public class MemberController {
 	}
 	@RequestMapping(value="insertMember.me")
 	public ModelAndView insertMember(ModelAndView mv,String resultStr,Model model) {
-		System.out.println(resultStr);
+		
 		
 		 ObjectMapper mapper = new ObjectMapper();
 	     Map<Object, Object> memberMap = new HashMap<Object, Object>();
@@ -341,7 +342,7 @@ public class MemberController {
 			findMemberId = ms.findIdResult(findId);				
 			mailController mc = new mailController();
 			int result = mc.sendEmail(findMemberId, request,status);
-			System.out.println(result);
+			
 			if(result == 1) {
 				request.setAttribute("msg","이메일전송되었습니다.");				
 			}else {
@@ -396,7 +397,10 @@ public class MemberController {
 		return "common/errorAlert";
 	}
 	@RequestMapping("account.me")
-	public String accountMember () {
+	public String accountMember (HttpServletRequest request) {
+		ArrayList<Member> list = ms.employeeList();
+		
+		request.setAttribute("list",list);
 		
 		return "employee/systemAccountManagement/systemAccount";
 	}
@@ -407,8 +411,7 @@ public class MemberController {
 		int currentPage=1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		System.out.println("Memberlist:"+currentPage);
+		}		
 		int listCount;
 		try {
 		listCount = ms.getMemberListCount(loginUser.getMemberId());
@@ -417,7 +420,6 @@ public class MemberController {
 		
 		list = ms.memberAllList(loginUser.getMemberId(),pi);
 		
-		System.out.println("listResult"+list);
 		request.setAttribute("MemberList", list);
 		request.setAttribute("pi", pi);
 		return "employee/systemAccountManagement/MemberList";		
@@ -433,7 +435,7 @@ public class MemberController {
 		findMemberDetail.setMemberId(userId);
 		
 		Member memberDetail = ms.memberDetail(findMemberDetail);
-		System.out.println("memberDetail:" + memberDetail);
+		
 		request.setAttribute("memberDetail",memberDetail);
 		return "employee/systemAccountManagement/MemberDetailList";
 	}

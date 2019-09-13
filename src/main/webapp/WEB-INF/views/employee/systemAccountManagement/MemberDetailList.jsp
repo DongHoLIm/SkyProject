@@ -24,6 +24,9 @@ $(function(){
 	.subTitle{
 		display:inline-block;
 	}
+	#detailMember{
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -40,7 +43,7 @@ $(function(){
 					<button type="reset" class="subTitle">취소</button>	
 				</div>
 				<hr />				
-				<table>
+				<table id="detailMember">
 					<tr>
 						<td>아이디</td>
 						<td><input type="text" value="${memberDetail.memberId}" name="memberId"readonly/></td>

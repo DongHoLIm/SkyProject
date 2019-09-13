@@ -109,5 +109,10 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("memberUpdate : "+updateMember);
 		return sqlSession.update("Member.memberUpdate",updateMember);
 	}
+	@Override
+	public ArrayList<Member> employeelist(SqlSessionTemplate sqlSession) {
+		ArrayList<Member> list = (ArrayList) sqlSession.selectList("Member.employeelist");		
+		return list;
+	}
 	
 }
