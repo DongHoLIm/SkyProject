@@ -40,7 +40,7 @@ $(function(){
 				<div style="float: right;">				
 					<button type="submit" class="subTitle">수정</button>
 					&nbsp;&nbsp;
-					<button type="reset" class="subTitle">취소</button>	
+					<button type="reset"  id="backLocation"class="subTitle">취소</button>	
 				</div>
 				<hr />				
 				<table id="detailMember">
@@ -86,7 +86,7 @@ $(function(){
 					</tr>
 					<tr>
 						<td>부서/과</td>
-						<td><input type="text" value="${memberDetail.sdeptCode}" readonly/></td>
+						<td><input type="text" value="${memberDetail.sdeptCode}" name="sdeptCode"readonly/></td>
 					</tr>
 					<c:if test="${memberDetail.loginCheck=='3' }">
 					<tr>
@@ -130,6 +130,9 @@ $(function(){
 			var jobName = $("#rankName").val();
 			$("#jobCodeName option[value="+jobName+"]").attr('selected','selected');
 			 
+			$("#backLocation").click(function(){
+				location.href="MemberListview.me";
+			});
 		});
 	</script>
 </body>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.vo.Member;
+import com.kh.finalProject.member.model.vo.MemberAccount;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -57,7 +58,7 @@ public class MemberDaoImpl implements MemberDao {
 	//교직원 정보 추가
 	@Override
 	public int insertEmployeeInfo(SqlSessionTemplate sqlSession, Member insertMember) {
-	
+		sqlSession.insert("Member.insertEmployeeAccount",insertMember);
 		return sqlSession.insert("Member.insertEmployeeInfo",insertMember);
 	}
 	@Override
@@ -113,6 +114,15 @@ public class MemberDaoImpl implements MemberDao {
 	public ArrayList<Member> employeelist(SqlSessionTemplate sqlSession) {
 		ArrayList<Member> list = (ArrayList) sqlSession.selectList("Member.employeelist");		
 		return list;
+	}
+	@Override
+	public int employeeUpdate(SqlSessionTemplate sqlSession, Member updateMember) {
+		return sqlSession.update("Member.employeeUpdate",updateMember);
+	}
+	@Override
+	public MemberAccount Account(SqlSessionTemplate sqlSession, String userId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("MemberAccount.Account", userId);
 	}
 	
 }

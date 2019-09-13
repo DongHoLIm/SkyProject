@@ -47,6 +47,7 @@ import com.kh.finalProject.common.mailController;
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.service.MemberService;
 import com.kh.finalProject.member.model.vo.Member;
+import com.kh.finalProject.member.model.vo.MemberAccount;
 
 @Controller
 @SessionAttributes("loginUser")
@@ -61,9 +62,13 @@ public class MemberController {
 	public String loginMember(Member m,Model model) {
 
 		Member loginUser=null;
-
+		MemberAccount ma = null;
 		try {			
 			loginUser = ms.loginCheck(m);
+			if(loginUser.getMemberStatus().equals("3")) {
+				ma = ms.Account(loginUser.getMemberId());
+				model.addAttribute("Account",ma);
+			}
 			model.addAttribute("loginUser",loginUser);			
 			return "redirect:loginOk.me";									
 		} catch (loginException e) {			
@@ -440,14 +445,29 @@ public class MemberController {
 		return "employee/systemAccountManagement/MemberDetailList";
 	}
 	@RequestMapping("upDateMemberInfo.me")
-	public String upDateMemberInfo(Member updateMember) {
+	public String upDateMemberInfo(Member updateMember,HttpServletRequest request) {
 		int result = 0;
-		if(updateMember.getMemberStatus().equals("교직원")) {			
+		if(updateMember.getMemberStatus().equals("교직원")) {	
+			if(updateMember.getRankCode().equals("사원")) {
+				updateMember.setRankCode("RANK1000");
+			}else if(updateMember.getRankCode().equals("대리")) {
+				updateMember.setRankCode("RANK1001");
+			}else if(updateMember.getRankCode().equals("과장")) {
+				updateMember.setRankCode("RANK1002");
+			}else {
+				updateMember.setRankCode("RANK1003");
+			}			
 			result = ms.proUpdate(updateMember);
-		}else {
-			result = ms.stuUpdate(updateMember);
 		}
+			result = ms.stuUpdate(updateMember);
 		
-		return "employee/systemAccountManagement/MemberDetailList";
+			request.setAttribute("msg","수정이 완료 되었습니다.");
+			return "common/errorAlert";	
+	}
+	@RequestMapping("updateAccount.me")
+	public String updateAccount(MemberAccount ma) {
+		System.out.println(ma);
+		
+		return "";
 	}
 }

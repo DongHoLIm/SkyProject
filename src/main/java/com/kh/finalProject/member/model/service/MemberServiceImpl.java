@@ -14,6 +14,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.member.model.dao.MemberDao;
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.vo.Member;
+import com.kh.finalProject.member.model.vo.MemberAccount;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -101,12 +102,17 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int proUpdate(Member updateMember) {
 		// TODO Auto-generated method stub
-		return 0;
+		return md.employeeUpdate(sqlSession,updateMember);
 	}
 	@Override
 	public ArrayList<Member> employeeList() {
 		
 		return md.employeelist(sqlSession);
+	}
+	@Override
+	public MemberAccount Account(String userId) {
+		// TODO Auto-generated method stub
+		return md.Account(sqlSession,userId);
 	}
 
 	

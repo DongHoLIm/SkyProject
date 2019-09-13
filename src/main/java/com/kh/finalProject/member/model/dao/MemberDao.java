@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.vo.Member;
+import com.kh.finalProject.member.model.vo.MemberAccount;
 
 public interface MemberDao {
 
@@ -39,5 +40,9 @@ public interface MemberDao {
 	int memberUpdate(SqlSessionTemplate sqlSession, Member updateMember);
 
 	ArrayList<Member> employeelist(SqlSessionTemplate sqlSession);
+
+	int employeeUpdate(SqlSessionTemplate sqlSession, Member updateMember);
+
+	MemberAccount Account(SqlSessionTemplate sqlSession, String userId);
 
 }

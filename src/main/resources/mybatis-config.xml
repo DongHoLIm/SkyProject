@@ -20,9 +20,11 @@
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.FilterCondition" alias="FilterCondition"/>
 		<typeAlias type="com.kh.finalProject.professor.openSubject.model.vo.OpenSubject" alias="OpenSubject"/>
 		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.OpenSubject" alias="courseRegistration"/>
+		<typeAlias type="com.kh.finalProject.member.model.vo.MemberAccount" alias="MemberAccount"/>
 	</typeAliases>
 	
 	<mappers>
+		<mapper resource="mappers/memberAccount-mapper.xml"/>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/reply-mapper.xml"/>
