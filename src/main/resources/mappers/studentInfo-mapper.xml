@@ -119,11 +119,31 @@
 		</where>
   	</select>
   	
-  	<!-- <select id="selectCollege">
-  	
-  	
+  	<select id="selectCollege" resultMap="studentInfoResultSet">
+  	SELECT SDEPT_NAME
+	FROM SDEPARTMENT S
+	LEFT JOIN COLLEGE C ON(S.COLLEGE_CODE=C.COLLEGE_CODE)
+	WHERE C.COLLEGE_NAME = #{college}	
   	</select>
-  	 -->
+  	
+  	<select id="selectCollegeAll" resultMap="studentInfoResultSet">
+  	SELECT SDEPT_NAME
+	FROM SDEPARTMENT 
+	WHERE SDEPT_NAME != '교양학과'
+  	</select>
+  	
+  	<select id="selectCollegeList" resultMap="studentInfoResultSet">
+  	SELECT COLLEGE_NAME
+  	FROM COLLEGE
+  	WHERE COLLEGE_NAME != '교양학부'
+  	</select>
+  	 
+  	 <select id="selectSdeptList" resultMap="studentInfoResultSet">
+  	SELECT SDEPT_NAME
+	FROM SDEPARTMENT 
+	WHERE SDEPT_NAME != '교양학과'
+  	</select>
+  	 
   	 
   </mapper>
   

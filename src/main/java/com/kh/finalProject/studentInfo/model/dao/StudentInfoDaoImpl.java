@@ -90,14 +90,55 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	}
 
 	@Override
-	public ArrayList<String> selectCollegeFilter(SqlSessionTemplate sqlSession, String col) {
+	public ArrayList selectCollegeFilter(SqlSessionTemplate sqlSession, String col) throws StudentInfoSelectListException {
 		
-		ArrayList<String> list = null;
+		ArrayList list = null;
 		
-		list = (ArrayList)sqlSession.selectList("StudentIfo.selectCollege",col);
+		if(col.equals("단과대학")) {
+			list = (ArrayList)sqlSession.selectList("StudentInfo.selectCollegeAll",col);
+		}else {
+			list = (ArrayList)sqlSession.selectList("StudentInfo.selectCollege",col);
+		}
+		
+		if(list==null) {
+			sqlSession.close();
+			throw new StudentInfoSelectListException("단과대필터링 조회 실패");
+		}
 		
 		return list;
 	}
+
+	@Override
+	public ArrayList selectCollege(SqlSessionTemplate sqlSession) throws StudentInfoSelectListException {
+		
+		ArrayList collegeList = null;
+		
+		collegeList = (ArrayList)sqlSession.selectList("StudentInfo.selectCollegeList");
+		
+		if(collegeList==null) {
+			sqlSession.close();
+			throw new StudentInfoSelectListException("단과대 리스트 조회 실패");
+		}
+		
+		return collegeList;
+	}
+
+	@Override
+	public ArrayList selectSdeptList(SqlSessionTemplate sqlSession) throws StudentInfoSelectListException {
+		
+		ArrayList sdeptList = null;
+		
+		sdeptList = (ArrayList)sqlSession.selectList("StudentInfo.selectSdeptList");
+		
+		if(sdeptList==null) {
+			sqlSession.close();
+			throw new StudentInfoSelectListException("학과리스트 조회 실패");
+		}
+		
+		return sdeptList;
+	}
+
+	
 
 	
 	

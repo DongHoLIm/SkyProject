@@ -44,7 +44,7 @@ public class StudentInfoController {
 		request.setAttribute("stuInfo",stuInfo);
 		
 		
-		return "student/info/schoolRegister";
+		return "student/info/studentInfo";
 	}
 	
 	//교직원_학생전체조회
@@ -197,13 +197,58 @@ public class StudentInfoController {
 		String college = request.getParameter("college");
 		
 		System.out.println(college);
+				
+		try {
+			ArrayList list = ss.selectCollegeFilter(college);
+			
+			System.out.println(list);
+			
+			mv.addObject("list",list);
+			mv.setViewName("jsonView");
+			
+			System.out.println("mv.getModel::" + mv.getModel());
+			
+			return mv;
+			
+		} catch (StudentInfoSelectListException e) {
+			mv.addObject("msg",e.getMessage());
+			
+			mv.setViewName("common/errorPage");
+			
+			return mv;
+		}
 		
-		ArrayList<String> list = ss.selectCollegeFilter(college);
-		
-		
-		return mv;
 	}
 	
+	
+	//교직원_학생조회 필터링 초기값
+			@RequestMapping("em_studentSelectBox.si")
+			public ModelAndView studentSelectBox(ModelAndView mv, HttpServletRequest request) {
+				
+				try {
+					ArrayList collegeList = ss.selectcollege();
+					System.out.println(collegeList);
+					
+					ArrayList sdeptList = ss.selectSdeptList();
+					System.out.println(sdeptList);
+					
+					mv.addObject("collegeList", collegeList);
+					mv.addObject("sdeptList", sdeptList);
+					mv.setViewName("jsonView");
+					
+					System.out.println("mv.getModel::" + mv.getModel());
+					
+					return mv;
+					
+				} catch (StudentInfoSelectListException e) {
+					mv.addObject("msg",e.getMessage());
+					
+					mv.setViewName("common/errorPage");
+					
+					return mv;
+				}
+				
+			}
 
 }
 
