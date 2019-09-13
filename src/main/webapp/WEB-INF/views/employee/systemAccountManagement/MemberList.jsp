@@ -42,15 +42,21 @@
 				<jsp:include page="../../common/header.jsp" />
 				<br>				
 				<h3 class="updateAccount">계정조회및 수정</h3>
-				<div style="float: right;">				
-				<button class="updateAccount" >수정</button>
-				<button type="reset"class="updateAccount" >취소</button>
+				<div style="float: right;" class="updateAccount">			
+				<span class="updateAccount">
+					<select name="searchCondition" id="" >
+						<option value="name">이름으로 검색</option>
+						<option value="etc">비고로 검색</option>
+					</select>
+				</span>			
+				<span class="updateAccount">
+					<input type="text" name="searchValue"/>
+				</span>
+				<span class="updateAccount">
+					<input type="button" value="search"/>
+				</span>				
 				</div>
-				<hr />				
-				<div class="searchArea" style="float: right;">
-					<input type="text" name="searchBar" class="searchArea"/>
-					<button class="searchArea">Search</button>
-				</div>
+				<hr />			
 				<table id="MemberList">					
 					<thead>
 						<tr>							

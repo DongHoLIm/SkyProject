@@ -38,4 +38,6 @@ public interface MemberService {
 	int proUpdate(Member updateMember);
 
 	int stuUpdate(Member updateMember);
+
+	ArrayList<Member> employeeList();
 }

@@ -38,4 +38,6 @@ public interface MemberDao {
 
 	int memberUpdate(SqlSessionTemplate sqlSession, Member updateMember);
 
+	ArrayList<Member> employeelist(SqlSessionTemplate sqlSession);
+
 }
