@@ -21,7 +21,7 @@
 				<jsp:include page="../../common/header.jsp" />
 				<br>
 				<h3 class="updateAccount">권한 부여/수정</h3>
-				<form action="" method="post">
+				<form action="updateAccount.me" method="post">
 				<div style="float: right;">
 				<button class="updateAccount" >수정</button>
 				<button type="reset"class="updateAccount" >취소</button>

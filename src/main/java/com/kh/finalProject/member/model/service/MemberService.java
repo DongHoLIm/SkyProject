@@ -8,6 +8,7 @@ import javax.security.auth.login.LoginException;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.member.model.exception.loginException;
 import com.kh.finalProject.member.model.vo.Member;
+import com.kh.finalProject.member.model.vo.MemberAccount;
 
 public interface MemberService {
 
@@ -40,4 +41,6 @@ public interface MemberService {
 	int stuUpdate(Member updateMember);
 
 	ArrayList<Member> employeeList();
+
+	MemberAccount Account(String userId);
 }

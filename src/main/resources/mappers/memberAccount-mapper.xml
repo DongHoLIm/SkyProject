@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberAccount">
+	<resultMap type="com.kh.finalProject.member.model.vo.MemberAccount" id="AccountResult">
+		<id property="employeeNo" column="EMPLOYEE_NO"/>
+		<result property="classManager" column="CLASS_MANAGEMENT"/>
+		<result property="scholarlyManager" column="SCHOLARLY_MANAGEMENT"/>
+		<result property="enrollManager" column="ENROLL_MANAGEMENT"/>
+		<result property="scholManager" column="SCHOL_MANAGEMENT"/>
+		<result property="dormitoryManager" column="DORMITORY_MANAGEMENT"/>
+		<result property="boardManager" column="BOARD_MANAGEMENT"/>
+	</resultMap>
+	<select id="Account" resultMap="AccountResult">
+		SELECT * FROM 
+		AUTHORITY
+		WHERE EMPLOYEE_NO=#{userId}
+	</select>
+
+
+</mapper>

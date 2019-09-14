@@ -50,7 +50,8 @@
 		<result property="sdeptCode" column="EDEPT_NAME"/>
 		<result property="rankCode" column="RANK_NAME"/>
 		<result property="loginCheck" column="MEMBER_CHECK"/>		
-	</resultMap>
+	</resultMap>	
+	
 	<!-- 로그인 체크  -->
 	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
 		SELECT *
@@ -88,6 +89,12 @@
 		INSERT INTO EMPLOYEE VALUES(
 			#{rankCode},#{memberId},#{sdeptCode}
 		)		
+	</insert>
+	
+	<insert id="insertEmployeeAccount" parameterType="Member">
+		INSERT INTO AUTHORITY VALUES(
+			'0','0','0','0','0','0',#{memberId}
+		)
 	</insert>
 	<select id="memberFindId" resultMap="memberResultSet" parameterType="Member">
 		SELECT * FROM
@@ -154,4 +161,19 @@
 		UPDATE MEMBER SET EMAIL=#{email},PHONE=#{phone},MEMBER_KNAME=#{memberKName},MEMBER_ENAME=#{memberEName},ADDRESS = #{address}
 		WHERE MEMBER_ID = #{memberId}
 	</update>
+	
+	<update id="employeeUpdate" parameterType="Member">
+		UPDATE EMPLOYEE SET RANK_CODE = #{rankCode}
+		WHERE EMPLOYEE_NO=#{memberId}
+	</update>
+	
+	<select id="employeelist" resultMap="memberEmpResultSet" >
+		SELECT M.MEMBER_ID,M.MEMBER_KNAME,ED.EDEPT_NAME,R.RANK_NAME
+		FROM MEMBER M 
+		LEFT JOIN EMPLOYEE E ON(M.MEMBER_ID=E.EMPLOYEE_NO)
+		JOIN E_DEPARTMENT ED ON(E.EDEPT_CODE = ED.EDEPT_CODE)
+		JOIN RANK R ON(E.RANK_CODE = R.RANK_CODE)
+		WHERE MEMBER_ID!='emp'
+		AND M.MEMBER_CHECK = '3'
+	</select>
 </mapper>
