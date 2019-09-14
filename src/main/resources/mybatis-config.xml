@@ -20,6 +20,7 @@
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.FilterCondition" alias="FilterCondition"/>
 		<typeAlias type="com.kh.finalProject.professor.openSubject.model.vo.OpenSubject" alias="OpenSubject"/>
 		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.OpenSubject" alias="courseRegistration"/>
+		<typeAlias type="com.kh.finalProject.student.classmanagement.model.vo.Sdepartment" alias="Sdepartment"/>
 	</typeAliases>
 	
 	<mappers>
@@ -38,6 +39,7 @@
 		<mapper resource="mappers/couseroffered-mapper.xml"/>		
 		<mapper resource="mappers/openSubject/openSubject-mapper.xml"/>
 		<mapper resource="mappers/courseRegistration-mapper.xml"/>
+		<mapper resource="mappers/sdepartment-mapper.xml"/>
 	</mappers>
 	
 </configuration>

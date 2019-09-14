@@ -68,4 +68,10 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 		return cmd.selectOpenSubjectList(sqlSession);
 	}
 
+	@Override
+	public int updateOpenSubject() {
+
+		return cmd.updateOpenSubject(sqlSession);
+	}
+
 }
