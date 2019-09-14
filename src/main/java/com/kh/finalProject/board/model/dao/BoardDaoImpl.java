@@ -563,4 +563,44 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.update("Board.searchMyBoardDelete", boardNo);
 	}
 
+	@Override
+	public int systemQuestionListCount(SqlSessionTemplate sqlSession, String memberId) {
+		return  sqlSession.selectOne("SystemQuestion.systemQuestionListCount", memberId);
+	}
+
+	@Override
+	public ArrayList<Board> systemQuestionList(SqlSessionTemplate sqlSession, PageInfo pi, String memberId) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("SystemQuestion.systemQuestionList", memberId, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int systemQuestionSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return  sqlSession.selectOne("SystemQuestion.systemQuestionSearchListCount", sc);
+	}
+
+	@Override
+	public ArrayList<Board> systemQuestionSearchList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("SystemQuestion.systemQuestionSearchList", sc, rowBounds);
+		
+		return list;
+	}
+
 }

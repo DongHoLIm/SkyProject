@@ -6547,42 +6547,98 @@ public class BoardController {
 ///////////////////////////////////////////////////////학생 시스템 문의///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////학생 시스템 문의///////////////////////////////////////////////////////
 	
-//	@RequestMapping(value="st_systemQuestionList.bo")
-//	public String stsystemQuestionList(HttpServletRequest request, String memberId) {
-//		
-//		System.out.println("시스템문의 List memberId :::: " + memberId);
-//		
-//		int currentPage = 1;
-//		
-//		if(request.getParameter("currentPage") != null) {
-//			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-//		}
-//		
-//		int listCount;
-//		
-//		try {
-//			listCount = bs.systemQuestionListCount(memberId);
-//			
-//			System.out.println("시스템문의 List listCount :::: " + listCount);
-//			
-//			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-//			
-//			ArrayList<Board> list = bs.systemQuestionList(pi, memberId);
-//			
-//			System.out.println("시스템문의 list list :::: " + list);
-//			System.out.println("시스템문의 List pi :::: " + pi);
-//			
-//			request.setAttribute("list", list);
-//			request.setAttribute("pi", pi);
-//			
-//			return "student/board/systemQuestion/st_systemQuestionList";
-//			
-//		} catch (BoardSelectListException e) {
-//			request.setAttribute("msg", e.getMessage());
-//			
-//			return "common/errorAlert";
-//		}	
-//	}
+	@RequestMapping(value="st_systemQuestionList.bo")
+	public String stsystemQuestionList(HttpServletRequest request, String memberId) {
+		
+		System.out.println("시스템문의 List memberId :::: " + memberId);
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.systemQuestionListCount(memberId);
+			
+			System.out.println("시스템문의 List listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bs.systemQuestionList(pi, memberId);
+			
+			System.out.println("시스템문의 list list :::: " + list);
+			System.out.println("시스템문의 List pi :::: " + pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			
+			return "student/board/systemQuestion/st_systemQuestionList";
+			
+		} catch (BoardSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="st_systemQuestionSearchList.bo")
+	public String stsystemQuestionSearchList(String searchCondition, String memberId, boolean searchflag, HttpServletRequest request) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		sc.setMemberId(memberId);		
+		
+		if(searchCondition.equals("account")) {
+			sc.setAccount(searchCondition);
+		}
+		if(searchCondition.equals("proof")) {
+			sc.setProof(searchCondition);
+		}
+		if(searchCondition.equals("school")) {
+			sc.setSchool(searchCondition);
+		}
+		
+		System.out.println("sc :::: " + sc);
+		
+		int listCount;
+		
+		try {
+			listCount = bs.systemQuestionSearchListCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			pi.setSearchflag(searchflag);
+			
+			System.out.println("검색후 pi :::: " + pi);
+			
+			ArrayList<Board> list = bs.systemQuestionSearchList(sc, pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("searchCondition", searchCondition);
+			
+			return "student/board/systemQuestion/st_systemQuestionList";
+		} catch (BoardSearchException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+	}
 }
 
 

@@ -634,5 +634,4 @@
 		UPDATE BOARD SET STATUS = 'N' WHERE BOARD_NO = #{boardNo}
 	</update>
 	
-	
 </mapper>

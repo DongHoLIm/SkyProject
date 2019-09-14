@@ -165,6 +165,14 @@ public interface BoardDao {
 
 	int searchMyBoardDelete(SqlSessionTemplate sqlSession, String boardNo);
 
+	int systemQuestionListCount(SqlSessionTemplate sqlSession, String memberId);
+
+	ArrayList<Board> systemQuestionList(SqlSessionTemplate sqlSession, PageInfo pi, String memberId);
+
+	int systemQuestionSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<Board> systemQuestionSearchList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);
+
 
 
 
