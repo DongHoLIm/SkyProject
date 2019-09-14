@@ -14,6 +14,10 @@
 			text-align:center;
 			border:1px solid lightgray;
 		}
+		
+		.post{
+			display: inline-block;
+		}
 	</style>
 </head>
 <body>
@@ -29,57 +33,91 @@
 	  					<table class="table" text-align="center">
 	  					  	<tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">소속</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">입사학기</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><select name='mulitple' style="width:300px;">
+											<option value=''>-- 선택 --</option>
+											<option value=''>2019학년도 1학기</option>
+											<option value=''>2019학년도 2학기</option>
+											</select>
+											</td>
 	 					    </tr>
 	 					   <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">성명</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">주민등록번호</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	 					   </tr>
 	     				   <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">우편번호</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"><input type="button" value="우편번호 찾기"></td>
+	  					      <td style="text-align:center; background-color:white;"><div class="post"><input type="text" style="width:300px;"></div><div class="post"><input type="button" value="우편번호 찾기" style="padding:0%; width:50px;"></div></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">주소</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	 					    </tr>
 	 					    <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">생활관</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">상세주소</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	 					    </tr>
 	 					    <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">긴급연락처</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">E-Mail</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	 					    </tr>
 	 					    <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">보호자-HP</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">보호자-TEL</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	 					    </tr>
 	 					    <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">환불은행</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><select name='mulitple' style="width:300px;">
+											<option value=''>-- 선택 --</option>
+											<option value=''>국민은행</option>
+											<option value=''>IBK기업은행</option>
+											<option value=''>EVER RICH</option>
+											<option value=''>부산은행</option>
+											<option value=''>우리은행</option>
+											<option value=''>KEB외환은행</option>
+											<option value=''>새마을금고</option>
+											<option value=''>전북은행</option>
+											<option value=''>신한은행</option>
+											<option value=''>농협</option>
+											<option value=''>수협은행</option>
+											<option value=''>대구은행</option>
+											<option value=''>하나은행</option>
+											<option value=''>KDB산업은행</option>
+											<option value=''>신협</option>
+											<option value=''>광주은행</option>
+											<option value=''>SC제일은행</option>
+											<option value=''>CITIBANK</option>
+											<option value=''>경남은행</option>
+											</select></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">환불계좌</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	 					    </tr>
 	 					    <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">입사현황</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">흡연여부</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><select name='mulitple' style="width:300px;">
+											<option value=''>-- 선택 --</option>
+											<option value=''>흡연</option>
+											<option value=''>비흡연</option>
+											</select></td>
 	 					    </tr>
 	 					    <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">기초생활수급자</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><select name='mulitple' style="width:300px;">
+											<option value=''>-- 선택 --</option>
+											<option value=''>해당</option>
+											<option value=''>해당없음</option>
+											</select></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">특기사항</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:300px;"></td>
 	 					    </tr>
 					  </table>
 				</div>
@@ -109,7 +147,7 @@
 		       				3. 환불계좌 : 열쇠보증금, 식비 미사용분에 대한 환불계좌입니다.(국민은행을 제외한 타은행은 수수료공제됨)
 		       				<br><br>
 					</div>
-					<input type="button" value="신청" style="width:686px; text-align:center"><input type="button" value="취소" style="width:686px; text-align:center">
+					<button style="width:527px" onclick="location.href='applyView.dor'">신청</button><button style="width:527px" onclick="location.href='applyCancle.dor'">취소</button>
 				</div>		
 		</div>
 		</div>
