@@ -78,12 +78,14 @@ table.basicinfo {
                   <td class="td">성별</td>
                   <td></td>
                </tr>
+               
+               <%-- <c:set var="major" value="<%= %>"/> --%>
 
                <tr>
                   <td class="td">학과</td>
                   <td>${basicInfo.sdeptName }</td>
                   <td class="td">전공</td>
-                  <td>${basicInfo.sdeptName }</td>
+                  <td></td>
                   <td class="td">학년</td>
                   <td>${basicInfo.grade }</td>
                </tr>
@@ -144,15 +146,15 @@ table.basicinfo {
             <table class="basicinfo">
                <tr>
                   <td class="td" width="20%">졸업 일자</td>
-                  <td width="30%"></td>
+                  <td width="30%">${stuInfo.graduatedDate }</td>
                   <td class="td" width="20%">졸업 증서 번호</td>
-                  <td width="30%"></td>
+                  <td width="30%">${stuInfo.graduatedNo }</td>
                </tr>
                <tr>
                   <td class="td">학위명</td>
-                  <td></td>
+                  <td>${stuInfo.degreeName }</td>
                   <td class="td">학위 등록 번호</td>
-                  <td></td>
+                  <td>${stuInfo.graduatedNo }</td>
                </tr>
 
             </table>

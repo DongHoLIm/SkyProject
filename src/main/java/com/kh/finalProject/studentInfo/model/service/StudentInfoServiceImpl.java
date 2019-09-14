@@ -75,6 +75,12 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		return sd.selectSdeptList(sqlSession);
 	}
 
+	@Override
+	public StudentInfo personInfoManage(String userId) {
+		
+		return sd.personInfoManage(sqlSession,userId);
+	}
+
 	
 
 	

@@ -43,9 +43,25 @@ public class StudentInfoController {
 		request.setAttribute("basicInfo",basicInfo);
 		request.setAttribute("stuInfo",stuInfo);
 		
-		
 		return "student/info/studentInfo";
 	}
+	
+	//학생_학적조회_신상관리
+	@RequestMapping(value="st_personalInfo.si")
+	public String personalInfo(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
+		
+		String userId = loginUser.getMemberId();
+		System.out.println(userId);
+		
+		StudentInfo personalInfo = ss.personInfoManage(userId);
+		
+		System.out.println(personalInfo);
+		
+		request.setAttribute("personalInfo",personalInfo);
+		
+		return "student/info/studentBasicInfo";
+	}
+	
 	
 	//교직원_학생전체조회
 	@RequestMapping(value="em_studentInfoList.si")

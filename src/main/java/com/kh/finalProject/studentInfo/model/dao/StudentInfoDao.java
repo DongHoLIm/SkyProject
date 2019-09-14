@@ -30,6 +30,8 @@ public interface StudentInfoDao {
 
 	ArrayList selectSdeptList(SqlSessionTemplate sqlSession) throws StudentInfoSelectListException;
 
+	StudentInfo personInfoManage(SqlSessionTemplate sqlSession, String userId);
+
 
 
 	

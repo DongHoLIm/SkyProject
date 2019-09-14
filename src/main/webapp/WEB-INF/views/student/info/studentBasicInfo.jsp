@@ -53,48 +53,53 @@ table.basicinfo {
 			   <h4 id="basic">기본 정보</h4>
             <form class="ba">
             <table class="basicinfo">
-            	<tr>
-	            	<td class="td">학번</td>
-	            	<td colspan='5'><input type="text" value="123456789" readonly></td>
-            	</tr>
-            	
-            	<tr>
-	            	<td class="td">한글 성명</td>
-	            	<td><input type="text" value="홍길동" readonly></td>
-	            	<td class="td">영문 성명</td>
-	            	<td><input type="text" value="In Woo Kang" readonly></td>
-	            	<td class="td">한문 성명</td>
-	            	<td><input type="text" value="姜因遇" readonly></td>
-            	</tr>
-            	
-            	<tr>
-	            	<td class="td">주민 번호</td>
-	            	<td><input type="text" value="940205-*******" readonly></td>
-	            	<td class="td">생년월일</td>
-	            	<td><input type="text" value="2000.07.26" readonly></td>
-	            	<td class="td">성별</td>
-	            	<td><input type="text" value="남" readonly></td>
-            	</tr>
-            	
-            	<tr>
-	            	<td class="td">학부(과)</td>
-	            	<td><input type="text" value="소프트웨어 응용" readonly></td>
-	            	<td class="td">전공</td>
-	            	<td><input type="text" value="컴퓨터 공학" readonly></td>
-	            	<td class="td">학년</td>
-	            	<td><input type="text" value="1" readonly></td>
-            	</tr>
-            	
-            	<tr>
-	            	<td class="td">학적 상태</td>
-	            	<td><input type="text" value="재학" readonly></td>
-	            	<td class="td">주야</td>
-	            	<td><input type="text" value="주간" readonly></td>
-	            	<td class="td">병역 구분</td>
-	            	<td><input type="text" value="" readonly></td>
-            	</tr>
-            	
+               <tr>
+                  <td class="td">학번</td>
+                  <td colspan='5'>${personalInfo.studentNo }</td>
+               </tr>
+
+               <tr>
+                  <td class="td" width="15%">한글 성명</td>
+                  <td width="21%">${personalInfo.kName }</td>
+                  <td class="td" width="15%">영문 성명</td>
+                  <td width="21%">${personalInfo.eName }</td>
+                  <td class="td" width="15%">한문 성명</td>
+                  <td width="13%"> </td>
+               </tr>
+               
+              
+
+               <tr>
+                  <td class="td">주민 번호</td>
+                  <td>${personalInfo.memberNo }</td>
+                  <td class="td">생년월일</td>
+                  <td></td>
+                  <td class="td">성별</td>
+                  <td></td>
+               </tr>
+               
+               <%-- <c:set var="major" value="<%= %>"/> --%>
+
+               <tr>
+                  <td class="td">학과</td>
+                  <td>${personalInfo.sdeptName }</td>
+                  <td class="td">전공</td>
+                  <td></td>
+                  <td class="td">학년</td>
+                  <td>${personalInfo.grade }</td>
+               </tr>
+
+               <tr>
+                  <td class="td">학적 상태</td>
+                  <td>${personalInfo.studentStatus }</td>
+                  <td class="td">주야</td>
+                  <td></td>
+                  <td class="td">병역 구분</td>
+                  <td></td>
+               </tr>
+
             </table>
+
             
             <!-- 신상 정보 조회 -->
             	<h4 id="basic">신상 정보 조회</h4>
@@ -103,47 +108,48 @@ table.basicinfo {
 	            	<td class="td">한글 성명</td>
 	            	<td><input type="text" value="강인우" readonly></td>
 	            	<td class="td">영문 성명</td>
-	            	<td><input type="text" value="In Woo Kang" readonly></td>
+	            	<td><input type="text" value="In Woo Kang"></td>
 	            	<td class="td">한문 성명</td>
-	            	<td><input type="text" value="姜因遇" readonly></td>
+	            	<td><input type="text" value=""></td>
             	</tr>
             	
             	<tr>
 	            	<td class="td">주소</td>
-	            	<td colspan='5'><input style="width: 50%; display: inline-block;" type="text" value="서울시 역삼동" readonly>
-	            				    <input style=" display: inline-block; width:30%;" type="text" value="체르노빌 201호">
-	            					<input style=" display: inline-block;" type="button" value="검색">				
+	            	<td colspan='5'>
+	            		<input style=" display: inline-block;" type="button" value="검색"> &nbsp;				
+	            		<input style="width: 50%; display: inline-block;" type="text" value="서울시 역삼동" readonly>
+	            		<input style=" display: inline-block; width:30%;" type="text" value="체르노빌 201호">
 	            	</td>
             	</tr>
-            	<td class="td">주민등록 주소지</td>
+            	<!-- <td class="td">주민등록 주소지</td>
 	            	<td colspan='5'><input type="checkbox" id="checkadd">
 	            					<input style="width: 50%; display: inline-block;" type="text" value="서울시 역삼동" readonly>
 	            				    <input style=" display: inline-block; width:30%;" type="text" value="체르노빌 201호">
 	            					<input style=" display: inline-block;" type="button" value="검색">				
-	            	</td>
+	            	</td> -->
             	
             		<tr>
 	            		<td class="td">전자 우편</td>
-		            	<td><input type="text" value="7479383@hanmail.net" readonly></td>
+		            	<td><input type="text" value="7479383@hanmail.net"></td>
 		            	<td class="td">전화 번호</td>
-		            	<td><input type="text" value="031-383-7479" readonly></td>
+		            	<td><input type="text" value="031-383-7479"></td>
 		            	<td class="td">휴대폰 번호</td>
-		            	<td><input type="text" value="010-9478-2687" readonly></td>
+		            	<td><input type="text" value="010-9478-2687"></td>
 	            	</tr>
 	            
 		            	
 	            	<tr>
 						<td class="td">은행명</td>
 		            	<td><select name='bank'>
-							  <option value=''>-- 선택 --</option>
-							  <option value='KAKAO' selected>카카오 뱅크</option>
-							  <option value='NHD' disabled>농협</option>
-							  <option value='SH' label=''>신한은행</option>
+							  <option value='select' selected>-- 선택 --</option>
+							  <option value='KAKAO'>카카오 뱅크</option>
+							  <option value='NHD'>농협</option>
+							  <option value='SH'>신한은행</option>
 						</select></td>
 		            	<td class="td">계좌 번호</td>
-		            	<td><input type="text" value="3560306" readonly></td>
+		            	<td><input type="text" value="3560306"></td>
 		            	<td class="td">예금주</td>
-		            	<td><input type="text" value="강인우" readonly></td>
+		            	<td><input type="text" value="강인우"></td>
 	            	</tr>
 	          	
             </table>
@@ -151,26 +157,26 @@ table.basicinfo {
           	<table class="basicinfo">
           		<tr>
 					<td class="td">보호자성명</td>
-		            <td><input type="text" value="홍길동" readonly></td>
+		            <td><input type="text" value="홍길동"></td>
 		            <td class="td">보호자관계</td>
 		            <td>
 		            	<select name='pa'>
-							  <option value=''>-- 선택 --</option>
-							  <option value='father' selected>부</option>
-							  <option value='mather' selected>모</option>
+							  <option value='parents' selected>-- 선택 --</option>
+							  <option value='father'>부</option>
+							  <option value='mather'>모</option>
 						</select>
 						
 					</td>
-					<td class="td">보호자<br>연락처</td>
-		            <td><input type="text" value="010-9478-2687" readonly></td>
+					<td class="td">보호자연락처</td>
+		            <td><input type="text" value="010-9478-2687"></td>
 		       		
 		       </tr>
 		       <tr>
-					<td class="td">보호자<br>주소</td>
-		            <td><input type="text" value="홍길동" readonly></td>
-		            <td colspan='5'><input style="width: 50%; display: inline-block;" type="text" value="서울시 역삼동" readonly>
-	            				    <input style=" display: inline-block; width:30%;" type="text" value="체르노빌 201호">
-	            					<input style=" display: inline-block;" type="button" value="검색">		
+					<td class="td">보호자주소</td>
+		  			<td colspan='5'>
+	            		<input style=" display: inline-block;" type="button" value="검색"> &nbsp;		
+		  				<input style="width: 50%; display: inline-block;" type="text" value="서울시 역삼동" readonly>
+	            		<input style=" display: inline-block; width:30%;" type="text" value="체르노빌 201호">
 		       		
 		       </tr>
 		       
