@@ -32,15 +32,10 @@
   		
   	</resultMap>
   	
-  	<!-- <resultMap type="sdept" id="sdeptResultSet">
-  		<id property="sd"
   	
-  	</resultMap>
-  	 -->
-  	
-  	<!-- 학적조회/기본정보 -->
+  	<!-- 학생_학적조회/기본정보 -->
   	<select id="selectBasicInfo" resultMap="studentInfoResultSet">
-  		SELECT S.STUDENT_NO, M.MEMBER_KNAME, M.MEMBER_ENAME, M.MEMBER_NO,
+  		SELECT M.MEMBER_ID, M.MEMBER_KNAME, M.MEMBER_ENAME, M.MEMBER_NO,
        		   D.SDEPT_NAME, S.GRADE, S.STUDENT_STATUS
 		FROM STUDENT_INFO S
 		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)
@@ -48,14 +43,26 @@
 		WHERE S.STUDENT_NO=#{studentNo}
   	</select>
   	
-  	<!-- 학적조회/학적정보_입학정보 -->
+  	<!-- 학생_학적조회/학적정보-->
   	<select id="selectStuInfo" resultMap="studentInfoResultSet">
-  		SELECT S.ENROL_TYPE, S.ENROL_DATE, S.ENROL_GRADE, S.ENROL_NO
+  		SELECT S.ENROL_TYPE, S.ENROL_DATE, S.ENROL_GRADE, S.ENROL_NO,
+       		   S.GRADUATED_DATE,S.DEGREE_NO,S.DEGREE_NAME,S.GRADUATED_NO
 		FROM STUDENT_INFO S
 		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)
 		LEFT JOIN SDEPARTMENT D ON(S.SDEPT_CODE=D.SDEPT_CODE)
 		WHERE S.STUDENT_NO=#{studentNo} 
   	</select> 
+  	
+  	<!-- 학생_학적정보/신상관리 -->
+  	<select id="personInfoManage" resultMap="studentInfoResultSet">
+  		SELECT M.MEMBER_ID, M.MEMBER_KNAME, M.MEMBER_ENAME, M.MEMBER_NO,
+       		   D.SDEPT_NAME, S.GRADE, S.STUDENT_STATUS
+		FROM STUDENT_INFO S
+		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)
+		LEFT JOIN SDEPARTMENT D ON(S.SDEPT_CODE=D.SDEPT_CODE)
+		WHERE S.STUDENT_NO=#{studentNo}
+  	</select>
+  	
   	
   	<!-- 교직원_학생정보 게시글 수 조회 -->
   	<select id="selectListCount" resultType="_int">
@@ -63,9 +70,9 @@
   		FROM STUDENT_INFO
   	</select>
   	
-  	<!-- 교직원_학생정보 게시글 조회 페이징후 -->
+  	<!-- 교직원_학생정보 조회 페이징후 -->
   	<select id="selectStudentList" resultMap="studentInfoResultSet">
-  		SELECT C.COLLEGE_NAME, D.SDEPT_NAME, S.GRADE, S.STUDENT_NO,
+  		SELECT C.COLLEGE_NAME, D.SDEPT_NAME, S.GRADE, M.MEMBER_ID,
        	   	   M.MEMBER_KNAME, S.STUDENT_STATUS
 		FROM STUDENT_INFO S
 		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)
@@ -97,7 +104,7 @@
   	</select>
   	
   	<select id="selectFilterStudent" resultMap="studentInfoResultSet" parameterType="FilterCondition">
-  		SELECT C.COLLEGE_NAME, D.SDEPT_NAME, S.GRADE, S.STUDENT_NO,
+  		SELECT C.COLLEGE_NAME, D.SDEPT_NAME, S.GRADE, M.MEMBER_ID,
        	   	   M.MEMBER_KNAME, S.STUDENT_STATUS
 		FROM STUDENT_INFO S
 		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)

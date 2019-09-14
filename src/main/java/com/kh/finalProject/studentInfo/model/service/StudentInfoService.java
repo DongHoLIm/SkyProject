@@ -28,6 +28,8 @@ public interface StudentInfoService {
 
 	ArrayList selectSdeptList() throws StudentInfoSelectListException;
 
+	StudentInfo personInfoManage(String userId);
+
 	
 
 	
