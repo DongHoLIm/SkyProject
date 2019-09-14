@@ -28,4 +28,6 @@ public interface ClassManagementService {
 
 	ArrayList<OpenSubject> selectOpenSubjectList();
 
+	int updateOpenSubject();
+
 }

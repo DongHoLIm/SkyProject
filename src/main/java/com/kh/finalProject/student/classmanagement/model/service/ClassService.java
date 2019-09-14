@@ -1,9 +1,11 @@
 package com.kh.finalProject.student.classmanagement.model.service;
 
-import com.kh.finalProject.student.classmanagement.model.vo.Inquiry;
+import java.util.ArrayList;
+
+import com.kh.finalProject.student.classmanagement.model.vo.Sdepartment;
 
 public interface ClassService {
 
-	String courseInquiry(Inquiry i);
+	ArrayList<Sdepartment> selectSdept();
 
 }

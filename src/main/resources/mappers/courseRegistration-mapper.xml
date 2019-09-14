@@ -35,4 +35,7 @@
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
 		WHERE OS.ENROL_TYPE = 0
 	</select>
+	<update id="updateOpenSubject">
+		UPDATE OPEN_SUBJECT SET ENROL_TYPE = 1
+	</update>
 </mapper>
