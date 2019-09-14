@@ -138,6 +138,12 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		return sdeptList;
 	}
 
+	@Override
+	public StudentInfo personInfoManage(SqlSessionTemplate sqlSession, String userId) {
+		
+		return sqlSession.selectOne("StudentInfo.personInfoManage",userId);
+	}
+
 	
 
 	

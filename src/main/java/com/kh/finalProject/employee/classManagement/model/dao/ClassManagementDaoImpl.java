@@ -103,6 +103,12 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 		return list;
 	}
 
+	@Override
+	public int updateOpenSubject(SqlSessionTemplate sqlSession) {
+
+		return sqlSession.update("courseRegistration.updateOpenSubject");
+	}
+
 	
 
 }

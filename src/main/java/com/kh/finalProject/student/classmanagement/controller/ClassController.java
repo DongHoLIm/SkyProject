@@ -1,5 +1,8 @@
 package com.kh.finalProject.student.classmanagement.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.student.classmanagement.model.service.ClassService;
-import com.kh.finalProject.student.classmanagement.model.vo.Inquiry;
+import com.kh.finalProject.student.classmanagement.model.vo.Sdepartment;
 @Controller
 @SessionAttributes("loginUser")
 public class ClassController {
@@ -34,9 +35,11 @@ public class ClassController {
 		}
 		//교과목조회
 		@RequestMapping(value="goCourseInquiry.st")
-		public String goCourseInquiry(@ModelAttribute("loginUser") Member loginUser) {
+		public String goCourseInquiry(@ModelAttribute("loginUser") Member loginUser, HttpServletRequest request) {
+			ArrayList<Sdepartment> sdList = cs.selectSdept();
 			
-			System.out.println(loginUser);
+			request.setAttribute("sdList", sdList);
+			
 			return "student/class/courseInquiry";
 		}
 		//예비수강신청목록
@@ -52,30 +55,6 @@ public class ClassController {
 			return "student/class/courseApply";
 		}
 	
-	//학생 개강과목조회
-		@RequestMapping(value="inquiry.st")
-		public String courseInquiry(SessionStatus status,@ModelAttribute("loginUser") Member loginUser, 
-				@RequestParam(name="department", required=false) String department,
-				@RequestParam(name="allIsu", required=false) String isu,
-				@RequestParam(name="subject", required=false) String subject) {
-			
-			System.out.println("department:::" + department);
-			System.out.println("Isu :::" + isu);
-			System.out.println("subject:::" + subject);
-			
-			
-			Inquiry i = new Inquiry();
-			
-			i.setDepartment(department);
-			i.setIsu(isu);
-			i.setSubject(subject);
-			
-			cs.courseInquiry(i);
-			
-			
-			
-			return "student/class/courseInquiry";
-		}
 	
 	
 	

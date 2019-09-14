@@ -129,4 +129,15 @@ public class ClassManagementController {
 		request.setAttribute("crList", crList);
 		return "employee/class/openCourseRegistration";
 	}
+	@RequestMapping(value="updateOpenSubject.em")
+	public String updateOpenSubject(HttpServletRequest request,
+		@RequestParam(name="openSubCode", required=false)String openSubCode){
+			
+		System.out.println(openSubCode);
+		String subCode[] = openSubCode.split(",");
+		
+		cms.updateOpenSubject();
+		
+		return "employee/class/openCourseRegistration";
+	}
 }
