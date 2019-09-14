@@ -41,7 +41,7 @@
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
 			
-			<form action="" method="get">
+			<form action="st_systemQuestionSearchList.bo" method="get">
 				<input type="hidden" name="searchflag" id="searchflag" value="true">
 				<input type="hidden" name="memberId" id="memberId" value="${loginUser.memberId}">
 				<table style="width: 88.5%; text-align: center; margin: 0 auto;">
@@ -70,18 +70,29 @@
 							<th width="10%" style="text-align: center;">게시일자</th>
 						</tr>
 					</thead>
-					<tbody>					
+					<tbody>
 						<c:forEach var="b" items="${list}">
-							<tr>
-								<td style="text-align: center;" class="qusetionType">계정 관련</td>
-								<td style="text-align: center;" class="questionTitle">아이디는 어떻게 찾나요?</td>
-								<td style="text-align: center;">박성래</td>
-								<td style="text-align: center;">2019/09/09
-									<%-- <fmt:parseDate value="${b.enrollDate}" var="enrollDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate value="${enrollDate}" pattern="yyyy/MM/dd"/> --%>
+							<tr style="background: #EBEFF1">
+								<td style="text-align: center;" class="qusetionType">${b.questionType}</td>
+								<td style="text-align: center;" class="questionTitle">${b.questionTitle}</td>
+								<td style="text-align: center;">${b.questionWriter}</td>
+								<td style="text-align: center;">
+									<fmt:parseDate value="${b.questionDate}" var="questionDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${questionDate}" pattern="yyyy/MM/dd"/>
 								</td>
-							</tr>
-						<input type="hidden" name="boardNo" id="boardNo" value="${b.boardNo}">
+							</tr>							
+							<c:if test="${!empty b.answerNo}">
+								<tr style="background: white">
+									<td style="text-align: center;">${b.questionType}</td>
+									<td style="text-align: center;">RE : ${b.answerTitle}</td>
+									<td style="text-align: center;">${b.answerWriter}</td>
+									<td style="text-align: center;">
+										<fmt:parseDate value="${b.answerDate}" var="answerDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${answerDate}" pattern="yyyy/MM/dd"/>
+									</td>
+								</tr>
+							</c:if>
+							<input type="hidden" name="questionNo" id="questionNo" value="${b.questionNo}">
 						</c:forEach>
 					</tbody>
 				</table>
@@ -136,16 +147,27 @@
 					</thead>
 					<tbody>					
 						<c:forEach var="b" items="${list}">
-							<tr>
-								<td style="text-align: center;" class="qusetionType">계정 관련</td>
-								<td style="text-align: center;" class="questionTitle">아이디는 어떻게 찾나요?</td>
-								<td style="text-align: center;">박성래</td>
-								<td style="text-align: center;">2019/09/09
-									<%-- <fmt:parseDate value="${b.enrollDate}" var="enrollDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate value="${enrollDate}" pattern="yyyy/MM/dd"/> --%>
+							<tr style="background: #EBEFF1">
+								<td style="text-align: center;" class="qusetionType">${b.questionType}</td>
+								<td style="text-align: center;" class="questionTitle">${b.questionTitle}</td>
+								<td style="text-align: center;">${b.questionWriter}</td>
+								<td style="text-align: center;">
+									<fmt:parseDate value="${b.questionDate}" var="questionDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${questionDate}" pattern="yyyy/MM/dd"/>
 								</td>
-							</tr>
-						<input type="hidden" name="boardNo" id="boardNo" value="${b.boardNo}">
+							</tr>							
+							<c:if test="${!empty b.answerNo}">
+								<tr style="background: white">
+									<td style="text-align: center;">${b.questionType}</td>
+									<td style="text-align: center;">RE : ${b.answerTitle}</td>
+									<td style="text-align: center;">${b.answerWriter}</td>
+									<td style="text-align: center;">
+										<fmt:parseDate value="${b.answerDate}" var="answerDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${answerDate}" pattern="yyyy/MM/dd"/>
+									</td>
+								</tr>
+							</c:if>
+							<input type="hidden" name="questionNo" id="questionNo" value="${b.questionNo}">
 						</c:forEach>
 					</tbody>
 				</table>
@@ -198,26 +220,8 @@
 			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
 		</div>
 	</div>
-	<script>		
-		/* $(".questionTitle").click(function(){
-			var boardNo = $(this).parents("tr").children().eq(0).text();	
-			var memberId = $("#memberId").val();
-			var boardType = $(this).parents("tr").children().eq(1).text();	
-			
-			console.log("boardNo :::: " + boardNo);
-			console.log("memberId :::: " + memberId);
-			console.log("boardType :::: " + boardType);
-			
-			if(boardType == "자유게시판"){
-				
-				location.href="st_searchMyBoardDetailFree.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
-				
-			}else if(boardType == "칭찬합시다"){
-				
-				location.href="st_searchMyBoardDetailPraise.bo?boardNo="+boardNo+"&memberId="+memberId+"&boardType="+boardType;
-			}
-			
-		}); */
+	<script>	
+		
 	</script>
 </body>
 </html>

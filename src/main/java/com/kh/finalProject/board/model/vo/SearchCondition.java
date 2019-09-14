@@ -12,11 +12,15 @@ public class SearchCondition implements java.io.Serializable{
 	private String event;
 	private String praise;
 	private String free;
+	private String proof;
+	private String account;
+	private String school;
 	
 	public SearchCondition() {}
 
 	public SearchCondition(String memberId, String writer, String writeDept, String title, String all, String normal,
-			String schol, String schedule, String event, String praise, String free) {
+			String schol, String schedule, String event, String praise, String free, String proof, String account,
+			String school) {
 		super();
 		this.memberId = memberId;
 		this.writer = writer;
@@ -29,6 +33,9 @@ public class SearchCondition implements java.io.Serializable{
 		this.event = event;
 		this.praise = praise;
 		this.free = free;
+		this.proof = proof;
+		this.account = account;
+		this.school = school;
 	}
 
 	public String getMemberId() {
@@ -119,13 +126,39 @@ public class SearchCondition implements java.io.Serializable{
 		this.free = free;
 	}
 
+	public String getProof() {
+		return proof;
+	}
+
+	public void setProof(String proof) {
+		this.proof = proof;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
 	@Override
 	public String toString() {
 		return "SearchCondition [memberId=" + memberId + ", writer=" + writer + ", writeDept=" + writeDept + ", title="
 				+ title + ", all=" + all + ", normal=" + normal + ", schol=" + schol + ", schedule=" + schedule
-				+ ", event=" + event + ", praise=" + praise + ", free=" + free + "]";
+				+ ", event=" + event + ", praise=" + praise + ", free=" + free + ", proof=" + proof + ", account="
+				+ account + ", school=" + school + "]";
 	}
 
+	
 	
 
 	

@@ -6,6 +6,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.finalProject.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.finalProject.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.finalProject.board.model.vo.SystemQuestion" alias="SystemQuestion"/>
 		<typeAlias type="com.kh.finalProject.reply.model.vo.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.finalProject.board.model.vo.Writer" alias="Writer"/>
 		<typeAlias type="com.kh.finalProject.board.model.vo.UploadFile" alias="UploadFile"/>
@@ -25,6 +26,7 @@
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/systemQuestion-mapper.xml"/>
 		<mapper resource="mappers/reply-mapper.xml"/>
 		<mapper resource="mappers/writer-mapper.xml"/>
 		<mapper resource="mappers/file-mapper.xml"/>

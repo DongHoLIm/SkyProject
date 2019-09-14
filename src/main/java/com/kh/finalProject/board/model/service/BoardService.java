@@ -156,6 +156,14 @@ public interface BoardService {
 
 	int searchMyBoardDelete(String boardNo) throws BoardDeleteException;
 
+	int systemQuestionListCount(String memberId) throws BoardSelectListException;
+
+	ArrayList<Board> systemQuestionList(PageInfo pi, String memberId) throws BoardSelectListException;
+
+	int systemQuestionSearchListCount(SearchCondition sc) throws BoardSearchException;
+
+	ArrayList<Board> systemQuestionSearchList(SearchCondition sc, PageInfo pi) throws BoardSearchException;
+
 
 
 

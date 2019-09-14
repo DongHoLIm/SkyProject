@@ -534,6 +534,26 @@ public class BoardServiceImpl implements BoardService{
 		return bd.searchMyBoardDelete(sqlSession, boardNo);
 	}
 
+	@Override
+	public int systemQuestionListCount(String memberId) throws BoardSelectListException {
+		return bd.systemQuestionListCount(sqlSession, memberId);
+	}
+
+	@Override
+	public ArrayList<Board> systemQuestionList(PageInfo pi, String memberId) throws BoardSelectListException {
+		return bd.systemQuestionList(sqlSession, pi, memberId);
+	}
+
+	@Override
+	public int systemQuestionSearchListCount(SearchCondition sc) throws BoardSearchException {
+		return  bd.systemQuestionSearchListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Board> systemQuestionSearchList(SearchCondition sc, PageInfo pi) throws BoardSearchException {
+		return bd.systemQuestionSearchList(sqlSession, sc, pi);
+	}
+
 
 	
 
