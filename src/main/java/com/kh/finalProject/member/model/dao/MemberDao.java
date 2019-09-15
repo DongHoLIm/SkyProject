@@ -45,4 +45,10 @@ public interface MemberDao {
 
 	MemberAccount Account(SqlSessionTemplate sqlSession, String userId);
 
+	Member employeeDetailList(SqlSessionTemplate sqlSession, Member employee);
+
+	MemberAccount employeeMachart(SqlSessionTemplate sqlSession, MemberAccount ma);
+
+	int updatingAccount(SqlSessionTemplate sqlSession, MemberAccount ma);
+
 }

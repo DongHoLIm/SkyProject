@@ -176,4 +176,15 @@
 		WHERE MEMBER_ID!='emp'
 		AND M.MEMBER_CHECK = '3'
 	</select>
+	
+	<select id="employeeDetailList" resultMap="memberEmpResultSet" parameterType="Member">
+		SELECT M.MEMBER_ID,M.MEMBER_KNAME,ED.EDEPT_NAME,R.RANK_NAME
+		FROM MEMBER M 
+		LEFT JOIN EMPLOYEE E ON(M.MEMBER_ID=E.EMPLOYEE_NO)
+		JOIN E_DEPARTMENT ED ON(E.EDEPT_CODE = ED.EDEPT_CODE)
+		JOIN RANK R ON(E.RANK_CODE = R.RANK_CODE)
+		WHERE MEMBER_ID = #{memberId}
+		AND M.MEMBER_CHECK = '3'
+	
+	 </select>
 </mapper>

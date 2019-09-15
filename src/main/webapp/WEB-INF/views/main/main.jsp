@@ -9,6 +9,7 @@
 <title>메인 페이지</title>
 </head>
 <body>
+	
 	<c:set var="member" value="${loginUser.memberStatus}" />
 	<div id="wrapper">
 		<div id="main">

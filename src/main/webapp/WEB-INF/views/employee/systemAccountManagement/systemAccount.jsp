@@ -7,9 +7,19 @@
 <head>
 <meta charset="UTF-8">
 <title>계정 부여페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 	.updateAccount{
 		display: inline-block;
+	}
+	#employeememberlist {
+		text-align: center;
+	}
+	#employeememberlist thead tr th{
+		text-align:center;
+	}
+	#employeememberlist tbody tr:hover{
+		color: black;
 	}
 </style>
 </head>
@@ -23,42 +33,28 @@
 				<h3 class="updateAccount">권한 부여/수정</h3>
 				<form action="updateAccount.me" method="post">
 				<div style="float: right;">
-				<button class="updateAccount" >수정</button>
+				<input type="text" />
 				<button type="reset"class="updateAccount" >취소</button>
 				</div>
 				<hr />
-				<table>
+				<br />
+				<br />			
+				<table id="employeememberlist">
 					<thead>
 						<tr>
 							<th>교직원 아이디</th>
 							<th>교직원 이름</th>
 							<th>교직원 부서</th>
-							<th>수업관리</th>
-							<th>학적관리</th>
-							<th>등록관리</th>
-							<th>장학관리</th>
-							<th>기숙사관리</th>
-							<th>정보생활</th>
+							<th>직급</th>							
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var='eml' items="${list}">
 						<tr>
 							<td>${eml.memberId}</td>
-							<td>${eml.memberKName }</td>
+							<td>${eml.memberKName}</td>
 							<td>${eml.sdeptCode}</td>
-							<td><input type="checkbox" value="1" id="selectOne" name="classManager"/><label
-								for="selectOne"></label></td>
-							<td><input type="checkbox" value="1" id="selectTwo" name="scholarlyManager"/><label
-								for="selectTwo"></label></td>
-							<td><input type="checkbox" value="1" id="selectThree" name="enrollManager" /><label
-								for="selectThree"></label></td>
-							<td><input type="checkbox" value="1" id="selectFore" name="scholManager"/><label
-								for="selectFore"></label></td>
-							<td><input type="checkbox" value="1" id="selectFive" name="dormitoryManager"/><label
-								for="selectFive"></label></td>
-							<td><input type="checkbox" value="1" id="selectSix" name="boardManager"/><label
-								for="selectSix"></label></td>
+							<td>${eml.rankCode}</td>							
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -71,7 +67,15 @@
 			<jsp:include page="../../common/menubar-employee.jsp" />		
 		</div>
 	</div>
-	
+	<script>
+		$(function (){
+			$("#employeememberlist tbody tr").click(function(){
+				var  id= $(this).children().eq(0).text();
+				window.open("accountDetail.me?userId="+id,"교직원 권한확인","width='150px'");
+				console.log(id);
+			});
+		});
+	</script>
 	<c:if test="${empty loginUser}">		
 		<jsp:forward page="Login.jsp"/>
 	</c:if>

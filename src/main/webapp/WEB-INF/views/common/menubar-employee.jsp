@@ -8,7 +8,7 @@
 		<meta charset="utf-8" />
 	</head>
 	<body class="is-preload">
-
+	<c:set var="ac" value="${sessionScope.Account}"/>	
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -31,6 +31,7 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
+										<c:if test="${ac.classManager eq '0'}">
 										<li>
 											<span class="opener">수업관리</span>
 											<ul>
@@ -48,6 +49,8 @@
 												<li><a href="openCourseRegistration.em">수강신청열기</a></li>
 											</ul>
 										</li>
+										</c:if>
+										<c:if test="${ac.scholarlyManager eq '0' }">
 											<li>
 											<span class="opener">학적관리</span>
 											<ul>
@@ -66,12 +69,16 @@
 												<li><a href="">다전공 신청 처리</a></li>
 											</ul>
 										</li>
+										</c:if>
+										<c:if test="${ac.enrollManager eq '0'}">
 											<li>
 											<span class="opener">등록관리</span>
 											<ul>
 												<li><a href="#">학생 별 등록금 관리</a></li>
 											</ul>
 										</li>
+										</c:if>
+										<c:if test="${ac.scholManager eq '0'}">
 										<li>
 											<span class="opener">장학관리</span>
 											<ul>
@@ -80,6 +87,8 @@
 											
 											</ul>
 										</li>
+										</c:if>
+										<c:if test="${ac.dormitoryManager eq '0' }">
 											<li>
 											<span class="opener">기숙사관리</span>
 											<ul>
@@ -88,7 +97,8 @@
 											
 											</ul>
 										</li>
-						
+										</c:if>
+										<c:if test="${ac.boardManager eq '0'}">
 										<li>
 											<span class="opener">정보생활</span>										
 											<ul>
@@ -121,6 +131,8 @@
 												
 											</ul>
 										</li>
+										</c:if>
+										<c:if test="${ac.employeeNo eq 'emp'}">
 										<li>
 											<span class="opener">시스템 계정관리</span>
 											<ul>
@@ -130,7 +142,7 @@
 												<li><a href="account.me">권한부여/수정</a></li>
 											</ul>
 										</li>
-							
+										</c:if>
 									</ul>
 								</nav>
 							<!-- Section -->

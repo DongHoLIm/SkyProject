@@ -17,6 +17,15 @@
 		AUTHORITY
 		WHERE EMPLOYEE_NO=#{userId}
 	</select>
-
-
+	<select id="employeeMachart" resultMap="AccountResult" parameterType="MemberAccount">
+		SELECT * FROM 
+		AUTHORITY
+		WHERE EMPLOYEE_NO=#{employeeNo}
+	</select>
+	<update id="updatingAccount" parameterType="MemberAccount">
+	    UPDATE AUTHORITY 
+	    SET CLASS_MANAGEMENT =#{classManager},SCHOLARLY_MANAGEMENT=#{scholarlyManager},ENROLL_MANAGEMENT=#{enrollManager},
+	    SCHOL_MANAGEMENT=#{ scholManager}, DORMITORY_MANAGEMENT=#{dormitoryManager},BOARD_MANAGEMENT=#{boardManager}
+	    WHERE EMPLOYEE_NO=#{employeeNo}	
+	</update>
 </mapper>

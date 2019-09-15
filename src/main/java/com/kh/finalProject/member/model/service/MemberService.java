@@ -43,4 +43,10 @@ public interface MemberService {
 	ArrayList<Member> employeeList();
 
 	MemberAccount Account(String userId);
+
+	Member employeeDetailList(Member employee);
+
+	MemberAccount employeeMachart(MemberAccount ma);
+
+	int updatingAccount(MemberAccount ma);
 }
