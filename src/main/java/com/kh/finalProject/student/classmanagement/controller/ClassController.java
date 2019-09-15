@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.student.classmanagement.model.service.ClassService;
 import com.kh.finalProject.student.classmanagement.model.vo.Sdepartment;
@@ -37,8 +39,9 @@ public class ClassController {
 		@RequestMapping(value="goCourseInquiry.st")
 		public String goCourseInquiry(@ModelAttribute("loginUser") Member loginUser, HttpServletRequest request) {
 			ArrayList<Sdepartment> sdList = cs.selectSdept();
-			
+			ArrayList<OpenSubject> osList = cs.selectOpenSubject();
 			request.setAttribute("sdList", sdList);
+			request.setAttribute("osList", osList);
 			
 			return "student/class/courseInquiry";
 		}
@@ -54,7 +57,40 @@ public class ClassController {
 			
 			return "student/class/courseApply";
 		}
-	
+		
+		@RequestMapping(value="goSubject.st")
+		public ModelAndView selectSubject(String sdeptCode, String completeType, ModelAndView mv) {
+			
+			System.out.println(sdeptCode);
+			System.out.println(completeType);
+			OpenSubject os = new OpenSubject();
+			
+			os.setSdeptName(sdeptCode);
+			os.setCompleteType(completeType);
+			
+			ArrayList<OpenSubject> osList2 = cs.selectSubject(os);
+			
+			mv.addObject("osList2", osList2);
+			mv.setViewName("jsonView");
+			
+			System.out.println("osList2 :::" + osList2);
+			System.out.println("mv::::" + mv);
+			return mv;
+		}
+		@RequestMapping(value="selectOpensubject.st")
+		public ModelAndView selectOpenSubject(String subCode, ModelAndView mv) {
+			OpenSubject os = new OpenSubject();
+			
+			os.setOpenSubCode(subCode);
+			
+			ArrayList<OpenSubject> List = cs.selectOpenSubject(os);
+			
+			mv.addObject("List", List);
+			mv.setViewName("jsonView");
+			
+			
+			return mv;
+		}
 	
 	
 	

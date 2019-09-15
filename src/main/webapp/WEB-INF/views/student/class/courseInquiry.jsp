@@ -27,7 +27,77 @@
 			$("#choice2").show();
 		}
 	}
-	
+	function goSubJect(){
+		var sdeptCode = $(".Sdepartment").val();
+		var completeType = $(".Isu").val();
+		
+			$.ajax({
+				url:"goSubject.st",
+				type:"post",
+				data:{sdeptCode:sdeptCode, completeType:completeType},
+				success:function(data){
+					
+					var osList = new Array();
+					for(var i=0;i<data.osList2.length;i++){
+						osList[i] = data.osList2[i];
+					}
+			
+					$('#subJect').empty();
+					for(var i=0;i<data.osList2.length;i++){
+						var option = $("<option value='osList[i].openSubCode'>"+osList[i].subName+"</option>");
+						$("#subJect").append(option);
+					}
+				},
+				error:function(err){
+					console.log("실패!");
+				}
+			});
+		}
+	function gwamoksearch(){
+		
+		var subCode = $(".subJect").val();
+		
+		$.ajax({
+			url:"selectOpensubject.st",
+			type:"post",
+			data:{subCode:subCode},
+			success:function(data){
+				console.log(data);
+				
+				var List = new Array();
+				for(var i=0;i<data.List.length;i++){
+					List[i] = data.List[i];
+					console.log(List[i].openSubCode);
+				}
+				
+				var count = 1;
+				 $('#search').empty();
+				for(var i=0;i<data.List.length;i++){
+					 var table = $("<td>"+"<input type='checkbox' id='check[i]'>"+"</td>"+
+									"<td>"+count+"</td>"+
+									"<td>"+List[i].completeType+"</td>"+
+									"<td>"+List[i].openSubCode+"</td>"+
+									"<td>"+List[i].subName+"</td>"+
+									"<td>"+List[i].subGrade+"</td>"+
+									"<td>"+List[i].professorName+"</td>"+
+									"<td>"+List[i].dayInfo+'/'+List[i].timeInfo+"</td>"+
+									"<td>"+List[i].roomName+'('+List[i].buildingName+')'+"</td>"+
+									"<td>"+List[i].studentMax+"</td>"+
+									"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
+									"<td>"+"</td>"+
+									"<td>"+"</td>");
+					$("#search").append(table);  
+					
+					
+					count++;
+				} 
+			},
+			error:function(err){
+				console.log("실패!");
+			}
+		});
+		
+	}
 </script>
 <style>
 table {
@@ -221,13 +291,13 @@ table.tableList2 td img {
 					 <!-- 개설강좌 --> 
 					 <span id="choice0" name="choice0" style="display: inline;"> 
 					 	<span> <strong>학과</strong> : 
-					 		<select name="allMajor" id="allMajor" class="Layer1" onchange="javascript:setIsu();">
+					 		<select name="Sdepartment" id="Sdepartment" class="Sdepartment" onchange="goSubJect();">
 					 		<c:forEach var="Sdepartment" items="${ sdList }">
 					 			<option value="<c:out value="${Sdepartment.sdeptCode}" />"><c:out value="${Sdepartment.sdeptName}"/></option>
 							</c:forEach>
 							</select>
 							&nbsp;&nbsp;&nbsp; <strong>이수구분</strong> : 
-							<select name="allIsu" id="allIsu" class="Layer1" onchange="javascript:setLecture();">
+							<select name="Isu" id="Isu" class="Isu" onchange="goSubJect();">
 								<option value="ALL">* 전체 *</option>
 								<option value="교필">교필</option>
 								<option value="교선">교선</option>
@@ -236,70 +306,10 @@ table.tableList2 td img {
 							</select>
 							
 							&nbsp;&nbsp;&nbsp; <strong>과목</strong> : 
-							<select name="allLecture" id="allLecture" class="Layer1" style="background-color: #FFD9EC;">
-								<option value="SUB100">1인미디어만들기 [KY508]</option>
-								<option value="SUB101">1인미디어만들기 [KY508]</option>
-								<option value="SUB102">1인미디어만들기 [KY508]</option>
-								<option value="SUB103">1인미디어만들기 [KY508]</option>
-								<option value="SUB104">1인미디어만들기 [KY508]</option>
-								<option value="SUB105">1인미디어만들기 [KY508]</option>
-								<option value="SUB106">1인미디어만들기 [KY508]</option>
-								<option value="SUB107">1인미디어만들기 [KY508]</option>
-								<option value="SUB108">1인미디어만들기 [KY508]</option>
-								<option value="SUB109">1인미디어만들기 [KY508]</option>
-								<option value="SUB110">1인미디어만들기 [KY508]</option>
-								<option value="SUB111">1인미디어만들기 [KY508]</option>
-								<option value="SUB112">1인미디어만들기 [KY508]</option>
-								<option value="SUB113">1인미디어만들기 [KY508]</option>
-								<option value="SUB114">1인미디어만들기 [KY508]</option>
-								<option value="SUB115">1인미디어만들기 [KY508]</option>
-								<option value="SUB116">1인미디어만들기 [KY508]</option>
-								<option value="SUB117">1인미디어만들기 [KY508]</option>
-								<option value="SUB118">1인미디어만들기 [KY508]</option>
-								<option value="SUB119">1인미디어만들기 [KY508]</option>
-								<option value="SUB120">1인미디어만들기 [KY508]</option>
-								<option value="SUB121">1인미디어만들기 [KY508]</option>
-								<option value="SUB122">1인미디어만들기 [KY508]</option>
-								<option value="SUB123">1인미디어만들기 [KY508]</option>
-								<option value="SUB124">1인미디어만들기 [KY508]</option>
-								<option value="SUB125">1인미디어만들기 [KY508]</option>
-								<option value="SUB126">1인미디어만들기 [KY508]</option>
-								<option value="SUB127">1인미디어만들기 [KY508]</option>
-								<option value="SUB128">1인미디어만들기 [KY508]</option>
-								<option value="SUB129">1인미디어만들기 [KY508]</option>
-								<option value="SUB130">1인미디어만들기 [KY508]</option>
-								<option value="SUB131">1인미디어만들기 [KY508]</option>
-								<option value="SUB132">1인미디어만들기 [KY508]</option>
-								<option value="SUB133">1인미디어만들기 [KY508]</option>
-								<option value="SUB134">1인미디어만들기 [KY508]</option>
-								<option value="SUB135">1인미디어만들기 [KY508]</option>
-								<option value="SUB136">1인미디어만들기 [KY508]</option>
-								<option value="SUB137">1인미디어만들기 [KY508]</option>
-								<option value="SUB138">1인미디어만들기 [KY508]</option>
-								<option value="SUB139">1인미디어만들기 [KY508]</option>
-								<option value="SUB140">1인미디어만들기 [KY508]</option>
-								<option value="SUB141">1인미디어만들기 [KY508]</option>
-								<option value="SUB142">1인미디어만들기 [KY508]</option>
-								<option value="SUB143">1인미디어만들기 [KY508]</option>
-								<option value="SUB144">1인미디어만들기 [KY508]</option>
-								<option value="SUB145">1인미디어만들기 [KY508]</option>
-								<option value="SUB146">1인미디어만들기 [KY508]</option>
-								<option value="SUB147">1인미디어만들기 [KY508]</option>
-								<option value="SUB148">1인미디어만들기 [KY508]</option>
-								<option value="SUB149">1인미디어만들기 [KY508]</option>
-								<option value="SUB150">1인미디어만들기 [KY508]</option>
-								<option value="SUB151">1인미디어만들기 [KY508]</option>
-								<option value="SUB152">1인미디어만들기 [KY508]</option>
-								<option value="SUB153">1인미디어만들기 [KY508]</option>
-								<option value="SUB154">1인미디어만들기 [KY508]</option>
-								<option value="SUB155">1인미디어만들기 [KY508]</option>
-								<option value="SUB156">1인미디어만들기 [KY508]</option>
-								<option value="SUB157">1인미디어만들기 [KY508]</option>
-								<option value="SUB158">1인미디어만들기 [KY508]</option>
-								<option value="SUB159">1인미디어만들기 [KY508]</option>
-								
-								
-								
+							<select name="subJect" id="subJect" class="subJect" style="background-color: #FFD9EC;">
+							<c:forEach var="openSubject" items="${ osList }">
+					 			<option value="<c:out value="${openSubject.openSubCode}" />"><c:out value="${openSubject.subName}"/></option>
+							</c:forEach>
 							</select>&nbsp;&nbsp;&nbsp;
 						</span>
 					</span>
@@ -309,9 +319,7 @@ table.tableList2 td img {
 					 		<span class="ui-widget"> 
 					 			<label for="gwamok_nm">조회 : </label>
 					 			<input type="text" name="gwamok_nm" id="gwamok_nm" size="20" value="과목명(코드)을 입력하세요.">
-								과목 : <select name="gwamok_cd" id="gwamok_cd" class="Layer1"
-									style="width: 200; background-color: #FFD9EC;">
-									</select>
+								
 									&nbsp;&nbsp;&nbsp;
 							</span>
 						</span>
@@ -330,8 +338,7 @@ table.tableList2 td img {
 						</span>
 					</span>
 					<span>
-						<button type="submit" style="background: red;">조회</button>
-						<button type="submit" style="background: red;">예비신청</button>
+						<span class="btn red on" onclick="gwamoksearch();" name="search_btn" id="search_btn" style="background:red"> 조 회 </span> 
 					</span>
 					</td>				
 				</tr>
@@ -344,19 +351,35 @@ table.tableList2 td img {
 				<th width="2%"><input type="checkbox" class="Allcheck"></th>
 				<th width="3%">No</th>
 				<th width="6%">이수구분</th>
-				<th width="6%">학수번호</th>
-				<th width="20%">교과목명</th>
+				<th width="6%">과목번호</th>
+				<th width="15%">교과목명</th>
 				<th width="5%">학점</th>
 				<th width="8%">교수</th>
-				<th width="7%">교시</th>
+				<th width="12%">교시</th>
 				<th width="13%">강의실(건물명)</th>
 				<th width="5%">인원</th>
 				<th width="7%">계획서</th>
 				<th width="7%">강의평가</th>
 				<th width="11%">비고</th>
 			</tr>
-			<tr>
+			<tr id="search">
 				<td colspan="14"><font color="red">☞ 조회버튼을 클릭하세요.</font></td>
+			</tr>
+			
+			<tr id="search2" style="display:none;">
+				<td id="td1"></td>
+				<td id="td2"></td>
+				<td id="td3"></td>
+				<td id="td4"></td>
+				<td id="td5"></td>
+				<td id="td6"></td>
+				<td id="td7"></td>
+				<td id="td8"></td>
+				<td id="td9"></td>
+				<td id="td10"></td>
+				<td id="td11"></td>
+				<td id="td12"></td>
+				<td id="td13"></td>
 			</tr>
 		</tbody>
 	</table>

@@ -99,7 +99,7 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 	public ArrayList<OpenSubject> selectOpenSubjectList(SqlSessionTemplate sqlSession) {
 		ArrayList<OpenSubject> list = null;
 		
-		list = (ArrayList) sqlSession.selectList("courseRegistration.selectOpenSubjectList");
+		list = (ArrayList) sqlSession.selectList("courseRegistration.selectOpenSubject");
 		return list;
 	}
 

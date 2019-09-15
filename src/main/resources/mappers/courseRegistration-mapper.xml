@@ -38,4 +38,38 @@
 	<update id="updateOpenSubject">
 		UPDATE OPEN_SUBJECT SET ENROL_TYPE = 1
 	</update>
+	<select id="selectOpenSubject" resultMap="courseRegistrationResultSet">
+		SELECT S.SUB_NAME, OPENSUB_CODE
+		FROM OPEN_SUBJECT OS
+		JOIN SUBJECT S ON (S.SUB_CODE = OS.OPENSUB_CODE)
+		WHERE SDEPT_CODE = 'SD100'
+	</select>
+	
+	<select id="selectSubject1" resultMap="courseRegistrationResultSet">
+		SELECT S.SUB_NAME, OPENSUB_CODE
+		FROM OPEN_SUBJECT OS
+		JOIN SUBJECT S ON (S.SUB_CODE = OS.OPENSUB_CODE)
+		WHERE SDEPT_CODE = #{sdeptName}
+	</select>
+	<select id="selectSubject2" resultMap="courseRegistrationResultSet">
+		SELECT S.SUB_NAME, OPENSUB_CODE
+		FROM OPEN_SUBJECT OS
+		JOIN SUBJECT S ON (S.SUB_CODE = OS.OPENSUB_CODE)
+		WHERE SDEPT_CODE = #{sdeptName}
+		AND COMPLETE_TYPE = #{completeType}
+	</select>
+	<select id="studentSelectOpenSubject" resultMap="courseRegistrationResultSet">
+		SELECT OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
+		SUB_GRADE,
+		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
+		FROM OPEN_SUBJECT OS
+		JOIN SUBJECT S ON(OS.OPENSUB_CODE = S.SUB_CODE)
+		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
+		JOIN MEMBER M ON(OS.PROFESSOR_NO = M.MEMBER_ID)
+		JOIN ROOM R ON(OS.ROOM_CODE = R.ROOM_CODE)
+		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
+        WHERE OPENSUB_CODE = #{openSubCode}
+	</select>
+	
+	
 </mapper>
