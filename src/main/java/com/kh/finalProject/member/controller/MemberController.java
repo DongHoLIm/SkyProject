@@ -17,6 +17,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -59,7 +60,7 @@ public class MemberController {
 
 	//비밀번호 (암호화 비처리 메소드 )
 	@RequestMapping("login.me")
-	public String loginMember(Member m,Model model) {
+	public String loginMember(Member m,Model model,HttpSession session) {
 
 		Member loginUser=null;
 		MemberAccount ma = null;
@@ -67,7 +68,8 @@ public class MemberController {
 			loginUser = ms.loginCheck(m);
 			if(loginUser.getMemberStatus().equals("3")) {
 				ma = ms.Account(loginUser.getMemberId());
-				model.addAttribute("Account",ma);
+				System.out.println("AccountList :"+ma);
+				session.setAttribute("Account",ma);
 			}
 			model.addAttribute("loginUser",loginUser);			
 			return "redirect:loginOk.me";									
@@ -86,9 +88,10 @@ public class MemberController {
 
 	//로그 아웃  
 	@RequestMapping("logOut.me" )
-	public String logOut(SessionStatus status,@ModelAttribute("loginUser") Member loginUser) {		
+	public String logOut(SessionStatus status,@ModelAttribute("loginUser") Member loginUser,HttpSession session) {		
 		ms.logOutLoginCheck(loginUser);
-		status.isComplete();	
+		status.isComplete();
+		session.invalidate();
 		return "main/Login";
 	}
 
@@ -294,7 +297,7 @@ public class MemberController {
 				insertMember.setMemberStatus(memberStatus);
 				insertMember.setSdeptCode(sdeptCode);
 				insertMember.setBankNumber(bankNumber);
-				if(insertMember.getBank().equals("")) {
+				if(insertMember.getBank()==null) {
 					insertMember.setRankCode(rankCode);
 				}
 				
@@ -404,7 +407,7 @@ public class MemberController {
 	@RequestMapping("account.me")
 	public String accountMember (HttpServletRequest request) {
 		ArrayList<Member> list = ms.employeeList();
-		
+		System.out.println("Account : "+list);
 		request.setAttribute("list",list);
 		
 		return "employee/systemAccountManagement/systemAccount";
@@ -464,10 +467,23 @@ public class MemberController {
 			request.setAttribute("msg","수정이 완료 되었습니다.");
 			return "common/errorAlert";	
 	}
-	@RequestMapping("updateAccount.me")
-	public String updateAccount(MemberAccount ma) {
-		System.out.println(ma);
+	@RequestMapping("accountDetail.me")
+	public String updateAccount(MemberAccount ma,HttpServletRequest request) {
+		String userId = request.getParameter("userId");
+		Member employee = new Member();
+		employee.setMemberId(userId);
+		ma.setEmployeeNo(userId);
 		
-		return "";
+		Member employeeList = ms.employeeDetailList(employee);
+		MemberAccount employeema = ms.employeeMachart(ma);
+		
+		request.setAttribute("detailemployee", employeeList);
+		request.setAttribute("employeema",employeema);		
+		return "employee/systemAccountManagement/employeeDetailAccount";
 	}
+	@RequestMapping("updateAccount.me")
+	public void updatingAccount(MemberAccount ma,HttpServletRequest request) {		
+		 int result = ms.updatingAccount(ma);		
+	}
+	
 }

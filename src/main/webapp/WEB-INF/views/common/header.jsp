@@ -12,6 +12,7 @@
 <title>header</title>
 </head>
 <body>
+
 	<header id="header">
 		<a href="index.jsp" class="logo"><img
 			src="resources/images/logo.png" width="150px;" height="30px;"></a>

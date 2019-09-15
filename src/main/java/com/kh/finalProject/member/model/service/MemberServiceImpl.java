@@ -114,6 +114,21 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return md.Account(sqlSession,userId);
 	}
+	@Override
+	public Member employeeDetailList(Member employee) {
+		// TODO Auto-generated method stub
+		return md.employeeDetailList(sqlSession,employee);
+	}
+	@Override
+	public MemberAccount employeeMachart(MemberAccount ma) {
+		// TODO Auto-generated method stub
+		return md.employeeMachart(sqlSession,ma);
+	}
+	@Override
+	public int updatingAccount(MemberAccount ma) {
+		// TODO Auto-generated method stub
+		return md.updatingAccount(sqlSession,ma);
+	}
 
 	
 }

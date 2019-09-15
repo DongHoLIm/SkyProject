@@ -124,5 +124,21 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("MemberAccount.Account", userId);
 	}
+	@Override
+	public Member employeeDetailList(SqlSessionTemplate sqlSession, Member employee) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.employeeDetailList",employee);
+	}
+	@Override
+	public MemberAccount employeeMachart(SqlSessionTemplate sqlSession, MemberAccount ma) {
+		
+		return sqlSession.selectOne("MemberAccount.employeeMachart",ma);
+		
+	}
+	@Override
+	public int updatingAccount(SqlSessionTemplate sqlSession, MemberAccount ma) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("MemberAccount.updatingAccount",ma);
+	}
 	
 }
