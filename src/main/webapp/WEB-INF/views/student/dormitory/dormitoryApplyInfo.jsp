@@ -39,7 +39,7 @@
 	 					   <tbody>
 	 					   <c:forEach var="dormitory" items="${ memberDormitory }">
 	     					 <tr style="background-color:white">
-	    					   <td style="border:1px solid lightgray; color:black;"><c:out value="${ dormitory.dorApplyYear }"/>년도 <c:out value="${ dormitory.dorApplySemester }"/>학기</td>
+	    					   <td style="border:1px solid lightgray; color:black;"><c:out value="${ dormitory.dorApplyYear }"/>학년도 <c:out value="${ dormitory.dorApplySemester }"/>학기</td>
 	     					   <td style="border:1px solid lightgray; color:black;"><c:out value="${ dormitory.dorApplyDate }"/></td>
 	     					   <td style="border:1px solid lightgray; color:black;"><c:out value="${ dormitory.memberKname }"/></td>
 	     					   <td style="border:1px solid lightgray; color:black;"><c:out value="${ dormitory.aggrementStatus }"/></td>
