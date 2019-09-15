@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="assets/css/main.css" />
 <link href="https://fonts.googleapis.com/css?family=Karla&display=swap"
    rel="stylesheet">
+   
 <style>
 #basic {
 	padding: 10px 0px 0px 100px;
@@ -116,9 +117,10 @@ table.basicinfo {
             	<tr>
 	            	<td class="td">주소</td>
 	            	<td colspan='5'>
-	            		<input style=" display: inline-block;" type="button" value="검색"> &nbsp;				
-	            		<input style="width: 50%; display: inline-block;" type="text" value="서울시 역삼동" readonly>
-	            		<input style=" display: inline-block; width:30%;" type="text" value="체르노빌 201호">
+	            		<input style=" display: inline-block;" type="button" onclick="sample6_execDaumPostcode()" value="검색"> &nbsp;				
+	            		<input type="text" id="sample6_postcode" placeholder="우편번호">
+	            		<input style="width: 50%; display: inline-block;" type="text" id="sample6_address" value="서울시 역삼동" readonly>
+	            		<input style=" display: inline-block; width:30%;" type="text" id="sample6_detailAddress" value="체르노빌 201호">
 	            	</td>
             	</tr>
             	<!-- <td class="td">주민등록 주소지</td>
@@ -177,17 +179,36 @@ table.basicinfo {
 	            		<input style=" display: inline-block;" type="button" value="검색"> &nbsp;		
 		  				<input style="width: 50%; display: inline-block;" type="text" value="서울시 역삼동" readonly>
 	            		<input style=" display: inline-block; width:30%;" type="text" value="체르노빌 201호">
-		       		
 		       </tr>
 		       
 		       <table id="modified">
-		       
 		       		<input type="button" value="신상정보 수정" id="modified">
-		     
 		       </table>
+		       
           	</table>  
       	</form>		
 		</div>
+		
+		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script>
+		new daum.Postcode({
+	        oncomplete: function(data) {
+	        	//data는 사용자가 선택한 주소 정보를 담고 있는 객체
+	            //팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분
+	            
+	            var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+	            
+	            
+	            
+	        }
+	    }).open();
+		
+		
+		
+		</script>
+		
+		
 		<div>
 		<jsp:include page="../../common/menubar-student.jsp" />
 	</div>
