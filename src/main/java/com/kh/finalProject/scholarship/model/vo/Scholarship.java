@@ -12,7 +12,6 @@ public class Scholarship implements java.io.Serializable{
 	private String schoStatus;
 	private int schoYear;
 	private String memberKname;
-	private String sdeptCode;
 	private String sdeptName;
 	private String memberGender;
 	private String schoApplyName;
@@ -23,8 +22,8 @@ public class Scholarship implements java.io.Serializable{
 	public Scholarship() {}
 
 	public Scholarship(int schoSemester, int schoAmount, String schoType, String studentNo, String schoApplyCode,
-			String schoStatus, int schoYear, String memberKname, String sdeptCode, String sdeptName,
-			String memberGender, String schoApplyName, String schoApplyYn, Date schoApplyDate, Date schoAggrementDate) {
+			String schoStatus, int schoYear, String memberKname, String sdeptName, String memberGender,
+			String schoApplyName, String schoApplyYn, Date schoApplyDate, Date schoAggrementDate) {
 		super();
 		this.schoSemester = schoSemester;
 		this.schoAmount = schoAmount;
@@ -34,7 +33,6 @@ public class Scholarship implements java.io.Serializable{
 		this.schoStatus = schoStatus;
 		this.schoYear = schoYear;
 		this.memberKname = memberKname;
-		this.sdeptCode = sdeptCode;
 		this.sdeptName = sdeptName;
 		this.memberGender = memberGender;
 		this.schoApplyName = schoApplyName;
@@ -107,14 +105,6 @@ public class Scholarship implements java.io.Serializable{
 		this.memberKname = memberKname;
 	}
 
-	public String getSdeptCode() {
-		return sdeptCode;
-	}
-
-	public void setSdeptCode(String sdeptCode) {
-		this.sdeptCode = sdeptCode;
-	}
-
 	public String getSdeptName() {
 		return sdeptName;
 	}
@@ -167,11 +157,11 @@ public class Scholarship implements java.io.Serializable{
 	public String toString() {
 		return "Scholarship [schoSemester=" + schoSemester + ", schoAmount=" + schoAmount + ", schoType=" + schoType
 				+ ", studentNo=" + studentNo + ", schoApplyCode=" + schoApplyCode + ", schoStatus=" + schoStatus
-				+ ", schoYear=" + schoYear + ", memberKname=" + memberKname + ", sdeptCode=" + sdeptCode
-				+ ", sdeptName=" + sdeptName + ", memberGender=" + memberGender + ", schoApplyName=" + schoApplyName
-				+ ", schoApplyYn=" + schoApplyYn + ", schoApplyDate=" + schoApplyDate + ", schoAggrementDate="
-				+ schoAggrementDate + "]";
+				+ ", schoYear=" + schoYear + ", memberKname=" + memberKname + ", sdeptName=" + sdeptName
+				+ ", memberGender=" + memberGender + ", schoApplyName=" + schoApplyName + ", schoApplyYn=" + schoApplyYn
+				+ ", schoApplyDate=" + schoApplyDate + ", schoAggrementDate=" + schoAggrementDate + "]";
 	}
+
 	
 	
 	

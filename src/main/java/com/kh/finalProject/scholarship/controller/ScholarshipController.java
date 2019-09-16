@@ -23,6 +23,11 @@ public class ScholarshipController {
 	@Autowired
 	private ScholarshipService ss;
 	
+	@RequestMapping(value="applyView.sc")
+	public String scholarshipInfoView() {
+		return "student/scholarship/scholarshipApply";
+	}
+	
 	@RequestMapping(value="scholarship.sc")
 	public String ScholarshipCheck(Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
 		

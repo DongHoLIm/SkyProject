@@ -7,17 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<title>에러 메세지</title>
+<title>신청성공</title>
 </head>
 <body>
-<input type="hidden" value="${msg}" id="successMessage"/>
+<input type="hidden" value="신청완료" id="successMessage"/>
 <script>
 $(function(){
-	var errorMessage = $("#successMessage").val();
-	alert(errorMessage);
-	history.back();
+	var successMessage = $("#successMessage").val();
+	alert(successMessage);
+	location.href="applyCancle.dor"
 });
-	
 </script>
 
 </body>
