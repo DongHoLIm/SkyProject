@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="professorSendSMS">
+	<resultMap
+		type="com.kh.finalProject.professor.sendSMS.model.vo.StudentList"
+		id="StudentListResult">
+		<id property="memberId" column="MEMBER_ID" />
+		<result property="memberKName" column="MEMBER_KNAME" />
+		<result property="phone" column="PHONE" />
+		<result property="sdeptName" column="SDEPT_NAME" />
+		<result property="grade" column="GRADE" />
+	</resultMap>
+
+	<select id="studentListCount" resultType="_int">
+		SELECT COUNT(MEMBER_ID)
+		FROM (SELECT
+		M.MEMBER_ID,M.MEMBER_KNAME,M.PHONE,S.SDEPT_NAME,SI.GRADE
+		FROM
+		MEMBER M
+		JOIN STUDENT_INFO SI ON(M.MEMBER_ID = SI.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(SI.SDEPT_CODE = S.SDEPT_CODE)
+		WHERE MEMBER_CHECK ='1'
+		AND STUDENT_STATUS='재학생')
+	</select>
+	<select id="studentList" resultMap="StudentListResult">
+		SELECT M.MEMBER_ID,M.MEMBER_KNAME,M.PHONE,S.SDEPT_NAME,SI.GRADE
+		FROM
+		MEMBER M
+		JOIN STUDENT_INFO SI ON(M.MEMBER_ID = SI.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(SI.SDEPT_CODE = S.SDEPT_CODE)
+		WHERE MEMBER_CHECK ='1'
+		AND STUDENT_STATUS='재학생' 
+		ORDER BY M.MEMBER_ID DESC
+	</select>
+</mapper>
