@@ -171,6 +171,29 @@ public interface BoardService {
 
 	int insertSystemQuestion(SystemQuestion sq) throws BoardInsertException;
 
+	SystemQuestion selectSystemQuestionOne(int questionNo) throws BoardSelectOneException;
+
+	UploadFile selectSystemQuestionFile(int questionNo) throws BoardSelectOneException;
+
+	int updateSystemQuestionwithFile(SystemQuestion sq, UploadFile uf) throws BoardUpdateException;
+
+	int updateSystemQuestion(SystemQuestion sq) throws BoardUpdateException;
+
+	int SystemQuestionDelete(int questionNo) throws BoardDeleteException;
+
+	int emsystemQuestionListCount() throws BoardSelectListException;
+
+	ArrayList<SystemQuestion> emsystemQuestionList(PageInfo pi) throws BoardSelectListException;
+
+	int emsystemQuestionSearchListCount(SearchCondition sc) throws BoardSearchException;
+
+	ArrayList<SystemQuestion> emsystemQuestionSearchList(SearchCondition sc, PageInfo pi) throws BoardSearchException;
+
+	int insertSystemQuestionAnswerwithFile(SystemQuestion sq, UploadFile uf) throws BoardInsertException;
+
+	int insertSystemQuestionAnswer(SystemQuestion sq) throws BoardInsertException;
+
+
 
 
 

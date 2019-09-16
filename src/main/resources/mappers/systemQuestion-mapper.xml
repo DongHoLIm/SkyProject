@@ -17,13 +17,15 @@
 		<result property="originNo" column="QA_ORIGINNO"/>
 		<result property="groupOrd" column="QA_GROUPORD"/>
 		<result property="groupLayer" column="QA_GROUPLAYER"/>
+		<result property="originWriter" column="QA_ORIGINWRITER"/>
 	</resultMap>
 	
 	<!-- 게시글 수 조회  -->
 	<select id="systemQuestionListCount" resultType="_int">
-		SELECT 	COUNT(*)
-		FROM 	SYSTEMQUESTION
-		WHERE 	MEMBER_ID = #{memberId} OR MEMBER_ID = 'employee'
+		SELECT COUNT(*)
+		FROM SYSTEMQUESTION
+		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER IS NULL) OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
+		AND		QA_STATUS = 'Y'
 		ORDER BY QA_ORIGINNO DESC, QA_GROUPORD ASC
 	</select>	
 	
@@ -31,14 +33,16 @@
 	<select id="systemQuestionList" resultMap="systemQuestionResultSet">
 		SELECT *
 		FROM SYSTEMQUESTION
-		WHERE MEMBER_ID = #{memberId} OR MEMBER_ID = 'employee'
+		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER IS NULL) OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
+		AND		QA_STATUS = 'Y'
 		ORDER BY QA_ORIGINNO DESC, QA_GROUPORD ASC
 	</select>		
 	
 	<select id="systemQuestionSearchListCount" resultType="_int">
-		SELECT 	COUNT(*)
-		FROM 	SYSTEMQUESTION
-		WHERE 	(MEMBER_ID = #{memberId} OR MEMBER_ID = 'employee')
+		SELECT COUNT(*)
+		FROM SYSTEMQUESTION
+		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER IS NULL) OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
+		AND		QA_STATUS = 'Y'
 		<choose>
 			<when test="account != null">
 				AND QA_TYPE = '계정 관련'
@@ -55,7 +59,8 @@
 	<select id="systemQuestionSearchList" resultMap="systemQuestionResultSet">
 		SELECT *
 		FROM SYSTEMQUESTION
-		WHERE (MEMBER_ID = #{memberId} OR MEMBER_ID = 'employee')
+		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER IS NULL) OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
+		AND		QA_STATUS = 'Y'
 		<choose>
 			<when test="account != null">
 				AND QA_TYPE = '계정 관련'
@@ -72,7 +77,90 @@
 	
 	<insert id="insertSystemQuestion">
 		INSERT INTO SYSTEMQUESTION
-		VALUES(SEQ_QUESTIONNO.NEXTVAL, #{questionType}, #{questionTitle}, #{questionContent}, #{questionWriter}, SYSDATE, DEFAULT, DEFAULT, #{memberId}, SEQ_QUESTIONNO.CURRVAL, DEFAULT, DEFAULT)
+		VALUES(SEQ_QUESTIONNO.NEXTVAL, #{questionType}, #{questionTitle}, #{questionContent}, #{questionWriter}, SYSDATE, DEFAULT, DEFAULT, #{memberId}, SEQ_QUESTIONNO.CURRVAL, DEFAULT, DEFAULT, NULL)
+	</insert>
+	
+	<update id="updateSystemQuestionCount" parameterType="_int">
+		UPDATE SYSTEMQUESTION
+		SET QA_COUNT = (SELECT QA_COUNT FROM SYSTEMQUESTION WHERE QA_NO = #{questionNo}) + 1
+		WHERE QA_NO = #{questionNo}
+	</update>
+	
+	<select id="selectSystemQuestionOne" resultMap="systemQuestionResultSet" parameterType="_int">
+		SELECT *
+		FROM SYSTEMQUESTION
+		WHERE QA_NO = #{questionNo} AND QA_STATUS = 'Y'
+	</select>
+	
+	<update id="updateSystemQuestion">
+		UPDATE SYSTEMQUESTION 
+		SET QA_TITLE = #{questionTitle}, QA_CONTENT = #{questionContent} 
+		WHERE QA_NO = #{questionNo}
+	</update>
+	
+	<update id="SystemQuestionDelete">
+		UPDATE SYSTEMQUESTION SET QA_STATUS = 'N' 
+		WHERE QA_NO = #{questionNo} OR QA_ORIGINNO = #{questionOriginNo}
+	</update>
+	
+	
+	
+	
+	
+	<select id="emsystemQuestionListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SYSTEMQUESTION
+		WHERE QA_STATUS = 'Y'
+		ORDER BY QA_ORIGINNO DESC, QA_GROUPORD ASC
+	</select>	
+	
+	<!-- 페이징 처리 된 목록 조회 -->
+	<select id="emsystemQuestionList" resultMap="systemQuestionResultSet">
+		SELECT *
+		FROM SYSTEMQUESTION
+		WHERE QA_STATUS = 'Y'
+		ORDER BY QA_ORIGINNO DESC, QA_GROUPORD ASC
+	</select>
+	
+	<select id="emsystemQuestionSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SYSTEMQUESTION
+		WHERE QA_STATUS = 'Y'
+		<choose>
+			<when test="account != null">
+				AND QA_TYPE = '계정 관련'
+			</when>
+			<when test="proof != null">
+				AND QA_TYPE = '제증명 관련'
+			</when>
+			<otherwise>
+				AND QA_TYPE = '학사 관련'
+			</otherwise>
+		</choose>	
+		ORDER BY QA_ORIGINNO DESC, QA_GROUPORD ASC		
+	</select>
+	
+	<select id="emsystemQuestionSearchList" resultMap="systemQuestionResultSet">
+		SELECT *
+		FROM SYSTEMQUESTION
+		WHERE QA_STATUS = 'Y'
+		<choose>
+			<when test="account != null">
+				AND QA_TYPE = '계정 관련'
+			</when>
+			<when test="proof != null">
+				AND QA_TYPE = '제증명 관련'
+			</when>
+			<otherwise>
+				AND QA_TYPE = '학사 관련'
+			</otherwise>
+		</choose>	
+		ORDER BY QA_ORIGINNO DESC, QA_GROUPORD ASC
+	</select>
+	
+	<insert id="insertSystemQuestionAnswer">
+		INSERT INTO SYSTEMQUESTION
+		VALUES(SEQ_QUESTIONNO.NEXTVAL, #{questionType}, #{questionTitle}, #{questionContent}, #{questionWriter}, SYSDATE, DEFAULT, DEFAULT, #{memberId}, #{originNo}, #{groupOrd}+1, #{groupLayer}+1, #{originWriter})
 	</insert>
 	
 </mapper>

@@ -563,13 +563,11 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public int insertSystemQuestionwithFile(SystemQuestion sq, UploadFile uf) throws BoardInsertException {
-		System.out.println("sq :: " + sq);
+		
 		int result = bd.insertSystemQuestion(sqlSession, sq);
 		
-		System.out.println("result :: " + result);
 		
 		if(result > 0) {	
-			System.out.println("uf :: " + uf);
 			
 			bd.insertSystemQuestionFile(sqlSession, uf);
 		}
@@ -580,6 +578,76 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int insertSystemQuestion(SystemQuestion sq) throws BoardInsertException {
 		return bd.insertSystemQuestion(sqlSession, sq);
+	}
+
+	@Override
+	public SystemQuestion selectSystemQuestionOne(int questionNo) throws BoardSelectOneException {
+			bd.updateSystemQuestionCount(sqlSession, questionNo);
+		
+		return bd.selectSystemQuestionOne(sqlSession, questionNo);
+	}
+
+	@Override
+	public UploadFile selectSystemQuestionFile(int questionNo) throws BoardSelectOneException {
+		return bd.selectSystemQuestionFile(sqlSession, questionNo);
+	}
+
+	@Override
+	public int updateSystemQuestionwithFile(SystemQuestion sq, UploadFile uf) throws BoardUpdateException {
+		int result = bd.updateSystemQuestion(sqlSession, sq);
+		
+		if(result > 0) {
+			
+			bd.updateSystemQuestionFile(sqlSession, uf);
+		}
+		return result;
+	}
+
+	@Override
+	public int updateSystemQuestion(SystemQuestion sq) throws BoardUpdateException {
+		return bd.updateSystemQuestion(sqlSession, sq);
+	}
+
+	@Override
+	public int SystemQuestionDelete(int questionNo) throws BoardDeleteException {
+		return bd.SystemQuestionDelete(sqlSession, questionNo);
+	}
+
+	@Override
+	public int emsystemQuestionListCount() throws BoardSelectListException {
+		return bd.emsystemQuestionListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<SystemQuestion> emsystemQuestionList(PageInfo pi) throws BoardSelectListException {
+		return bd.emsystemQuestionList(sqlSession, pi);
+	}
+
+	@Override
+	public int emsystemQuestionSearchListCount(SearchCondition sc) throws BoardSearchException {
+		return  bd.emsystemQuestionSearchListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<SystemQuestion> emsystemQuestionSearchList(SearchCondition sc, PageInfo pi) throws BoardSearchException {
+		return bd.emsystemQuestionSearchList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public int insertSystemQuestionAnswerwithFile(SystemQuestion sq, UploadFile uf) throws BoardInsertException {
+		int result = bd.insertSystemQuestionAnswer(sqlSession, sq);
+		
+		if(result > 0) {
+			
+			bd.insertSystemQuestionAnswerFile(sqlSession, uf);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int insertSystemQuestionAnswer(SystemQuestion sq) throws BoardInsertException {
+		return bd.insertSystemQuestionAnswer(sqlSession, sq);
 	}
 	
 }

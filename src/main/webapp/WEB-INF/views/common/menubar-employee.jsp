@@ -124,9 +124,8 @@
 											
 												<li><hr></li>
 												
-												<li><h4>시스템 문의</h4></li>
-												<li><a href="#">이메일 문의 </a></li>
-												<li><a href="#">내 문의 내역 조희</a></li>
+												<h4>시스템 문의</h4>
+												<li><a href="em_systemQuestionList.bo?memberId=${sessionScope.loginUser.memberId}">시스템 문의</a></li>
 												
 												
 											</ul>

@@ -56,7 +56,7 @@
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
 			
-			<form action="st_systemQuestionSearchList.bo" method="get">
+			<form action="pro_systemQuestionSearchList.bo" method="get">
 				<input type="hidden" name="searchflag" id="searchflag" value="true">
 				<input type="hidden" name="memberId" id="memberId" value="${loginUser.memberId}">
 				<table style="width: 88.5%; text-align: center; margin: 0 auto;">
@@ -130,7 +130,7 @@
 				   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 					</c:if>
 					<c:if test="${pi.currentPage > 1}">
-						<c:url var="blistBack" value="st_systemQuestionList.bo">
+						<c:url var="blistBack" value="pro_systemQuestionList.bo">
 							<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 							<c:param name="memberId" value="${loginUser.memberId}"/>
 						</c:url>
@@ -141,7 +141,7 @@
 						    <li class="page-item"><a class="page-link">${p}</a></li>					
 						</c:if>
 						<c:if test="${p ne pi.currentPage}">
-							<c:url var="blistCheck" value="st_systemQuestionList.bo">
+							<c:url var="blistCheck" value="pro_systemQuestionList.bo">
 								<c:param name="currentPage" value="${p}"/>	
 								<c:param name="memberId" value="${loginUser.memberId}"/>
 							</c:url>
@@ -149,7 +149,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${pi.currentPage < pi.maxPage }">
-						<c:url var="blistEnd" value="st_systemQuestionList.bo">
+						<c:url var="blistEnd" value="pro_systemQuestionList.bo">
 							<c:param name="currentPage" value="${pi.currentPage + 1}"/>
 							<c:param name="memberId" value="${loginUser.memberId}"/>
 						</c:url>
@@ -209,7 +209,7 @@
 				   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 					</c:if>
 					<c:if test="${pi.currentPage > 1}">
-						<c:url var="blistBack" value="st_systemQuestionSearchList.bo">
+						<c:url var="blistBack" value="pro_systemQuestionSearchList.bo">
 							<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 							<c:param name="memberId" value="${loginUser.memberId}"/>
 							<c:param name="searchCondition" value="${searchCondition}"/>
@@ -222,7 +222,7 @@
 						    <li class="page-item"><a class="page-link">${p}</a></li>					
 						</c:if>
 						<c:if test="${p ne pi.currentPage}">
-							<c:url var="blistCheck" value="st_systemQuestionSearchList.bo">
+							<c:url var="blistCheck" value="pro_systemQuestionSearchList.bo">
 								<c:param name="currentPage" value="${p}"/>	
 								<c:param name="memberId" value="${loginUser.memberId}"/>
 								<c:param name="searchCondition" value="${searchCondition}"/>
@@ -232,7 +232,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${pi.currentPage < pi.maxPage }">
-						<c:url var="blistEnd" value="st_systemQuestionSearchList.bo">
+						<c:url var="blistEnd" value="pro_systemQuestionSearchList.bo">
 							<c:param name="currentPage" value="${pi.currentPage + 1}"/>
 							<c:param name="memberId" value="${loginUser.memberId}"/>
 							<c:param name="searchCondition" value="${searchCondition}"/>
@@ -248,20 +248,20 @@
 			</c:if>		
 		</div>
 		<div>
-			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-professor.jsp" />
 		</div>
 	</div>
 	<script>	
 		function insertSystemQuestion(){
 			var memberId = $("input[name=memberId]").val();		
 			
-			location.href = "st_showInsertSystemQuestion.bo?memberId=" + memberId;
+			location.href = "pro_showInsertSystemQuestion.bo?memberId=" + memberId;
 		}
 		
 		$(".questionTitle").click(function(){
 			var questionNo = $(this).parent().children().eq(0).text();
 			
-			location.href = "st_SystemQuestionDetail.bo?questionNo=" + questionNo;	
+			location.href = "pro_SystemQuestionDetail.bo?questionNo=" + questionNo;	
 		});
 	</script>
 </body>

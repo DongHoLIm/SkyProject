@@ -41,7 +41,7 @@
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
 			<input type="hidden" name="memberId" id="memberId" value="${loginUser.memberId}">
-			<form action="st_SystemQuestionInsert.bo?memberId=${writerInfo.memberId}&questionWriter=${writerInfo.memberName}" method="post" enctype="multipart/form-data">
+			<form action="pro_SystemQuestionInsert.bo?memberId=${writerInfo.memberId}&questionWriter=${writerInfo.memberName}" method="post" enctype="multipart/form-data">
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
 						<th style="text-align: center;">문의구분</th>
@@ -80,16 +80,16 @@
 			</form>
 		</div>
 		<div>
-			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-professor.jsp" />
 		</div>
 	</div>
 	<script>
 	function writeCancel(){
 		var memberId = $("#memberId").val();
-		
+			
 		alert("게시글 작성을 취소하시겠습니까?");
 		
-		location.href = "st_systemQuestionList.bo?memberId=" + memberId;	
+		location.href = "pro_systemQuestionList.bo?memberId=" + memberId;	
 	}
 	</script>
 </body>

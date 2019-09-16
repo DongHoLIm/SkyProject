@@ -77,5 +77,22 @@
 	<insert id="insertSystemQuestionFile">
 		INSERT INTO QA_FILE 
 		VALUES(SEQ_FILECODE.NEXTVAL, #{oldName}, #{changeName}, #{path}, SEQ_QUESTIONNO.CURRVAL)
-	</insert>	
+	</insert>
+	
+	<select id="selectSystemQuestionFile" resultMap="fileResultSet" parameterType="_int">
+		SELECT *
+		FROM QA_FILE
+		WHERE QA_NO = #{questionNo}
+	</select>	
+	
+	<update id="updateSystemQuestionFile">
+		UPDATE QA_FILE 
+		SET OLD_NAME = #{oldName}, CHANGE_NAME = #{changeName}, PATH = #{path} 
+		WHERE QA_NO = #{questionNo}
+	</update>
+	
+	<insert id="insertSystemQuestionAnswerFile">
+		INSERT INTO QA_FILE 
+		VALUES(SEQ_FILECODE.NEXTVAL, #{oldName}, #{changeName}, #{path}, SEQ_QUESTIONNO.CURRVAL)
+	</insert>
 </mapper>

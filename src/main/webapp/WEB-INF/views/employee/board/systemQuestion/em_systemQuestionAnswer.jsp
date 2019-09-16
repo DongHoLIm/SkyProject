@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,21 +42,17 @@
 			<h4 id="basic">시스템 문의</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<input type="hidden" name="memberId" id="memberId" value="${loginUser.memberId}">
-			<form action="st_SystemQuestionInsert.bo?memberId=${writerInfo.memberId}&questionWriter=${writerInfo.memberName}" method="post" enctype="multipart/form-data">
+			<form action="em_SystemQuestionAnswer.bo?memberId=${loginUser.memberId}&questionWriter=${loginUser.memberKName}&originWriter=${sq.questionWriter}" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="originNo" id="originNo" value="${sq.originNo}">
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
 						<th style="text-align: center;">문의구분</th>
 						<td>
-							<select id="questionType" name="questionType">
-								<option value="계정 관련">계정 관련</option>
-								<option value="제증명 관련">제증명 관련</option>
-								<option value="학사 관련">학사 관련</option>
-							</select>
+							<input type="text" name="questionType" id="questionType" value="${sq.questionType}" readonly>
 						</td>
 						<th style="text-align: center;">제목</th>
 						<td colspan="4" style="border-right: 1px solid #E5E6E7">
-							<input type="text" name="questionTitle">
+							<input type="text" name="questionTitle" value="답변 : ${sq.questionTitle}" readonly>
 						</td>
 					</tr>
 					<tr>
@@ -80,16 +78,15 @@
 			</form>
 		</div>
 		<div>
-			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
+			<jsp:include page="/WEB-INF/views/common/menubar-employee.jsp" />
 		</div>
 	</div>
 	<script>
 	function writeCancel(){
-		var memberId = $("#memberId").val();
+			
+		alert("답변 작성을 취소하시겠습니까?");
 		
-		alert("게시글 작성을 취소하시겠습니까?");
-		
-		location.href = "st_systemQuestionList.bo?memberId=" + memberId;	
+		location.href = "em_systemQuestionList.bo";	
 	}
 	</script>
 </body>
