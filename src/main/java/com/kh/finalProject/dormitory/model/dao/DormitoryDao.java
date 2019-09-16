@@ -11,4 +11,6 @@ public interface DormitoryDao {
 
 	ArrayList<Dormitory> userDormitory(SqlSessionTemplate sqlSession, String studentNo) throws DormitoryException;
 
+	void insertDormitory(SqlSessionTemplate sqlSession, Dormitory d);
+
 }

@@ -1,15 +1,20 @@
 package com.kh.finalProject.dormitory.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalProject.dormitory.model.exception.DormitoryException;
 import com.kh.finalProject.dormitory.model.service.DormitoryService;
@@ -59,5 +64,13 @@ public class DormitoryController {
 	@RequestMapping(value="applyCancle.dor")
 	public String DormitoryApplyCancle() {
 		return "main/main";
+	}
+	
+	@RequestMapping("dormitoryApply.dor")
+	public String DormitoryApplySuccess(Dormitory d,@ModelAttribute("loginUser") Member loginUser) {
+		System.out.println(d);
+		ds.insertDormitory(d);
+		
+		return "common/successAlert";
 	}
 }
