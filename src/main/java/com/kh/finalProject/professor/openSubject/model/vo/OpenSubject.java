@@ -2,7 +2,7 @@ package com.kh.finalProject.professor.openSubject.model.vo;
 
 public class OpenSubject {
 
-	private String opensubCode;
+	private int opensubCode;
 	private int studentMax;
 	private int studentCount;
 	private int openYear;
@@ -13,12 +13,17 @@ public class OpenSubject {
 	private String roomCode;
 	private String dayInfo;
 	private String timeInfo;
+	private String completeType;
+	private int subGrade;
+	private String roomName;
+	private String buildingName;
+	private String subName;
 	
 	public OpenSubject() {}
 
-	public OpenSubject(String opensubCode, int studentMax, int studentCount, int openYear, int openSemester,
-			String professorNo, String closeCheck, String closeReason, String roomCode, String dayInfo,
-			String timeInfo) {
+	public OpenSubject(int opensubCode, int studentMax, int studentCount, int openYear, int openSemester,
+			String professorNo, String closeCheck, String closeReason, String roomCode, String dayInfo, String timeInfo,
+			String completeType, int subGrade, String roomName, String buildingName, String subName) {
 		super();
 		this.opensubCode = opensubCode;
 		this.studentMax = studentMax;
@@ -31,13 +36,18 @@ public class OpenSubject {
 		this.roomCode = roomCode;
 		this.dayInfo = dayInfo;
 		this.timeInfo = timeInfo;
+		this.completeType = completeType;
+		this.subGrade = subGrade;
+		this.roomName = roomName;
+		this.buildingName = buildingName;
+		this.subName = subName;
 	}
 
-	public String getOpensubCode() {
+	public int getOpensubCode() {
 		return opensubCode;
 	}
 
-	public void setOpensubCode(String opensubCode) {
+	public void setOpensubCode(int opensubCode) {
 		this.opensubCode = opensubCode;
 	}
 
@@ -121,13 +131,57 @@ public class OpenSubject {
 		this.timeInfo = timeInfo;
 	}
 
+	public String getCompleteType() {
+		return completeType;
+	}
+
+	public void setCompleteType(String completeType) {
+		this.completeType = completeType;
+	}
+
+	public int getSubGrade() {
+		return subGrade;
+	}
+
+	public void setSubGrade(int subGrade) {
+		this.subGrade = subGrade;
+	}
+
+	public String getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+
+	public String getBuildingName() {
+		return buildingName;
+	}
+
+	public void setBuildingName(String buildingName) {
+		this.buildingName = buildingName;
+	}
+
+	public String getSubName() {
+		return subName;
+	}
+
+	public void setSubName(String subName) {
+		this.subName = subName;
+	}
+
 	@Override
 	public String toString() {
 		return "OpenSubject [opensubCode=" + opensubCode + ", studentMax=" + studentMax + ", studentCount="
 				+ studentCount + ", openYear=" + openYear + ", openSemester=" + openSemester + ", professorNo="
 				+ professorNo + ", closeCheck=" + closeCheck + ", closeReason=" + closeReason + ", roomCode=" + roomCode
-				+ ", dayInfo=" + dayInfo + ", timeInfo=" + timeInfo + "]";
+				+ ", dayInfo=" + dayInfo + ", timeInfo=" + timeInfo + ", completeType=" + completeType + ", subGrade="
+				+ subGrade + ", roomName=" + roomName + ", buildingName=" + buildingName + ", subName=" + subName + "]";
 	}
+
+
+	
 	
 	
 	

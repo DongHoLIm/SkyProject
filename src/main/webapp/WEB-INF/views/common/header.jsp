@@ -18,7 +18,7 @@
 			src="resources/images/logo.png" width="150px;" height="30px;"></a>
 		<ul class="icons">
 			<li><a href="#">${loginUser.memberKName}</a></li>
-			<li><a href="#" class="icon solid fa-paper-plane"></a><span class="label"></span></li>
+			<li><a href="inbox.pro" class="icon solid fa-paper-plane"></a><span class="label"></span></li>
 			<li><a href="logOut.me" class="button primary small">LogOut</a></li>		
 		</ul>
 	</header>
