@@ -10,7 +10,8 @@
   		<result property="kName" column="MEMBER_KNAME"/>
   		<result property="eName" column="MEMBER_ENAME"/>
   		<result property="memberNo" column="MEMBER_NO"/>
-  		<result property="phone" column="PHONE"/>
+  		<result property="phone" column="PHONE_ONE"/>
+  		<result property="phone2" column="PHONE_TWO"/>
   		<result property="email" column="EMAIL"/>
   		<result property="address" column="ADDRESS"/>
   		<result property="studentStatus" column="STUDENT_STATUS"/>
@@ -29,7 +30,11 @@
   		<result property="graduatedNo" column="GRADUATED_NO"/>
   		<result property="bank" column="BANK"/>
   		<result property="accountNo" column="ACCOUNT_NO"/>
-  		
+  		<result property="accountHolder" column="ACCOUNT_HOLDER"/>
+  		<result property="parentsName" column="PARENTS_NAME"/> 
+  		<result property="parentsRelation" column="PARENTS_RELATION"/>
+  		<result property="parentsPhone" column="PARENTS_PHONE"/>
+  		<result property="parentsAddress" column="PARENTS_ADDRESS"/>
   	</resultMap>
   	
   	
@@ -53,13 +58,17 @@
 		WHERE S.STUDENT_NO=#{studentNo} 
   	</select> 
   	
-  	<!-- 학생_학적정보/신상관리 -->
+  	<!-- 학생_학적정보/신상정보관리 -->
   	<select id="personInfoManage" resultMap="studentInfoResultSet">
   		SELECT M.MEMBER_ID, M.MEMBER_KNAME, M.MEMBER_ENAME, M.MEMBER_NO,
-       		   D.SDEPT_NAME, S.GRADE, S.STUDENT_STATUS
+       		   D.SDEPT_NAME, S.GRADE, S.STUDENT_STATUS,
+       		   M.ADDRESS, M.EMAIL, M.PHONE_ONE, M.PHONE_TWO, 
+       		   S.BANK, S.ACCOUNT_NO,S.ACCOUNT_HOLDER,
+       		   P.PARENTS_NAME, P.PARENTS_RELATION, P.PARENTS_PHONE, P.PARENTS_ADDRESS
 		FROM STUDENT_INFO S
 		LEFT JOIN MEMBER M ON(S.STUDENT_NO=M.MEMBER_ID)
 		LEFT JOIN SDEPARTMENT D ON(S.SDEPT_CODE=D.SDEPT_CODE)
+		LEFT JOIN PARENTS_INFO P ON(S.STUDENT_NO=P.STUDENT_NO)
 		WHERE S.STUDENT_NO=#{studentNo}
   	</select>
   	

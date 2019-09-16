@@ -9,6 +9,7 @@ public class StudentInfo implements Serializable{
 	private String eName;			//영문이름
 	private String memberNo;		//주민번호
 	private String phone;			//연락처
+	private String phone2;			//비상연락처
 	private String email;			//이메일
 	private String address;			//주소
 	private String studentStatus; 	//학적상태
@@ -27,21 +28,29 @@ public class StudentInfo implements Serializable{
 	private String graduatedNo;		//졸업증서번호
 	private String bank;			//은행명
 	private String accountNo;		//계좌번호
+	private String accountHolder;	//예금주
+	private String parentsName;		//보호자성명
+	private String parentsRelation;	//보호자관계
+	private String parentsPhone;	//보호자연락처
+	private String parentsAddress;	//보호자주소
 	
 	
 	public StudentInfo() {}
 
 
-	public StudentInfo(String studentNo, String kName, String eName, String memberNo, String phone, String email,
-			String address, String studentStatus, String college, String sdeptName, int grade, String enrolType,
-			Date enrolDate, int enroleGrade, int enrolNo, String secondMajor, double avgScore, Date graduatedDate,
-			String degreeNo, String degreeName, String graduatedNo, String bank, String accountNo) {
+	public StudentInfo(String studentNo, String kName, String eName, String memberNo, String phone, String phone2,
+			String email, String address, String studentStatus, String college, String sdeptName, int grade,
+			String enrolType, Date enrolDate, int enroleGrade, int enrolNo, String secondMajor, double avgScore,
+			Date graduatedDate, String degreeNo, String degreeName, String graduatedNo, String bank, String accountNo,
+			String accountHolder, String parentsName, String parentsRelation, String parentsPhone,
+			String parentsAddress) {
 		super();
 		this.studentNo = studentNo;
 		this.kName = kName;
 		this.eName = eName;
 		this.memberNo = memberNo;
 		this.phone = phone;
+		this.phone2 = phone2;
 		this.email = email;
 		this.address = address;
 		this.studentStatus = studentStatus;
@@ -60,6 +69,11 @@ public class StudentInfo implements Serializable{
 		this.graduatedNo = graduatedNo;
 		this.bank = bank;
 		this.accountNo = accountNo;
+		this.accountHolder = accountHolder;
+		this.parentsName = parentsName;
+		this.parentsRelation = parentsRelation;
+		this.parentsPhone = parentsPhone;
+		this.parentsAddress = parentsAddress;
 	}
 
 
@@ -110,6 +124,16 @@ public class StudentInfo implements Serializable{
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+
+	public String getPhone2() {
+		return phone2;
+	}
+
+
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
 	}
 
 
@@ -293,23 +317,71 @@ public class StudentInfo implements Serializable{
 	}
 
 
-	@Override
-	public String toString() {
-		return "StudentInfo [studentNo=" + studentNo + ", kName=" + kName + ", eName=" + eName + ", memberNo="
-				+ memberNo + ", phone=" + phone + ", email=" + email + ", address=" + address + ", studentStatus="
-				+ studentStatus + ", college=" + college + ", sdeptName=" + sdeptName + ", grade=" + grade
-				+ ", enrolType=" + enrolType + ", enrolDate=" + enrolDate + ", enroleGrade=" + enroleGrade
-				+ ", enrolNo=" + enrolNo + ", secondMajor=" + secondMajor + ", avgScore=" + avgScore
-				+ ", graduatedDate=" + graduatedDate + ", degreeNo=" + degreeNo + ", degreeName=" + degreeName
-				+ ", graduatedNo=" + graduatedNo + ", bank=" + bank + ", accountNo=" + accountNo + "]";
+	public String getAccountHolder() {
+		return accountHolder;
 	}
 
 
-	
+	public void setAccountHolder(String accountHolder) {
+		this.accountHolder = accountHolder;
+	}
+
+
+	public String getParentsName() {
+		return parentsName;
+	}
+
+
+	public void setParentsName(String parentsName) {
+		this.parentsName = parentsName;
+	}
+
+
+	public String getParentsRelation() {
+		return parentsRelation;
+	}
+
+
+	public void setParentsRelation(String parentsRelation) {
+		this.parentsRelation = parentsRelation;
+	}
+
+
+	public String getParentsPhone() {
+		return parentsPhone;
+	}
+
+
+	public void setParentsPhone(String parentsPhone) {
+		this.parentsPhone = parentsPhone;
+	}
+
+
+	public String getParentsAddress() {
+		return parentsAddress;
+	}
+
+
+	public void setParentsAddress(String parentsAddress) {
+		this.parentsAddress = parentsAddress;
+	}
+
+
+	@Override
+	public String toString() {
+		return "StudentInfo [studentNo=" + studentNo + ", kName=" + kName + ", eName=" + eName + ", memberNo="
+				+ memberNo + ", phone=" + phone + ", phone2=" + phone2 + ", email=" + email + ", address=" + address
+				+ ", studentStatus=" + studentStatus + ", college=" + college + ", sdeptName=" + sdeptName + ", grade="
+				+ grade + ", enrolType=" + enrolType + ", enrolDate=" + enrolDate + ", enroleGrade=" + enroleGrade
+				+ ", enrolNo=" + enrolNo + ", secondMajor=" + secondMajor + ", avgScore=" + avgScore
+				+ ", graduatedDate=" + graduatedDate + ", degreeNo=" + degreeNo + ", degreeName=" + degreeName
+				+ ", graduatedNo=" + graduatedNo + ", bank=" + bank + ", accountNo=" + accountNo + ", accountHolder="
+				+ accountHolder + ", parentsName=" + parentsName + ", parentsRelation=" + parentsRelation
+				+ ", parentsPhone=" + parentsPhone + ", parentsAddress=" + parentsAddress + "]";
+	}
 	
 	
 
-	
 	
 }
 
