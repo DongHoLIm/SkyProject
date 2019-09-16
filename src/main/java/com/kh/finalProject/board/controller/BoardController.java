@@ -6721,6 +6721,752 @@ public class BoardController {
 			return "common/errorAlert";	
 		}
 	}
+	
+	@RequestMapping(value="st_SystemQuestionDetail.bo")
+	public String stSystemQuestionDetail(HttpServletRequest request) {
+		int questionNo = Integer.parseInt(request.getParameter("questionNo"));
+
+		System.out.println("stSystemQuestionDetail questionNo :::: " + questionNo);
+
+		SystemQuestion sq;
+		UploadFile uf;
+
+		try {
+			sq = bs.selectSystemQuestionOne(questionNo);
+
+			uf = bs.selectSystemQuestionFile(questionNo);
+
+
+			if(uf == null) {
+				request.setAttribute("sq", sq);
+				System.out.println("시스템문의 상세보기 Ctrl sq :::: " + sq);
+
+				return "student/board/systemQuestion/st_systemQuestionDetail";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("시스템문의 상세보기 Ctrl sq :::: " + sq);
+				System.out.println("시스템문의 상세보기 Ctrl uf :::: " + uf);
+
+				request.setAttribute("sq", sq);
+				request.setAttribute("uf", uf);
+
+				return "student/board/systemQuestion/st_systemQuestionDetail";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping("st_showSystemQuestionUpdate.bo")
+	public String stshowSystemQuestionUpdate(int questionNo, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 questionNo :::: " + questionNo);
+		
+		SystemQuestion sq;
+		UploadFile uf;
+		try {
+			sq = bs.selectSystemQuestionOne(questionNo);
+			uf = bs.selectSystemQuestionFile(questionNo);
+			
+			if(uf == null) {
+				request.setAttribute("sq", sq);
+				System.out.println("시스템문의 업데이트 Ctrl sq :::: " + sq);
+				
+				return "student/board/systemQuestion/st_systemQuestionUpdate";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("학생 내 게시물 업데이트 Ctrl sq :::: " + sq);
+				System.out.println("학생 내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("sq", sq);
+				request.setAttribute("uf", uf);
+			
+				return "student/board/systemQuestion/st_systemQuestionUpdate";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="st_SystemQuestionUpdate.bo")
+	public String stSystemQuestionUpdate(Model model, SystemQuestion sq, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("시스템문의 글 수정 sq :::: " + sq);
+		
+		String memberId = sq.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("시스템문의 글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updateSystemQuestionwithFile(sq, uf);
+				
+				model.addAttribute("sq", sq);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:st_systemQuestionList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updateSystemQuestion(sq);
+			
+			model.addAttribute("sq", sq);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:st_systemQuestionList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("st_SystemQuestionDelete.bo")
+	public String stSystemQuestionDelete(int questionNo, String memberId, HttpServletRequest request) {
+		System.out.println("stsearchMyBoardDelete boardNo ::::" + questionNo);
+		
+		try {
+			bs.SystemQuestionDelete(questionNo);
+			
+			request.setAttribute("memberId", memberId);
+			
+			return "forward:st_systemQuestionList.bo";
+		} catch (BoardDeleteException e) {			
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+		
+	}
+	
+///////////////////////////////////////////////////////교수 시스템 문의///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교수 시스템 문의///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교수 시스템 문의///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////교수 시스템 문의///////////////////////////////////////////////////////
+	
+	@RequestMapping(value="pro_systemQuestionList.bo")
+	public String prosystemQuestionList(HttpServletRequest request, String memberId) {
+		
+		System.out.println("시스템문의 List memberId :::: " + memberId);
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		
+		try {
+			listCount = bs.systemQuestionListCount(memberId);
+			
+			System.out.println("시스템문의 List listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bs.systemQuestionList(pi, memberId);
+			
+			System.out.println("시스템문의 list list :::: " + list);
+			System.out.println("시스템문의 List pi :::: " + pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			
+			return "professor/board/systemQuestion/pro_systemQuestionList";
+			
+		} catch (BoardSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="pro_systemQuestionSearchList.bo")
+	public String prosystemQuestionSearchList(String searchCondition, String memberId, boolean searchflag, HttpServletRequest request) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		sc.setMemberId(memberId);		
+		
+		if(searchCondition.equals("account")) {
+			sc.setAccount(searchCondition);
+		}
+		if(searchCondition.equals("proof")) {
+			sc.setProof(searchCondition);
+		}
+		if(searchCondition.equals("school")) {
+			sc.setSchool(searchCondition);
+		}
+		
+		System.out.println("sc :::: " + sc);
+		
+		int listCount;
+		
+		try {
+			listCount = bs.systemQuestionSearchListCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			pi.setSearchflag(searchflag);
+			
+			System.out.println("검색후 pi :::: " + pi);
+			
+			ArrayList<Board> list = bs.systemQuestionSearchList(sc, pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("searchCondition", searchCondition);
+			
+			return "professor/board/systemQuestion/pro_systemQuestionList";
+		} catch (BoardSearchException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping(value="pro_showInsertSystemQuestion.bo")
+	public String proShowInsertSystemQuestion(HttpServletRequest request, Writer writerInfo) {
+	
+		String memberId = request.getParameter("memberId");
+		
+		System.out.println("stShowInsertSystemQuestion memberId :::: " + memberId);
+		
+		writerInfo = bs.selectSystemQuestionWriter(memberId);
+		
+		System.out.println("stShowInsertSystemQuestion writerInfo :::: " + writerInfo);
+		
+		request.setAttribute("writerInfo", writerInfo);
+		
+		return "professor/board/systemQuestion/pro_systemQuestionInsert";	
+	}
+	
+	@RequestMapping(value="pro_SystemQuestionInsert.bo")
+	public String proSystemQuestionInsert(Model model, SystemQuestion sq, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {
+		System.out.println("stSystemQuestionInsert.bo photo :::: " + photo);
+		System.out.println("stSystemQuestionInsert.bo sq :::: " + sq);	
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;
+		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			System.out.println("stSystemQuestionInsert.bo root :::: " + root);
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();
+			
+			System.out.println("stSystemQuestionInsert.bo originFileName :::: " + originFileName);
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.insertSystemQuestionwithFile(sq, uf);
+				
+				model.addAttribute("sq", sq);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", sq.getMemberId());
+				
+				return "redirect:pro_systemQuestionList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글쓰기 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			
+			bs.insertSystemQuestion(sq);
+			
+			model.addAttribute("sq", sq);
+			model.addAttribute("memberId", sq.getMemberId());
+			
+			return "redirect:pro_systemQuestionList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글쓰기 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping(value="pro_SystemQuestionDetail.bo")
+	public String proSystemQuestionDetail(HttpServletRequest request) {
+		int questionNo = Integer.parseInt(request.getParameter("questionNo"));
+
+		System.out.println("stSystemQuestionDetail questionNo :::: " + questionNo);
+
+		SystemQuestion sq;
+		UploadFile uf;
+
+		try {
+			sq = bs.selectSystemQuestionOne(questionNo);
+
+			uf = bs.selectSystemQuestionFile(questionNo);
+
+
+			if(uf == null) {
+				request.setAttribute("sq", sq);
+				System.out.println("시스템문의 상세보기 Ctrl sq :::: " + sq);
+
+				return "professor/board/systemQuestion/pro_systemQuestionDetail";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("시스템문의 상세보기 Ctrl sq :::: " + sq);
+				System.out.println("시스템문의 상세보기 Ctrl uf :::: " + uf);
+
+				request.setAttribute("sq", sq);
+				request.setAttribute("uf", uf);
+
+				return "professor/board/systemQuestion/pro_systemQuestionDetail";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping("pro_showSystemQuestionUpdate.bo")
+	public String proshowSystemQuestionUpdate(int questionNo, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 questionNo :::: " + questionNo);
+		
+		SystemQuestion sq;
+		UploadFile uf;
+		try {
+			sq = bs.selectSystemQuestionOne(questionNo);
+			uf = bs.selectSystemQuestionFile(questionNo);
+			
+			if(uf == null) {
+				request.setAttribute("sq", sq);
+				System.out.println("시스템문의 업데이트 Ctrl sq :::: " + sq);
+				
+				return "professor/board/systemQuestion/pro_systemQuestionUpdate";
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("학생 내 게시물 업데이트 Ctrl sq :::: " + sq);
+				System.out.println("학생 내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("sq", sq);
+				request.setAttribute("uf", uf);
+			
+				return "professor/board/systemQuestion/pro_systemQuestionUpdate";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="pro_SystemQuestionUpdate.bo")
+	public String proSystemQuestionUpdate(Model model, SystemQuestion sq, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("시스템문의 글 수정 sq :::: " + sq);
+		
+		String memberId = sq.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("시스템문의 글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updateSystemQuestionwithFile(sq, uf);
+				
+				model.addAttribute("sq", sq);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", memberId);
+				
+				return "redirect:pro_systemQuestionList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updateSystemQuestion(sq);
+			
+			model.addAttribute("sq", sq);
+			model.addAttribute("memberId", memberId);
+			
+			return "redirect:pro_systemQuestionList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("pro_SystemQuestionDelete.bo")
+	public String proSystemQuestionDelete(int questionNo, String memberId, HttpServletRequest request) {
+		System.out.println("stsearchMyBoardDelete boardNo ::::" + questionNo);
+		
+		try {
+			bs.SystemQuestionDelete(questionNo);
+			
+			request.setAttribute("memberId", memberId);
+			
+			return "forward:pro_systemQuestionList.bo";
+		} catch (BoardDeleteException e) {			
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+		
+	}
+	
+///////////////////////////////////////////////////////학생 시스템 문의///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////학생 시스템 문의///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////학생 시스템 문의///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////학생 시스템 문의///////////////////////////////////////////////////////
+
+	@RequestMapping(value="em_systemQuestionList.bo")
+	public String emsystemQuestionList(HttpServletRequest request) {
+
+		int currentPage = 1;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		int listCount;
+
+		try {
+			listCount = bs.emsystemQuestionListCount();
+
+			System.out.println("시스템문의 List listCount :::: " + listCount);
+
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+			ArrayList<SystemQuestion> list = bs.emsystemQuestionList(pi);
+
+			System.out.println("시스템문의 list list :::: " + list);
+			System.out.println("시스템문의 List pi :::: " + pi);
+
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+
+			return "employee/board/systemQuestion/em_systemQuestionList";
+
+		} catch (BoardSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="em_systemQuestionSearchList.bo")
+	public String emsystemQuestionSearchList(String searchCondition, boolean searchflag, HttpServletRequest request) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("searchflag :::: " + searchflag);
+		
+		SearchCondition sc = new SearchCondition();		
+		
+		if(searchCondition.equals("account")) {
+			sc.setAccount(searchCondition);
+		}
+		if(searchCondition.equals("proof")) {
+			sc.setProof(searchCondition);
+		}
+		if(searchCondition.equals("school")) {
+			sc.setSchool(searchCondition);
+		}
+		
+		System.out.println("sc :::: " + sc);
+		
+		int listCount;
+		
+		try {
+			listCount = bs.emsystemQuestionSearchListCount(sc);
+			
+			System.out.println("검색후 listCount :::: " + listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			pi.setSearchflag(searchflag);
+			
+			System.out.println("검색후 pi :::: " + pi);
+			
+			ArrayList<SystemQuestion> list = bs.emsystemQuestionSearchList(sc, pi);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("searchCondition", searchCondition);
+			
+			return "employee/board/systemQuestion/em_systemQuestionList";
+		} catch (BoardSearchException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping(value="em_SystemQuestionDetail.bo")
+	public String emSystemQuestionDetail(HttpServletRequest request) {
+		int questionNo = Integer.parseInt(request.getParameter("questionNo"));
+
+		System.out.println("stSystemQuestionDetail questionNo :::: " + questionNo);
+
+		SystemQuestion sq;
+		UploadFile uf;
+
+		try {
+			sq = bs.selectSystemQuestionOne(questionNo);
+
+			uf = bs.selectSystemQuestionFile(questionNo);
+
+
+			if(uf == null) {
+				request.setAttribute("sq", sq);
+				System.out.println("시스템문의 상세보기 Ctrl sq :::: " + sq);
+
+				return "employee/board/systemQuestion/em_systemQuestionDetail";
+
+			} else {
+
+				String realPath = uf.getPath().split("webapp")[1];
+
+				System.out.println(realPath);
+
+				uf.setPath("/finalProject/" + realPath);
+
+				System.out.println("시스템문의 상세보기 Ctrl sq :::: " + sq);
+				System.out.println("시스템문의 상세보기 Ctrl uf :::: " + uf);
+
+				request.setAttribute("sq", sq);
+				request.setAttribute("uf", uf);
+
+				return "employee/board/systemQuestion/em_systemQuestionDetail";		
+			}
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping(value="em_showSystemQuestionAnswer.bo")
+	public String emshowSystemQuestionAnswer(int questionNo, HttpServletRequest request) {
+	
+		System.out.println("update전 select용 questionNo :::: " + questionNo);
+		
+		SystemQuestion sq;
+		UploadFile uf;
+		try {
+			sq = bs.selectSystemQuestionOne(questionNo);
+			
+			request.setAttribute("sq", sq);
+			
+			System.out.println("시스템문의 답글 달기 Ctrl sq :::: " + sq);
+			
+			return "employee/board/systemQuestion/em_systemQuestionAnswer";				
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}	
+	
+	@RequestMapping(value="em_SystemQuestionAnswer.bo")
+	public String emSystemQuestionAnswer(Model model, SystemQuestion sq, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {
+		System.out.println("stSystemQuestionInsert.bo photo :::: " + photo);
+		System.out.println("stSystemQuestionInsert.bo sq :::: " + sq);	
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;
+		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			System.out.println("stSystemQuestionInsert.bo root :::: " + root);
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();
+			
+			System.out.println("stSystemQuestionInsert.bo originFileName :::: " + originFileName);
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.insertSystemQuestionAnswerwithFile(sq, uf);
+				
+				model.addAttribute("sq", sq);
+				model.addAttribute("uf", uf);
+				
+				return "redirect:em_systemQuestionList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글쓰기 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			
+			bs.insertSystemQuestionAnswer(sq);
+			
+			model.addAttribute("sq", sq);
+			
+			return "redirect:em_systemQuestionList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글쓰기 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
 }
 
 

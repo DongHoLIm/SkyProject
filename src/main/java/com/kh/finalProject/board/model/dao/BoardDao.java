@@ -180,6 +180,30 @@ public interface BoardDao {
 
 	int insertSystemQuestionFile(SqlSessionTemplate sqlSession, UploadFile uf);
 
+	int updateSystemQuestionCount(SqlSessionTemplate sqlSession, int questionNo);
+
+	SystemQuestion selectSystemQuestionOne(SqlSessionTemplate sqlSession, int questionNo);
+
+	UploadFile selectSystemQuestionFile(SqlSessionTemplate sqlSession, int questionNo);
+
+	int updateSystemQuestion(SqlSessionTemplate sqlSession, SystemQuestion sq);
+
+	int updateSystemQuestionFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
+	int SystemQuestionDelete(SqlSessionTemplate sqlSession, int questionNo);
+
+	int emsystemQuestionListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<SystemQuestion> emsystemQuestionList(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int emsystemQuestionSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<SystemQuestion> emsystemQuestionSearchList(SqlSessionTemplate sqlSession, SearchCondition sc,	PageInfo pi);
+
+	int insertSystemQuestionAnswer(SqlSessionTemplate sqlSession, SystemQuestion sq);
+
+	int insertSystemQuestionAnswerFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
 
 
 

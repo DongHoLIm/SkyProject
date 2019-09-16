@@ -618,4 +618,80 @@ public class BoardDaoImpl implements BoardDao{
 	public int insertSystemQuestionFile(SqlSessionTemplate sqlSession, UploadFile uf) {
 		return sqlSession.insert("UploadFile.insertSystemQuestionFile", uf);
 	}
+
+	@Override
+	public int updateSystemQuestionCount(SqlSessionTemplate sqlSession, int questionNo) {
+		return  sqlSession.update("SystemQuestion.updateSystemQuestionCount", questionNo);
+	}
+
+	@Override
+	public SystemQuestion selectSystemQuestionOne(SqlSessionTemplate sqlSession, int questionNo) {
+		return sqlSession.selectOne("SystemQuestion.selectSystemQuestionOne", questionNo);
+	}
+
+	@Override
+	public UploadFile selectSystemQuestionFile(SqlSessionTemplate sqlSession, int questionNo) {
+		return sqlSession.selectOne("UploadFile.selectSystemQuestionFile", questionNo);
+	}
+
+	@Override
+	public int updateSystemQuestion(SqlSessionTemplate sqlSession, SystemQuestion sq) {
+		return sqlSession.update("SystemQuestion.updateSystemQuestion", sq);
+	}
+
+	@Override
+	public int updateSystemQuestionFile(SqlSessionTemplate sqlSession, UploadFile uf) {
+		return sqlSession.update("UploadFile.updateSystemQuestionFile", uf);
+	}
+
+	@Override
+	public int SystemQuestionDelete(SqlSessionTemplate sqlSession, int questionNo) {
+		return  sqlSession.update("SystemQuestion.SystemQuestionDelete", questionNo);
+	}
+
+	@Override
+	public int emsystemQuestionListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("SystemQuestion.emsystemQuestionListCount");
+	}
+
+	@Override
+	public ArrayList<SystemQuestion> emsystemQuestionList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<SystemQuestion> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("SystemQuestion.emsystemQuestionList", null, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public int emsystemQuestionSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("SystemQuestion.emsystemQuestionSearchListCount", sc);
+	}
+
+	@Override
+	public ArrayList<SystemQuestion> emsystemQuestionSearchList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
+		ArrayList<SystemQuestion> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("SystemQuestion.emsystemQuestionSearchList", sc, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public int insertSystemQuestionAnswer(SqlSessionTemplate sqlSession, SystemQuestion sq) {
+		return sqlSession.insert("SystemQuestion.insertSystemQuestionAnswer", sq);
+	}
+
+	@Override
+	public int insertSystemQuestionAnswerFile(SqlSessionTemplate sqlSession, UploadFile uf) {
+		return sqlSession.insert("UploadFile.insertSystemQuestionAnswerFile", uf);
+	}
 }

@@ -13,12 +13,27 @@ public class SystemQuestion implements java.io.Serializable{
 	private int originNo;
 	private int groupOrd;
 	private int groupLayer;
+	private String originWriter;
 	
 	public SystemQuestion() {}
 
+	
+
+	public String getOriginWriter() {
+		return originWriter;
+	}
+
+
+
+	public void setOriginWriter(String originWriter) {
+		this.originWriter = originWriter;
+	}
+
+
+
 	public SystemQuestion(int questionNo, String questionType, String questionTitle, String questionContent,
 			String questionWriter, String questionDate, String questionStatus, int questionCount, String memberId,
-			int originNo, int groupOrd, int groupLayer) {
+			int originNo, int groupOrd, int groupLayer, String originWriter) {
 		super();
 		this.questionNo = questionNo;
 		this.questionType = questionType;
@@ -32,7 +47,10 @@ public class SystemQuestion implements java.io.Serializable{
 		this.originNo = originNo;
 		this.groupOrd = groupOrd;
 		this.groupLayer = groupLayer;
+		this.originWriter = originWriter;
 	}
+
+
 
 	public int getQuestionNo() {
 		return questionNo;
@@ -130,14 +148,17 @@ public class SystemQuestion implements java.io.Serializable{
 		this.groupLayer = groupLayer;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "SystemQuestion [questionNo=" + questionNo + ", questionType=" + questionType + ", questionTitle="
 				+ questionTitle + ", questionContent=" + questionContent + ", questionWriter=" + questionWriter
 				+ ", questionDate=" + questionDate + ", questionStatus=" + questionStatus + ", questionCount="
 				+ questionCount + ", memberId=" + memberId + ", originNo=" + originNo + ", groupOrd=" + groupOrd
-				+ ", groupLayer=" + groupLayer + "]";
+				+ ", groupLayer=" + groupLayer + ", originWriter=" + originWriter + "]";
 	}
+
 
 	
 }

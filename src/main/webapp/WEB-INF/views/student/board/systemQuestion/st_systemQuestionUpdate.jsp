@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,42 +42,47 @@
 			<h4 id="basic">시스템 문의</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<input type="hidden" name="memberId" id="memberId" value="${loginUser.memberId}">
-			<form action="st_SystemQuestionInsert.bo?memberId=${writerInfo.memberId}&questionWriter=${writerInfo.memberName}" method="post" enctype="multipart/form-data">
+			<form action="st_SystemQuestionUpdate.bo" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="questionNo" value="${sq.questionNo}">
+				<input type="hidden" name="memberId" value="${sq.memberId}">
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
 						<th style="text-align: center;">문의구분</th>
-						<td>
-							<select id="questionType" name="questionType">
-								<option value="계정 관련">계정 관련</option>
-								<option value="제증명 관련">제증명 관련</option>
-								<option value="학사 관련">학사 관련</option>
-							</select>
-						</td>
+						<td>${sq.questionType}</td>
 						<th style="text-align: center;">제목</th>
 						<td colspan="4" style="border-right: 1px solid #E5E6E7">
-							<input type="text" name="questionTitle">
+							<input type="text" name="questionTitle" value="${sq.questionTitle}">
 						</td>
 					</tr>
 					<tr>
 						<th style="text-align: center; vertical-align: middle;">내용</th>
 						<td colspan="6" style="text-align: left; height: 100px; border-right: 1px solid #E5E6E7;">
-							<textarea name="questionContent" rows="13" cols="40" style="resize: none;"></textarea>
+							<textarea name="questionContent" rows="13" cols="40" style="resize: none;">
+								${sq.questionContent}
+							</textarea>
 						</td>
 					</tr>
 					<tr>
-						<th style="text-align: center;">파일 첨부</th>
+						<th style="text-align: center; vertical-align: middle;">파일 첨부</th>
 						<td colspan="5" style="border-right: 1px solid #E5E6E7">
-							<div align="left">
-								<input type="file" name="photo">
-							</div>
+							<c:if test="${!empty uf}">
+								<div align="left">
+									<img style="cursor: pointer;" id="Img" width="120" height="120" src="${uf.path}">
+									<input type="file" name="photo" id="photo1" onchange="loadImg(this, 1)">
+								</div>
+							</c:if>
+							<c:if test="${empty uf}">
+								<div align="left">
+									<input type="file" name="photo">							
+								</div>
+							</c:if>
 						</td>
 					</tr>
 				</table>
 				<div align="center" style="margin-top: 2%;">
-					<button type="reset" onclick="writeCancel()">취소</button>
+					<button type="reset" onclick="updateCancel()">취소</button>
 					&nbsp;&nbsp;&nbsp;
-					<button type="submit">글쓰기</button>
+					<button type="submit">수정</button>
 				</div>
 			</form>
 		</div>
@@ -84,13 +91,34 @@
 		</div>
 	</div>
 	<script>
-	function writeCancel(){
-		var memberId = $("#memberId").val();
+		function updateCancel(){
+			alert("수정을 취소 하시겠습니까?");
+			
+			var questionNo = ${sq.questionNo};
+			
+			location.href = "st_SystemQuestionDetail.bo?questionNo=" + questionNo;
+		}
 		
-		alert("게시글 작성을 취소하시겠습니까?");
+		$(function(){
+			$("#photo1").hide();
+			
+			$("#Img").click(function(){
+				$("#photo1").click();
+			});
+		});
 		
-		location.href = "st_systemQuestionList.bo?memberId=" + memberId;	
-	}
+		function loadImg(value, num){
+			if(value.files && value.files[0]){
+				var reader = new FileReader();
+				
+				reader.onload = function(e) {
+					switch(num){
+						case 1: $("#Img").attr("src", e.target.result); break; 
+					}
+				}
+				reader.readAsDataURL(value.files[0]);
+			}
+		}	
 	</script>
 </body>
 </html>
