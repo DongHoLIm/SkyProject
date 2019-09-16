@@ -24,4 +24,9 @@ public class DormitoryDaoImpl implements DormitoryDao{
 		return memberDormitory;
 	}
 
+	@Override
+	public void insertDormitory(SqlSessionTemplate sqlSession, Dormitory d) {
+		sqlSession.insert("dormitoryApply.add", d);
+	}
+
 }

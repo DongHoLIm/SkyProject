@@ -26,4 +26,9 @@ public class DormitoryServiceImpl implements DormitoryService {
 		return dd.userDormitory(sqlSession, studentNo);
 	}
 
+	@Override
+	public void insertDormitory(Dormitory d) {
+		dd.insertDormitory(sqlSession, d);
+	}
+
 }
