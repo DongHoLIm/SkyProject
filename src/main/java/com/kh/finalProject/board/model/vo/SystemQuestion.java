@@ -10,26 +10,15 @@ public class SystemQuestion implements java.io.Serializable{
 	private String questionStatus;
 	private int questionCount;
 	private String memberId;
-	
-	private int answerNo;
-	private String answerTitle;
-	private String answerContent;
-	private String answerWriteDept;
-	private String answerWriter;
-	private String answerDate;
-	private String answerStatus;
-	private int answerCount;
-	private int answerGroup;
-	private int answerStep;
-	private int answerIndent;
+	private int originNo;
+	private int groupOrd;
+	private int groupLayer;
 	
 	public SystemQuestion() {}
 
 	public SystemQuestion(int questionNo, String questionType, String questionTitle, String questionContent,
 			String questionWriter, String questionDate, String questionStatus, int questionCount, String memberId,
-			int answerNo, String answerTitle, String answerContent, String answerWriteDept, String answerWriter,
-			String answerDate, String answerStatus, int answerCount, int answerGroup, int answerStep,
-			int answerIndent) {
+			int originNo, int groupOrd, int groupLayer) {
 		super();
 		this.questionNo = questionNo;
 		this.questionType = questionType;
@@ -40,17 +29,9 @@ public class SystemQuestion implements java.io.Serializable{
 		this.questionStatus = questionStatus;
 		this.questionCount = questionCount;
 		this.memberId = memberId;
-		this.answerNo = answerNo;
-		this.answerTitle = answerTitle;
-		this.answerContent = answerContent;
-		this.answerWriteDept = answerWriteDept;
-		this.answerWriter = answerWriter;
-		this.answerDate = answerDate;
-		this.answerStatus = answerStatus;
-		this.answerCount = answerCount;
-		this.answerGroup = answerGroup;
-		this.answerStep = answerStep;
-		this.answerIndent = answerIndent;
+		this.originNo = originNo;
+		this.groupOrd = groupOrd;
+		this.groupLayer = groupLayer;
 	}
 
 	public int getQuestionNo() {
@@ -125,106 +106,38 @@ public class SystemQuestion implements java.io.Serializable{
 		this.memberId = memberId;
 	}
 
-	public int getAnswerNo() {
-		return answerNo;
+	public int getOriginNo() {
+		return originNo;
 	}
 
-	public void setAnswerNo(int answerNo) {
-		this.answerNo = answerNo;
+	public void setOriginNo(int originNo) {
+		this.originNo = originNo;
 	}
 
-	public String getAnswerTitle() {
-		return answerTitle;
+	public int getGroupOrd() {
+		return groupOrd;
 	}
 
-	public void setAnswerTitle(String answerTitle) {
-		this.answerTitle = answerTitle;
+	public void setGroupOrd(int groupOrd) {
+		this.groupOrd = groupOrd;
 	}
 
-	public String getAnswerContent() {
-		return answerContent;
+	public int getGroupLayer() {
+		return groupLayer;
 	}
 
-	public void setAnswerContent(String answerContent) {
-		this.answerContent = answerContent;
-	}
-
-	public String getAnswerWriteDept() {
-		return answerWriteDept;
-	}
-
-	public void setAnswerWriteDept(String answerWriteDept) {
-		this.answerWriteDept = answerWriteDept;
-	}
-
-	public String getAnswerWriter() {
-		return answerWriter;
-	}
-
-	public void setAnswerWriter(String answerWriter) {
-		this.answerWriter = answerWriter;
-	}
-
-	public String getAnswerDate() {
-		return answerDate;
-	}
-
-	public void setAnswerDate(String answerDate) {
-		this.answerDate = answerDate;
-	}
-
-	public String getAnswerStatus() {
-		return answerStatus;
-	}
-
-	public void setAnswerStatus(String answerStatus) {
-		this.answerStatus = answerStatus;
-	}
-
-	public int getAnswerCount() {
-		return answerCount;
-	}
-
-	public void setAnswerCount(int answerCount) {
-		this.answerCount = answerCount;
-	}
-
-	public int getAnswerGroup() {
-		return answerGroup;
-	}
-
-	public void setAnswerGroup(int answerGroup) {
-		this.answerGroup = answerGroup;
-	}
-
-	public int getAnswerStep() {
-		return answerStep;
-	}
-
-	public void setAnswerStep(int answerStep) {
-		this.answerStep = answerStep;
-	}
-
-	public int getAnswerIndent() {
-		return answerIndent;
-	}
-
-	public void setAnswerIndent(int answerIndent) {
-		this.answerIndent = answerIndent;
+	public void setGroupLayer(int groupLayer) {
+		this.groupLayer = groupLayer;
 	}
 
 	@Override
 	public String toString() {
-		return "SystemQusetion [questionNo=" + questionNo + ", questionType=" + questionType + ", questionTitle="
+		return "SystemQuestion [questionNo=" + questionNo + ", questionType=" + questionType + ", questionTitle="
 				+ questionTitle + ", questionContent=" + questionContent + ", questionWriter=" + questionWriter
 				+ ", questionDate=" + questionDate + ", questionStatus=" + questionStatus + ", questionCount="
-				+ questionCount + ", memberId=" + memberId + ", answerNo=" + answerNo + ", answerTitle=" + answerTitle
-				+ ", answerContent=" + answerContent + ", answerWriteDept=" + answerWriteDept + ", answerWriter="
-				+ answerWriter + ", answerDate=" + answerDate + ", answerStatus=" + answerStatus + ", answerCount="
-				+ answerCount + ", answerGroup=" + answerGroup + ", answerStep=" + answerStep + ", answerIndent="
-				+ answerIndent + "]";
+				+ questionCount + ", memberId=" + memberId + ", originNo=" + originNo + ", groupOrd=" + groupOrd
+				+ ", groupLayer=" + groupLayer + "]";
 	}
-	
-	
+
 	
 }

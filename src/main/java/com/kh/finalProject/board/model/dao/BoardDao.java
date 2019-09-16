@@ -8,6 +8,7 @@ import com.kh.finalProject.board.model.exception.BoardSelectListException;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
+import com.kh.finalProject.board.model.vo.SystemQuestion;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 
@@ -172,6 +173,13 @@ public interface BoardDao {
 	int systemQuestionSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc);
 
 	ArrayList<Board> systemQuestionSearchList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);
+
+	Writer selectSystemQuestionWriter(SqlSessionTemplate sqlSession, String memberId);
+
+	int insertSystemQuestion(SqlSessionTemplate sqlSession, SystemQuestion sq);
+
+	int insertSystemQuestionFile(SqlSessionTemplate sqlSession, UploadFile uf);
+
 
 
 

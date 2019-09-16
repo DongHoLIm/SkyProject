@@ -19,10 +19,25 @@
 		padding: 10px 0px 0px 100px;
 	}
 	
-	.myBoardTitle:hover {
+	.questionTitle:hover {
 		color: black;
 		font-weight: bold;
 		cursor: pointer;
+	}
+	
+	.answerTitle:hover {
+		color: black;
+		font-weight: bold;
+		cursor: pointer;
+	}
+	
+	#writeArea {
+		margin: 0 auto;
+		width: 88.5%;
+	}
+	
+	#writeBtn {
+		align: right;
 	}
 	
 	.pagingArea {
@@ -60,6 +75,12 @@
 					</tr>
 				</table>
 			</form>
+			<div id="writeArea">
+				<div align="right" style="margin-bottom: 10px;">
+					<input type="hidden" name="memberId" value="${sessionScope.loginUser.memberId}">
+					<button id="writeBtn" onclick="insertSystemQuestion()">문의하기</button>
+				</div>
+			</div>
 			<c:if test="${pi.searchflag == false}">
 				<table style="width: 88.5%; text-align: center; margin: 0 auto;" id="boardArea">
 					<thead>
@@ -72,26 +93,28 @@
 					</thead>
 					<tbody>
 						<c:forEach var="b" items="${list}">
-							<tr style="background: #EBEFF1">
-								<td style="text-align: center;" class="qusetionType">${b.questionType}</td>
-								<td style="text-align: center;" class="questionTitle">${b.questionTitle}</td>
-								<td style="text-align: center;">${b.questionWriter}</td>
-								<td style="text-align: center;">
-									<fmt:parseDate value="${b.questionDate}" var="questionDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate value="${questionDate}" pattern="yyyy/MM/dd"/>
-								</td>
-							</tr>							
-							<c:if test="${!empty b.answerNo}">
-								<tr style="background: white">
-									<td style="text-align: center;">${b.questionType}</td>
-									<td style="text-align: center;">RE : ${b.answerTitle}</td>
-									<td style="text-align: center;">${b.answerWriter}</td>
+							<c:if test="${b.groupOrd eq 0}">								
+								<tr style="background: #EBEFF1">
+									<td style="text-align: center;" class="qusetionType">${b.questionType}</td>
+									<td style="text-align: center;" class="questionTitle">${b.questionTitle}</td>
+									<td style="text-align: center;">${b.questionWriter}</td>
 									<td style="text-align: center;">
-										<fmt:parseDate value="${b.answerDate}" var="answerDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-										<fmt:formatDate value="${answerDate}" pattern="yyyy/MM/dd"/>
+										<fmt:parseDate value="${b.questionDate}" var="questionDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${questionDate}" pattern="yyyy/MM/dd"/>
 									</td>
 								</tr>
-							</c:if>
+							</c:if>	
+							<c:if test="${b.groupOrd ne 0}">								
+								<tr style="background: white">
+									<td style="text-align: center;" class="qusetionType">${b.questionType}</td>
+									<td style="text-align: center;" class="questionTitle">${b.questionTitle}</td>
+									<td style="text-align: center;">${b.questionWriter}</td>
+									<td style="text-align: center;">
+										<fmt:parseDate value="${b.questionDate}" var="questionDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${questionDate}" pattern="yyyy/MM/dd"/>
+									</td>
+								</tr>
+							</c:if>						
 							<input type="hidden" name="questionNo" id="questionNo" value="${b.questionNo}">
 						</c:forEach>
 					</tbody>
@@ -145,28 +168,30 @@
 							<th width="10%" style="text-align: center;">게시일자</th>
 						</tr>
 					</thead>
-					<tbody>					
+					<tbody>
 						<c:forEach var="b" items="${list}">
-							<tr style="background: #EBEFF1">
-								<td style="text-align: center;" class="qusetionType">${b.questionType}</td>
-								<td style="text-align: center;" class="questionTitle">${b.questionTitle}</td>
-								<td style="text-align: center;">${b.questionWriter}</td>
-								<td style="text-align: center;">
-									<fmt:parseDate value="${b.questionDate}" var="questionDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate value="${questionDate}" pattern="yyyy/MM/dd"/>
-								</td>
-							</tr>							
-							<c:if test="${!empty b.answerNo}">
-								<tr style="background: white">
-									<td style="text-align: center;">${b.questionType}</td>
-									<td style="text-align: center;">RE : ${b.answerTitle}</td>
-									<td style="text-align: center;">${b.answerWriter}</td>
+							<c:if test="${b.groupOrd eq 0}">								
+								<tr style="background: #EBEFF1">
+									<td style="text-align: center;" class="qusetionType">${b.questionType}</td>
+									<td style="text-align: center;" class="questionTitle">${b.questionTitle}</td>
+									<td style="text-align: center;">${b.questionWriter}</td>
 									<td style="text-align: center;">
-										<fmt:parseDate value="${b.answerDate}" var="answerDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-										<fmt:formatDate value="${answerDate}" pattern="yyyy/MM/dd"/>
+										<fmt:parseDate value="${b.questionDate}" var="questionDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${questionDate}" pattern="yyyy/MM/dd"/>
 									</td>
 								</tr>
-							</c:if>
+							</c:if>	
+							<c:if test="${b.groupOrd ne 0}">								
+								<tr style="background: white">
+									<td style="text-align: center;" class="qusetionType">${b.questionType}</td>
+									<td style="text-align: center;" class="questionTitle">${b.questionTitle}</td>
+									<td style="text-align: center;">${b.questionWriter}</td>
+									<td style="text-align: center;">
+										<fmt:parseDate value="${b.questionDate}" var="questionDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${questionDate}" pattern="yyyy/MM/dd"/>
+									</td>
+								</tr>
+							</c:if>						
 							<input type="hidden" name="questionNo" id="questionNo" value="${b.questionNo}">
 						</c:forEach>
 					</tbody>
@@ -221,7 +246,11 @@
 		</div>
 	</div>
 	<script>	
-		
+		function insertSystemQuestion(){
+			var memberId = $("input[name=memberId]").val();		
+			
+			location.href = "st_showInsertSystemQuestion.bo?memberId=" + memberId;
+		}
 	</script>
 </body>
 </html>

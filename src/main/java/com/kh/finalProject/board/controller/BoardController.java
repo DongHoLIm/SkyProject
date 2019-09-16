@@ -1,13 +1,11 @@
 package com.kh.finalProject.board.controller;
 
 import java.io.File;
-import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +22,7 @@ import com.kh.finalProject.board.model.service.BoardService;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
+import com.kh.finalProject.board.model.vo.SystemQuestion;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 import com.kh.finalProject.common.CommonUtils;
@@ -6635,6 +6634,89 @@ public class BoardController {
 			return "student/board/systemQuestion/st_systemQuestionList";
 		} catch (BoardSearchException e) {
 			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping(value="st_showInsertSystemQuestion.bo")
+	public String stShowInsertSystemQuestion(HttpServletRequest request, Writer writerInfo) {
+	
+		String memberId = request.getParameter("memberId");
+		
+		System.out.println("stShowInsertSystemQuestion memberId :::: " + memberId);
+		
+		writerInfo = bs.selectSystemQuestionWriter(memberId);
+		
+		System.out.println("stShowInsertSystemQuestion writerInfo :::: " + writerInfo);
+		
+		request.setAttribute("writerInfo", writerInfo);
+		
+		return "student/board/systemQuestion/st_systemQuestionInsert";	
+	}
+	
+	@RequestMapping(value="st_SystemQuestionInsert.bo")
+	public String stSystemQuestionInsert(Model model, SystemQuestion sq, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {
+		System.out.println("stSystemQuestionInsert.bo photo :::: " + photo);
+		System.out.println("stSystemQuestionInsert.bo sq :::: " + sq);	
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;
+		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			System.out.println("stSystemQuestionInsert.bo root :::: " + root);
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();
+			
+			System.out.println("stSystemQuestionInsert.bo originFileName :::: " + originFileName);
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.insertSystemQuestionwithFile(sq, uf);
+				
+				model.addAttribute("sq", sq);
+				model.addAttribute("uf", uf);
+				model.addAttribute("memberId", sq.getMemberId());
+				
+				return "redirect:st_systemQuestionList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글쓰기 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			
+			bs.insertSystemQuestion(sq);
+			
+			model.addAttribute("sq", sq);
+			model.addAttribute("memberId", sq.getMemberId());
+			
+			return "redirect:st_systemQuestionList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글쓰기 실패!");
 			
 			return "common/errorAlert";	
 		}
