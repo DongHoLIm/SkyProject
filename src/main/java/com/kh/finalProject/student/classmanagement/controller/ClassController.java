@@ -83,11 +83,22 @@ public class ClassController {
 			
 			os.setOpenSubCode(subCode);
 			
-			ArrayList<OpenSubject> List = cs.selectOpenSubject(os);
+			ArrayList<OpenSubject> list = cs.selectOpenSubject(os);
 			
-			mv.addObject("List", List);
+			mv.addObject("list", list);
 			mv.setViewName("jsonView");
 			
+			
+			return mv;
+		}
+		@RequestMapping(value="selectgwamok.st")
+		public ModelAndView selectSearchgwamok(String gwamok, ModelAndView mv) {
+			
+			
+			ArrayList<OpenSubject> list = cs.selectSearchgwamok(gwamok);
+			
+			mv.addObject("list", list);
+			mv.setViewName("jsonView");
 			
 			return mv;
 		}

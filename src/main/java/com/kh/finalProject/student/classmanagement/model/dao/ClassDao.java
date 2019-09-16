@@ -18,4 +18,6 @@ public interface ClassDao {
 
 	ArrayList<OpenSubject> selectOpenSubject(SqlSessionTemplate sqlSession, OpenSubject os);
 
+	ArrayList<OpenSubject> selectSearchgwamok(SqlSessionTemplate sqlSession, String gwamok);
+
 }
