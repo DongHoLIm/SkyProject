@@ -5,29 +5,46 @@
 
 <mapper namespace="OpenSubject">
 
-	<resultMap type="com.kh.finalProject.professor.openSubject.model.vo.OpenSubject" id="OpenSubjectResultSet">
-		<id property="opensubCode" column="OPENSUB_CODE"/>
-		<result property="studentMax" column="STUDENT_MAX"/>
-		<result property="studentCount" column="STUDENT_COUNT"/>
-		<result property="openYear" column="OPEN_YEAR"/>
-		<result property="openSemester" column="OPEN_SEMESTER"/>
-		<result property="professorNo" column="PROFESSOR_NO"/>
-		<result property="closeCheck" column="CLOSE_CHECK"/>
-		<result property="closeReason" column="CLOSE_REASON"/>
-		<result property="roomCode" column="ROOM_CODE"/>
-		<result property="dayInfo" column="DAY_INFO"/>
-		<result property="timeInfo" column="TIME_INFO"/>
-		
+	<resultMap
+		type="com.kh.finalProject.professor.openSubject.model.vo.OpenSubject"
+		id="OpenSubjectResultSet">
+		<id property="opensubCode" column="OPENSUB_CODE" />
+		<result property="studentMax" column="STUDENT_MAX" />
+		<result property="studentCount" column="STUDENT_COUNT" />
+		<result property="openYear" column="OPEN_YEAR" />
+		<result property="openSemester" column="OPEN_SEMESTER" />
+		<result property="professorNo" column="PROFESSOR_NO" />
+		<result property="closeCheck" column="CLOSE_CHECK" />
+		<result property="closeReason" column="CLOSE_REASON" />
+		<result property="roomCode" column="ROOM_CODE" />
+		<result property="dayInfo" column="DAY_INFO" />
+		<result property="timeInfo" column="TIME_INFO" />
+		<result property="completeType" column="COMPLETE_TYPE" />
+		<result property="subGrade" column="SUB_GRADE" />
+		<result property="roomName" column="ROOM_NAME" />
+		<result property="buildingName" column="BUILDING_NAME" />
+		<result property="subName" column="SUB_NAME" />
+
+
+
 	</resultMap>
-	
-	
-	
-	<!-- 게시글 수 조회  -->
-	<select id="selectOpenSubjectList" resultMap="OpenSubjectResultSet">
-		SELECT *
-		FROM OPEN_SUBJECT
+
+
+	<!-- 게시글 수 조회 -->
+	<select id="selectOpenSubjectList"
+		resultMap="OpenSubjectResultSet">
+		SELECT
+		OS.OPENSUB_CODE,OS.DAY_INFO,TIME_INFO,SUB_NAME,COMPLETE_TYPE,SUB_GRADE,R.ROOM_NAME,B.BUILDING_NAME
+		FROM OPEN_SUBJECT OS
+		JOIN SUBJECT S ON(OS.OPENSUB_CODE=S.SUB_CODE)
+		JOIN ROOM R ON(OS.ROOM_CODE=R.ROOM_CODE)
+		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
+		WHERE OS.PROFESSOR_NO='pro1001'
+
 	</select>
-	
-	
-	
+
+
+
+
+
 </mapper>

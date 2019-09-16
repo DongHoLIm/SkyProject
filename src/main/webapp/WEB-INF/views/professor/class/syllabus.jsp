@@ -71,10 +71,10 @@ table.basicinfo {
 					<c:forEach var="openSubject" items="${openSubjectList }">
 						<tr>
 							<td>${ openSubject.opensubCode }</td>
-							<td>전공필수</td>
-							<td>인터넷과 홈페이지</td>
-							<td>만우관/(7-10)</td>
-							<td>3(3)</td>
+							<td>${ openSubject.completeType}</td>
+							<td>${ openSubject.subName}</td>
+							<td>${ openSubject.subName}</td>
+							<td>${ openSubject.dayInfo} / ${openSubject.timeInfo }</td>
 							<td><button>입력</button></td>
 						</tr>
 					</c:forEach>
