@@ -482,8 +482,9 @@ public class MemberController {
 		return "employee/systemAccountManagement/employeeDetailAccount";
 	}
 	@RequestMapping("updateAccount.me")
-	public void updatingAccount(MemberAccount ma,HttpServletRequest request) {		
-		 int result = ms.updatingAccount(ma);		
+	public String updatingAccount(MemberAccount ma,HttpServletRequest request) {		
+		 int result = ms.updatingAccount(ma);
+		 return "employee/systemAccountManagement/employeeDetailAccount";
 	}
 	
 }
