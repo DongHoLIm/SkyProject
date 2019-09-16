@@ -10,6 +10,7 @@ import com.kh.finalProject.board.model.exception.BoardSelectListException;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
+import com.kh.finalProject.board.model.vo.SystemQuestion;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 
@@ -603,4 +604,18 @@ public class BoardDaoImpl implements BoardDao{
 		return list;
 	}
 
+	@Override
+	public Writer selectSystemQuestionWriter(SqlSessionTemplate sqlSession, String memberId) {
+		return sqlSession.selectOne("Writer.selectSystemQuestionWriter", memberId);
+	}
+
+	@Override
+	public int insertSystemQuestion(SqlSessionTemplate sqlSession, SystemQuestion sq) {
+		return sqlSession.insert("SystemQuestion.insertSystemQuestion", sq);
+	}
+
+	@Override
+	public int insertSystemQuestionFile(SqlSessionTemplate sqlSession, UploadFile uf) {
+		return sqlSession.insert("UploadFile.insertSystemQuestionFile", uf);
+	}
 }

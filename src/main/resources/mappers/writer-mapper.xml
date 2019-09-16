@@ -45,4 +45,10 @@
 		WHERE MEMBER_ID =  #{memberId}
 	</select>
 	
+	<select id="selectSystemQuestionWriter" resultMap="writerResultSet" parameterType="Writer">
+		SELECT MEMBER_ID, MEMBER_KNAME
+		FROM MEMBER
+		WHERE MEMBER_ID =  #{memberId}
+	</select>
+	
 </mapper>

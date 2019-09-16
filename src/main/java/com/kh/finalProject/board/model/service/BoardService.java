@@ -11,6 +11,7 @@ import com.kh.finalProject.board.model.exception.BoardUpdateException;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
+import com.kh.finalProject.board.model.vo.SystemQuestion;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 
@@ -158,11 +159,18 @@ public interface BoardService {
 
 	int systemQuestionListCount(String memberId) throws BoardSelectListException;
 
-	ArrayList<Board> systemQuestionList(PageInfo pi, String memberId) throws BoardSelectListException;
+	ArrayList<Board> systemQuestionList(PageInfo pi, String memberId) throws BoardSelectListException;	
 
 	int systemQuestionSearchListCount(SearchCondition sc) throws BoardSearchException;
 
 	ArrayList<Board> systemQuestionSearchList(SearchCondition sc, PageInfo pi) throws BoardSearchException;
+
+	Writer selectSystemQuestionWriter(String memberId);
+
+	int insertSystemQuestionwithFile(SystemQuestion sq, UploadFile uf) throws BoardInsertException;
+
+	int insertSystemQuestion(SystemQuestion sq) throws BoardInsertException;
+
 
 
 

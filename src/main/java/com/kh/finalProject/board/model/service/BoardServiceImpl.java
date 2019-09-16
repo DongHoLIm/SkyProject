@@ -16,6 +16,7 @@ import com.kh.finalProject.board.model.exception.BoardUpdateException;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
+import com.kh.finalProject.board.model.vo.SystemQuestion;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
 
@@ -544,6 +545,7 @@ public class BoardServiceImpl implements BoardService{
 		return bd.systemQuestionList(sqlSession, pi, memberId);
 	}
 
+
 	@Override
 	public int systemQuestionSearchListCount(SearchCondition sc) throws BoardSearchException {
 		return  bd.systemQuestionSearchListCount(sqlSession, sc);
@@ -554,8 +556,30 @@ public class BoardServiceImpl implements BoardService{
 		return bd.systemQuestionSearchList(sqlSession, sc, pi);
 	}
 
+	@Override
+	public Writer selectSystemQuestionWriter(String memberId) {
+		return bd.selectSystemQuestionWriter(sqlSession, memberId);
+	}
 
-	
+	@Override
+	public int insertSystemQuestionwithFile(SystemQuestion sq, UploadFile uf) throws BoardInsertException {
+		System.out.println("sq :: " + sq);
+		int result = bd.insertSystemQuestion(sqlSession, sq);
+		
+		System.out.println("result :: " + result);
+		
+		if(result > 0) {	
+			System.out.println("uf :: " + uf);
+			
+			bd.insertSystemQuestionFile(sqlSession, uf);
+		}
+		 
+		return result;
+	}
 
+	@Override
+	public int insertSystemQuestion(SystemQuestion sq) throws BoardInsertException {
+		return bd.insertSystemQuestion(sqlSession, sq);
+	}
 	
 }

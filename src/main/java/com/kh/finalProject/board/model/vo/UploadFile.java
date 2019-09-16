@@ -6,6 +6,7 @@ public class UploadFile implements java.io.Serializable {
 	private String oldName;
 	private String changeName;
 	private String path;
+	private int questionNo;
 	
 	public UploadFile() {}
 
@@ -16,6 +17,23 @@ public class UploadFile implements java.io.Serializable {
 		this.oldName = oldName;
 		this.changeName = changeName;
 		this.path = path;
+	}	
+
+	public UploadFile(String fileCode, String oldName, String changeName, String path, int questionNo) {
+		super();
+		this.fileCode = fileCode;
+		this.oldName = oldName;
+		this.changeName = changeName;
+		this.path = path;
+		this.questionNo = questionNo;
+	}
+
+	public int getQuestionNo() {
+		return questionNo;
+	}
+
+	public void setQuestionNo(int questionNo) {
+		this.questionNo = questionNo;
 	}
 
 	public String getFileCode() {
@@ -61,8 +79,8 @@ public class UploadFile implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "UploadFile [fileCode=" + fileCode + ", boardNo=" + boardNo + ", oldName=" + oldName + ", changeName="
-				+ changeName + ", path=" + path + "]";
+				+ changeName + ", path=" + path + ", questionNo=" + questionNo + "]";
 	}
-	
+
 	
 }
