@@ -80,6 +80,7 @@
 	</c:if>
 	
 	<script>
+
 		function addressList(url){
 			var name = "주소록";
 			var specs = "width='150px'";
@@ -116,21 +117,23 @@
 		$("#sendSMS").click(function(){			
 			var sendMember = new Object();
 			var sendMemberlist = new Array();
-			var message = $("#message").val();
+			var message = $("textarea[id='message']").val();
 			var tr = $("#addressStuList tbody tr");
+			
 			 for(var i =0;i<tr.length;i++){
 					 var memberId = tr.eq(i).children().eq(0).text();
 					 var memberKName = tr.eq(i).children().eq(1).text();
 					 var phone = tr.eq(i).children().eq(2).text();
 					 var sdeptName = tr.eq(i).children().eq(3).text();
 					 var grade = tr.eq(i).children().eq(4).text();
+					 increseNumber=0;
 					 sendMember={
 							 	message : message,
 	 							memberId:memberId,
 	 							memberKName:memberKName,
 	 							phone:phone,
 	 							sdeptName:sdeptName,
-	 							grade:grade
+	 							grade:grade	 							
 	 					}
 				sendMemberlist.push(sendMember);
 			 }
@@ -140,7 +143,7 @@
 				 type:"post",
 				 data:{"send": send},
 				 success:function(data){
-					 console.log(data);
+					 console.log(data);			
 					 alert("메세지가 전송되었습니다.");
 					 $.ajax({
 						url:"sendMessage.ac",

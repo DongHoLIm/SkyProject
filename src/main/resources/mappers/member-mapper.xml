@@ -10,7 +10,7 @@
 		<result property="memberKName" column="MEMBER_KNAME"/>
 		<result property="memberEName" column="MEMBER_ENAME"/>
 		<result property="memberNo" column="MEMBER_NO"/>
-		<result property="phone" column="PHONE"/>
+		<result property="phone" column="PHONE_ONE"/>
 		<result property="email" column="EMAIL"/>
 		<result property="address" column="ADDRESS"/>
 		<result property="memberStatus" column="MEMBER_CHECK"/>
@@ -21,7 +21,7 @@
 		<result property="memberPwd" column="MEMBER_PWD"/>
 		<result property="memberKName" column="MEMBER_KNAME"/>
 		<result property="memberEName" column="MEMBER_ENAME"/>
-		<result property="phone" column="PHONE"/>
+		<result property="phone" column="PHONE_ONE"/>
 		<result property="email" column="EMAIL"/>
 		<result property="address" column="ADDRESS"/>
 		<result property="sdeptCode" column="SDEPT_NAME"/>
@@ -33,7 +33,7 @@
 		<result property="memberPwd" column="MEMBER_PWD"/>
 		<result property="memberKName" column="MEMBER_KNAME"/>
 		<result property="memberEName" column="MEMBER_ENAME"/>
-		<result property="phone" column="PHONE"/>
+		<result property="phone" column="PHONE_ONE"/>
 		<result property="email" column="EMAIL"/>
 		<result property="address" column="ADDRESS"/>
 		<result property="sdeptCode" column="SDEPT_NAME"/>
@@ -44,7 +44,7 @@
 		<result property="memberPwd" column="MEMBER_PWD"/>
 		<result property="memberKName" column="MEMBER_KNAME"/>
 		<result property="memberEName" column="MEMBER_ENAME"/>
-		<result property="phone" column="PHONE"/>
+		<result property="phone" column="PHONE_ONE"/>
 		<result property="email" column="EMAIL"/>
 		<result property="address" column="ADDRESS"/>
 		<result property="sdeptCode" column="EDEPT_NAME"/>
@@ -71,7 +71,7 @@
 	</update>
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER VALUES(
-			#{memberId},#{memberPwd},#{memberKName},#{memberEName},#{memberNo},#{phone},#{email},#{address},#{loginCheck},#{memberStatus}
+			#{memberId},#{memberPwd},#{memberKName},#{memberEName},#{memberNo},#{phone},#{email},#{address},#{loginCheck},#{memberStatus},NULL
 		)	
 	</insert>
 	<insert id="insertStudentInfo" parameterType="Member">
@@ -133,7 +133,7 @@
 	</select>
 	  
 	<select id="memberDetailStu" resultMap="memberStuResultSet" parameterType="Member">
-		SELECT M.MEMBER_ID,M.MEMBER_PWD,M.MEMBER_KNAME,M.MEMBER_ENAME,M.PHONE,M.EMAIL,M.ADDRESS,SI.STUDENT_STATUS,SP.SDEPT_NAME
+		SELECT M.MEMBER_ID,M.MEMBER_PWD,M.MEMBER_KNAME,M.MEMBER_ENAME,M.PHONE_ONE,M.EMAIL,M.ADDRESS,SI.STUDENT_STATUS,SP.SDEPT_NAME
 		FROM MEMBER M
 		JOIN STUDENT_INFO SI ON(M.MEMBER_ID=SI.STUDENT_NO) 
 		JOIN SDEPARTMENT SP ON(SI.SDEPT_CODE = SP.SDEPT_CODE)
@@ -141,7 +141,7 @@
 	</select>
 	
 	<select id="memberDetailPro" resultMap="memberProResultSet" parameterType="Member">
-		SELECT  M.MEMBER_ID,M.MEMBER_PWD,M.MEMBER_KNAME,M.MEMBER_ENAME,M.PHONE,M.EMAIL,M.ADDRESS,M.MEMBER_CHECK,SP.SDEPT_NAME
+		SELECT  M.MEMBER_ID,M.MEMBER_PWD,M.MEMBER_KNAME,M.MEMBER_ENAME,M.PHONE_ONE,M.EMAIL,M.ADDRESS,M.MEMBER_CHECK,SP.SDEPT_NAME
 		FROM MEMBER M 
 		JOIN PROFESSOR P ON (M.MEMBER_ID=P.PROFESSOR_NO)
 		JOIN SDEPARTMENT SP ON(P.PDEPT_CODE=SP.SDEPT_CODE)
@@ -149,7 +149,7 @@
 	</select>
 	
 	<select id="memberDetailEmp" resultMap="memberEmpResultSet" parameterType="Member">
-		SELECT M.MEMBER_ID,M.MEMBER_PWD,M.MEMBER_KNAME,M.MEMBER_ENAME,M.PHONE,M.EMAIL,M.ADDRESS,M.MEMBER_CHECK,R.RANK_NAME,ED.EDEPT_NAME
+		SELECT M.MEMBER_ID,M.MEMBER_PWD,M.MEMBER_KNAME,M.MEMBER_ENAME,M.PHONE_ONE,M.EMAIL,M.ADDRESS,M.MEMBER_CHECK,R.RANK_NAME,ED.EDEPT_NAME
 		FROM MEMBER M 
 		JOIN EMPLOYEE E ON(M.MEMBER_ID = E.EMPLOYEE_NO)
 		JOIN RANK R ON(E.RANK_CODE = R.RANK_CODE)
@@ -158,7 +158,7 @@
 	</select> 
 	
 	<update id="memberUpdate" parameterType="Member">
-		UPDATE MEMBER SET EMAIL=#{email},PHONE=#{phone},MEMBER_KNAME=#{memberKName},MEMBER_ENAME=#{memberEName},ADDRESS = #{address}
+		UPDATE MEMBER SET EMAIL=#{email},PHONE_ONE=#{phone},MEMBER_KNAME=#{memberKName},MEMBER_ENAME=#{memberEName},ADDRESS = #{address}
 		WHERE MEMBER_ID = #{memberId}
 	</update>
 	
