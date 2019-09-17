@@ -5,6 +5,7 @@ public class OpenSubject implements java.io.Serializable{
 	private String subName;
 	private String sdeptName;
 	private String professorName;
+	private String professorNo;
 	private int subGrade;
 	private String completeType; 
 	private int studentMax;
@@ -16,14 +17,15 @@ public class OpenSubject implements java.io.Serializable{
 	
 	public OpenSubject() {}
 
-	public OpenSubject(String openSubCode, String subName, String sdeptName, String professorName, int subGrade,
-			String completeType, int studentMax, String roomName, String buildingName, String dayInfo, String timeInfo,
-			int enrolType) {
+	public OpenSubject(String openSubCode, String subName, String sdeptName, String professorName, String professorNo,
+			int subGrade, String completeType, int studentMax, String roomName, String buildingName, String dayInfo,
+			String timeInfo, int enrolType) {
 		super();
 		this.openSubCode = openSubCode;
 		this.subName = subName;
 		this.sdeptName = sdeptName;
 		this.professorName = professorName;
+		this.professorNo = professorNo;
 		this.subGrade = subGrade;
 		this.completeType = completeType;
 		this.studentMax = studentMax;
@@ -64,6 +66,14 @@ public class OpenSubject implements java.io.Serializable{
 
 	public void setProfessorName(String professorName) {
 		this.professorName = professorName;
+	}
+
+	public String getProfessorNo() {
+		return professorNo;
+	}
+
+	public void setProfessorNo(String professorNo) {
+		this.professorNo = professorNo;
 	}
 
 	public int getSubGrade() {
@@ -133,9 +143,10 @@ public class OpenSubject implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "OpenSubject [openSubCode=" + openSubCode + ", subName=" + subName + ", sdeptName=" + sdeptName
-				+ ", professorName=" + professorName + ", subGrade=" + subGrade + ", completeType=" + completeType
-				+ ", studentMax=" + studentMax + ", roomName=" + roomName + ", buildingName=" + buildingName
-				+ ", dayInfo=" + dayInfo + ", timeInfo=" + timeInfo + ", enrolType=" + enrolType + "]";
+				+ ", professorName=" + professorName + ", professorNo=" + professorNo + ", subGrade=" + subGrade
+				+ ", completeType=" + completeType + ", studentMax=" + studentMax + ", roomName=" + roomName
+				+ ", buildingName=" + buildingName + ", dayInfo=" + dayInfo + ", timeInfo=" + timeInfo + ", enrolType="
+				+ enrolType + "]";
 	}
 
 	

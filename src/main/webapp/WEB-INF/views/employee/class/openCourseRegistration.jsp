@@ -34,7 +34,7 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach var="OpenSubject" items="${ crList }">
+					<c:forEach var="OpenSubject" items="${ list }">
 						<tr>
 							<td><input type="checkbox" value="" name="check" id="check"><label for="check"></label></td>
 							<td>

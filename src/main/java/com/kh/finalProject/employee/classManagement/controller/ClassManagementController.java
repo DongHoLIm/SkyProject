@@ -124,9 +124,9 @@ public class ClassManagementController {
 	@RequestMapping(value="openCourseRegistration.em")
 	public String selectCoursesOffered(HttpServletRequest request) {
 		
-		ArrayList<OpenSubject> crList = cms.selectOpenSubjectList();
-		
-		request.setAttribute("crList", crList);
+		ArrayList<OpenSubject> list = cms.selectOpenSubjectList();
+		System.out.println(list);
+		request.setAttribute("list", list);
 		return "employee/class/openCourseRegistration";
 	}
 	@RequestMapping(value="updateOpenSubject.em")

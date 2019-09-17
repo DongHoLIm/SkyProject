@@ -102,7 +102,37 @@ public class ClassController {
 			
 			return mv;
 		}
-	
-	
-	
+		@RequestMapping(value="selectProfessor.st")
+		public ModelAndView selectProfessor(String professor, ModelAndView mv) {
+			OpenSubject os = new OpenSubject();
+			
+			ArrayList<OpenSubject> list2 = cs.selectProfessor(professor);
+
+			 os.setProfessorNo(list2.get(0).getProfessorNo());
+			 
+			ArrayList<OpenSubject> list = cs.selectProGwamok(os);
+			
+			
+			
+			mv.addObject("list2", list2);
+			mv.addObject("list", list);
+			mv.setViewName("jsonView");
+			
+			return mv;
+		}
+		@RequestMapping(value="selectGwamok.st")
+		public ModelAndView selectGwamok(String professorNo, ModelAndView mv) {
+			OpenSubject os = new OpenSubject();
+			
+
+			os.setProfessorNo(professorNo);
+			 
+			ArrayList<OpenSubject> list = cs.selectProGwamok(os);
+			
+			mv.addObject("list", list);
+			mv.setViewName("jsonView");
+			
+			return mv;
+		}
+		
 }

@@ -20,6 +20,8 @@
 			$(".btn1").show();
 			$(".btn2").hide();
 			$(".btn3").hide();
+			$('#gwamok').val("");
+			$('#professor').val("");
 		}else if(category == "1"){
 			$("#choice0").hide();
 			$("#choice1").show();
@@ -27,6 +29,8 @@
 			$(".btn1").hide();
 			$(".btn2").show();
 			$(".btn3").hide();
+			$('#gwamok').val("");
+			$('#professor').val("");
 		}else if(category == "2"){	
 			$("#choice0").hide();
 			$("#choice1").hide();
@@ -34,6 +38,8 @@
 			$(".btn1").hide();
 			$(".btn2").hide();
 			$(".btn3").show();
+			$('#gwamok').val("");
+			$('#professor').val("");
 		}
 	}
 	function goSubJect(){
@@ -53,8 +59,9 @@
 			
 					$('#subJect').empty();
 					for(var i=0;i<data.osList2.length;i++){
-						var option = $("<option value='osList[i].openSubCode'>"+osList[i].subName+"</option>");
+						var option = $("<option value='"+osList[i].openSubCode+"'>"+osList[i].subName+"</option>");
 						$("#subJect").append(option);
+						console.log("!!!!!:" + osList[i].openSubCode)
 					}
 				},
 				error:function(err){
@@ -70,15 +77,11 @@
 			url:"selectOpensubject.st",
 			type:"post",
 			data:{subCode:subCode},
-			success:function(data){
-				console.log(data);
-				
+			success:function(data){		
 				var list = new Array();
 				for(var i=0;i<data.list.length;i++){
 					list[i] = data.list[i];
-					console.log(list[i].openSubCode);
 				}
-				
 				var count = 1;
 				 $('#search').empty();
 				 $( '.tableList2 > tbody').empty(); 
@@ -98,9 +101,7 @@
 										"<td>"+"</td>"+
 										"<td>"+"</td>"+
 									"</tr>");
-					$(".tableList2").append(table);  
-					
-					
+					$(".tableList2").append(table);  				
 					count++;
 				} 
 			},
@@ -113,31 +114,24 @@
 	
 	function gwamokSearch(){
 		var gwamok = $("#gwamok").val();
-		
-		console.log(gwamok);
-		
 		if(!gwamok){
-			alert('과목명을 입력하세요');
+			alert('과목명(과목코드)을 입력하세요');
 		}else{
 			$.ajax({
 				url:"selectgwamok.st",
 				type:"post",
 				data:{gwamok:gwamok},
 				success:function(data){
-					console.log(data);
-					
 					var list = new Array();
 					for(var i=0;i<data.list.length;i++){
 						list[i] = data.list[i];
-						console.log(list[i].openSubCode);
-					}
-					
+					}	
 					var count = 1;
 					 $('#search').empty();
 					 $( '.tableList2 > tbody').empty();
 					for(var i=0;i<data.list.length;i++){
 						 var table = $("<tr>"+
-									 		"<td>"+"<input type='checkbox' id='check[i]'>"+"</td>"+
+									 		"<td>"+"<input type='checkbox' id='checkbox'>"+"</td>"+
 											"<td>"+count+"</td>"+
 											"<td>"+list[i].completeType+"</td>"+
 											"<td>"+list[i].openSubCode+"</td>"+
@@ -152,8 +146,6 @@
 											"<td>"+"</td>"+
 										"</tr>");
 						$(".tableList2").append(table);  
-						
-						
 						count++;
 					} 
 				},
@@ -163,6 +155,116 @@
 			});
 		}
 	}
+	function professorSearch(){
+		var professor = $("#professor").val();
+		
+		console.log(professor);
+		
+		if(!professor){
+			alert("교수명(교수코드)을 입력하세요!");
+		}else{
+			$("#professorS").empty();
+			$("#proGwamok").empty();
+			$.ajax({
+				url:"selectProfessor.st",
+				type:"post",
+				data:{professor:professor},
+				success:function(data){
+					var list1 = new Array();
+					var list2 = new Array();
+					for(var i=0;i<data.list2.length;i++){
+						list1[i] = data.list2[i];
+						list2[i] = data.list[i];
+					}
+					for(var i=0;i<data.list2.length;i++){
+						var option1 = $("<option id='proList' value='"+list1[i].professorNo+"'>"+list1[i].professorName+"</option>");
+						$("#professorS").append(option1);
+					}
+					for(var i=0;i<data.list.length;i++){
+						var option2 = $("<option id='gwamokList' value='"+list2[i].openSubCode+"'>"+list2[i].subName+"</option>");
+						$("#proGwamok").append(option2);
+					}
+				},
+				error:function(err){
+					console.log("실패!");
+				}
+			});
+		}
+	}
+	function searchGwamok(){
+		var professorNo = $("#professorS").val();
+		
+		$("#proGwamok").empty();
+		$.ajax({
+			url:"selectGwamok.st",
+			type:"post",
+			data:{professorNo:professorNo},
+			success:function(data){
+				console.log(data);
+				
+				var list = new Array();
+				for(var i=0;i<data.list.length;i++){
+					list[i] = data.list[i];
+				}
+				for(var i=0;i<data.list.length;i++){
+					var option = $("<option id='gwamokList' value='"+list[i].openSubCode+"'>"+list[i].subName+"</option>");
+					$("#proGwamok").append(option);
+				}
+			},
+			error:function(err){
+				console.log("실패!");
+			}
+		});
+	}
+	function professorGwamokSearch(){
+		var subCode = $(".proGwamok").val();
+		
+		$.ajax({
+			url:"selectOpensubject.st",
+			type:"post",
+			data:{subCode:subCode},
+			success:function(data){			
+				var list = new Array();
+				for(var i=0;i<data.list.length;i++){
+					list[i] = data.list[i];
+				}
+				var count = 1;
+				 $('#search').empty();
+				 $( '.tableList2 > tbody').empty(); 
+				for(var i=0;i<data.list.length;i++){
+					 var table = $("<tr>"+
+								 		"<td>"+"<input type='checkbox' value='"+list[i].openSubCode+"'>"+"</td>"+
+										"<td>"+count+"</td>"+
+										"<td>"+list[i].completeType+"</td>"+
+										"<td>"+list[i].openSubCode+"</td>"+
+										"<td>"+list[i].subName+"</td>"+
+										"<td>"+list[i].subGrade+"</td>"+
+										"<td>"+list[i].professorName+"</td>"+
+										"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
+										"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
+										"<td>"+list[i].studentMax+"</td>"+
+										"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
+										"<td>"+"</td>"+
+										"<td>"+"</td>"+
+									"</tr>");
+					$(".tableList2 tbody").append(table);  	
+					count++;
+				} 
+			},
+			error:function(err){
+				console.log("실패!");
+			}
+		});
+	}
+	$(function(){
+		$('table[class="tableList2"] tbody tr').click(function(){
+			console.log("선택");
+			
+		});
+	});
+		
+		
+	
 </script>
 <style>
 table {
@@ -340,7 +442,6 @@ table.tableList2 td img {
 	</div>
 	<form action="inquiry.st" method="post">
 		<table class="tableList3" width="100%">
-			<input type="hidden" name="sbjt_cd">
 			<tbody>
 				<tr id="choice">
 					<td>
@@ -383,7 +484,7 @@ table.tableList2 td img {
 					 	<span>
 					 		<span class="ui-widget"> 
 					 			<label for="gwamok">조회 : </label>
-					 			<input type="text" name="gwamok" id="gwamok" size="20" placeholder="과목명을 입력하세요.">	
+					 			<input type="text" name="gwamok" id="gwamok" size="20" placeholder="과목명(과목코드)을 입력하세요." onkeypress="if(event.keyCode==13) {gwamokSearch(); return false;}">	
 									&nbsp;&nbsp;&nbsp;
 							</span>
 							
@@ -393,19 +494,21 @@ table.tableList2 td img {
 					<span id="choice2" name="choice2" style="display: none">
 						<span>
 							<span class="ui-widget"> <label for="prof_nm">조회 : </label>
-							<input type="text" name="prof_nm" id="prof_nm" size="20" value="교수명을 입력하세요.">
-							교수 : <select name="allProf" id="allProf" class="Layer1"
-									style="width: 150;" onchange="javascript:setProfLecture();">
+							<input type="text" name="professor" id="professor" size="20" placeholder="교수명(교수코드)을 입력하세요" onkeypress="if(event.keyCode==13) {professorSearch(); return false;}">
+							교수 : <select name="professorS" id="professorS" class="professorS"
+									style="width: 150;" onchange="searchGwamok();">
 								</select>&nbsp;&nbsp;&nbsp; 
-							과목 : <select name="profLecture" id="profLecture" class="Layer1" style="width: 200; background-color: #FFD9EC;">
+							과목 : <select name="proGwamok" id="proGwamok" class="proGwamok" style="width: 200; background-color: #FFD9EC;">
 								</select>&nbsp;&nbsp;&nbsp;
 							</span>
 						</span>
 					</span>
 					<span>
-						<span class="btn1" onclick="deptSearch();" name="search_btn" id="search_btn" style="background:red"> 조 회 </span>
-						<span class="btn2" onclick="gwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;"> 조 회 </span>
-						<span class="btn3" onclick="professorSearch();" name="search_btn" id="search_btn" style="background:red; display:none;"> 조 회 </span> 
+						<span class="btn1" onclick="deptSearch();" name="search_btn" id="search_btn" style="background:red">조 회</span>
+						<span class="btn2" onclick="gwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;">조 회</span>
+						<span class="btn3" onclick="professorGwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;">조 회</span>
+						&nbsp;&nbsp;&nbsp;
+						<span class="apply" onclick="insertSubjectApply();" style="background:skyblue;"> 신 청 </span>
 					</span>
 					</td>				
 				</tr>
