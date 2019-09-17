@@ -133,8 +133,7 @@
 									}
 									list.push(member);
 								 });
-								 resultMember.list = list;
-								 
+								 resultMember.list = list;		
 								 var resultStr = JSON.stringify(resultMember);
 							 	 $.ajax({
 										url:"insertMember.me",

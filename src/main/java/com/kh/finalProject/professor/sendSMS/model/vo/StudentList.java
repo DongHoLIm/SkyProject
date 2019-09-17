@@ -6,16 +6,19 @@ public class StudentList implements java.io.Serializable{
 	private String phone;
 	private String sdeptName;
 	private String grade;
+	private String message;
 	
 	public StudentList() {}
 
-	public StudentList(String memberId, String memberKName, String phone, String sdeptName, String grade) {
+	public StudentList(String memberId, String memberKName, String phone, String sdeptName, String grade,
+			String message) {
 		super();
 		this.memberId = memberId;
 		this.memberKName = memberKName;
 		this.phone = phone;
 		this.sdeptName = sdeptName;
 		this.grade = grade;
+		this.message = message;
 	}
 
 	public String getMemberId() {
@@ -58,12 +61,19 @@ public class StudentList implements java.io.Serializable{
 		this.grade = grade;
 	}
 
+	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	@Override
 	public String toString() {
 		return "StudentList [memberId=" + memberId + ", memberKName=" + memberKName + ", phone=" + phone
-				+ ", sdeptName=" + sdeptName + ", grade=" + grade + "]";
+				+ ", sdeptName=" + sdeptName + ", grade=" + grade + ", message=" + message + "]";
 	}
-	
-	
 	
 }

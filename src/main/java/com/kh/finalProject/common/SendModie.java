@@ -35,9 +35,10 @@ public class SendModie {
 		String sphone2="6384";
 		String sphone3="2055";
 		String rphone="";
+		
 		if(request.getParameter("checkPoint").equals("0")) {
-			rphone = request.getParameter("phoneNumber");
-		}	
+			rphone = request.getParameter("phoneNumber");			
+		}
 
 		String[] host_info = sms_url.split("/");
 		String host = host_info[2];

@@ -12,4 +12,6 @@ public interface professorService {
 
 	ArrayList<StudentList> studentPageList(PageInfo pi);
 
+	int insertSMS(StudentList sl);
+
 }
