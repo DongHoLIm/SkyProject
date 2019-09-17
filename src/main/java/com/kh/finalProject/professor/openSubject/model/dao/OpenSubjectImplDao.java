@@ -16,6 +16,7 @@ public class OpenSubjectImplDao implements OpenSubjectDao{
 		
 		
 		return sqlSession.selectList("OpenSubject.selectOpenSubjectList");
+	
 	}
 	
 

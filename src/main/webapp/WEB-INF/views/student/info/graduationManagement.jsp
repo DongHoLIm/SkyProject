@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,20 +69,25 @@ table.basicinfo{
                         
                      </tr>
                   </thead>
-                  <tobody>
-                  <tr>
-                     <td>인증</td>
-                     <td>인증 대기</td>
-                     <td></td>
-                  	 <td></td>
-                  </tr>
-                  </tobody>
+                  <tbody id="info">
+                  <c:forEach var="list" items="${list }">
+					<tr>
+						<td><c:out value="${list.division }"/></td>
+						<td><c:out value="${list.graduationName }"/></td>
+						<td><c:out value="${list.check }"/></td>
+						<td><c:out value="${list.graduationInfo }"/></td>
+					</tr>
+				</c:forEach>
+                  </tbody>
                </table>
                
-      			<div class="basicinfo">
+      			<!-- <div class="basicinfo">
       			<button id="modified">졸업 조건 확인 하기</button>
-               </div> 
+               </div>  -->
+               
+               <br><br><br><br><br><br>
          
+        
             
 
       </div>

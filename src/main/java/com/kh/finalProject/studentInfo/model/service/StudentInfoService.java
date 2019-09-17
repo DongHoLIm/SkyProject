@@ -7,6 +7,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
+import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoService {
@@ -39,13 +40,5 @@ public interface StudentInfoService {
 
 	ArrayList<SecondMajor> selectSecondMajor(String userId);
 
-
-	
-
-	
-
-	
-
-	
-
+	ArrayList<Graduation> selectGraduationCondition(String userId) throws StudentInfoSelectListException;
 }

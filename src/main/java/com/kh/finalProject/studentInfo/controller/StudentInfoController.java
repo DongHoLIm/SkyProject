@@ -19,6 +19,7 @@ import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListExce
 import com.kh.finalProject.studentInfo.model.service.StudentInfoService;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
+import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 
@@ -329,7 +330,17 @@ public class StudentInfoController {
 					return mv;
 				}
 				
-			}			
+			}	
+	
+	
+	//교직원_학생조회_학생선택
+	@RequestMapping(value="em_selectStudent.si")
+	public String selectStudent(HttpServletRequest request) {
+		
+		return "student/info/studentDetail";
+	}
+	
+	//학생_졸업관리
 	@RequestMapping(value="st_graduation.si")
 	public String graduationManagement(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
 		
@@ -339,12 +350,46 @@ public class StudentInfoController {
 		StudentInfo basicInfo = ss.basicInfo(userId);
 		request.setAttribute("basicInfo",basicInfo);
 		
-		//ArrayList list = ss.graduationCondition(userId);
+		try {
+			ArrayList<Graduation> list = ss.selectGraduationCondition(userId);
+			
+			System.out.println("list::" + list);
+			
+			String division="";
+			String check="";
+			for(int i=0 ; i<list.size() ; i++) {
+				
+				division = list.get(i).getsDeptCode();
+				if(division.equals("SD100")) {
+					list.get(i).setDivision("교내 인증");
+				}else {
+					list.get(i).setDivision("학과 인증");
+				}
+				
+				check = list.get(i).getCheck();
+				if(check.equals("Y")) {
+					list.get(i).setCheck("통과");
+				}else {
+					list.get(i).setCheck("미통과");
+				}
+			}
+			
+			System.out.println("list::" + list);
+			request.setAttribute("list",list);
+			
+			return "student/info/graduationManagement";
+			
+		} catch (StudentInfoSelectListException e) {
+			request.setAttribute("msg",e.getMessage());
+			
+			return "common/errorPage";
+		}
 		
-		return "student/info/graduationManagement";
+		
 	}
 	
 
+  
 	// 학생_다전공신청_뷰 출력
 	@RequestMapping("st_showSecondMajor.si")
 	public String st_showSecondMajor(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
@@ -363,7 +408,7 @@ public class StudentInfoController {
 		request.setAttribute("basicInfo",basicInfo);
 		request.setAttribute("stuInfo",stuInfo);
 		request.setAttribute("list", list);	
-		
+  
 		return "student/info/secondMajor";
 	}
 	

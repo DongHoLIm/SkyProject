@@ -21,14 +21,14 @@ public class OpenSubjectController {
 	OpenSubjectService openSubjectService;
 	
 	@RequestMapping("opensubject.pro")
-	/*public ModelAndView OpenSubject (ModelAndView mav) {
+	public ModelAndView OpenSubject (ModelAndView mav) {
 		List<OpenSubject> openSubjectList = openSubjectService.selectOpenSubjectList();
 		System.out.println("openSubjectList : " + openSubjectList);
 		mav.addObject("openSubjectList", openSubjectList);
 		mav.setViewName("professor/class/syllabus");
 		return mav;
-	}*/
-	public String OpenSubject(@ModelAttribute("loginUser") Member professorInfo,HttpServletRequest request) {
+	
+	/*public String OpenSubject(@ModelAttribute("loginUser") Member professorInfo,HttpServletRequest request) {
 		String memberId= professorInfo.getMemberId();
 		
 		List<OpenSubject> openSubjectList = openSubjectService.selectOpenSubjectList();
@@ -36,6 +36,6 @@ public class OpenSubjectController {
 		request.setAttribute("openSubjectList",openSubjectList);
 		
 		return "professor/class/syllabus";
+	}*/
 	}
-
 }

@@ -77,7 +77,7 @@
 			
 			</div>
 			
-			<table id="tableArea" style="width:88.5%; text-align: center; margin: 0 auto;">
+			<table id="tableArea" style="width:85%; text-align: center; margin: 0 auto;">
 			<thead>
 				<tr>
 					<th width="15%" style="text-align:center">단과대학</th>
@@ -179,6 +179,19 @@
 							$tbody.append($tr);
 							
 						}
+						
+						$("#tableArea").find("td").mouseenter(function(){
+							$(this).parents("tr").css({"font-weight":"bold", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parents("tr").css({"font-weight":"normal"});
+						}).click(function(){
+							var id = $(this).parents().children("td").eq(3).text();
+							
+							console.log(id);
+							location.href = "em_selectStudent.si?id="+id;
+							
+						});
+						
 							var currentPage = data.pi.currentPage;
 							var listCount = data.pi.listCount;
 							var limit = data.pi.limit;
@@ -308,7 +321,6 @@
 					}
 				})
 				
-				
 			});
 			 
 			
@@ -356,6 +368,19 @@
 							
 							$tbody.append($tr);
 						}
+						
+						$("#tableArea").find("td").mouseenter(function(){
+							$(this).parents("tr").css({"font-weight":"bold", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parents("tr").css({"font-weight":"normal"});
+						}).click(function(){
+							var id = $(this).parents().children("td").eq(3).text();
+							
+							console.log(id);
+							location.href = "em_selectStudent.si?id="+id;
+							
+						});
+						
 						
 						var currentPage = data.pi.currentPage;
 						var listCount = data.pi.listCount;
@@ -432,6 +457,7 @@
 						
 					}
 				});
+				
 			};
 			
 			
@@ -476,6 +502,7 @@
 							var $td5 = $("<td style='text-align:center;'>");
 							var $td6 = $("<td style='text-align:center;'>");
 							
+							
 							$td1.text(data.list[i].college);
 							$td2.text(data.list[i].sdeptName);
 							$td3.text(data.list[i].grade);
@@ -492,6 +519,19 @@
 							
 							$tbody.append($tr);
 						}
+						
+						$("#tableArea").find("td").mouseenter(function(){
+							$(this).parents("tr").css({"font-weight":"bold", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parents("tr").css({"font-weight":"normal"});
+						}).click(function(){
+							var id = $(this).parents().children("td").eq(3).text();
+							
+							console.log(id);
+							location.href = "em_selectStudent.si?id="+id;
+							
+						});
+						
 						
 						var currentPage = data.pi.currentPage;
 						var listCount = data.pi.listCount;
@@ -567,6 +607,7 @@
 			
 					}
 				});
+				
 			}
 			
 			function loadPage2(curr){
@@ -629,6 +670,19 @@
 							$tbody.append($tr);
 						}
 						
+						$("#tableArea").find("td").mouseenter(function(){
+							$(this).parents("tr").css({"font-weight":"bold", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parents("tr").css({"font-weight":"normal"});
+						}).click(function(){
+							var id = $(this).parents().children("td").eq(3).text();
+							
+							console.log(id);
+							location.href = "em_selectStudent.si?id="+id;
+							
+						});
+						
+						
 						var currentPage = data.pi.currentPage;
 						var listCount = data.pi.listCount;
 						var limit = data.pi.limit;
@@ -703,6 +757,7 @@
 			
 					}
 				});
+				
 			}
 			
 			
@@ -742,10 +797,11 @@
 							}
 							
 						}
-					})
+					});
 					
-				})
+				});
 			})
+			
 			
 			
 			</script>

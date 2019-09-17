@@ -27,6 +27,7 @@
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.Graduation" alias="Graduation"/>
 		<typeAlias type="com.kh.finalProject.professor.message.model.vo.MessageVO" alias="MessageVO"/>
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.SecondMajor" alias="SecondMajor"/>
+		<typeAlias type="com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList" alias="SendSMSList"/>
 	</typeAliases>
 	
 	<mappers>

@@ -9,6 +9,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
+import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoDao {
@@ -45,13 +46,7 @@ public interface StudentInfoDao {
 
 	ArrayList<SecondMajor> selectSecondMajor(SqlSessionTemplate sqlSession, String userId);
 
-	
-
-	
-
-
-
-	
+	ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException;	
 	
 
 }

@@ -1,17 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>장학관리</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script>
-$("document").ready(function(){
-$("#show").click(function(){
-$("#scholarInfo").show();
-});
-</script>
 <style>
 		#searchInfo {
 			float:left;
@@ -64,8 +58,8 @@ $("#scholarInfo").show();
 	  				
 					<h4 align="right" class="sibal">교내장학금 신청 및 결과</h4>
 					<div style="float:right">
-						<button class="sibal" id="show">조회</button>
-						<button class="sibal" id="new">신규</button>
+						<button class="sibal" id="show" onclick="location.href='beforeScholarshipApply.sc'">조회</button>
+						<button class="sibal" id="new" onclick="location.href='scholarshipNew.sc'">신규</button>
 						<button class="sibal" id="save">저장</button>
 						<button class="sibal" id="help">도움말</button>
 					</div>
@@ -94,8 +88,8 @@ $("#scholarInfo").show();
 					</table>
 					
 					<hr>
-					
-					<div class="container" id="scholarInfo" style=" visibility:hidden;">
+					<c:if test="${ !empty beforeScholarship }">
+					<div class="container" id="scholarInfo">
 	  					<table class="table" text-align="center" style="border:2px solid lightgray;">
 	  					  <thead style="background-color:#eff1f2">
 	  					  	<tr>
@@ -128,8 +122,8 @@ $("#scholarInfo").show();
 	 					   	</tr>
 	 					   </tbody>
 	 					 </table>
-
 	 				</div>
+						</c:if>
 					
 					<div class="container">         
 	  					<div id = "scholarInfo"style="overflow:scroll; height:300px; border:1.5px solid lightgray">

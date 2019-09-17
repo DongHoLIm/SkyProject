@@ -10,6 +10,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
+import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 @Repository
@@ -176,13 +177,21 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	@Override
 	public ArrayList<SecondMajor> selectSecondMajor(SqlSessionTemplate sqlSession, String userId) {
 		return (ArrayList) sqlSession.selectList("SecondMajor.selectSecondMajor2", userId);
+  }
+  
+  @Override
+  public ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException {
+		
+		ArrayList<Graduation> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Graduation.selectGraduationCondition", userId);
+		
+		if(list==null) {
+			sqlSession.close();
+			throw new StudentInfoSelectListException("졸업인증 관리 조회 실패");
+		}
+		
+		return list;
+
 	}
-
-	
-
-	
-
-	
-	
-
 }

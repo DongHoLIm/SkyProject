@@ -4,12 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Graduation">
   <resultMap type="Graduation" id="graduationResultSet">
+  	<id property="studentNo" column="STUDENT_NO"/>
   	<id property="graduationCode" column="GRADUATION_CODE"/>
   	<result property="sDeptCode" column="SDEPT_CODE"/>
+  	<result property="division" column="SDEPT_CODE"/>
   		<result property="graduationName" column="GRADUATION_NAME"/>
   		<result property="graduationContent" column="GRADUATION_CONTENT"/>
   		<result property="check" column="GRADUATION_CHECK"/> 
   		<result property="graduationInfo" column="GRADUATION_INFO"/>
   </resultMap>
+  
+  <select id="selectGraduationCondition" resultMap="graduationResultSet">
+  	SELECT M.SDEPT_CODE, C.GRADUATION_NAME, M.GRADUATION_CHECK, M.GRADUATION_INFO
+  	FROM GRADURATION_MANAGE M
+  	LEFT JOIN GRADURATION_CRITERIA C ON(M.GRADUATION_CODE=C.GRADUATION_CODE)
+  	WHERE STUDENT_NO=#{studentNo} 
+  </select> 
   
 </mapper>

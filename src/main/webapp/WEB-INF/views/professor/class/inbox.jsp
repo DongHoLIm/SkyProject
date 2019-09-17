@@ -35,7 +35,7 @@ table {
 }
 
 body {
-	text-align: center;
+    text-align: center;
 	background: beige;
 }
 
@@ -76,7 +76,7 @@ h4 {
 .btn-secondary {
 	background: #5a6268;
 	color: #fff;
-
+ 	text-align: le
 }
 
 
