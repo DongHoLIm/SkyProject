@@ -51,14 +51,13 @@ table.basicinfo {
          <div class="inner">
             <jsp:include page="../../common/header.jsp" />
          </div>
-            <h4 id="basic">기본 정보</h4>
+         <h4 id="basic">기본 정보</h4>
          <form class="ba">
             <table class="basicinfo">
                <tr>
                   <td class="td">학번</td>
                   <td colspan='5'><input type="text" value="123456789" readonly></td>
                </tr>
-
                <tr>
                   <td class="td">한글 성명</td>
                   <td><input type="text" value="홍길동" readonly></td>
@@ -67,7 +66,6 @@ table.basicinfo {
                   <td class="td">한문 성명</td>
                   <td><input type="text" value="姜因遇" readonly></td>
                </tr>
-
                <tr>
                   <td class="td">주민 번호</td>
                   <td><input type="text" value="940205-*******" readonly></td>
@@ -76,16 +74,14 @@ table.basicinfo {
                   <td class="td">성별</td>
                   <td><input type="text" value="남" readonly></td>
                </tr>
-
                <tr>
-                  <td class="td">학부(과)</td>
+                  <td class="td">학과</td>
                   <td><input type="text" value="소프트웨어 응용" readonly></td>
                   <td class="td">전공</td>
                   <td><input type="text" value="컴퓨터 공학" readonly></td>
                   <td class="td">학년</td>
                   <td><input type="text" value="1" readonly></td>
                </tr>
-
                <tr>
                   <td class="td">학적 상태</td>
                   <td><input type="text" value="재학" readonly></td>
@@ -94,98 +90,97 @@ table.basicinfo {
                   <td class="td">병역 구분</td>
                   <td><input type="text" value="" readonly></td>
                </tr>
-
+             </table>
+             <h4 id="basic">다전공 신청</h4>
                <table class="basicinfo">
-                  <h4 id="basic">복수(부) 전공</h4>
                   <tr>
-                     <td class="td">대전공<br>분류
+                     <td class="td">다전공 분류 </td>
+                     <td colspan="5">
+                     	<select name="secondMajor" id="secondMajor">
+                           <option value="multi">복수전공</option>
+                           <option value="second">부전공</option>
+                     	</select>
                      </td>
-                     <td><select name='mulitple'>
-                           <option value=''>-- 선택 --</option>
-                           <option value='' selected>제2전공(복수전공)</option>
-                           <option value='' disabled>경영</option>
-                           <option value='' label=''>영문</option>
-                     </select></td>
-
-                     <td class="td">신청날짜</td>
-                     <td><select name='mulitple'>
-                           <option value=''>-- 선택 --</option>
-                           <option value='' selected>2019-08-28</option>
-                           <option value='' disabled></option>
-                           <option value='' label=''></option>
-                     </select></td>
-
-
                   </tr>
-
-
                   <tr>
                      <td class="td">단과대학</td>
-                     <td><select name='mulitple'>
-                           <option value=''>-- 선택 --</option>
-                           <option value='' selected>인문대학</option>
-                           <option value='' disabled>공과대학</option>
-                           <option value='' label=''></option>
-                     </select></td>
-
-
-                     <td class="td">학부(과)</td>
-                     <td><select name='mulitple'>
-                           <option value='' selected>-- 선택 --</option>
-                           <option value='' selected>경영</option>
-                           <option value='' disabled>영문</option>
-                           <option value='' label=''></option>
-                     </select></td>
-
-                     <td class="td">전공</td>
-                     <td><select name='mulitple'>
-                           <option value=''>-- 선택 --</option>
-                           <option value='' selected>제2전공(복수전공)</option>
-                           <option value='' disabled>경영</option>
-                           <option value='' label=''>영문</option>
-                     </select></td>
-
+                     <td colspan="2">
+                     	<select name="college" id="college">
+                           <option value="CollegeChoice">-- 선택 --</option>
+                           <option value="Humanities">인문대학</option>
+                           <option value="Art">예술대학</option>
+                           <option value="Engineering">공과대학</option>
+                   		</select>
+                     </td>
+                     <td class="td">학과</td>
+                     <td colspan="2">
+                     	<select name="sDept" id="sDept">
+                           
+                    	</select>
+                    </td>
                   </tr>
-
-
-               </table>
-
-               <input type="button" value="신청 하기" id="modified"
-                  style="float: right; margin-right: 50px;">
-               
+               </table>               
+               <input type="button" value="신청 하기" id="modified" style="float: right; margin-right: 50px;">
+           </form>
                <br><br><br>
+               
+               <h4 id="basic">신청 내역</h4>
                <table class="basicinfo" id="Change">
-
-                  <h4 id="basic">신청 내역</h4>
-
                   <thead>
                      <tr>
                         <th style="text-align: center" id="t1">다전공 분류</th>
                         <th style="text-align: center" id="t1">단과 대학</th>
-                        <th style="text-align: center" id="t1">학부(과)</th>
-                        <th style="text-align: center" id="t1">전공</th>
+                        <th style="text-align: center" id="t1">학과</th>
                         <th style="text-align: center" id="t1">신청 날짜</th>
                         <th style="text-align: center" id="t1">처리 결과</th>
                      </tr>
                   <thead>
-                     <tbody>
+                  <tbody>
                      <tr>
                         <td>경영</td>
                         <td>글로벌</td>
                         <td>인문</td>
-                        <td>영문</td>
                         <td>2019-09-12</td>
                         <td>승인</td>
                      </tr>
-                     </tbody>
+                  </tbody>
                </table>
-            </table>
-         </form>
+         
       </div>
       <div>
          <jsp:include page="../../common/menubar-student.jsp" />
       </div>
    </div>
-
+	<script>
+		$("#college").change(function(){
+			var college = $(this).val();
+			
+			var $option1 = $("<option value='business'>경영학과</option>")
+			var $option2 = $("<option value='economics'>경제학과</option>")
+			var $option3 = $("<option value='diplomacy'>정치외교과</option>")
+			var $option4 = $("<option value='music'>실용음악과</option>")
+			var $option5 = $("<option value='atheletic'>사회체육과</option>")
+			var $option6 = $("<option value='computer'>컴퓨터공학과</option>")
+			var $option7 = $("<option value='electronic'>전자공학과</option>")
+			var $option8 = $("<option value='building'>건축과</option>")
+			
+			if(college == "Humanities"){
+				$("#sDept").children().remove();
+				$("#sDept").append($option1);
+				$("#sDept").append($option2);
+				$("#sDept").append($option3);
+			}else if(college == "Art"){
+				$("#sDept").children().remove();
+				$("#sDept").append($option4);
+				$("#sDept").append($option5);
+			}else if(college == "Engineering"){
+				$("#sDept").children().remove();
+				$("#sDept").append($option6);
+				$("#sDept").append($option7);
+				$("#sDept").append($option8);
+			}
+		});
+		
+	</script>
 </body>
 </html>

@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>장학관리</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+$("document").ready(function(){
+$("#show").click(function(){
+$("#scholarInfo").show();
+});
+</script>
 <style>
 		#searchInfo {
 			float:left;
@@ -57,10 +64,10 @@
 	  				
 					<h4 align="right" class="sibal">교내장학금 신청 및 결과</h4>
 					<div style="float:right">
-						<button class="sibal">조회</button>
-						<button class="sibal">신규</button>
-						<button class="sibal">저장</button>
-						<button class="sibal">도움말</button>
+						<button class="sibal" id="show">조회</button>
+						<button class="sibal" id="new">신규</button>
+						<button class="sibal" id="save">저장</button>
+						<button class="sibal" id="help">도움말</button>
 					</div>
 					</div>
 					
@@ -88,9 +95,8 @@
 					
 					<hr>
 					
-					<div class="container">
-						      
-	  					<table class="table" text-align="center" style="border:2px solid lightgray">
+					<div class="container" id="scholarInfo" style=" visibility:hidden;">
+	  					<table class="table" text-align="center" style="border:2px solid lightgray;">
 	  					  <thead style="background-color:#eff1f2">
 	  					  	<tr>
 	  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">상태</th>
@@ -122,6 +128,7 @@
 	 					   	</tr>
 	 					   </tbody>
 	 					 </table>
+
 	 				</div>
 					
 					<div class="container">         

@@ -204,6 +204,22 @@ public interface BoardDao {
 
 	int insertSystemQuestionAnswerFile(SqlSessionTemplate sqlSession, UploadFile uf);
 
+	ArrayList<Board> selectnNoticeInfo(SqlSessionTemplate sqlSession);
+
+	int autoDeletenNotice(SqlSessionTemplate sqlSession, ArrayList<Board> b);
+
+	ArrayList<Board> selectsNoticeInfo(SqlSessionTemplate sqlSession);
+
+	int autoDeletesNotice(SqlSessionTemplate sqlSession, ArrayList<Board> b);
+
+	ArrayList<Board> selecteNoticeInfo(SqlSessionTemplate sqlSession);
+
+	int autoDeleteeNotice(SqlSessionTemplate sqlSession, ArrayList<Board> b);
+
+	ArrayList<Board> selectaNoticeInfo(SqlSessionTemplate sqlSession);
+
+	int autoDeleteaNotice(SqlSessionTemplate sqlSession, ArrayList<Board> b);
+
 
 
 

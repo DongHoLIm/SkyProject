@@ -1,11 +1,19 @@
 package com.kh.finalProject.professor.sendSMS.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,13 +28,11 @@ import com.kh.finalProject.professor.sendSMS.model.service.professorService;
 import com.kh.finalProject.professor.sendSMS.model.vo.StudentList;
 
 
-import net.sf.json.JSONObject;
 
 @Controller
 public class ProfessorController {
 	@Autowired
-	professorService ps;
-	
+	private professorService ps;
 	
 	@RequestMapping("sendSMS.pro")
 	public String sendSMSviewChange () {
@@ -84,6 +90,50 @@ public class ProfessorController {
 		
 		mv.setViewName("jsonView");
 		
+		return mv;
+	}
+	
+	@RequestMapping("sendSMSResult.pro")
+	@ResponseBody
+	public ModelAndView sendSMS(ModelAndView mv,String send,HttpSession session) {
+		ObjectMapper mapper = new ObjectMapper();
+	    List<Object> list = new ArrayList<Object> ();
+	    Member proInfo =(Member) session.getAttribute("loginUser");
+		System.out.println(proInfo.getMemberId());
+	     try {
+	    	 list = mapper.readValue(send,new TypeReference <List<Object>>() {});
+	    	 HashMap<String,Object> hmap = null;
+	    	 StudentList sl = new StudentList();
+	    	String phonelist = "";
+	    	String message = null;
+	    	 for(int i = 0;i<list.size();i++) {
+	    		 hmap = (HashMap<String,Object>)list.get(i);
+	    		 if(i==list.size()-1) {
+	    			 phonelist+=(String)hmap.get("phone");	    			 
+	    		 }else {
+	    			 phonelist+=(String)hmap.get("phone")+",";
+	    		 }
+	    		 message = (String)hmap.get("message");
+	    		 sl.setGrade(message);
+	    		 sl.setMemberId((String)hmap.get("memberId"));
+	    		 sl.setMemberKName(proInfo.getMemberId());	
+	    		 int result = ps.insertSMS(sl); 
+	    	 }
+	    	 mv.addObject("msg", message);
+	    	 mv.addObject("phoneNumber",phonelist);	     
+	     } catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	     
+	     mv.setViewName("jsonView");
 		return mv;
 	}
 }

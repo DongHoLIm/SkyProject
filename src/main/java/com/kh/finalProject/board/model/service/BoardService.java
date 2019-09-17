@@ -193,6 +193,22 @@ public interface BoardService {
 
 	int insertSystemQuestionAnswer(SystemQuestion sq) throws BoardInsertException;
 
+	ArrayList<Board> selectnNoticeInfo() throws BoardSelectListException;
+
+	int autoDeletenNotice(ArrayList<Board> b);
+
+	ArrayList<Board> selectsNoticeInfo() throws BoardSelectListException;
+
+	int autoDeletesNotice(ArrayList<Board> b);
+
+	ArrayList<Board> selecteNoticeInfo() throws BoardSelectListException;
+
+	int autoDeleteeNotice(ArrayList<Board> b);
+
+	ArrayList<Board> selectaNoticeInfo() throws BoardSelectListException;
+
+	int autoDeleteaNotice(ArrayList<Board> b);
+
 
 
 

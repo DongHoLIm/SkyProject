@@ -34,4 +34,8 @@
 		AND STUDENT_STATUS='재학생' 
 		ORDER BY M.MEMBER_ID DESC
 	</select>
+	
+	<insert id="insertSMS" parameterType="professorSendSMS">
+		INSERT INTO SMS VALUES('SMS'||SEQ_SMS.NEXTVAL,SYSDATE,#{grade},#{memberId},#{memberKName}) 
+	</insert>
 </mapper>

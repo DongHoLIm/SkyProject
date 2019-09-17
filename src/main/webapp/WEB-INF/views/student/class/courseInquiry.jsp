@@ -17,14 +17,23 @@
 			$("#choice0").show();
 			$("#choice1").hide();
 			$("#choice2").hide();
+			$(".btn1").show();
+			$(".btn2").hide();
+			$(".btn3").hide();
 		}else if(category == "1"){
 			$("#choice0").hide();
 			$("#choice1").show();
 			$("#choice2").hide();
+			$(".btn1").hide();
+			$(".btn2").show();
+			$(".btn3").hide();
 		}else if(category == "2"){	
 			$("#choice0").hide();
 			$("#choice1").hide();
 			$("#choice2").show();
+			$(".btn1").hide();
+			$(".btn2").hide();
+			$(".btn3").show();
 		}
 	}
 	function goSubJect(){
@@ -53,7 +62,7 @@
 				}
 			});
 		}
-	function gwamoksearch(){
+	function deptSearch(){
 		
 		var subCode = $(".subJect").val();
 		
@@ -64,29 +73,32 @@
 			success:function(data){
 				console.log(data);
 				
-				var List = new Array();
-				for(var i=0;i<data.List.length;i++){
-					List[i] = data.List[i];
-					console.log(List[i].openSubCode);
+				var list = new Array();
+				for(var i=0;i<data.list.length;i++){
+					list[i] = data.list[i];
+					console.log(list[i].openSubCode);
 				}
 				
 				var count = 1;
 				 $('#search').empty();
-				for(var i=0;i<data.List.length;i++){
-					 var table = $("<td>"+"<input type='checkbox' id='check[i]'>"+"</td>"+
-									"<td>"+count+"</td>"+
-									"<td>"+List[i].completeType+"</td>"+
-									"<td>"+List[i].openSubCode+"</td>"+
-									"<td>"+List[i].subName+"</td>"+
-									"<td>"+List[i].subGrade+"</td>"+
-									"<td>"+List[i].professorName+"</td>"+
-									"<td>"+List[i].dayInfo+'/'+List[i].timeInfo+"</td>"+
-									"<td>"+List[i].roomName+'('+List[i].buildingName+')'+"</td>"+
-									"<td>"+List[i].studentMax+"</td>"+
-									"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
-									"<td>"+"</td>"+
-									"<td>"+"</td>");
-					$("#search").append(table);  
+				 $( '.tableList2 > tbody').empty(); 
+				for(var i=0;i<data.list.length;i++){
+					 var table = $("<tr>"+
+								 		"<td>"+"<input type='checkbox' id='check[i]'>"+"</td>"+
+										"<td>"+count+"</td>"+
+										"<td>"+list[i].completeType+"</td>"+
+										"<td>"+list[i].openSubCode+"</td>"+
+										"<td>"+list[i].subName+"</td>"+
+										"<td>"+list[i].subGrade+"</td>"+
+										"<td>"+list[i].professorName+"</td>"+
+										"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
+										"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
+										"<td>"+list[i].studentMax+"</td>"+
+										"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
+										"<td>"+"</td>"+
+										"<td>"+"</td>"+
+									"</tr>");
+					$(".tableList2").append(table);  
 					
 					
 					count++;
@@ -97,6 +109,59 @@
 			}
 		});
 		
+	}
+	
+	function gwamokSearch(){
+		var gwamok = $("#gwamok").val();
+		
+		console.log(gwamok);
+		
+		if(!gwamok){
+			alert('과목명을 입력하세요');
+		}else{
+			$.ajax({
+				url:"selectgwamok.st",
+				type:"post",
+				data:{gwamok:gwamok},
+				success:function(data){
+					console.log(data);
+					
+					var list = new Array();
+					for(var i=0;i<data.list.length;i++){
+						list[i] = data.list[i];
+						console.log(list[i].openSubCode);
+					}
+					
+					var count = 1;
+					 $('#search').empty();
+					 $( '.tableList2 > tbody').empty();
+					for(var i=0;i<data.list.length;i++){
+						 var table = $("<tr>"+
+									 		"<td>"+"<input type='checkbox' id='check[i]'>"+"</td>"+
+											"<td>"+count+"</td>"+
+											"<td>"+list[i].completeType+"</td>"+
+											"<td>"+list[i].openSubCode+"</td>"+
+											"<td>"+list[i].subName+"</td>"+
+											"<td>"+list[i].subGrade+"</td>"+
+											"<td>"+list[i].professorName+"</td>"+
+											"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
+											"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
+											"<td>"+list[i].studentMax+"</td>"+
+											"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
+											"<td>"+"</td>"+
+											"<td>"+"</td>"+
+										"</tr>");
+						$(".tableList2").append(table);  
+						
+						
+						count++;
+					} 
+				},
+				error:function(err){
+					console.log("실패!");
+				}
+			});
+		}
 	}
 </script>
 <style>
@@ -317,11 +382,11 @@ table.tableList2 td img {
 					 <span id="choice1" name="choice1" style="display: none;">
 					 	<span>
 					 		<span class="ui-widget"> 
-					 			<label for="gwamok_nm">조회 : </label>
-					 			<input type="text" name="gwamok_nm" id="gwamok_nm" size="20" value="과목명(코드)을 입력하세요.">
-								
+					 			<label for="gwamok">조회 : </label>
+					 			<input type="text" name="gwamok" id="gwamok" size="20" placeholder="과목명을 입력하세요.">	
 									&nbsp;&nbsp;&nbsp;
 							</span>
+							
 						</span>
 					</span>
 					<!-- 교수조회 -->
@@ -338,7 +403,9 @@ table.tableList2 td img {
 						</span>
 					</span>
 					<span>
-						<span class="btn red on" onclick="gwamoksearch();" name="search_btn" id="search_btn" style="background:red"> 조 회 </span> 
+						<span class="btn1" onclick="deptSearch();" name="search_btn" id="search_btn" style="background:red"> 조 회 </span>
+						<span class="btn2" onclick="gwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;"> 조 회 </span>
+						<span class="btn3" onclick="professorSearch();" name="search_btn" id="search_btn" style="background:red; display:none;"> 조 회 </span> 
 					</span>
 					</td>				
 				</tr>
@@ -346,7 +413,7 @@ table.tableList2 td img {
 		</table>
 	</form>
 	<table class="tableList2" style="width: 100%">
-		<tbody>
+		<thead>	
 			<tr>
 				<th width="2%"><input type="checkbox" class="Allcheck"></th>
 				<th width="3%">No</th>
@@ -362,24 +429,10 @@ table.tableList2 td img {
 				<th width="7%">강의평가</th>
 				<th width="11%">비고</th>
 			</tr>
+		</thead>
+		<tbody>
 			<tr id="search">
 				<td colspan="14"><font color="red">☞ 조회버튼을 클릭하세요.</font></td>
-			</tr>
-			
-			<tr id="search2" style="display:none;">
-				<td id="td1"></td>
-				<td id="td2"></td>
-				<td id="td3"></td>
-				<td id="td4"></td>
-				<td id="td5"></td>
-				<td id="td6"></td>
-				<td id="td7"></td>
-				<td id="td8"></td>
-				<td id="td9"></td>
-				<td id="td10"></td>
-				<td id="td11"></td>
-				<td id="td12"></td>
-				<td id="td13"></td>
 			</tr>
 		</tbody>
 	</table>

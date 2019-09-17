@@ -482,9 +482,29 @@ public class MemberController {
 		return "employee/systemAccountManagement/employeeDetailAccount";
 	}
 	@RequestMapping("updateAccount.me")
-	public String updatingAccount(MemberAccount ma,HttpServletRequest request) {		
-		 int result = ms.updatingAccount(ma);
-		 return "employee/systemAccountManagement/employeeDetailAccount";
+	public ModelAndView updatingAccount(ModelAndView mv,MemberAccount ma,HttpServletRequest request) {		
+		String classValue = request.getParameter("classValue");
+		String scholarlyValue = request.getParameter("scholarlyValue");
+		String enrollValue =request.getParameter("enrollValue");
+		String scholValue =request.getParameter("scholValue");
+		String dormitoryValue =request.getParameter("dormitoryValue");
+		String boardValue =request.getParameter("boardValue");
+		String memberId = request.getParameter("memberId");
+		
+		ma.setClassManager(classValue);
+		ma.setBoardManager(boardValue);
+		ma.setDormitoryManager(dormitoryValue);
+		ma.setEmployeeNo(memberId);
+		ma.setEnrollManager(enrollValue);
+		ma.setScholarlyManager(scholarlyValue);
+		ma.setScholManager(scholValue);
+		
+		
+		ms.updatingAccount(ma);
+		
+		
+		 mv.setViewName("jsonView");
+		 return mv;
 	}
 	
 }

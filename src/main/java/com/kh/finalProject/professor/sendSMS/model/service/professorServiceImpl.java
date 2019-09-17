@@ -27,5 +27,10 @@ public class professorServiceImpl implements professorService{
 		// TODO Auto-generated method stub
 		return pd.studentPageList(sqlSession,pi);
 	}
+	@Override
+	public int insertSMS(StudentList sl) {
+		// TODO Auto-generated method stub
+		return pd.insertSMS(sqlSession,sl);
+	}
 	
 }
