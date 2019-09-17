@@ -10,6 +10,7 @@
 		<result property="subName" column="SUB_NAME" />
 		<result property="sdeptName" column="SDEPT_NAME" />
 		<result property="professorName" column="MEMBER_KNAME" />
+		<result property="professorNo" column="PROFESSOR_NO" />
 		<result property="subGrade" column="SUB_GRADE" />
 		<result property="completeType" column="COMPLETE_TYPE" />
 		<result property="studentMax" column="STUDENT_MAX" />
@@ -83,6 +84,17 @@
         WHERE SUB_NAME LIKE '%' ||  #{gwamok} || '%'
         OR OPENSUB_CODE LIKE '%' || #{gwamok} || '%'
 	</select>
-	
-	
+	<select id="selectSearchProfessor" resultMap="courseRegistrationResultSet">
+		SELECT MEMBER_KNAME, PROFESSOR_NO
+		FROM MEMBER M
+		JOIN PROFESSOR P ON (M.MEMBER_ID = P.PROFESSOR_NO)
+		WHERE MEMBER_KNAME LIKE '%' ||  #{professor} || '%'
+		OR PROFESSOR_NO LIKE '%' ||  #{professor} || '%'
+    </select>
+	<select id="selectProGwamok" resultMap="courseRegistrationResultSet">
+		SELECT OPENSUB_CODE, SUB_NAME
+		FROM OPEN_SUBJECT
+		JOIN SUBJECT ON(OPENSUB_CODE = SUB_CODE)
+		WHERE PROFESSOR_NO = #{professorNo}
+    </select>
 </mapper>

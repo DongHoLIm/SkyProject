@@ -17,4 +17,8 @@ public interface ClassService {
 
 	ArrayList<OpenSubject> selectSearchgwamok(String gwamok);
 
+	ArrayList<OpenSubject> selectProfessor(String professor);
+
+	ArrayList<OpenSubject> selectProGwamok(OpenSubject os);
+
 }

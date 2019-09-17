@@ -20,4 +20,8 @@ public interface ClassDao {
 
 	ArrayList<OpenSubject> selectSearchgwamok(SqlSessionTemplate sqlSession, String gwamok);
 
+	ArrayList<OpenSubject> selectProfessor(SqlSessionTemplate sqlSession, String professor);
+
+	ArrayList<OpenSubject> seletProGwamok(SqlSessionTemplate sqlSession, OpenSubject os);
+
 }
