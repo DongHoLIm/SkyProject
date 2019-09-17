@@ -2,7 +2,7 @@ package com.kh.finalProject.professor.openSubject.model.vo;
 
 public class OpenSubject {
 
-	private int opensubCode;
+	private String opensubCode;
 	private int studentMax;
 	private int studentCount;
 	private int openYear;
@@ -21,7 +21,7 @@ public class OpenSubject {
 	
 	public OpenSubject() {}
 
-	public OpenSubject(int opensubCode, int studentMax, int studentCount, int openYear, int openSemester,
+	public OpenSubject(String opensubCode, int studentMax, int studentCount, int openYear, int openSemester,
 			String professorNo, String closeCheck, String closeReason, String roomCode, String dayInfo, String timeInfo,
 			String completeType, int subGrade, String roomName, String buildingName, String subName) {
 		super();
@@ -43,11 +43,11 @@ public class OpenSubject {
 		this.subName = subName;
 	}
 
-	public int getOpensubCode() {
+	public String getOpensubCode() {
 		return opensubCode;
 	}
 
-	public void setOpensubCode(int opensubCode) {
+	public void setOpensubCode(String opensubCode) {
 		this.opensubCode = opensubCode;
 	}
 
@@ -180,6 +180,7 @@ public class OpenSubject {
 				+ subGrade + ", roomName=" + roomName + ", buildingName=" + buildingName + ", subName=" + subName + "]";
 	}
 
+	
 
 	
 	
