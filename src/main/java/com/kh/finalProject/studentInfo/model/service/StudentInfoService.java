@@ -10,9 +10,9 @@ import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoService {
 
-	StudentInfo basicInfo(String userId);
+	StudentInfo basicInfo(String studentNo);
 
-	StudentInfo stuInfo(String userId);
+	StudentInfo stuInfo(String studentNo);
 
 	int getListCount() throws StudentInfoSelectListException;
 
@@ -29,6 +29,8 @@ public interface StudentInfoService {
 	ArrayList selectSdeptList() throws StudentInfoSelectListException;
 
 	StudentInfo personInfoManage(String userId);
+
+	int changePersonalInfo(StudentInfo si);
 
 	
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -47,65 +48,24 @@ table.basicinfo {
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			</div>
-			<h4 id="basic">기본 정보</h4>
-			<form class="ba">
-				<table class="basicinfo">
-					<tr>
-						<td class="td">학번</td>
-						<td colspan='5'>${personalInfo.studentNo }</td>
-					</tr>
-
-					<tr>
-						<td class="td" width="15%">한글 성명</td>
-						<td width="21%">${personalInfo.kName }</td>
-						<td class="td" width="15%">영문 성명</td>
-						<td width="21%">${personalInfo.eName }</td>
-						<td class="td" width="15%">한문 성명</td>
-						<td width="13%"></td>
-					</tr>
-
-
-
-					<tr>
-						<td class="td">주민 번호</td>
-						<td>${personalInfo.memberNo }</td>
-						<td class="td">생년월일</td>
-						<td></td>
-						<td class="td">성별</td>
-						<td></td>
-					</tr>
-
-					<%-- <c:set var="major" value="<%= %>"/> --%>
-
-					<tr>
-						<td class="td">학과</td>
-						<td>${personalInfo.sdeptName }</td>
-						<td class="td">전공</td>
-						<td></td>
-						<td class="td">학년</td>
-						<td>${personalInfo.grade }</td>
-					</tr>
-
-					<tr>
-						<td class="td">학적 상태</td>
-						<td>${personalInfo.studentStatus }</td>
-						<td class="td">주야</td>
-						<td></td>
-						<td class="td">병역 구분</td>
-						<td></td>
-					</tr>
-
-				</table>
-
+			
+			<jsp:include page="../info/common.jsp" />
+			
+			
 
 				<!-- 신상 정보 조회 -->
 				<h4 id="basic">신상 정보 조회</h4>
+				<form action="st_changePersonalInfo.si" method="post">
+				
+				<c:set var="studentAddress" value="${personalInfo.address }"/>
+				<c:set var="studentAddressArr" value="${ fn:split(studentAddress, '/') }"/>
+				
 				<table class="basicinfo">
 					<tr>
 						<td class="td">한글 성명</td>
-						<td><input type="text" value="${personalInfo.kName }" ></td>
+						<td><input type="text" name="kName" value="${personalInfo.kName }" readonly></td>
 						<td class="td">영문 성명</td>
-						<td><input type="text" value="${personalInfo.eName }"></td>
+						<td><input type="text" name="eName" value="${personalInfo.eName }"></td>
 						<td class="td">한문 성명</td>
 						<td><input type="text" value=""></td>
 					</tr>
@@ -114,9 +74,19 @@ table.basicinfo {
 						<td class="td">주소</td>
 						<td colspan='5'>
 							<input style="display: inline-block;" type="button" onclick="findAddress1();" value="검색"> &nbsp; 
-							<input style="width: 10%; display: inline-block;" type="text" id="postcode1" placeholder="우편번호"> 
-							<input style="width: 55%; display: inline-block;" type="text" id="address1" placeholder="${personalInfo.address }"> 
-							<input style="width: 25%; display: inline-block;" type="text" id="detailAddress1" placeholder="상세주소">
+							<c:forEach items="${ studentAddressArr }" varStatus="st">
+							<c:if test="${ st.index == 0 }">
+								<input style="width: 10%; display: inline-block;" type="text" id="postcode1" name="postcode1" value="${ studentAddressArr[st.index] }"> 
+							</c:if>
+							<c:if test="${ st.index == 1 }">
+								<input style="width: 55%; display: inline-block;" type="text" id="address1" name="address1" value="${ studentAddressArr[st.index] }"> 
+							</c:if>
+							<c:if test="${ st.index == 2 }">
+								<input style="width: 25%; display: inline-block;" type="text" id="detailAddress1" name="detailAddress1" value="${ studentAddressArr[st.index] }">
+							</c:if>
+							
+						</c:forEach>
+						
 						</td>
 					</tr>
 					<!-- <td class="td">주민등록 주소지</td>
@@ -128,18 +98,18 @@ table.basicinfo {
 
 					<tr>
 						<td class="td">전자 우편</td>
-						<td><input type="text" value="${personalInfo.email }"></td>
+						<td><input type="text" name="email" value="${personalInfo.email }"></td>
 						<td class="td">연락처</td>
-						<td><input type="text" value="${personalInfo.phone }"></td>
+						<td><input type="text" name="phone" value="${personalInfo.phone }"></td>
 						<td class="td">비상 연락처</td>
-						<td><input type="text" value="${personalInfo.phone2 }"></td>
+						<td><input type="text" name="phone2" value="${personalInfo.phone2 }"></td>
 					</tr>
 
 
 					<tr>
 						<td class="td">은행명</td>
-						<td><select name='bank'>
-								<option value='select' selected>-- 선택 --</option>
+						<td><select id="bank" name="bank">
+								<option value='select'>-- 선택 --</option>
 								<option value='신한은행'>신한은행</option>
 								<option value='국민은행'>국민은행</option>
 								<option value='우리은행'>우리은행</option>
@@ -148,81 +118,124 @@ table.basicinfo {
 								<option value='카카오뱅크'>카카오뱅크</option>
 						</select></td>
 						<td class="td">계좌 번호</td>
-						<td><input type="text" value="${personalInfo.accountNo }"></td>
+						<td><input type="text" name="accountNo" value="${personalInfo.accountNo }"></td>
 						<td class="td">예금주</td>
-						<td><input type="text" value="${personalInfo.accountHolder }"></td>
+						<td><input type="text" name="accountHolder" value="${personalInfo.accountHolder }"></td>
 					</tr>
 
 				</table>
-
+				
+				
+				<c:set var="parentsAddress" value="${personalInfo.parentsAddress }"/>
+				<c:set var="parentsAddressArr" value="${ fn:split(parentsAddress, '/') }"/>
+				
 				<table class="basicinfo">
 					<tr>
 						<td class="td">보호자성명</td>
-						<td><input type="text" value="홍길동"></td>
+						<td><input type="text" name="parentsName" value="${personalInfo.parentsName }"></td>
 						<td class="td">보호자관계</td>
-						<td><select name='pa'>
+						<td><select id='parent' name="parentsRelation">
 								<option value='parents' selected>-- 선택 --</option>
-								<option value='father'>부</option>
-								<option value='mather'>모</option>
+								<option value='부'>부</option>
+								<option value='모'>모</option>
 						</select></td>
 						<td class="td">보호자연락처</td>
-						<td><input type="text" value="010-9478-2687"></td>
+						<td><input type="text" name="parentsPhone" value="${personalInfo.parentsPhone }"></td>
 
 					</tr>
 					<tr>
 						<td class="td">보호자주소</td>
 						<td colspan='5'>
-							<input style="display: inline-block;" type="button" onclick="findAddress2();" value="검색"> &nbsp; 
-							<input style="width: 10%; display: inline-block;" type="text" id="postcode2" placeholder="우편번호"> 
-							<input style="width: 55%; display: inline-block;" type="text" id="address2" placeholder="주소"> 
-							<input style="width: 25%; display: inline-block;" type="text" id="detailAddress2" placeholder="상세주소">
+						<input style="display: inline-block;" type="button" onclick="findAddress2();" value="검색"> &nbsp; 
+						<c:forEach items="${ parentsAddressArr }" varStatus="pa">
+							<c:if test="${ pa.index == 0 }">
+								<input style="width: 10%; display: inline-block;" type="text" id="postcode2" name="postcode2" value="${ parentsAddressArr[pa.index] }"> 
+							</c:if>
+							<c:if test="${ pa.index == 1 }">
+								<input style="width: 55%; display: inline-block;" type="text" id="address2" name="address2" value="${ parentsAddressArr[pa.index] }"> 
+							</c:if>
+							<c:if test="${ pa.index == 2 }">
+								<input style="width: 25%; display: inline-block;" type="text" id="detailAddress2" name="detailAddress2" value="${ parentsAddressArr[pa.index] }">
+							</c:if>
+							
+						</c:forEach>
+						
+						
 						</td>
 					</tr>
 
 					<table id="modified">
-						<input type="button" value="신상정보 수정" id="modified">
+						<button type="submit" id="modified">신상정보 수정</button> 
+						<!-- <input type="button" id="modified" onclick="changeInfo();" value="신상정보 수정" > -->
 					</table>
-
 				</table>
 			</form>
 		</div>
 
 		<script>
 		
+		$(function(){
+			console.log("은행함수호출");
+			
+			var bankCount = $("#bank option").length;
+			console.log("bankCount::" + bankCount);
+			
+			var bank = '${personalInfo.bank }';
+			console.log(bank);
+			
+			for(var i=0 ; i<bankCount ; i++){
+				var option = $("#bank").children().eq(i).val();
+				if(option==bank){
+					console.log(option);
+					$("#bank").children().eq(i).attr("selected","selected");
+				}
+			}
+		});
+		
+		
+		$(function(){
+			console.log("부모관계함수호출");
+			
+			var relCount = $("#parent option").length;
+			console.log("relCount::" + relCount);
+			
+			var rel = '${personalInfo.parentsRelation }';
+			console.log(rel);
+			
+			for(var i=0 ; i<relCount ; i++){
+				var option = $("#parent").children().eq(i).val();
+				if(option==rel){
+					console.log(option);
+					$("#parent").children().eq(i).attr("selected","selected");
+				}
+			}
+		});
+		
+		
 		function findAddress1(){
 			console.log("함수 들어옴");
 		new daum.Postcode({
 	        oncomplete: function(data) {
-	        	//data는 사용자가 선택한 주소 정보를 담고 있는 객체
-	            //팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분
-	            
+	        	
 	            var addr = ''; // 주소 변수
                 var extraAddr = ''; // 참고항목 변수
-                var detailAddr = '' //상세주소
-	            
-              	//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                
+                if (data.userSelectedType === 'R') { 
                     addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                } else { 
                     addr = data.jibunAddress;
                 }
                 
-            	 // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
                 if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
                     if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
                         extraAddr += data.bname;
                     }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
                     if(data.buildingName !== '' && data.apartment === 'Y'){
                         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                     }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
                     if(extraAddr !== ''){
                         extraAddr = ' (' + extraAddr + ')';
                     }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
                     //document.getElementById("extraAddress").value = extraAddr;
                     addr += extraAddr;
                 
@@ -231,10 +244,9 @@ table.basicinfo {
                 	addr += extraAddr;
                 }
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('postcode1').value = data.zonecode;
                 document.getElementById("address1").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
+               
                 document.getElementById("detailAddress1").focus();
             }   
 	      
@@ -247,36 +259,26 @@ table.basicinfo {
 			console.log("함수 들어옴");
 		new daum.Postcode({
 	        oncomplete: function(data) {
-	        	//data는 사용자가 선택한 주소 정보를 담고 있는 객체
-	            //팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분
-	            
+	        	
 	            var addr = ''; // 주소 변수
                 var extraAddr = ''; // 참고항목 변수
-                var detailAddr = '' //상세주소
 	            
-              	//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                if (data.userSelectedType === 'R') { 
                     addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                } else {
                     addr = data.jibunAddress;
                 }
                 
-            	 // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
                 if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
                     if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
                         extraAddr += data.bname;
                     }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
                     if(data.buildingName !== '' && data.apartment === 'Y'){
                         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                     }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
                     if(extraAddr !== ''){
                         extraAddr = ' (' + extraAddr + ')';
                     }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
                     //document.getElementById("extraAddress").value = extraAddr;
                     addr += extraAddr;
                 
@@ -284,11 +286,10 @@ table.basicinfo {
                     //document.getElementById("extraAddress").value = '';
                 	addr += extraAddr;
                 }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                
                 document.getElementById('postcode2').value = data.zonecode;
                 document.getElementById("address2").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
+                
                 document.getElementById("detailAddress2").focus();
             }   
 	      

@@ -22,15 +22,15 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	private StudentInfoDao sd;
 
 	@Override
-	public StudentInfo basicInfo(String userId) {
+	public StudentInfo basicInfo(String studentNo) {
 		
-		return sd.basicInfo(sqlSession,userId);
+		return sd.basicInfo(sqlSession,studentNo);
 	}
 
 	@Override
-	public StudentInfo stuInfo(String userId) {
+	public StudentInfo stuInfo(String studentNo) {
 		
-		return sd.stuInfo(sqlSession,userId);
+		return sd.stuInfo(sqlSession,studentNo);
 	}
 
 	@Override
@@ -79,6 +79,27 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	public StudentInfo personInfoManage(String userId) {
 		
 		return sd.personInfoManage(sqlSession,userId);
+	}
+
+	@Override
+	public int changePersonalInfo(StudentInfo si) {
+		
+		int result = 0;
+		
+		int result1 = sd.changePeronalInfo(sqlSession,si);
+		
+		int result2 = sd.changeStudentInfo(sqlSession,si);
+		
+		int result3 = sd.changeParentsInfo(sqlSession,si);
+		
+		if(result1>0 && result2>0 && result3>0) {
+			result=1;
+		}else {
+			result=-1;
+		}
+		
+		return result;
+		
 	}
 
 	
