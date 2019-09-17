@@ -45,12 +45,22 @@ public class ClassDaoImpl implements ClassDao{
 
 	@Override
 	public ArrayList<OpenSubject> selectOpenSubject(SqlSessionTemplate sqlSession, OpenSubject os) {
-		ArrayList<OpenSubject> List = null;
+		ArrayList<OpenSubject> list = null;
 		
 		
-		List = (ArrayList) sqlSession.selectList("courseRegistration.studentSelectOpenSubject", os);
+		list = (ArrayList) sqlSession.selectList("courseRegistration.studentSelectOpenSubject", os);
 
-		return List;
+		return list;
+	}
+
+	@Override
+	public ArrayList<OpenSubject> selectSearchgwamok(SqlSessionTemplate sqlSession, String gwamok) {
+		ArrayList<OpenSubject> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("courseRegistration.selectSearchGwamok", gwamok);
+		
+		System.out.println(list);
+		return list;
 	}
 
 }

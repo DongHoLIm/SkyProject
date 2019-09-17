@@ -47,4 +47,11 @@ public class ClassServiceImpl implements ClassService{
 		return cd.selectOpenSubject(sqlSession, os);
 	}
 
+
+
+	@Override
+	public ArrayList<OpenSubject> selectSearchgwamok(String gwamok) {
+		return cd.selectSearchgwamok(sqlSession, gwamok);
+	}
+
 }
