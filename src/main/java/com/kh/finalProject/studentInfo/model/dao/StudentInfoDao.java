@@ -12,9 +12,9 @@ import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoDao {
 
-	StudentInfo basicInfo(SqlSessionTemplate sqlSession, String userId);
+	StudentInfo basicInfo(SqlSessionTemplate sqlSession, String studentNo);
 
-	StudentInfo stuInfo(SqlSessionTemplate sqlSession, String userId);
+	StudentInfo stuInfo(SqlSessionTemplate sqlSession, String studentNo);
 
 	int getListCount(SqlSessionTemplate sqlSession) throws StudentInfoSelectListException;
 
@@ -31,6 +31,16 @@ public interface StudentInfoDao {
 	ArrayList selectSdeptList(SqlSessionTemplate sqlSession) throws StudentInfoSelectListException;
 
 	StudentInfo personInfoManage(SqlSessionTemplate sqlSession, String userId);
+
+	int changePeronalInfo(SqlSessionTemplate sqlSession, StudentInfo si);
+
+	int changeParentsInfo(SqlSessionTemplate sqlSession, StudentInfo si);
+
+	int changeStudentInfo(SqlSessionTemplate sqlSession, StudentInfo si);
+
+	
+
+	
 
 
 

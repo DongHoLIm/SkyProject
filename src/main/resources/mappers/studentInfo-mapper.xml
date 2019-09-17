@@ -9,7 +9,6 @@
   		<id property="studentNo" column="MEMBER_ID"/>
   		<result property="kName" column="MEMBER_KNAME"/>
   		<result property="eName" column="MEMBER_ENAME"/>
-  		<result property="memberNo" column="MEMBER_NO"/>
   		<result property="phone" column="PHONE_ONE"/>
   		<result property="phone2" column="PHONE_TWO"/>
   		<result property="email" column="EMAIL"/>
@@ -37,9 +36,20 @@
   		<result property="parentsAddress" column="PARENTS_ADDRESS"/>
   	</resultMap>
   	
+  	<resultMap type="StudentInfo" id="basicInfoResultSet">
+  		<id property="studentNo" column="MEMBER_ID"/>
+  		<result property="kName" column="MEMBER_KNAME"/>
+  		<result property="eName" column="MEMBER_ENAME"/>
+  		<result property="memberNo" column="MEMBER_NO"/>
+  		<result property="studentStatus" column="STUDENT_STATUS"/>
+  		<result property="sdeptName" column="SDEPT_NAME"/> 
+  		<result property="grade" column="GRADE"/>
+  	</resultMap>
+  	
+  	
   	
   	<!-- 학생_학적조회/기본정보 -->
-  	<select id="selectBasicInfo" resultMap="studentInfoResultSet">
+  	<select id="selectBasicInfo" resultMap="basicInfoResultSet">
   		SELECT M.MEMBER_ID, M.MEMBER_KNAME, M.MEMBER_ENAME, M.MEMBER_NO,
        		   D.SDEPT_NAME, S.GRADE, S.STUDENT_STATUS
 		FROM STUDENT_INFO S
@@ -71,6 +81,28 @@
 		LEFT JOIN PARENTS_INFO P ON(S.STUDENT_NO=P.STUDENT_NO)
 		WHERE S.STUDENT_NO=#{studentNo}
   	</select>
+  	
+  	<!-- 학생_학적정보_신상정보수정 -->
+  	<update id="changePeronalInfo" parameterType="StudentInfo">
+  		UPDATE MEMBER
+  		SET MEMBER_ENAME=#{eName}, ADDRESS=#{address}, 
+  			EMAIL=#{email}, PHONE_ONE=#{phone}, PHONE_TWO=#{phone2}
+  		WHERE MEMBER_ID=#{studentNo}
+  	</update>
+  	
+  	<update id="changeStudentInfo" parameterType="StudentInfo">
+  		UPDATE STUDENT_INFO
+  		SET BANK=#{bank}, ACCOUNT_NO=#{accountNo}, ACCOUNT_HOLDER=#{accountHolder}
+  		WHERE STUDENT_NO=#{studentNo}
+  	</update>
+  	
+  	<!-- 학생_학적정보_신상정보수정_보호자 정보 수정 -->
+  	<update id="changeParentsInfo" parameterType="StudentInfo">
+  		UPDATE PARENTS_INFO
+  		SET PARENTS_NAME=#{parentsName}, PARENTS_RELATION=#{parentsRelation}, 
+  			PARENTS_PHONE=#{parentsPhone}, PARENTS_ADDRESS=#{parentsAddress}
+  		WHERE STUDENT_NO=#{studentNo}
+  	</update>
   	
   	
   	<!-- 교직원_학생정보 게시글 수 조회 -->

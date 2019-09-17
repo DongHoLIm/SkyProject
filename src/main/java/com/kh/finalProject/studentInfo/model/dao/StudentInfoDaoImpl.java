@@ -15,15 +15,15 @@ import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 public class StudentInfoDaoImpl implements StudentInfoDao{
 
 	@Override
-	public StudentInfo basicInfo(SqlSessionTemplate sqlSession, String userId) {
+	public StudentInfo basicInfo(SqlSessionTemplate sqlSession, String studentNo) {
 		
-		return sqlSession.selectOne("StudentInfo.selectBasicInfo", userId);
+		return sqlSession.selectOne("StudentInfo.selectBasicInfo", studentNo);
 	}
 
 	@Override
-	public StudentInfo stuInfo(SqlSessionTemplate sqlSession, String userId) {
+	public StudentInfo stuInfo(SqlSessionTemplate sqlSession, String studentNo) {
 		
-		return sqlSession.selectOne("StudentInfo.selectStuInfo", userId);
+		return sqlSession.selectOne("StudentInfo.selectStuInfo", studentNo);
 	}
 
 	@Override
@@ -143,6 +143,26 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		
 		return sqlSession.selectOne("StudentInfo.personInfoManage",userId);
 	}
+
+	@Override
+	public int changePeronalInfo(SqlSessionTemplate sqlSession, StudentInfo si) {
+		
+		return sqlSession.update("StudentInfo.changePeronalInfo", si);
+	}
+
+	@Override
+	public int changeParentsInfo(SqlSessionTemplate sqlSession, StudentInfo si) {
+		
+		return sqlSession.update("StudentInfo.changeParentsInfo", si);
+	}
+
+	@Override
+	public int changeStudentInfo(SqlSessionTemplate sqlSession, StudentInfo si) {
+		
+		return sqlSession.update("StudentInfo.changeStudentInfo",si);
+	}
+
+	
 
 	
 

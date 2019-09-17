@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -27,7 +28,7 @@ public class StudentInfoController {
 	@Autowired
 	private StudentInfoService ss;
 	
-	//학생_학적조회 메인
+	//학생_학적관리_학적정보조회
 	@RequestMapping(value="st_studentInfo.si")
 	public String infoMain(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
 		
@@ -46,20 +47,83 @@ public class StudentInfoController {
 		return "student/info/studentInfo";
 	}
 	
-	//학생_학적조회_신상관리
+	//학생_학적관리_신상관리
 	@RequestMapping(value="st_personalInfo.si")
 	public String personalInfo(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
 		
 		String userId = loginUser.getMemberId();
 		System.out.println(userId);
 		
+		StudentInfo basicInfo = ss.basicInfo(userId);
 		StudentInfo personalInfo = ss.personInfoManage(userId);
 		
+		System.out.println(basicInfo);
 		System.out.println(personalInfo);
 		
+		request.setAttribute("basicInfo",basicInfo);
 		request.setAttribute("personalInfo",personalInfo);
 		
-		return "student/info/studentBasicInfo";
+		return "student/info/studentPersonalInfo";
+	}
+	
+	
+	//학생_학적관리_신상정보 수정
+	@RequestMapping(value="st_changePersonalInfo.si")
+	public String changePersonalInfo(Model model, StudentInfo si, HttpServletRequest request,
+													@ModelAttribute("loginUser") Member loginUser) {
+		
+		String userId = loginUser.getMemberId();
+		System.out.println(userId);
+		
+		System.out.println(si);
+		
+		String postcode1 = request.getParameter("postcode1");
+		String address1 = request.getParameter("address1");
+		String detailAddress1 = request.getParameter("detailAddress1");
+		
+		System.out.println(postcode1);
+		System.out.println(address1);
+		System.out.println(detailAddress1);
+		
+		String studentAddress = postcode1 + "/" + address1 + "/" + detailAddress1;
+		System.out.println("학생주소::"+studentAddress);
+
+		
+		String postcode2 = request.getParameter("postcode2");
+		String address2 = request.getParameter("address2");
+		String detailAddress2 = request.getParameter("detailAddress2");
+		
+		System.out.println(postcode2);
+		System.out.println(address2);
+		System.out.println(detailAddress2);
+		
+		String parentsAddress = postcode2 + "/" + address2 + "/" + detailAddress2;
+		System.out.println("보호자주소::"+parentsAddress);
+		
+		si.setStudentNo(userId);
+		si.setAddress(studentAddress);
+		si.setParentsAddress(parentsAddress);
+		
+		System.out.println(si);
+		
+		int result = ss.changePersonalInfo(si);
+		
+		StudentInfo basicInfo = ss.basicInfo(userId);
+		StudentInfo personalInfo = ss.personInfoManage(userId);
+		
+		System.out.println(basicInfo);
+		System.out.println(personalInfo);
+		
+		request.setAttribute("basicInfo",basicInfo);
+		request.setAttribute("personalInfo",personalInfo);
+		
+		
+		if(result>0) {
+			return "student/info/studentPersonalInfo";			
+		}else {
+			model.addAttribute("msg","신상정보 수정 실패");
+			return "common/errorPage";	
+		}
 	}
 	
 	
@@ -238,8 +302,8 @@ public class StudentInfoController {
 	
 	
 	//교직원_학생조회 필터링 초기값
-			@RequestMapping("em_studentSelectBox.si")
-			public ModelAndView studentSelectBox(ModelAndView mv, HttpServletRequest request) {
+	@RequestMapping("em_studentSelectBox.si")
+	public ModelAndView studentSelectBox(ModelAndView mv, HttpServletRequest request) {
 				
 				try {
 					ArrayList collegeList = ss.selectcollege();
@@ -264,14 +328,28 @@ public class StudentInfoController {
 					return mv;
 				}
 				
-			}
-			
+			}			
+	@RequestMapping(value="st_graduation.si")
+	public String graduationManagement(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
+		
+		String userId = loginUser.getMemberId();
+		System.out.println(userId);
+		
+		StudentInfo basicInfo = ss.basicInfo(userId);
+		request.setAttribute("basicInfo",basicInfo);
+		
+		//ArrayList list = ss.graduationCondition(userId);
+		
+		return "student/info/graduationManagement";
+	}
+
 	//학생_다전공 신청 뷰 출력
 	@RequestMapping("st_showSecondMajor.si")
 	public String st_showSecondMajor() {
 		
 		return "student/info/secondMajor";
 	}
+
 
 }
 
