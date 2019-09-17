@@ -27,8 +27,8 @@ public class DormitoryServiceImpl implements DormitoryService {
 	}
 
 	@Override
-	public void insertDormitory(Dormitory d) {
-		dd.insertDormitory(sqlSession, d);
+	public void insertDormitory(Dormitory dormitory) {
+		dd.insertDormitory(sqlSession, dormitory);
 	}
 
 }

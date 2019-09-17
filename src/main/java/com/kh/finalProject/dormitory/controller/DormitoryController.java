@@ -29,6 +29,7 @@ public class DormitoryController {
 	
 	@RequestMapping(value="dormitory.dor")
 	public String DormitoryCheck(Dormitory m, Model model, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("들어옴");
 		
 		String studentNo = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
 		
@@ -66,10 +67,15 @@ public class DormitoryController {
 		return "main/main";
 	}
 	
-	@RequestMapping("dormitoryApply.dor")
-	public String DormitoryApplySuccess(Dormitory d,@ModelAttribute("loginUser") Member loginUser) {
-		System.out.println(d);
-		ds.insertDormitory(d);
+	@RequestMapping(value="dormitoryApply.dor", method=RequestMethod.POST)
+	public String insert(Dormitory dormitory, ModelAndView mav, HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		System.out.println("loginUser ::: " + loginUser);
+		
+		dormitory.setMemberId(loginUser.getMemberId());
+		ds.insertDormitory(dormitory);
 		
 		return "common/successAlert";
 	}
