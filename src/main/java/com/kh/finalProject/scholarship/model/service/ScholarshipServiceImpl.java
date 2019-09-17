@@ -22,6 +22,12 @@ public class ScholarshipServiceImpl implements ScholarshipService{
 	private DataSourceTransactionManager transactionManager;
 	
 	@Override
+	public ArrayList<Scholarship> beforeScholarshipData(String studentNo) throws ScholarshipException {
+		
+		return sd.beforeScholarshipData(sqlSession, studentNo);
+	}
+	
+	@Override
 	public ArrayList<Scholarship> userScholarship(String studentNo) throws ScholarshipException {
 		
 		return sd.userScholarship(sqlSession, studentNo);
@@ -32,6 +38,11 @@ public class ScholarshipServiceImpl implements ScholarshipService{
 		
 		return sd.userScholarshipApply(sqlSession, studentNo);	
 		
+	}
+
+	@Override
+	public void insertScholarship(Scholarship scholarship) {
+		sd.insertScholarship(sqlSession, scholarship);
 	}
 
 }

@@ -13,6 +13,21 @@ import com.kh.finalProject.scholarship.model.vo.ScholarshipApply;
 public class ScholarshipDaoImpl implements ScholarshipDao{
 
 	@Override
+	public ArrayList<Scholarship> beforeScholarshipData(SqlSessionTemplate sqlSession, String studentNo) throws ScholarshipException {
+		System.out.println("장학금 조회 dao 들어옴");
+		
+		ArrayList<Scholarship> beforeScholarship = null;
+		
+		beforeScholarship = (ArrayList) sqlSession.selectList("Scholarship.beforeScholarshipApplyInfo", studentNo);
+		
+		if(beforeScholarship == null) {
+			throw new ScholarshipException("정보가 존재하지 않습니다.");
+		}
+		
+		return beforeScholarship;
+	}
+	
+	@Override
 	public ArrayList<Scholarship> userScholarship(SqlSessionTemplate sqlSession, String studentNo) throws ScholarshipException {
 		ArrayList<Scholarship> memberScholarship = null;
 		
@@ -37,5 +52,14 @@ public class ScholarshipDaoImpl implements ScholarshipDao{
 		
 		return memberScholarshipApply;
 	}
+
+	@Override
+	public void insertScholarship(SqlSessionTemplate sqlSession, Scholarship scholarship) {
+		
+		System.out.println("들어옴");
+		
+		sqlSession.insert("Scholarship.add", scholarship);
+	}
+
 
 }
