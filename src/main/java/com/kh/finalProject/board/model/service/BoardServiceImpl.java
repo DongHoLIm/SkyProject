@@ -649,5 +649,45 @@ public class BoardServiceImpl implements BoardService{
 	public int insertSystemQuestionAnswer(SystemQuestion sq) throws BoardInsertException {
 		return bd.insertSystemQuestionAnswer(sqlSession, sq);
 	}
+
+	@Override
+	public ArrayList<Board> selectnNoticeInfo() throws BoardSelectListException {
+		return bd.selectnNoticeInfo(sqlSession);
+	}
+
+	@Override
+	public int autoDeletenNotice(ArrayList<Board> b) {
+		return bd.autoDeletenNotice(sqlSession, b);
+	}
+
+	@Override
+	public ArrayList<Board> selectsNoticeInfo() throws BoardSelectListException {
+		return bd.selectsNoticeInfo(sqlSession);
+	}
+
+	@Override
+	public int autoDeletesNotice(ArrayList<Board> b) {
+		return bd.autoDeletesNotice(sqlSession, b);
+	}
+
+	@Override
+	public ArrayList<Board> selecteNoticeInfo() throws BoardSelectListException {
+		return bd.selecteNoticeInfo(sqlSession);
+	}
+
+	@Override
+	public int autoDeleteeNotice(ArrayList<Board> b) {
+		return bd.autoDeleteeNotice(sqlSession, b);
+	}
+
+	@Override
+	public ArrayList<Board> selectaNoticeInfo() throws BoardSelectListException {
+		return bd.selectaNoticeInfo(sqlSession);
+	}
+
+	@Override
+	public int autoDeleteaNotice(ArrayList<Board> b) {
+		return bd.autoDeleteaNotice(sqlSession, b);
+	}
 	
 }

@@ -51,7 +51,7 @@
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>
 						<th style="text-align: center;">카테고리</th>
-						<td>일반공지</td>
+						<td>장학공지</td>
 						<th style="text-align: center;">작성자</th>
 						<td><c:out value="${writerInfo.memberName}"/></td>
 						<th style="text-align: center;">작성부서</th>

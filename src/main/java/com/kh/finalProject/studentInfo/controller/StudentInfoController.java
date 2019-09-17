@@ -265,6 +265,13 @@ public class StudentInfoController {
 				}
 				
 			}
+			
+	//학생_다전공 신청 뷰 출력
+	@RequestMapping("st_showSecondMajor.si")
+	public String st_showSecondMajor() {
+		
+		return "student/info/secondMajor";
+	}
 
 }
 

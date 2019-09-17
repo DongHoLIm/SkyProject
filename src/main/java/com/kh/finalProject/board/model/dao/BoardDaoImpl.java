@@ -694,4 +694,153 @@ public class BoardDaoImpl implements BoardDao{
 	public int insertSystemQuestionAnswerFile(SqlSessionTemplate sqlSession, UploadFile uf) {
 		return sqlSession.insert("UploadFile.insertSystemQuestionAnswerFile", uf);
 	}
+
+	@Override
+	public ArrayList<Board> selectnNoticeInfo(SqlSessionTemplate sqlSession) {
+		
+		ArrayList<Board> list = (ArrayList)sqlSession.selectList("Board.selectnNoticeInfo");
+		
+		return list;
+	}
+
+	@Override
+	public int autoDeletenNotice(SqlSessionTemplate sqlSession, ArrayList<Board> b) {
+		int result = 0;
+		
+		java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());		
+		
+		String[] deleteDay = new String[b.size()];
+		
+		for(int i = 0; i < b.size(); i++) {			
+			
+			deleteDay[i] = b.get(i).getDeadLine().split(" ")[0];			
+			
+			b.get(i).setDeadLine(deleteDay[i]);		
+			
+			java.sql.Date day = java.sql.Date.valueOf(b.get(i).getDeadLine());			
+			
+			java.util.Date utilDate = new java.util.Date(sqlDate.getDate());
+			java.util.Date utilDate2 = new java.util.Date(day.getDate());
+			
+			int compare = utilDate.compareTo(utilDate2);			
+			
+			if(compare == 0) {				
+				
+				result = sqlSession.update("Board.autoDeletenNotice", sqlDate);
+			}			
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<Board> selectsNoticeInfo(SqlSessionTemplate sqlSession) {
+		ArrayList<Board> list = (ArrayList)sqlSession.selectList("Board.selectsNoticeInfo");
+		
+		return list;
+	}
+
+	@Override
+	public int autoDeletesNotice(SqlSessionTemplate sqlSession, ArrayList<Board> b) {
+		int result = 0;
+		
+		java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());		
+		
+		String[] deleteDay = new String[b.size()];
+		
+		for(int i = 0; i < b.size(); i++) {			
+			
+			deleteDay[i] = b.get(i).getDeadLine().split(" ")[0];			
+			
+			b.get(i).setDeadLine(deleteDay[i]);		
+			
+			java.sql.Date day = java.sql.Date.valueOf(b.get(i).getDeadLine());			
+			
+			java.util.Date utilDate = new java.util.Date(sqlDate.getDate());
+			java.util.Date utilDate2 = new java.util.Date(day.getDate());
+			
+			int compare = utilDate.compareTo(utilDate2);			
+			
+			if(compare == 0) {				
+				
+				result = sqlSession.update("Board.autoDeletesNotice", sqlDate);
+			}			
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<Board> selecteNoticeInfo(SqlSessionTemplate sqlSession) {
+		ArrayList<Board> list = (ArrayList)sqlSession.selectList("Board.selecteNoticeInfo");
+		
+		return list;
+	}
+
+	@Override
+	public int autoDeleteeNotice(SqlSessionTemplate sqlSession, ArrayList<Board> b) {
+		int result = 0;
+		
+		java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());		
+		
+		String[] deleteDay = new String[b.size()];
+		
+		for(int i = 0; i < b.size(); i++) {			
+			
+			deleteDay[i] = b.get(i).getDeadLine().split(" ")[0];			
+			
+			b.get(i).setDeadLine(deleteDay[i]);		
+			
+			java.sql.Date day = java.sql.Date.valueOf(b.get(i).getDeadLine());			
+			
+			java.util.Date utilDate = new java.util.Date(sqlDate.getDate());
+			java.util.Date utilDate2 = new java.util.Date(day.getDate());
+			
+			int compare = utilDate.compareTo(utilDate2);			
+			
+			if(compare == 0) {				
+				
+				result = sqlSession.update("Board.autoDeleteeNotice", sqlDate);
+			}			
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<Board> selectaNoticeInfo(SqlSessionTemplate sqlSession) {
+		ArrayList<Board> list = (ArrayList)sqlSession.selectList("Board.selectaNoticeInfo");
+		
+		return list;
+	}
+
+	@Override
+	public int autoDeleteaNotice(SqlSessionTemplate sqlSession, ArrayList<Board> b) {
+		int result = 0;
+		
+		java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());		
+		
+		String[] deleteDay = new String[b.size()];
+		
+		for(int i = 0; i < b.size(); i++) {			
+			
+			deleteDay[i] = b.get(i).getDeadLine().split(" ")[0];			
+			
+			b.get(i).setDeadLine(deleteDay[i]);		
+			
+			java.sql.Date day = java.sql.Date.valueOf(b.get(i).getDeadLine());			
+			
+			java.util.Date utilDate = new java.util.Date(sqlDate.getDate());
+			java.util.Date utilDate2 = new java.util.Date(day.getDate());
+			
+			int compare = utilDate.compareTo(utilDate2);			
+			
+			if(compare == 0) {				
+				
+				result = sqlSession.update("Board.autoDeleteaNotice", sqlDate);
+			}			
+		}
+		
+		return result;
+	}
 }

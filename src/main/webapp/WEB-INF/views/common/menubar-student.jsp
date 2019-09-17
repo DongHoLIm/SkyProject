@@ -37,7 +37,7 @@
 												<li><a href="st_studentInfo.si">학적정보 조회</a></li>
 												<li><a href="st_personalInfo.si">신상 관리</a></li>
 												<li><a href="#">학적 변동 조회</a></li>
-												<li><a href="#">복수(부)전공 신청</a></li>
+												<li><a href="st_showSecondMajor.si">다전공 신청</a></li>
 												<li><a href="#">성적 관리</a></li>
 												<li><a href="#">졸업 관리</a></li>
 												<li><a href="#">휴복학 관리</a></li>
