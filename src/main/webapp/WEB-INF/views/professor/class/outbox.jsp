@@ -9,14 +9,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script>
-function messageSendOpen(){
-	console.log("123");
-	window.open("/finalProject/message.pro", "쪽지보내기", width="700px", height="500px");
-};
-function sendMessageListOpen(){
-	window.open("/finalProject/outbox.pro", "보낸쪽지함", width="700px", height="500px");
-};
+<script type="text/javascript">
+
 </script>
 <head>
 <meta charset="UTF-8">
@@ -78,26 +72,19 @@ h4 {
 	color: #fff;
 
 }
-
-
-
 </style>
 </head>
 <body>
 
 	<div class="note" id="note1">
-		<h4>받은 쪽지함</h4>
+		<h4>보낸 쪽지함</h4>
 		<hr>
 	</div>
 
 	<form action="" method="">
 		<div class="note" id="note2">
 
-			<table class="Inbox">
-				<tr>
-					<td><input onclick="sendMessageListOpen();" class="btn btn-secondary" type="button" value="보낸쪽지함"></td>
-				</tr>
-			</table>
+		
 			<table class="table table-bordered">
 
 				<thead>
@@ -105,18 +92,18 @@ h4 {
 						<th style="text-align: center;"><input type="checkbox"></th>
 						<th style="text-align: center;">No</th>
 						<th style="text-align: center;">제목</th>
-						<th style="text-align: center;">발신인</th>
-						<th style="text-align: center;">받은날짜</th>
+						<th style="text-align: center;">수신인</th>
+						<th style="text-align: center;">보낸날짜</th>
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="message" items="${messageList }">
+				<c:forEach var="message" items="${sendMessageList }">
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>${ message.messageCode }</td>
 						<td>${ message.messageTitle }</td>
-						<td>${ message.memberId}</td>
-						<td>${ message.receDate}</td>
+						<td>${ message.receMember}</td>
+						<td>${ message.sendDate}</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -124,7 +111,7 @@ h4 {
 			<table class="outbox">
 				<tr>
 					<td><input type="button" value="선택삭제" class="btn btn-secondary"></td>
-					<td><a href="#" onclick="messageSendOpen();"><input type="button" value="쪽지보내기" class="btn btn-secondary"></a></td>
+					<td><input type="button" value="받은쪽지함" class="btn btn-secondary"></td>
 				</tr>
 			</table>
 		</div>
