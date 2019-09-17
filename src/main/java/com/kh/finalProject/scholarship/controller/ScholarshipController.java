@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.scholarship.model.exception.ScholarshipException;
@@ -26,6 +28,30 @@ public class ScholarshipController {
 	@RequestMapping(value="applyView.sc")
 	public String scholarshipInfoView() {
 		return "student/scholarship/scholarshipApply";
+	}
+	
+	@RequestMapping(value="beforeScholarshipApply.sc")
+	public String beforeScholarshipApplyInfo(Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("장학금 조회 컨트롤러 들어옴");
+		
+		String studentNo = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
+		System.out.println("studentNo :::" + studentNo);
+		
+		ArrayList<Scholarship> beforeScholarship;
+		
+		try {
+			beforeScholarship = ss.beforeScholarshipData(studentNo);
+			System.out.println("beforeScholarship ::: " + beforeScholarship);
+			
+			request.setAttribute("beforeScholarship", beforeScholarship);
+			
+			return "student/scholarship/scholarshipApply";
+			
+		} catch (ScholarshipException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorAlert";
+		}
+		
 	}
 	
 	@RequestMapping(value="scholarship.sc")
@@ -69,6 +95,27 @@ public class ScholarshipController {
 			return "common/errorAlert";
 		}
 		
+	}
+	
+	@RequestMapping(value="scholarshipNew.sc")
+	public String showScholarshipNewApply() {
+		
+		return "student/scholarship/scholarshipNewApply";
+	}
+	
+	@RequestMapping(value="scholarshipNewApply.sc")
+	public String insert(Scholarship scholarship, ModelAndView mav, HttpSession session) {
+		
+		System.out.println("들어옴");
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		System.out.println("loginUser ::: " + loginUser);
+		
+		scholarship.setStudentNo(loginUser.getMemberId());
+		ss.insertScholarship(scholarship);
+		
+		return "common/successAlert";
 	}
 	
 }
