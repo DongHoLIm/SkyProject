@@ -7,9 +7,10 @@
 <meta charset="utf-8" />
 <meta name="viewport"
    content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="assets/css/main.css" />
+ <link rel="stylesheet" href="resources/css/main.css" />
 <link href="https://fonts.googleapis.com/css?family=Karla&display=swap"
    rel="stylesheet">
+  
 <style>
 #basic {
    padding: 10px 0px 0px 100px;

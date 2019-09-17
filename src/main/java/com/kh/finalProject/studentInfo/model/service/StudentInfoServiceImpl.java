@@ -11,6 +11,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.dao.StudentInfoDao;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
+import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 @Service
@@ -100,6 +101,12 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		
 		return result;
 		
+	}
+
+	@Override
+	public ArrayList<Graduation> selectGraduationCondition(String userId) throws StudentInfoSelectListException {
+		
+		return sd.selectGraduationCondition(sqlSession,userId);
 	}
 
 	

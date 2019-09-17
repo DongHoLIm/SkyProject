@@ -3,6 +3,7 @@ package com.kh.finalProject.studentInfo.model.vo;
 import java.io.Serializable;
 
 public class Graduation implements Serializable{
+	private String studentNo;			//학번
 	private String graduationCode; 		//졸업인증 코드
 	private String sDeptCode;			//학과코드
 	private String division;			//인증구분(교내/학과)
@@ -13,9 +14,10 @@ public class Graduation implements Serializable{
 	
 	public Graduation() {}
 
-	public Graduation(String graduationCode, String sDeptCode, String division, String graduationName,
+	public Graduation(String studentNo, String graduationCode, String sDeptCode, String division, String graduationName,
 			String graduationContent, String check, String graduationInfo) {
 		super();
+		this.studentNo = studentNo;
 		this.graduationCode = graduationCode;
 		this.sDeptCode = sDeptCode;
 		this.division = division;
@@ -23,6 +25,14 @@ public class Graduation implements Serializable{
 		this.graduationContent = graduationContent;
 		this.check = check;
 		this.graduationInfo = graduationInfo;
+	}
+
+	public String getStudentNo() {
+		return studentNo;
+	}
+
+	public void setStudentNo(String studentNo) {
+		this.studentNo = studentNo;
 	}
 
 	public String getGraduationCode() {
@@ -83,12 +93,11 @@ public class Graduation implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Graduation [graduationCode=" + graduationCode + ", sDeptCode=" + sDeptCode + ", division=" + division
-				+ ", graduationName=" + graduationName + ", graduationContent=" + graduationContent + ", check=" + check
-				+ ", graduationInfo=" + graduationInfo + "]";
+		return "Graduation [studentNo=" + studentNo + ", graduationCode=" + graduationCode + ", sDeptCode=" + sDeptCode
+				+ ", division=" + division + ", graduationName=" + graduationName + ", graduationContent="
+				+ graduationContent + ", check=" + check + ", graduationInfo=" + graduationInfo + "]";
 	}
 
-	
 	
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
+import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 @Repository
@@ -160,6 +161,21 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	public int changeStudentInfo(SqlSessionTemplate sqlSession, StudentInfo si) {
 		
 		return sqlSession.update("StudentInfo.changeStudentInfo",si);
+	}
+
+	@Override
+	public ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException {
+		
+		ArrayList<Graduation> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Graduation.selectGraduationCondition", userId);
+		
+		if(list==null) {
+			sqlSession.close();
+			throw new StudentInfoSelectListException("졸업인증 관리 조회 실패");
+		}
+		
+		return list;
 	}
 
 	
