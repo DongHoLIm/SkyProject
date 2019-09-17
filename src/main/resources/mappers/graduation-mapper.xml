@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<mapper namespace="Graduation">
   <resultMap type="Graduation" id="graduationResultSet">
   	<id property="graduationCode" column="GRADUATION_CODE"/>
   	<result property="sDeptCode" column="SDEPT_CODE"/>
@@ -11,3 +11,5 @@
   		<result property="check" column="GRADUATION_CHECK"/> 
   		<result property="graduationInfo" column="GRADUATION_INFO"/>
   </resultMap>
+  
+</mapper>
