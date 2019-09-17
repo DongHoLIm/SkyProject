@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
-
+import com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList;
 import com.kh.finalProject.professor.sendSMS.model.vo.StudentList;
 
 @Repository
@@ -34,6 +34,21 @@ public class professorDaoImpl implements professorDao{
 	public int insertSMS(SqlSessionTemplate sqlSession, StudentList sl) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("professorSendSMS.insertSMS",sl);
+	}
+
+	@Override
+	public ArrayList<SendSMSList> sendSMSList(SqlSessionTemplate sqlSession, SendSMSList list) {
+		ArrayList<SendSMSList> SMSList =(ArrayList) sqlSession.selectList("professorSendSMS.sendSMSList", list);
+		
+		
+		return SMSList;
+	}
+
+	@Override
+	public ArrayList<SendSMSList> SendSMSDetail(SqlSessionTemplate sqlSession, SendSMSList sl) {
+		ArrayList<SendSMSList> list = (ArrayList) sqlSession.selectList("professorSendSMS.sendSMSDetail", sl);
+		
+		return list;
 	}
 
 	

@@ -25,6 +25,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.sendSMS.model.service.professorService;
+import com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList;
 import com.kh.finalProject.professor.sendSMS.model.vo.StudentList;
 
 
@@ -41,7 +42,7 @@ public class ProfessorController {
 	}
 	@RequestMapping("addressStudent.pro")	
 	public String addressList(@ModelAttribute("loginUser") Member loginUser,HttpServletRequest request,HttpServletResponse response){
-			
+			System.out.println("들어오나요??");
 		ArrayList<StudentList> list = null;
 		int currentPage = 1 ;
 		if(request.getParameter("currentPage")!=null) {
@@ -98,8 +99,7 @@ public class ProfessorController {
 	public ModelAndView sendSMS(ModelAndView mv,String send,HttpSession session) {
 		ObjectMapper mapper = new ObjectMapper();
 	    List<Object> list = new ArrayList<Object> ();
-	    Member proInfo =(Member) session.getAttribute("loginUser");
-		System.out.println(proInfo.getMemberId());
+	    Member proInfo =(Member) session.getAttribute("loginUser");		
 	     try {
 	    	 list = mapper.readValue(send,new TypeReference <List<Object>>() {});
 	    	 HashMap<String,Object> hmap = null;
@@ -116,7 +116,8 @@ public class ProfessorController {
 	    		 message = (String)hmap.get("message");
 	    		 sl.setGrade(message);
 	    		 sl.setMemberId((String)hmap.get("memberId"));
-	    		 sl.setMemberKName(proInfo.getMemberId());	
+	    		 sl.setMemberKName(proInfo.getMemberId());	    		 
+	    		 System.out.println("message 왜 널임?"+sl);
 	    		 int result = ps.insertSMS(sl); 
 	    	 }
 	    	 mv.addObject("msg", message);
@@ -136,4 +137,28 @@ public class ProfessorController {
 	     mv.setViewName("jsonView");
 		return mv;
 	}
+	@RequestMapping("SMSList.pro")
+	public String SMSList(HttpServletRequest request, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String memberId = loginUser.getMemberId();
+		SendSMSList list = new SendSMSList();
+		list.setMemberId(memberId);
+		ArrayList<SendSMSList> sendSMSList = ps.sendSMSList(list); 	
+		
+		request.setAttribute("list", sendSMSList);
+		
+		
+		return "professor/sendSMS/sendSMSList";
+	}
+	@RequestMapping("SendSMSDetail.pro")
+	public String SendSMSDetail(HttpServletRequest request) {
+		String date = request.getParameter("date");
+		SendSMSList sl = new SendSMSList();
+		sl.setSendDate(date);
+		ArrayList <SendSMSList> resultList = ps.SendSMSDetail(sl);
+		
+		request.setAttribute("list", resultList);
+		return "professor/sendSMS/sendSMSDetailList";
+	}
+	
 }

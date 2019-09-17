@@ -8,15 +8,21 @@
 		id="StudentListResult">
 		<id property="memberId" column="MEMBER_ID" />
 		<result property="memberKName" column="MEMBER_KNAME" />
-		<result property="phone" column="PHONE" />
+		<result property="phone" column="PHONE_ONE" />
 		<result property="sdeptName" column="SDEPT_NAME" />
 		<result property="grade" column="GRADE" />
 	</resultMap>
-
+	<resultMap type="com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList" id="SendSMSListResult">
+		<id property="memberId" column="MEMBER_KNAME_1"/>
+		<result property="studentKName" column="MEMBER_KNAME"/>
+		<result property="SMSmessage" column="RECE_CONTENT"/>
+		<result property="sendDate" column="SEND_TIME"/>
+		<result property="memberCount" column="COUNTSTUDENT"/>
+	</resultMap>
 	<select id="studentListCount" resultType="_int">
 		SELECT COUNT(MEMBER_ID)
 		FROM (SELECT
-		M.MEMBER_ID,M.MEMBER_KNAME,M.PHONE,S.SDEPT_NAME,SI.GRADE
+		M.MEMBER_ID,M.MEMBER_KNAME,M.PHONE_ONE,S.SDEPT_NAME,SI.GRADE
 		FROM
 		MEMBER M
 		JOIN STUDENT_INFO SI ON(M.MEMBER_ID = SI.STUDENT_NO)
@@ -25,7 +31,7 @@
 		AND STUDENT_STATUS='재학생')
 	</select>
 	<select id="studentList" resultMap="StudentListResult">
-		SELECT M.MEMBER_ID,M.MEMBER_KNAME,M.PHONE,S.SDEPT_NAME,SI.GRADE
+		SELECT M.MEMBER_ID,M.MEMBER_KNAME,M.PHONE_ONE,S.SDEPT_NAME,SI.GRADE
 		FROM
 		MEMBER M
 		JOIN STUDENT_INFO SI ON(M.MEMBER_ID = SI.STUDENT_NO)
@@ -38,4 +44,20 @@
 	<insert id="insertSMS" parameterType="professorSendSMS">
 		INSERT INTO SMS VALUES('SMS'||SEQ_SMS.NEXTVAL,SYSDATE,#{grade},#{memberId},#{memberKName}) 
 	</insert>
+	<select id="sendSMSList" resultMap="SendSMSListResult" parameterType="SendSMSList">
+		SELECT COUNT(M1.MEMBER_KNAME) AS COUNTSTUDENT,TO_CHAR(S.SEND_DATE,'YYYY-MM-DD HH24:MI:SS')AS SEND_TIME,S.RECE_CONTENT,M.MEMBER_KNAME
+		FROM SMS S
+		JOIN MEMBER M  ON(S.SENDER = M.MEMBER_ID)
+		JOIN MEMBER M1 ON(M1.MEMBER_ID = S.STUDENT_NO)
+		WHERE S.SENDER =#{memberId} 
+		GROUP BY S.SEND_DATE,S.RECE_CONTENT,M.MEMBER_KNAME 		
+	</select>
+	
+	<select id="sendSMSDetail" resultMap = "SendSMSListResult" parameterType="SendSMSList">
+		SELECT M.MEMBER_KNAME,M1.MEMBER_KNAME AS PROFESSORNAME, S.RECE_CONTENT
+		FROM SMS S
+		JOIN MEMBER M ON(S.STUDENT_NO = M.MEMBER_ID)
+		JOIN MEMBER M1 ON(S.SENDER =M1.MEMBER_ID)
+		WHERE TO_CHAR(S.SEND_DATE,'YYYY-MM-DD HH24:MI:SS') =#{sendDate}			
+	</select>
 </mapper>

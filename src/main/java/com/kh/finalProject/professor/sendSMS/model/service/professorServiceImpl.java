@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.sendSMS.model.dao.professorDao;
+import com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList;
 import com.kh.finalProject.professor.sendSMS.model.vo.StudentList;
 
 @Service
@@ -31,6 +32,16 @@ public class professorServiceImpl implements professorService{
 	public int insertSMS(StudentList sl) {
 		// TODO Auto-generated method stub
 		return pd.insertSMS(sqlSession,sl);
+	}
+	@Override
+	public ArrayList<SendSMSList> sendSMSList(SendSMSList list) {
+		// TODO Auto-generated method stub
+		return pd.sendSMSList(sqlSession,list);
+	}
+	@Override
+	public ArrayList<SendSMSList> SendSMSDetail(SendSMSList sl) {
+		// TODO Auto-generated method stub
+		return pd.SendSMSDetail(sqlSession,sl);
 	}
 	
 }
