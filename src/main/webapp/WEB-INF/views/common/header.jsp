@@ -9,6 +9,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+function messageOpen(){
+	console.log("123");
+	window.open("/finalProject/inbox.pro", "쪽지함", width="700px", height="500px");
+};
+
+
+</script>
 <title>header</title>
 </head>
 <body>
@@ -18,9 +26,11 @@
 			src="resources/images/logo.png" width="150px;" height="30px;"></a>
 		<ul class="icons">
 			<li><a href="#">${loginUser.memberKName}</a></li>
-			<li><a href="inbox.pro" class="icon solid fa-paper-plane"></a><span class="label"></span></li>
+			<li><a href="#" onclick="messageOpen();" class="icon solid fa-paper-plane" id="message"></a><span class="label"></span></li>
 			<li><a href="logOut.me" class="button primary small">LogOut</a></li>		
 		</ul>
 	</header>
+
 </body>
+
 </html>

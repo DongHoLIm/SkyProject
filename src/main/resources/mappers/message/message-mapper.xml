@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Message">
+
+	<resultMap
+		type="com.kh.finalProject.professor.message.model.vo.MessageVO"
+		id="MessageResultSet">
+		<id property="messageCode" column="MESSAGE_CODE" />
+		<result property="sendDate" column="SEND_DATE" />
+		<result property="receMember" column="RECE_MEMBER" />
+		<result property="messageTitle" column="MESSAGE_TITLE" />
+		<result property="messageContent" column="MESSAGE_CONTENT" />
+		<result property="receDate" column="RECE_DATE" />
+		<result property="memberId" column="MEMBER_ID" />
+		
+	</resultMap>
+	<resultMap type="com.kh.finalProject.member.model.vo.Member" id="memberResultSet">
+		<id property="memberId" column="MEMBER_ID"/>
+		<result property="memberPwd" column="MEMBER_PWD"/>
+		<result property="memberKName" column="MEMBER_KNAME"/>
+		<result property="memberEName" column="MEMBER_ENAME"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="memberStatus" column="MEMBER_CHECK"/>
+		<result property="loginCheck" column="LOGIN_CHECK"/>
+	</resultMap>
+
+
+	<!-- 게시글 수 조회 -->
+	<select id="selectMessageList" parameterType="String" resultMap="MessageResultSet">
+		SELECT *
+		FROM MESSAGE
+		WHERE RECE_MEMBER = #{receMember}
+	</select>
+
+
+	<select id="selectsendMessageList" parameterType="String" resultMap="MessageResultSet">
+		SELECT *
+		FROM MESSAGE
+		WHERE MEMBER_ID = #{receMember}
+	</select>
+	
+	<select id="selectMemberList" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+	</select>
+
+
+
+</mapper>
