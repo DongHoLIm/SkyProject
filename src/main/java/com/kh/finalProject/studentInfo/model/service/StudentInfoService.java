@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
+import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoService {
@@ -31,6 +32,13 @@ public interface StudentInfoService {
 	StudentInfo personInfoManage(String userId);
 
 	int changePersonalInfo(StudentInfo si);
+
+	int insertSecondMajor(SecondMajor sm);
+
+	ArrayList<SecondMajor> selectSecondMajor(SecondMajor sm);
+
+	ArrayList<SecondMajor> selectSecondMajor(String userId);
+
 
 	
 

@@ -6,11 +6,15 @@
 <head>
 <title>학사관리시스템</title>
 <meta charset="utf-8" />
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="assets/css/main.css" />
-<link href="https://fonts.googleapis.com/css?family=Karla&display=swap"
-   rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="resources/css/main.css" />
+<link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style>
 #basic {
    padding: 10px 0px 0px 100px;
@@ -27,7 +31,7 @@ td.td {
    width: 100px !important;
 }
 
-table.basicinfo {
+.basicinfo{
    width: 85%;
    border: 1px solid #dde1e3;
    margin-left: auto;
@@ -46,141 +50,180 @@ table.basicinfo {
 </style>
 </head>
 <body>
-   <div id="wrapper">
-      <div id="main">
-         <div class="inner">
-            <jsp:include page="../../common/header.jsp" />
-         </div>
-         <h4 id="basic">기본 정보</h4>
-         <form class="ba">
-            <table class="basicinfo">
-               <tr>
-                  <td class="td">학번</td>
-                  <td colspan='5'><input type="text" value="123456789" readonly></td>
-               </tr>
-               <tr>
-                  <td class="td">한글 성명</td>
-                  <td><input type="text" value="홍길동" readonly></td>
-                  <td class="td">영문 성명</td>
-                  <td><input type="text" value="In Woo Kang" readonly></td>
-                  <td class="td">한문 성명</td>
-                  <td><input type="text" value="姜因遇" readonly></td>
-               </tr>
-               <tr>
-                  <td class="td">주민 번호</td>
-                  <td><input type="text" value="940205-*******" readonly></td>
-                  <td class="td">생년월일</td>
-                  <td><input type="text" value="2000.07.26" readonly></td>
-                  <td class="td">성별</td>
-                  <td><input type="text" value="남" readonly></td>
-               </tr>
-               <tr>
-                  <td class="td">학과</td>
-                  <td><input type="text" value="소프트웨어 응용" readonly></td>
-                  <td class="td">전공</td>
-                  <td><input type="text" value="컴퓨터 공학" readonly></td>
-                  <td class="td">학년</td>
-                  <td><input type="text" value="1" readonly></td>
-               </tr>
-               <tr>
-                  <td class="td">학적 상태</td>
-                  <td><input type="text" value="재학" readonly></td>
-                  <td class="td">주야</td>
-                  <td><input type="text" value="주간" readonly></td>
-                  <td class="td">병역 구분</td>
-                  <td><input type="text" value="" readonly></td>
-               </tr>
-             </table>
-             <h4 id="basic">다전공 신청</h4>
-               <table class="basicinfo">
-                  <tr>
-                     <td class="td">다전공 분류 </td>
-                     <td colspan="5">
-                     	<select name="secondMajor" id="secondMajor">
-                           <option value="multi">복수전공</option>
-                           <option value="second">부전공</option>
-                     	</select>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td class="td">단과대학</td>
-                     <td colspan="2">
-                     	<select name="college" id="college">
-                           <option value="CollegeChoice">-- 선택 --</option>
-                           <option value="Humanities">인문대학</option>
-                           <option value="Art">예술대학</option>
-                           <option value="Engineering">공과대학</option>
-                   		</select>
-                     </td>
-                     <td class="td">학과</td>
-                     <td colspan="2">
-                     	<select name="sDept" id="sDept">
-                           
-                    	</select>
-                    </td>
-                  </tr>
-               </table>               
-               <input type="button" value="신청 하기" id="modified" style="float: right; margin-right: 50px;">
-           </form>
-               <br><br><br>
-               
-               <h4 id="basic">신청 내역</h4>
-               <table class="basicinfo" id="Change">
-                  <thead>
-                     <tr>
-                        <th style="text-align: center" id="t1">다전공 분류</th>
-                        <th style="text-align: center" id="t1">단과 대학</th>
-                        <th style="text-align: center" id="t1">학과</th>
-                        <th style="text-align: center" id="t1">신청 날짜</th>
-                        <th style="text-align: center" id="t1">처리 결과</th>
-                     </tr>
-                  <thead>
-                  <tbody>
-                     <tr>
-                        <td>경영</td>
-                        <td>글로벌</td>
-                        <td>인문</td>
-                        <td>2019-09-12</td>
-                        <td>승인</td>
-                     </tr>
-                  </tbody>
-               </table>
-         
-      </div>
-      <div>
-         <jsp:include page="../../common/menubar-student.jsp" />
-      </div>
-   </div>
-	<script>
-		$("#college").change(function(){
-			var college = $(this).val();
-			
-			var $option1 = $("<option value='business'>경영학과</option>")
-			var $option2 = $("<option value='economics'>경제학과</option>")
-			var $option3 = $("<option value='diplomacy'>정치외교과</option>")
-			var $option4 = $("<option value='music'>실용음악과</option>")
-			var $option5 = $("<option value='atheletic'>사회체육과</option>")
-			var $option6 = $("<option value='computer'>컴퓨터공학과</option>")
-			var $option7 = $("<option value='electronic'>전자공학과</option>")
-			var $option8 = $("<option value='building'>건축과</option>")
-			
-			if(college == "Humanities"){
-				$("#sDept").children().remove();
-				$("#sDept").append($option1);
-				$("#sDept").append($option2);
-				$("#sDept").append($option3);
-			}else if(college == "Art"){
-				$("#sDept").children().remove();
-				$("#sDept").append($option4);
-				$("#sDept").append($option5);
-			}else if(college == "Engineering"){
-				$("#sDept").children().remove();
-				$("#sDept").append($option6);
-				$("#sDept").append($option7);
-				$("#sDept").append($option8);
+	<div id="wrapper">
+		<div id="main">
+			<div class="inner">
+				<jsp:include page="../../common/header.jsp" />
+			</div>
+
+			<jsp:include page="../info/common.jsp" />
+		
+			<h4 id="basic">다전공 신청</h4>
+			<table class="basicinfo">
+				<tr>
+					<td class="td">다전공 분류</td>
+					<td colspan="5">
+						<select name="majorCheck" id="majorCheck">
+							<option value="복수전공">복수전공</option>
+							<option value="부전공">부전공</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="td">단과대학</td>
+					<td colspan="2">
+						<select name="collegeName" id="collegeName">
+							<option value="CollegeChoice">-- 선택 --</option>
+							<option value="인문대학">인문대학</option>
+							<option value="예술대학">예술대학</option>
+							<option value="공과대학">공과대학</option>
+						</select>
+					</td>
+					<td class="td">학과</td>
+					<td colspan="2">
+						<select name="sdeptName" id="sdeptName">
+						
+						</select>
+					</td>
+				</tr>
+			</table>
+			<div align="right" style="margin: 0 auto; width:85%;">
+				<input type="hidden" id="grade" name="grade" value="${basicInfo.grade}">
+				<input type="hidden" id="firstMajor" name="firstMajor" value="${basicInfo.sdeptName}">
+				<input type="hidden" id="studentNo" name="studentNo" value="${basicInfo.studentNo}">
+				<input type="hidden" id="secondMajor" name="secondMajor" value="${basicInfo.secondMajor}">
+				<button id="applyBtn">신청</button>
+			</div>
+				
+			<h4 id="basic">신청 내역</h4>
+			<table class="basicinfo" id="Change">
+				<thead>
+					<tr>
+						<th style="text-align: center" id="t1">다전공 분류</th>
+						<th style="text-align: center" id="t1">단과 대학</th>
+						<th style="text-align: center" id="t1">학과</th>
+						<th style="text-align: center" id="t1">신청일자</th>
+						<th style="text-align: center" id="t1">처리 결과</th>
+					</tr>
+				<thead>
+				<tbody id="tbody">
+					<c:if test="${empty list}">
+						<tr>
+							<td colspan="6">신청내역이 없습니다.</td>
+						</tr>
+					</c:if>
+					<c:if test="${!empty list}">
+						<c:forEach var="b" items="${list}">
+							<tr>
+								<td>${b.majorCheck}</td>
+								<td>${b.collegeName}</td>
+								<td>${b.sdeptName}</td>
+								<td>${b.applyDate}</td>
+								<td>${b.majorStatus}</td>
+							</tr>					
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<jsp:include page="../../common/menubar-student.jsp" />
+		</div>
+	</div>
+	
+	<script>	
+	
+		$("#collegeName").change(function() {
+			var collegeName = $(this).val();			
+
+			var $option1 = $("<option value='경영학과'>경영학과</option>")
+			var $option2 = $("<option value='경제학과'>경제학과</option>")
+			var $option3 = $("<option value='정치외교과'>정치외교과</option>")
+			var $option4 = $("<option value='실용음악과'>실용음악과</option>")
+			var $option5 = $("<option value='사회체육과'>사회체육과</option>")
+			var $option6 = $("<option value='컴퓨터공학과'>컴퓨터공학과</option>")
+			var $option7 = $("<option value='전자공학과'>전자공학과</option>")
+			var $option8 = $("<option value='건축과'>건축과</option>")
+
+			if (collegeName == "인문대학") {
+				$("#sdeptName").children().remove();
+				$("#sdeptName").append($option1);
+				$("#sdeptName").append($option2);
+				$("#sdeptName").append($option3);
+			} else if (collegeName == "예술대학") {
+				$("#sdeptName").children().remove();
+				$("#sdeptName").append($option4);
+				$("#sdeptName").append($option5);
+			} else if (collegeName == "공과대학") {
+				$("#sdeptName").children().remove();
+				$("#sdeptName").append($option6);
+				$("#sdeptName").append($option7);
+				$("#sdeptName").append($option8);
 			}
 		});
 		
+		$("#applyBtn").click(function(){
+			var grade = $("#grade").val();
+			var majorCheck = $("#majorCheck option:selected").val();
+			var collegeName = $("#collegeName option:selected").val();
+			var sdeptName = $("#sdeptName option:selected").val();
+			var firstMajor = $("#firstMajor").val();
+			var studentNo = $("#studentNo").val();			
+			
+			if(sdeptName == firstMajor){
+				
+				alert("현재 소속된 과는 선택할 수 없습니다.");
+				
+			}else if(Number(grade) < 2){
+				
+				alert("2학년 이상 신청 가능합니다.");
+				
+			}else if((Number(grade) >= 2) && (sdeptName != firstMajor)){
+				
+				$.ajax({
+					url:"st_insertSecondMajor.si",
+					type:"POST",
+					data:{
+						"majorCheck":majorCheck,
+						"collegeName":collegeName,
+						"sdeptName":sdeptName,
+						"studentNo":studentNo
+					},
+					success: function(data){
+						console.log("data.list.length :::: " + data.list.length);	
+						console.log(data)
+						
+						$tbody = $("#tbody");
+						
+						for(var i = 0; i < data.list.length; i++){						
+							
+							var $tr = $("<tr>");
+							var $td1 = $("<td>");
+							var $td2 = $("<td>");
+							var $td3 = $("<td>");
+							var $td4 = $("<td>");
+							var $td5 = $("<td>");
+							
+							$td1.text(data.list[i].majorCheck);
+							$td2.text(data.list[i].collegeName);
+							$td3.text(data.list[i].sdeptName);							
+							$td4.text(data.list[i].applyDate);
+							$td5.text(data.list[i].majorStatus);
+							
+							$tr.append($td1);
+							$tr.append($td2);
+							$tr.append($td3);
+							$tr.append($td4);
+							$tr.append($td5);
+							
+							$tbody.append($tr);							
+						}
+						
+						
+					}
+				});
+			}
+		});
 	</script>
 </body>
 </html>

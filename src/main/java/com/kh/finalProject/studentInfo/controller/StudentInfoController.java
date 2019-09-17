@@ -18,6 +18,7 @@ import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.service.StudentInfoService;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
+import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 
@@ -342,12 +343,50 @@ public class StudentInfoController {
 		
 		return "student/info/graduationManagement";
 	}
+	
 
-	//학생_다전공 신청 뷰 출력
+	// 학생_다전공신청_뷰 출력
 	@RequestMapping("st_showSecondMajor.si")
-	public String st_showSecondMajor() {
+	public String st_showSecondMajor(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
+		
+		String userId = loginUser.getMemberId();
+		System.out.println(userId);
+		
+		StudentInfo basicInfo = ss.basicInfo(userId);
+		StudentInfo stuInfo = ss.stuInfo(userId);		
+		ArrayList<SecondMajor> list = ss.selectSecondMajor(userId);
+		
+		System.out.println(basicInfo);
+		System.out.println(stuInfo);
+		System.out.println(list);
+		
+		request.setAttribute("basicInfo",basicInfo);
+		request.setAttribute("stuInfo",stuInfo);
+		request.setAttribute("list", list);	
 		
 		return "student/info/secondMajor";
+	}
+	
+	// 학생_다전공신청_insert
+	@RequestMapping("st_insertSecondMajor.si")
+	public ModelAndView st_insertSecondMajor(ModelAndView mv, HttpServletRequest request, SecondMajor sm) {	
+		
+		System.out.println("insert 전 sm :::: " + sm);
+		
+		int result = ss.insertSecondMajor(sm);
+		
+		ArrayList<SecondMajor> list = null;
+		
+		if(result > 0) {
+			list = ss.selectSecondMajor(sm);
+		}
+		
+		System.out.println("select 후 list :::: " + list);
+		
+		mv.addObject("list", list);
+		mv.setViewName("jsonView");
+		
+		return mv;
 	}
 
 

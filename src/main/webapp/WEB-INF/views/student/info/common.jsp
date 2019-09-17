@@ -24,8 +24,8 @@
                   <td width="21%">${basicInfo.kName }</td>
                   <td class="td" width="15%">영문 성명</td>
                   <td width="21%">${basicInfo.eName }</td>
-                  <td class="td" width="15%">한문 성명</td>
-                  <td width="13%"> </td>
+                  <td class="td">학적 상태</td>
+                  <td>${basicInfo.studentStatus }</td>
                </tr>
                
                <c:set var="memberNo" value="${basicInfo.memberNo }"/>
@@ -67,16 +67,6 @@
                   <td class="td">학년</td>
                   <td>${basicInfo.grade }</td>
                </tr>
-
-               <tr>
-                  <td class="td">학적 상태</td>
-                  <td>${basicInfo.studentStatus }</td>
-                  <td class="td">주야</td>
-                  <td>주간</td>
-                  <td class="td">병역 구분</td>
-                  <td></td>
-               </tr>
-
             </table>
 
 

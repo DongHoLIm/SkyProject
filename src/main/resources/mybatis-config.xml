@@ -26,6 +26,7 @@
 		<typeAlias type="com.kh.finalProject.professor.sendSMS.model.vo.StudentList" alias="professorSendSMS"/>
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.Graduation" alias="Graduation"/>
 		<typeAlias type="com.kh.finalProject.professor.message.model.vo.MessageVO" alias="MessageVO"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.SecondMajor" alias="SecondMajor"/>
 	</typeAliases>
 	
 	<mappers>
@@ -50,6 +51,7 @@
 		<mapper resource="mappers/professorSendSMS-mapper.xml"/>
 		<mapper resource="mappers/graduation-mapper.xml"/>
 		<mapper resource="mappers/message/message-mapper.xml"/>
+		<mapper resource="mappers/secondmajor-mapper.xml"/>
 	</mappers>
 	
 </configuration>

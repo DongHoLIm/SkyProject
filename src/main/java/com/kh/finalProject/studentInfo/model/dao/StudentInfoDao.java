@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
+import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoDao {
@@ -37,6 +38,12 @@ public interface StudentInfoDao {
 	int changeParentsInfo(SqlSessionTemplate sqlSession, StudentInfo si);
 
 	int changeStudentInfo(SqlSessionTemplate sqlSession, StudentInfo si);
+
+	int insertSecondMajor(SqlSessionTemplate sqlSession, SecondMajor sm);
+
+	ArrayList<SecondMajor> selectSecondMajor(SqlSessionTemplate sqlSession, SecondMajor sm);
+
+	ArrayList<SecondMajor> selectSecondMajor(SqlSessionTemplate sqlSession, String userId);
 
 	
 
