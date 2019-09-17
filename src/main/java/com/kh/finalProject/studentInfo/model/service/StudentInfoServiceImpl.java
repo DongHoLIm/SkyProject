@@ -11,6 +11,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.dao.StudentInfoDao;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
+import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
@@ -104,16 +105,24 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	}
 
 	@Override
+	public int insertSecondMajor(SecondMajor sm) {
+		return sd.insertSecondMajor(sqlSession, sm);
+	}
+
+	@Override
+	public ArrayList<SecondMajor> selectSecondMajor(SecondMajor sm) {
+		return sd.selectSecondMajor(sqlSession, sm);
+	}
+
+	@Override
+	public ArrayList<SecondMajor> selectSecondMajor(String userId) {
+		return sd.selectSecondMajor(sqlSession, userId);
+	}
+  
+  @Override
 	public ArrayList<Graduation> selectGraduationCondition(String userId) throws StudentInfoSelectListException {
 		
 		return sd.selectGraduationCondition(sqlSession,userId);
 	}
-
-	
-
-	
-	
-	
-	
-
 }
+

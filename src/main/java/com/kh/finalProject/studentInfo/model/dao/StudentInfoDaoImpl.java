@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
+import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
@@ -164,7 +165,22 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	}
 
 	@Override
-	public ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException {
+	public int insertSecondMajor(SqlSessionTemplate sqlSession, SecondMajor sm) {
+		return sqlSession.insert("SecondMajor.insertSecondMajor", sm);
+	}
+
+	@Override
+	public ArrayList<SecondMajor> selectSecondMajor(SqlSessionTemplate sqlSession, SecondMajor sm) {
+		return (ArrayList) sqlSession.selectList("SecondMajor.selectSecondMajor", sm);
+	}
+
+	@Override
+	public ArrayList<SecondMajor> selectSecondMajor(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList) sqlSession.selectList("SecondMajor.selectSecondMajor2", userId);
+  }
+  
+  @Override
+  public ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException {
 		
 		ArrayList<Graduation> list = null;
 		
@@ -176,13 +192,6 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		}
 		
 		return list;
+
 	}
-
-	
-
-	
-
-	
-	
-
 }
