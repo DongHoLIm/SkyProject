@@ -65,9 +65,8 @@
 										<li>
 											<span class="opener">성적관리</span>
 											<ul>
-												<li><a href="#">성적입력</a></li>
-												<li><a href="#">성적수정</a></li>
-												<li><a href="#">성적조회</a></li>
+												<li><a href="resultInsert.pror">성적입력/수정</a></li>												
+												<li><a href="searchResult.pror">성적조회</a></li>
 											</ul>
 										</li>					
 										<li>

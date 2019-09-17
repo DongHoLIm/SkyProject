@@ -19,6 +19,7 @@
 		<result property="sendDate" column="SEND_TIME"/>
 		<result property="memberCount" column="COUNTSTUDENT"/>
 	</resultMap>
+	
 	<select id="studentListCount" resultType="_int">
 		SELECT COUNT(MEMBER_ID)
 		FROM (SELECT
@@ -53,11 +54,12 @@
 		GROUP BY S.SEND_DATE,S.RECE_CONTENT,M.MEMBER_KNAME 		
 	</select>
 	
-	<select id="sendSMSDetail" resultMap = "SendSMSListResult" parameterType="SendSMSList">
-		SELECT M.MEMBER_KNAME,M1.MEMBER_KNAME AS PROFESSORNAME, S.RECE_CONTENT
+	<select id="sendSMSDetail" resultMap = "StudentListResult" parameterType="SendSMSList">
+		SELECT M.MEMBER_KNAME, M.PHONE_ONE,SI.GRADE,SD.SDEPT_NAME
 		FROM SMS S
-		JOIN MEMBER M ON(S.STUDENT_NO = M.MEMBER_ID)
-		JOIN MEMBER M1 ON(S.SENDER =M1.MEMBER_ID)
+		JOIN MEMBER M ON (S.STUDENT_NO=M.MEMBER_ID)
+		JOIN STUDENT_INFO SI ON(S.STUDENT_NO = SI.STUDENT_NO)
+		JOIN SDEPARTMENT SD ON(SI.SDEPT_CODE=SD.SDEPT_CODE)
 		WHERE TO_CHAR(S.SEND_DATE,'YYYY-MM-DD HH24:MI:SS') =#{sendDate}			
 	</select>
 </mapper>

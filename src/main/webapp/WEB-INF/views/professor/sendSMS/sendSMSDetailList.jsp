@@ -20,10 +20,16 @@
 				<table align="center">
 					<tr>
 						<th>학생이름</th>
+						<th>핸드폰번호</th>
+						<th>학과</th>
+						<th>학년</th>
 					</tr>
 					<c:forEach var='listStu' items="${list}">
 						<tr>
-							<td>${listStu.studentKName }</td>
+							<td><c:out value="${listStu.memberKName }"/></td>
+							<td><c:out value="${listStu.phone }"/></td>
+							<td><c:out value="${listStu.sdeptName }"/></td>
+							<td><c:out value="${listStu.grade }"/>학년</td>
 						</tr>
 					</c:forEach>
 				</table>
