@@ -14,4 +14,6 @@ public interface professorDao {
 
 	ArrayList<StudentList> studentPageList(SqlSessionTemplate sqlSession, PageInfo pi);
 
+	int insertSMS(SqlSessionTemplate sqlSession, StudentList sl);
+
 }

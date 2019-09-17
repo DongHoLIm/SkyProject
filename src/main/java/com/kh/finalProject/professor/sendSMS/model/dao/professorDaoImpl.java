@@ -30,5 +30,11 @@ public class professorDaoImpl implements professorDao{
 		return list;
 	}
 
+	@Override
+	public int insertSMS(SqlSessionTemplate sqlSession, StudentList sl) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("professorSendSMS.insertSMS",sl);
+	}
+
 	
 }

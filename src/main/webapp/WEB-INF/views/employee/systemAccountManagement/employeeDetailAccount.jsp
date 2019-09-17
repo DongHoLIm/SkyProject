@@ -26,7 +26,6 @@
 </style>
 </head>
 <body>
-<form action="updateAccount.me" method="post">
 <div id="main">
 	<br />
 	<br />
@@ -43,7 +42,7 @@
 	<table id="memberDetail">
 		<tr>
 			<td><h4>이름</h4></td>	
-			<td><input type="text" value="${employee.memberKName}" readonly/></td>		
+			<td><input type="text" value="${employee.memberKName}" id="memberId" readonly/></td>		
 		</tr>
 		<tr>
 			<td><h4>부서</h4></td>
@@ -118,8 +117,7 @@
 	<input type="hidden" id="dm" value="${Account.dormitoryManager }" />
 	<input type="hidden" id="bm" value="${Account.boardManager }" />
 	<input type="hidden" id="en" value="${Account.employeeNo }" name="employeeNo"/>
-	</div>
-	</form>
+	</div>	
 	<script>
 		$(function (){
 			var cmv = $("#cm").val();
@@ -127,7 +125,7 @@
 			var em = $("#em").val();
 			var scm = $("#scm").val();
 			var dm = $("#dm").val();
-			var bm = $("#en").val();
+			var bm = $("#bm").val();
 			$("#class option[value="+cmv+"]").attr('selected','selected');
 			$("#scholarly option[value="+sm+"]").attr('selected','selected');
 			$("#enroll option[value="+em+"]").attr('selected','selected');
@@ -136,7 +134,22 @@
 			$("#board option[value="+bm+"]").attr('selected','selected');
 			
 			$("#submitBtn").click(function(){
-				$(this).submit();				
+				var classValue=$("#class").val();
+				var scholarlyValue=$("#scholarly").val();
+				var enrollValue=$("#enroll").val();
+				var scholValue=$("#schol").val();
+				var dormitoryValue=$("#dormitory").val();
+				var boardValue=$("#board").val();
+				var memberId = $("#en").val();
+				console.log(classValue);
+				$.ajax({
+					url:"updateAccount.me",
+					type: "post",
+					data:{"classValue":classValue,"scholarlyValue":scholarlyValue,"enrollValue":enrollValue,"scholValue":scholValue,"dormitoryValue":dormitoryValue,"boardValue":boardValue,"memberId":memberId},
+					success: function(data){
+						self.close();
+					}
+				});			
 			});
 			$("#cancel").click(function(){
 				self.close();
