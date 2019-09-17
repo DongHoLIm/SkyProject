@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
+import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoDao {
@@ -37,6 +38,8 @@ public interface StudentInfoDao {
 	int changeParentsInfo(SqlSessionTemplate sqlSession, StudentInfo si);
 
 	int changeStudentInfo(SqlSessionTemplate sqlSession, StudentInfo si);
+
+	ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException;
 
 	
 
