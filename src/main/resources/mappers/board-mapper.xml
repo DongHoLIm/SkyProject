@@ -634,4 +634,69 @@
 		UPDATE BOARD SET STATUS = 'N' WHERE BOARD_NO = #{boardNo}
 	</update>
 	
+	<select id="selectnNoticeInfo" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN NORMALNOTICE N ON(B.BOARD_NO = N.BOARD_NO)
+		WHERE STATUS = 'Y'	
+	</select>
+	
+	<update id="autoDeletenNotice" parameterType="java.sql.Date">
+		MERGE INTO BOARD B
+		USING NORMALNOTICE N
+		ON (B.BOARD_NO = N.BOARD_NO)
+		WHEN MATCHED THEN
+		UPDATE SET STATUS ='N'
+		WHERE N.DEADLINE = #{sqlDate}
+	</update>
+	
+	<select id="selectsNoticeInfo" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN SCHOLNOTICE S ON(B.BOARD_NO = S.BOARD_NO)
+		WHERE STATUS = 'Y'	
+	</select>
+	
+	<update id="autoDeletesNotice" parameterType="java.sql.Date">
+		MERGE INTO BOARD B
+		USING SCHOLNOTICE S
+		ON (B.BOARD_NO = S.BOARD_NO)
+		WHEN MATCHED THEN
+		UPDATE SET STATUS ='N'
+		WHERE S.DEADLINE = #{sqlDate}
+	</update>
+	
+	<select id="selecteNoticeInfo" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN EVENT E ON(B.BOARD_NO = E.BOARD_NO)
+		WHERE STATUS = 'Y'	
+	</select>
+	
+	<update id="autoDeleteeNotice" parameterType="java.sql.Date">
+		MERGE INTO BOARD B
+		USING EVENT E
+		ON (B.BOARD_NO = E.BOARD_NO)
+		WHEN MATCHED THEN
+		UPDATE SET STATUS ='N'
+		WHERE E.DEADLINE = #{sqlDate}
+	</update>
+	
+	<select id="selectaNoticeInfo" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN SCHOOLSCHEDULE S ON(B.BOARD_NO = S.BOARD_NO)
+		WHERE STATUS = 'Y'	
+	</select>
+	
+	<update id="autoDeleteaNotice" parameterType="java.sql.Date">
+		MERGE INTO BOARD B
+		USING SCHOOLSCHEDULE S
+		ON (B.BOARD_NO = S.BOARD_NO)
+		WHEN MATCHED THEN
+		UPDATE SET STATUS ='N'
+		WHERE S.DEADLINE = #{sqlDate}
+	</update>
+	
+	
 </mapper>

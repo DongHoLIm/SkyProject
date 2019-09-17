@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7467,6 +7468,191 @@ public class BoardController {
 		}
 	}
 	
+	@RequestMapping("em_showSystemQuestionUpdate.bo")
+	public String emshowSystemQuestionUpdate(int questionNo, HttpServletRequest request) {
+		
+		System.out.println("update전 select용 questionNo :::: " + questionNo);
+		
+		SystemQuestion sq;
+		UploadFile uf;
+		try {
+			sq = bs.selectSystemQuestionOne(questionNo);
+			uf = bs.selectSystemQuestionFile(questionNo);
+			
+			if(uf == null) {
+				request.setAttribute("sq", sq);
+				System.out.println("시스템문의 업데이트 Ctrl sq :::: " + sq);
+				
+				return "employee/board/systemQuestion/em_systemQuestionUpdate";	
+				
+			} else {
+				
+				String realPath = uf.getPath().split("webapp")[1];
+				
+				System.out.println(realPath);
+				
+				uf.setPath("/finalProject/" + realPath);
+				
+				System.out.println("학생 내 게시물 업데이트 Ctrl sq :::: " + sq);
+				System.out.println("학생 내 게시물 업데이트 Ctrl uf :::: " + uf);
+				
+				request.setAttribute("sq", sq);
+				request.setAttribute("uf", uf);
+			
+				return "employee/board/systemQuestion/em_systemQuestionUpdate";
+			}
+			
+		} catch (BoardSelectOneException e) {
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";
+		}	
+	}
+	
+	@RequestMapping(value="em_SystemQuestionUpdate.bo")
+	public String emSystemQuestionUpdate(Model model, SystemQuestion sq, UploadFile uf, HttpServletRequest request, @RequestParam(name="photo", required=false) MultipartFile photo) {	
+		
+		System.out.println("시스템문의 글 수정 sq :::: " + sq);
+		
+		String memberId = sq.getMemberId();
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;		
+		
+		if(photo.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			
+			filePath = root + "\\uploadFiles";
+			originFileName = photo.getOriginalFilename();			
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			
+			changeName = CommonUtils.getRandomString();
+			
+			uf.setOldName(originFileName);
+			uf.setChangeName(changeName + ext);
+			uf.setPath(filePath + "\\" + changeName + ext);	
+			
+			System.out.println("시스템문의 글 수정 uf :::: " + uf);
+			
+			try{	
+				
+				photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				bs.updateSystemQuestionwithFile(sq, uf);
+				
+				model.addAttribute("sq", sq);
+				model.addAttribute("uf", uf);
+				
+				return "redirect:em_systemQuestionList.bo";
+				
+			}catch(Exception e) {
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg", "글 수정 실패!");
+				
+				return "common/errorAlert";
+			}
+		}
+		
+		try{			
+			bs.updateSystemQuestion(sq);
+			
+			model.addAttribute("sq", sq);
+			
+			return "redirect:em_systemQuestionList.bo";
+			
+		}catch(Exception e) {
+			
+			model.addAttribute("msg", "글 수정 실패!");
+			
+			return "common/errorAlert";	
+		}
+	}
+	
+	@RequestMapping("em_SystemQuestionDelete.bo")
+	public String emSystemQuestionDelete(int questionNo,  HttpServletRequest request) {
+		System.out.println("stsearchMyBoardDelete questionNo ::::" + questionNo);
+		
+		try {
+			bs.SystemQuestionDelete(questionNo);
+			
+			
+			return "forward:em_systemQuestionList.bo";
+		} catch (BoardDeleteException e) {			
+			request.setAttribute("msg", e.getMessage());
+			
+			return "common/errorAlert";	
+		}
+		
+	}
+	
+	@Scheduled(cron = "0 25 23 * * *")
+	public void autoDeletenNotice() {
+		ArrayList<Board> b = null;
+		
+		try {
+			b = bs.selectnNoticeInfo();
+			
+			System.out.println("일반공지 자동삭제 실행 ::::: ");
+			
+			bs.autoDeletenNotice(b);
+			
+		} catch (BoardSelectListException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Scheduled(cron = "0 25 23 * * *")
+	public void autoDeletesNotice() {
+		ArrayList<Board> b = null;
+		
+		try {
+			b = bs.selectsNoticeInfo();
+			
+			System.out.println("장학공지 자동삭제 실행 ::::: ");
+			
+			bs.autoDeletesNotice(b);
+			
+		} catch (BoardSelectListException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Scheduled(cron = "0 25 23 * * *")
+	public void autoDeleteeNotice() {
+		ArrayList<Board> b = null;
+		
+		try {
+			b = bs.selecteNoticeInfo();
+			
+			System.out.println("교내외행사 자동삭제 실행 ::::: ");
+			
+			bs.autoDeleteeNotice(b);
+			
+		} catch (BoardSelectListException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Scheduled(cron = "0 25 23 * * *")
+	public void autoDeleteaNotice() {
+		ArrayList<Board> b = null;
+		
+		try {
+			b = bs.selectaNoticeInfo();
+			
+			System.out.println("학사일정 자동삭제 실행 ::::: ");
+			
+			bs.autoDeleteaNotice(b);
+			
+		} catch (BoardSelectListException e) {
+			e.printStackTrace();
+		}
+	}
 }
 
 
