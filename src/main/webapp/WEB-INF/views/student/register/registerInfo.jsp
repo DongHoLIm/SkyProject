@@ -46,7 +46,7 @@
 					</div>
 
 					<hr>
-						
+					<c:if test="${ !empty memberEnrollment }">
 					<div class="container">         
 	  					<table class="table" text-align="center" style="border:2px solid lightgray">
 	  					  <thead style="background-color:#eff1f2">
@@ -55,9 +55,8 @@
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">등록금</th>
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">감면액</th>
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">납부한 금액</th>
-	  					      <c:if test="${ sessionScope.memberEnrollment.payAmount != 0}">
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">등록금 확인증 출력</th>
-	  					      </c:if>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">납부하기</th>
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">비고</th>
 	 					    </tr>
 	 					   </thead>
@@ -68,8 +67,13 @@
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${enrollment.tuition}"/> 원</td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br><c:out value="${ enrollment.schoAmount }"/> 원</td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ enrollment.payAmount }"/> 원</td>
-	     					   <c:if test="${ sessionScope.memberEnrollment.payAmount != 0}">
+	     					   <c:if test="${ enrollment.payStatus == 'Y'}">
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">해당없음</td>
+	     					   </c:if>
+	     					   <c:if test="${ enrollment.payStatus == 'N'}">
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">해당없음</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">납부하기</a></td>
 	     					   </c:if>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"></td>
 	  					    </tr>
@@ -86,6 +90,10 @@
 	  					  </tbody>
 					  </table>
 				</div>
+				</c:if>
+				<c:if test="${ empty memberEnrollment }">
+					<h4 align="center">조회결과가 없습니다.</h4>
+				</c:if>
 			</div>
 		</div>
 		

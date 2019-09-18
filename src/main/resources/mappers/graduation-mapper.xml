@@ -22,11 +22,15 @@
   </select> 
   
   <select id="selectGraduationSchool" resultMap="graduationResultSet">
-  	SELECT M.SDEPT_CODE, C.GRADUATION_NAME, C.GRADUATION_CONTENT
-  	FROM GRADURATION_MANAGE M
-  	LEFT JOIN GRADURATION_CRITERIA C ON(M.GRADUATION_CODE=C.GRADUATION_CODE)
-  	WHERE STUDENT_NO=#{studentNo} 
+  	SELECT SDEPT_CODE, GRADUATION_NAME, GRADUATION_CONTENT, GRADUATION_CODE
+  	FROM GRADURATION_CRITERIA 
+  	WHERE SDEPT_CODE='SD100' 
+  </select>
   
+  <select id="selectGraduationScDetail" resultMap="graduationResultSet">
+  SELECT *
+  FROM GRADURATION_CRITERIA 
+  WHERE GRADUATION_CODE=#{graduationCode}
   </select>
   
 </mapper>

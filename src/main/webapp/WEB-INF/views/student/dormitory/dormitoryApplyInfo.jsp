@@ -31,7 +31,7 @@
 	  						<thead>
 		  					  	<tr style="background-color:#eff1f2;">
 		  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">신청학기</th>
-		  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">신청일시</th>
+		  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">신청일자</th>
 		  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">신청자</th>
 		  					      <th style="text-align:center; border:1px solid lightgray; padding:0 0 0 0;">승인여부</th>
 		 					    </tr>
@@ -47,7 +47,7 @@
 	  					  </c:forEach>
 	  					  </tbody>
 					  </table>
-				</div>			
+				</div>
 		</div>
 		</div>
 		

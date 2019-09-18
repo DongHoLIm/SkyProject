@@ -59,23 +59,28 @@ table.basicinfo {
 
 					<thead>
 						<tr>
-							<th style="text-align: center" id="t1">과먹 번호</th>
+							<th style="text-align: center" id="t1">과목 번호</th>
 							<th style="text-align: center" id="t1">이수 구분</th>
 							<th style="text-align: center" id="t1">강의명</th>
-							<th style="text-align: center" id="t1">강의실/ 강의시간</th>
-							<th style="text-align: center" id="t1">학점(시간)</th>
-							<th style="text-align: center" id="t1">입력/수정</th>
+							<th style="text-align: center" id="t1">강의실</th>
+							<th style="text-align: center" id="t1">학점</th>
+							<th style="text-align: center" id="t1">강의 시간</th>
+							<th style="text-align: center" id="t1">입력 / 수정</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach var="openSubject" items="${openSubjectList }">
 						<tr>
-							<td>${ openSubject.opensubCode }</td>
+							<td>
+								<input type="hidden" name="subCode" class="subCode" value="<c:out value="${ openSubject.opensubCode }" />"readonly>
+								${ openSubject.opensubCode }
+							</td>
 							<td>${ openSubject.completeType}</td>
 							<td>${ openSubject.subName}</td>
-							<td>${ openSubject.subName}</td>
+							<td>${ openSubject.buildingName} / ${openSubject.roomName}</td>
+							<td>${ openSubject.subGrade}</td>
 							<td>${ openSubject.dayInfo} / ${openSubject.timeInfo }</td>
-							<td><button>입력</button></td>
+							<td><button type="button" class="submitBtn">입력</button></td>
 						</tr>
 					</c:forEach>
 						
@@ -83,6 +88,15 @@ table.basicinfo {
 				</table>
 			</form>
 		</div>
+		<script>
+		$(function(){
+			$(".submitBtn").click(function(){
+				var $subCode = $(this).parent().siblings().eq(0).children().val();
+				
+				location.href="opensubjectWrite.pro?subCode="+$subCode;
+			})
+		})
+		</script>
 		<div>
 			<jsp:include page="../../common/menubar-student.jsp" />
 		</div>

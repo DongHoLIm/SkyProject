@@ -30,13 +30,13 @@
 	</resultMap>
 	
 	<select id="DormitoryCheck" resultMap="dormitoryResultSet" parameterType="String">
-		SELECT D.MEMBER_ID, D.DOR_APPLY_YEAR, D.DOR_APPLY_SEMESTER, D.DOR_APPLY_DATE, D.AGGREMENT_STATUS, M.MEMBER_KNAME
+		SELECT D.MEMBER_ID, D.DOR_APPLY_YEAR, D.DOR_APPLY_SEMESTER, 20||SUBSTR(D.DOR_APPLY_YEAR,1,2) AS DOR_APPLY_YEAR, SUBSTR(D.DOR_APPLY_DATE,1,10) AS DOR_APPLY_DATE, D.AGGREMENT_STATUS, M.MEMBER_KNAME
 		FROM DORMITORY_APPLY D JOIN MEMBER M ON (D.MEMBER_ID = M.MEMBER_ID) 
 		WHERE D.MEMBER_ID = #{studentNo}
 	</select>
 	
 	<insert id="add" parameterType="Dormitory">
-		INSERT INTO DORMITORY_APPLY	VALUES('dor1234', #{sdeptName}, #{memberId},SYSDATE, #{dorApplySemester}, #{memberKname}, #{memberNo}, #{postNum}
+		INSERT INTO DORMITORY_APPLY	VALUES('dor1234', #{sdeptName}, #{memberId}, SYSDATE, #{dorApplySemester}, #{memberKname}, #{memberNo}, #{postNum}
 										, #{address}, #{addressDetail}, #{emerPhone}, #{email}, #{parentPhone}
 										, null, #{bank}, #{accountNo}, #{dormCondition}
 										, #{smoking}, #{basicLife}, #{dormitoryName}, SYSDATE

@@ -319,4 +319,10 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		return sqlSession.selectOne("ChangeMajor.selectChangeMajor", cm);
 	}
 
+@Override
+public Graduation selectGraduationScDetail(SqlSessionTemplate sqlSession, String code) {
+	
+	return sqlSession.selectOne("Graduation.selectGraduationScDetail", code);
+}
+
 }

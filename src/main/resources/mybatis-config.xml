@@ -29,6 +29,7 @@
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.SecondMajor" alias="SecondMajor"/>
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.ChangeMajor" alias="ChangeMajor"/>
 		<typeAlias type="com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList" alias="SendSMSList"/>
+		<typeAlias type="com.kh.finalProject.student.classmanagement.model.vo.SubjectApply" alias="subjectApply"/>
 	</typeAliases>
 	
 	<mappers>
@@ -55,6 +56,7 @@
 		<mapper resource="mappers/message/message-mapper.xml"/>
 		<mapper resource="mappers/secondmajor-mapper.xml"/>
 		<mapper resource="mappers/changemajor-mapper.xml"/>
+		<mapper resource="mappers/subjectApply-mapper.xml"/>
 	</mappers>
 	
 </configuration>

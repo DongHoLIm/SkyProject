@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 import com.kh.finalProject.student.classmanagement.model.vo.Sdepartment;
+import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
 @Repository
 public class ClassDaoImpl implements ClassDao{
@@ -80,5 +81,25 @@ public class ClassDaoImpl implements ClassDao{
 		
 		return list;
 	}
+
+	@Override
+	public ArrayList<SubjectApply> selectMySugang(SqlSessionTemplate sqlSession, SubjectApply sa) {
+		ArrayList<SubjectApply> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("subjectApply.selectMySugang", sa);
+		
+		return list;
+	}
+	
+	@Override
+	public void insertCourseApply(SqlSessionTemplate sqlSession, String[] subCode, SubjectApply sa) {		
+		for(int i=0; i<subCode.length;i++) {
+			sa.setOpenSubCode(subCode[i]);
+			System.out.println(sa.getOpenSubCode());
+			
+			sqlSession.insert("subjectApply.insertCourseApply", sa);
+		}
+	}
+
 
 }

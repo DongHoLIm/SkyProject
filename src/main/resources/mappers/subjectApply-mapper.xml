@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="subjectApply">
+	<resultMap
+		type="com.kh.finalProject.student.classmanagement.model.vo.SubjectApply"
+		id="subjectApplyResultSet">
+		<id property="openSubCode" column="OPENSUB_CODE" />
+		<result property="subApplyCode" column="SUBAPPLY_CODE" />
+		<result property="studentNo" column="STUDENT_NO" />
+		<result property="applyType" column="APPLY_TYPE" />
+		<result property="applyDate" column="APPLY_TYPE" />
+		<result property="doneType" column="DONE_TYPE" />
+	</resultMap>
+	<select id="selectMySugang" resultMap="subjectApplyResultSet">
+		SELECT STUDENT_NO, OPENSUB_CODE
+		FROM SUBJECT_APPLY
+		WHERE STUDENT_NO = #{studentNo}
+	</select>
+	<insert id="insertCourseApply" parameterType="SubjectApply">
+		INSERT INTO SUBJECT_APPLY VALUES(#{openSubCode}, 'SUBA' || SEQ_SUBAPPLY.NEXTVAL, #{studentNo}, '예비', SYSDATE,'신청')
+	</insert>
+</mapper>

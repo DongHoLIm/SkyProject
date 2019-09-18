@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 import com.kh.finalProject.student.classmanagement.model.dao.ClassDao;
 import com.kh.finalProject.student.classmanagement.model.vo.Sdepartment;
+import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
 @Service
 public class ClassServiceImpl implements ClassService{
@@ -66,6 +67,21 @@ public class ClassServiceImpl implements ClassService{
 	@Override
 	public ArrayList<OpenSubject> selectProGwamok(OpenSubject os) {
 		return cd.seletProGwamok(sqlSession, os);
+	}
+
+
+
+	@Override
+	public void insertCourseApply(String[] subCode,SubjectApply sa) {
+		cd.insertCourseApply(sqlSession, subCode, sa);
+	}
+
+
+
+	@Override
+	public ArrayList<SubjectApply> selectMySugang(SubjectApply sa) {
+		
+		return cd.selectMySugang(sqlSession, sa);
 	}
 
 }

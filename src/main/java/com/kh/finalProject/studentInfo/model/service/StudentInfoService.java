@@ -72,4 +72,7 @@ public interface StudentInfoService {
 
 	ChangeMajor selectChangeMajor(ChangeMajor cm);
 
+	Graduation selectGraduationScDetail(String code);
+
+
 }

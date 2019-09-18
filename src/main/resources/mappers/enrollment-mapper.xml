@@ -7,8 +7,10 @@
 		<id property="enrollSemester" column="ENROLL_SEMESTER"/>
 		<id property="studentNo" column="STUDENT_NO"/>
 		
-		<result property="enrollYear" column="ENROLL_YEAR"/>
 		<result property="tuition" column="TUITION"/>
+		<result property="enrollYear" column="ENROLL_YEAR"/>
+		<result property="payStatus" column="PAY_STATUS"/>
+		<result property="payAmount" column="PAY_AMOUNT"/>
 		<result property="schoAmount" column="SCHO_AMOUNT"/>
 	</resultMap>
 	

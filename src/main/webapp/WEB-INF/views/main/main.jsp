@@ -8,14 +8,33 @@
 <meta charset="UTF-8">
 <title>메인 페이지</title>
 </head>
-<body>
-	
+<body>	
 	<c:set var="member" value="${loginUser.memberStatus}" />
 	<div id="wrapper">
 		<div id="main">
 			<div class="inner">
 				<jsp:include page="../common/header.jsp" />
 				<br>
+				<br>
+				<h2 align="center">공지 사항</h2>
+				<hr />
+				<br>
+				<table>
+					<thead>
+						<tr>
+							<th width="5%" style="text-align: center">번호</th>
+							<th width="9%" style="text-align: center;">행사일자</th>
+							<th width="50%" style="text-align: center;">제목</th>
+							<th width="9%" style="text-align: center;">작성자</th>
+							<th width="12%" style="text-align: center;">작성부서</th>
+							<th width="7%" style="text-align: center;">조회수</th>
+							<th width="9%" style="text-align: center;">게시기한</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<div>
