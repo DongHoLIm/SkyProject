@@ -19,6 +19,7 @@ import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.board.model.vo.SystemQuestion;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
+import com.kh.finalProject.board.model.vo.mainDate;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -688,6 +689,18 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int autoDeleteaNotice(ArrayList<Board> b) {
 		return bd.autoDeleteaNotice(sqlSession, b);
+	}
+
+	@Override
+	public ArrayList<Board> mainBoardList() {
+		// TODO Auto-generated method stub
+		return bd.mainBoardList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<mainDate> mainDateList() {
+		// TODO Auto-generated method stub
+		return bd.mainDateList(sqlSession);
 	}
 	
 }

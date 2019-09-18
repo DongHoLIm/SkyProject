@@ -11,6 +11,7 @@ import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.board.model.vo.SystemQuestion;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
+import com.kh.finalProject.board.model.vo.mainDate;
 
 public interface BoardDao {
 
@@ -219,6 +220,10 @@ public interface BoardDao {
 	ArrayList<Board> selectaNoticeInfo(SqlSessionTemplate sqlSession);
 
 	int autoDeleteaNotice(SqlSessionTemplate sqlSession, ArrayList<Board> b);
+
+	ArrayList<Board> mainBoardList(SqlSessionTemplate sqlSession);
+
+	ArrayList<mainDate> mainDateList(SqlSessionTemplate sqlSession);
 
 
 

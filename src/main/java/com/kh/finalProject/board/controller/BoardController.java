@@ -26,6 +26,7 @@ import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.board.model.vo.SystemQuestion;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
+import com.kh.finalProject.board.model.vo.mainDate;
 import com.kh.finalProject.common.CommonUtils;
 import com.kh.finalProject.common.Pagination;
 
@@ -7652,6 +7653,25 @@ public class BoardController {
 		} catch (BoardSelectListException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//main board list 
+	@RequestMapping("mainBoardList.bo")
+	public ModelAndView mainBoarder(ModelAndView mv) {
+		ArrayList<Board>list = bs.mainBoardList();
+		System.out.println(list);
+		mv.addObject("boardList", list);
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	//main date 
+	@RequestMapping("mainSchool.bo")
+	public ModelAndView mainSchool(ModelAndView mv) {
+		ArrayList<mainDate> list = bs.mainDateList();
+		System.out.println("date list" +list);
+		mv.addObject("dateList", list);
+		mv.setViewName("jsonView");
+		return mv;
 	}
 }
 
