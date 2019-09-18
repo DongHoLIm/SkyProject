@@ -66,6 +66,9 @@ public interface StudentInfoDao {
 	int searchSecondMajorApplyCount(SqlSessionTemplate sqlSession, SearchCondition sc);
 
 	ArrayList<SecondMajor> searchSecondMajorApplyList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);	
+
+	ArrayList<Graduation> selectGraduationSchool(SqlSessionTemplate sqlSession);	
+
 	
 
 }

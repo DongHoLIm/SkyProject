@@ -197,6 +197,7 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 
 	}
 
+
 	@Override
 	public ArrayList<SecondMajor> selectSecondMajorList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		ArrayList<SecondMajor> list = null;
@@ -274,4 +275,11 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		}
 		return list;
 	}
+
+  @Override
+  public ArrayList<Graduation> selectGraduationSchool(SqlSessionTemplate sqlSession) {
+	
+	  return (ArrayList)sqlSession.selectList("Graduation.selectGraduationSchool");
+  }
+
 }

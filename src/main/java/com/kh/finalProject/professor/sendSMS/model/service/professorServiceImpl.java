@@ -39,7 +39,7 @@ public class professorServiceImpl implements professorService{
 		return pd.sendSMSList(sqlSession,list);
 	}
 	@Override
-	public ArrayList<SendSMSList> SendSMSDetail(SendSMSList sl) {
+	public ArrayList<StudentList> SendSMSDetail(SendSMSList sl) {
 		// TODO Auto-generated method stub
 		return pd.SendSMSDetail(sqlSession,sl);
 	}

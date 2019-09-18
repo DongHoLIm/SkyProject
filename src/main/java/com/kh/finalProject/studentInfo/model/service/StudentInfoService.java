@@ -58,4 +58,7 @@ public interface StudentInfoService {
 	int searchSecondMajorApplyCount(SearchCondition sc);
 
 	ArrayList<SecondMajor> searchSecondMajorApplyList(SearchCondition sc, PageInfo pi);
+
+	ArrayList<Graduation> selectGraduationSchool();
+
 }

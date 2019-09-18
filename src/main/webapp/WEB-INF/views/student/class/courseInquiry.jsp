@@ -87,7 +87,7 @@
 				 $( '.tableList2 > tbody').empty(); 
 				for(var i=0;i<data.list.length;i++){
 					 var table = $("<tr>"+
-								 		"<td>"+"<input type='checkbox' id='check[i]'>"+"</td>"+
+										"<td>"+"<input name='chk' type='checkbox' value='"+list[i].openSubCode+"'>"+"</td>"+
 										"<td>"+count+"</td>"+
 										"<td>"+list[i].completeType+"</td>"+
 										"<td>"+list[i].openSubCode+"</td>"+
@@ -131,7 +131,7 @@
 					 $( '.tableList2 > tbody').empty();
 					for(var i=0;i<data.list.length;i++){
 						 var table = $("<tr>"+
-									 		"<td>"+"<input type='checkbox' id='checkbox'>"+"</td>"+
+								 		"<td>"+"<input name='chk' type='checkbox' value='"+list[i].openSubCode+"'>"+"</td>"+
 											"<td>"+count+"</td>"+
 											"<td>"+list[i].completeType+"</td>"+
 											"<td>"+list[i].openSubCode+"</td>"+
@@ -233,7 +233,7 @@
 				 $( '.tableList2 > tbody').empty(); 
 				for(var i=0;i<data.list.length;i++){
 					 var table = $("<tr>"+
-								 		"<td>"+"<input type='checkbox' value='"+list[i].openSubCode+"'>"+"</td>"+
+								 		"<td>"+"<input name='chk' type='checkbox' value='"+list[i].openSubCode+"'>"+"</td>"+
 										"<td>"+count+"</td>"+
 										"<td>"+list[i].completeType+"</td>"+
 										"<td>"+list[i].openSubCode+"</td>"+
@@ -248,7 +248,7 @@
 										"<td>"+"</td>"+
 									"</tr>");
 					$(".tableList2 tbody").append(table);  	
-					count++;
+					count++;					
 				} 
 			},
 			error:function(err){
@@ -257,13 +257,22 @@
 		});
 	}
 	$(function(){
-		$('table[class="tableList2"] tbody tr').click(function(){
-			console.log("선택");
-			
-		});
+		$('.tableList2').on('click','tbody tr',function(){
+			 var checkbox = $(this).find('td:first-child :checkbox');
+	            checkbox.attr('checked', !checkbox.is(':checked'));
+		 });
+
 	});
-		
-		
+	function insertSubjectApply(){
+		var test = new Array();
+		$("input[name=chk]:checked").each(function() {
+			test += $(this).val()+","; 
+			});
+
+			  console.log(test);
+
+	}
+	
 	
 </script>
 <style>

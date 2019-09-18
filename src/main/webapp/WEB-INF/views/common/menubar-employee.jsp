@@ -62,8 +62,9 @@
 												<li><a href="#">휴,복학 처리</a></li>
 												<li><a href="#">학적부 정정</a></li>												
 												<li><h4>졸업관리</h4></li>
-												<li><a href="#">졸업 기준 수정</a></li>
-												<li><a href="#">학과별 졸업 기준 수정</a></li>
+												<li><a href="em_graduationSchool.si">교내 졸업 기준 관리</a></li>
+												<li><a href="em_graduationMajor.si">학과별 졸업 기준 관리</a></li>
+												<li><a href="em_graduationManagement.si">졸업인증 승인 처리</a></li>
 												<li><h4>전공관리</h4></li>
 												<li><a href="">전공신청 관리</a></li>
 												<li><a href="em_showSecondMajor.si">다전공 신청 관리</a></li>

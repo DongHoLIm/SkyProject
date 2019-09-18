@@ -45,8 +45,8 @@ public class professorDaoImpl implements professorDao{
 	}
 
 	@Override
-	public ArrayList<SendSMSList> SendSMSDetail(SqlSessionTemplate sqlSession, SendSMSList sl) {
-		ArrayList<SendSMSList> list = (ArrayList) sqlSession.selectList("professorSendSMS.sendSMSDetail", sl);
+	public ArrayList<StudentList> SendSMSDetail(SqlSessionTemplate sqlSession, SendSMSList sl) {
+		ArrayList<StudentList> list = (ArrayList) sqlSession.selectList("professorSendSMS.sendSMSDetail", sl);
 		
 		return list;
 	}

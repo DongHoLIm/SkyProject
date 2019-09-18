@@ -170,5 +170,12 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	public ArrayList<SecondMajor> searchSecondMajorApplyList(SearchCondition sc, PageInfo pi) {
 		return sd.searchSecondMajorApplyList(sqlSession, sc, pi);
 	}
+
+  @Override
+  public ArrayList<Graduation> selectGraduationSchool() {
+	
+	  return sd.selectGraduationSchool(sqlSession);
+  }
+
 }
 
