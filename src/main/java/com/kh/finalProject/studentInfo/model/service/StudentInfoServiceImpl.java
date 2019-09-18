@@ -124,5 +124,11 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		
 		return sd.selectGraduationCondition(sqlSession,userId);
 	}
+
+@Override
+public ArrayList<Graduation> selectGraduationSchool() {
+	
+	return sd.selectGraduationSchool(sqlSession);
+}
 }
 
