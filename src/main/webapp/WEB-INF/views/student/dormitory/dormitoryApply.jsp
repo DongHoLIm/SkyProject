@@ -38,8 +38,8 @@
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">입사학기</td>
 	  					      <td style="text-align:center; background-color:white;"><select style="width:385px;" name="dorApplySemester">
 											<option value=''>------------------------------ 선택  ------------------------------</option>
-											<option value='2019학년도 1학기'>2019학년도 1학기</option>
-											<option value='2019학년도 2학기'>2019학년도 2학기</option>
+											<option value='1'>2019학년도 1학기</option>
+											<option value='2'>2019학년도 2학기</option>
 											</select>
 											</td>
 	 					    </tr>

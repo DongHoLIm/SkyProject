@@ -23,7 +23,7 @@ public class Dormitory implements java.io.Serializable{
 	private String smoking;
 	private String basicLife;
 	private String dormitoryName;
-	private Date dorApplyDate;
+	private String dorApplyDate;
 	private String aggrementStatus;
 	
 	public Dormitory() {}
@@ -32,7 +32,7 @@ public class Dormitory implements java.io.Serializable{
 			String dorApplySemester, String memberKname, String memberNo, String postNum, String address,
 			String addressDetail, String emerPhone, String email, String parentPhone, String parentTel, String bank,
 			String accountNo, String dormCondition, String smoking, String basicLife, String dormitoryName,
-			Date dorApplyDate, String aggrementStatus) {
+			String dorApplyDate, String aggrementStatus) {
 		super();
 		this.dormitoryApplyNo = dormitoryApplyNo;
 		this.sdeptName = sdeptName;
@@ -218,11 +218,11 @@ public class Dormitory implements java.io.Serializable{
 		this.dormitoryName = dormitoryName;
 	}
 
-	public Date getDorApplyDate() {
+	public String getDorApplyDate() {
 		return dorApplyDate;
 	}
 
-	public void setDorApplyDate(Date dorApplyDate) {
+	public void setDorApplyDate(String dorApplyDate) {
 		this.dorApplyDate = dorApplyDate;
 	}
 
@@ -246,7 +246,6 @@ public class Dormitory implements java.io.Serializable{
 				+ aggrementStatus + "]";
 	}
 
-	
 	
 	
 }
