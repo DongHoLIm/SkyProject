@@ -67,7 +67,9 @@ public interface StudentInfoDao {
 
 	ArrayList<SecondMajor> searchSecondMajorApplyList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);	
 
-	ArrayList<Graduation> selectGraduationSchool(SqlSessionTemplate sqlSession);	
+	ArrayList<Graduation> selectGraduationSchool(SqlSessionTemplate sqlSession);
+
+	Graduation selectGraduationScDetail(SqlSessionTemplate sqlSession, String code);	
 
 	
 
