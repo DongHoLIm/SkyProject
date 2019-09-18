@@ -73,9 +73,6 @@ table.basicinfo {
                </tr>
             </table>
 
-
-
-
             <h4 id="basic">복수 / 부전공</h4>
 
             <table class="basicinfo">
@@ -98,6 +95,33 @@ table.basicinfo {
 		                  <td width="30%"></td>
 		                  <td class="td" width="20%">부전공</td>
 		                  <td width="30%">${smInfo.sdeptName}</td>
+	                  </c:if>
+                  </c:if>
+               </tr>
+            </table>
+            
+            <h4 id="basic">전과 정보</h4>
+
+            <table class="basicinfo">
+               <tr>
+               	  <c:if test="${empty cmInfo}">
+	                  <td class="td" width="20%">현재학과</td>
+	                  <td width="30%"></td>
+	                  <td class="td" width="20%">변경학과</td>
+	                  <td width="30%"></td>
+                  </c:if>
+                  <c:if test="${!empty cmInfo}">
+                  	  <c:if test="${cmInfo.status eq '승인'}">
+	                  	  <td class="td" width="40%">전과 전 학과</td>
+		                  <td width="30%">${cmInfo.beforeMajorName}</td>
+		                  <td class="td" width="20%">전과 후 학과</td>
+		                  <td width="30%">${cmInfo.changeSdeptName}</td>
+	                  </c:if>
+	                  <c:if test="${cmInfo.status ne '승인'}">
+	                  	  <td class="td" width="20%">현재 학과</td>
+		                  <td width="30%">${cmInfo.beforeMajorName}</td>
+		                  <td class="td" width="20%">신청 학과</td>
+		                  <td width="30%">${cmInfo.changeSdeptName}</td>
 	                  </c:if>
                   </c:if>
                </tr>

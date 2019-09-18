@@ -319,10 +319,78 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		return sqlSession.selectOne("ChangeMajor.selectChangeMajor", cm);
 	}
 
-@Override
-public Graduation selectGraduationScDetail(SqlSessionTemplate sqlSession, String code) {
+	@Override
+	public Graduation selectGraduationScDetail(SqlSessionTemplate sqlSession, String code) {
+		
+		return sqlSession.selectOne("Graduation.selectGraduationScDetail", code);
+	}
 	
-	return sqlSession.selectOne("Graduation.selectGraduationScDetail", code);
-}
+	@Override
+	public int ChangeMajorListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("ChangeMajor.ChangeMajorListCount");
+	}
+	
+	@Override
+	public ArrayList<ChangeMajor> ChangeMajorList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<ChangeMajor> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("ChangeMajor.ChangeMajorList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
+	}
+
+	@Override
+	public int ChangeMajorListCount2(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("ChangeMajor.ChangeMajorListCount2");
+	}
+
+	@Override
+	public ArrayList<ChangeMajor> ChangeMajorList2(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<ChangeMajor> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("ChangeMajor.ChangeMajorList2", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
+	}
+
+	@Override
+	public int ChangeMajorEnroll(SqlSessionTemplate sqlSession, ChangeMajor cm) {
+		return sqlSession.update("ChangeMajor.ChangeMajorEnroll", cm);
+	}
+
+	@Override
+	public int ChangeMajorEnrollStudentInfo(SqlSessionTemplate sqlSession, ChangeMajor cm) {
+		return sqlSession.update("ChangeMajor.ChangeMajorEnrollStudentInfo", cm);
+	}
+
+	@Override
+	public int ChangeMajorReject(SqlSessionTemplate sqlSession, ChangeMajor cm) {
+		return sqlSession.update("ChangeMajor.ChangeMajorReject", cm);
+	}
+
+	@Override
+	public ArrayList<ChangeMajor> searchChangeMajor(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return (ArrayList) sqlSession.selectList("ChangeMajor.searchChangeMajor", sc);
+	}
+
+	@Override
+	public ArrayList<ChangeMajor> searchChangeMajor2(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return (ArrayList) sqlSession.selectList("ChangeMajor.searchChangeMajor2", sc);
+	}
+
 
 }

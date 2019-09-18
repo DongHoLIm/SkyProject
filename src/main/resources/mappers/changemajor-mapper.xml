@@ -40,12 +40,12 @@
 		VALUES ('CM'||SEQ_CHANGEMAJOR.NEXTVAL, SYSDATE, #{studentNo}, 
 		       (SELECT SDEPT_CODE
 		        FROM SDEPARTMENT 
-		        WHERE SDEPT_NAME = #(changeSdeptName)),
+		        WHERE SDEPT_NAME = #{changeSdeptName}),
 		       '신청',
 		       NULL,
 		       (SELECT SDEPT_CODE
 		        FROM SDEPARTMENT
-		        WHERE SDEPT_NAME = #(beforeMajorName)),
+		        WHERE SDEPT_NAME = #{beforeMajorName}),
 		       NULL)
 	</insert>
 	
@@ -59,6 +59,118 @@
 		JOIN MEMBER M ON(C.STUDENT_NO = M.MEMBER_ID)
 		JOIN SDEPARTMENT P ON(C.BEFORE_MAJOR = P.SDEPT_CODE)
 		WHERE C.STUDENT_NO = #{studentNo}
+	</select>
+	
+	<select id="ChangeMajorListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM CHANGE_MAJOR C
+		JOIN SDEPARTMENT D ON(C.CHANGE_SDEPT = D.SDEPT_CODE)
+		JOIN COLLEGE O ON(D.COLLEGE_CODE = O.COLLEGE_CODE)
+		JOIN STUDENT_INFO I ON(C.STUDENT_NO = I.STUDENT_NO)
+		JOIN MEMBER M ON(C.STUDENT_NO = M.MEMBER_ID)
+		JOIN SDEPARTMENT P ON(C.BEFORE_MAJOR = P.SDEPT_CODE)
+		WHERE C.STATUS = '신청'
+		ORDER BY C.APPLY_DATE ASC
+	</select>
+	
+	<select id="ChangeMajorList" resultMap="changeMajorResultSet">
+		SELECT C.APPLY_CODE, C.APPLY_DATE, C.STUDENT_NO, C.CHANGE_SDEPT, C.STATUS, C.DONE_DATE, C.BEFORE_MAJOR, C.REASON,
+		       O.COLLEGE_NAME, I.GRADE, I.AVG_SCORE, M.MEMBER_KNAME, D.SDEPT_NAME AS CHANGE_NAME, P.SDEPT_NAME 
+		FROM CHANGE_MAJOR C
+		JOIN SDEPARTMENT D ON(C.CHANGE_SDEPT = D.SDEPT_CODE)
+		JOIN COLLEGE O ON(D.COLLEGE_CODE = O.COLLEGE_CODE)
+		JOIN STUDENT_INFO I ON(C.STUDENT_NO = I.STUDENT_NO)
+		JOIN MEMBER M ON(C.STUDENT_NO = M.MEMBER_ID)
+		JOIN SDEPARTMENT P ON(C.BEFORE_MAJOR = P.SDEPT_CODE)
+		WHERE C.STATUS = '신청'
+		ORDER BY C.APPLY_DATE ASC
+	</select>
+	
+	<select id="ChangeMajorListCount2" resultType="_int">
+		SELECT COUNT(*)
+		FROM CHANGE_MAJOR C
+		JOIN STUDENT_INFO I ON(C.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT D ON(I.SDEPT_CODE = D.SDEPT_CODE)
+		JOIN MEMBER M ON(C.STUDENT_NO = M.MEMBER_ID)
+		JOIN SDEPARTMENT P ON(C.BEFORE_MAJOR = P.SDEPT_CODE)
+		WHERE C.STATUS != '신청'
+		ORDER BY C.DONE_DATE DESC
+	</select>
+	
+	<select id="ChangeMajorList2" resultMap="changeMajorResultSet">
+		SELECT C.APPLY_CODE, C.APPLY_DATE, C.STUDENT_NO, I.SDEPT_CODE, C.STATUS, C.DONE_DATE, C.BEFORE_MAJOR, C.REASON,
+		       I.GRADE, I.AVG_SCORE, M.MEMBER_KNAME, D.SDEPT_NAME AS CHANGE_NAME, P.SDEPT_NAME
+		FROM CHANGE_MAJOR C
+		JOIN STUDENT_INFO I ON(C.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT D ON(I.SDEPT_CODE = D.SDEPT_CODE)
+		JOIN MEMBER M ON(C.STUDENT_NO = M.MEMBER_ID)
+		JOIN SDEPARTMENT P ON(C.BEFORE_MAJOR = P.SDEPT_CODE)
+		WHERE C.STATUS != '신청'
+		ORDER BY C.DONE_DATE DESC
+	</select>
+	
+	<update id="ChangeMajorEnroll" parameterType="java.lang.String">
+		UPDATE CHANGE_MAJOR
+		SET STATUS = '승인', DONE_DATE = SYSDATE
+		WHERE APPLY_CODE = #{applyCode}
+	</update>
+	
+	<update id="ChangeMajorEnrollStudentInfo" parameterType="java.lang.String">
+		UPDATE STUDENT_INFO
+		SET SDEPT_CODE = (SELECT SDEPT_CODE
+                 		  FROM SDEPARTMENT
+                 		  WHERE SDEPT_NAME = #{changeSdeptName})
+		WHERE STUDENT_NO = #{studentNo}
+	</update>
+	
+	<update id="ChangeMajorReject" parameterType="java.lang.String">
+		UPDATE CHANGE_MAJOR
+		SET STATUS = '반려', DONE_DATE = SYSDATE, REASON = #{reason}
+		WHERE APPLY_CODE = #{applyCode}
+	</update>
+	
+	<select id="searchChangeMajor" resultMap="changeMajorResultSet">
+		SELECT C.APPLY_CODE, C.APPLY_DATE, C.STUDENT_NO, C.CHANGE_SDEPT, C.STATUS, C.DONE_DATE, C.BEFORE_MAJOR, C.REASON,
+		       O.COLLEGE_NAME, I.GRADE, I.AVG_SCORE, M.MEMBER_KNAME, D.SDEPT_NAME AS CHANGE_NAME, P.SDEPT_NAME 
+		FROM CHANGE_MAJOR C
+		JOIN SDEPARTMENT D ON(C.CHANGE_SDEPT = D.SDEPT_CODE)
+		JOIN COLLEGE O ON(D.COLLEGE_CODE = O.COLLEGE_CODE)
+		JOIN STUDENT_INFO I ON(C.STUDENT_NO = I.STUDENT_NO)
+		JOIN MEMBER M ON(C.STUDENT_NO = M.MEMBER_ID)
+		JOIN SDEPARTMENT P ON(C.BEFORE_MAJOR = P.SDEPT_CODE)
+		WHERE C.STATUS = '신청'
+		<choose>
+			<when test="studentNo != null">
+				AND C.STUDENT_NO = #{studentNo}
+			</when>
+			<otherwise>
+				AND D.SDEPT_NAME = #{sdeptName}
+			</otherwise>
+		</choose>
+		ORDER BY C.APPLY_DATE ASC		
+	</select>
+	
+	<select id="searchChangeMajor2" resultMap="changeMajorResultSet">
+		SELECT C.APPLY_CODE, C.APPLY_DATE, C.STUDENT_NO, I.SDEPT_CODE, C.STATUS, C.DONE_DATE, C.BEFORE_MAJOR, C.REASON,
+		       I.GRADE, I.AVG_SCORE, M.MEMBER_KNAME, D.SDEPT_NAME AS CHANGE_NAME, P.SDEPT_NAME
+		FROM CHANGE_MAJOR C
+		JOIN STUDENT_INFO I ON(C.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT D ON(I.SDEPT_CODE = D.SDEPT_CODE)
+		JOIN MEMBER M ON(C.STUDENT_NO = M.MEMBER_ID)
+		JOIN SDEPARTMENT P ON(C.BEFORE_MAJOR = P.SDEPT_CODE)
+		WHERE C.STATUS != '신청'
+		<choose>
+			<when test="studentNo != null">
+				AND C.STUDENT_NO = #{studentNo}
+			</when>
+			<when test="status != null">
+				AND C.STATUS = #{status}
+			</when>
+			<otherwise>
+				AND D.SDEPT_NAME = #{sdeptName}
+			</otherwise>
+		</choose>
+		ORDER BY C.DONE_DATE DESC
 	</select>
   	 
   </mapper>

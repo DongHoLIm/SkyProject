@@ -1,6 +1,6 @@
 package com.kh.finalProject.studentInfo.model.vo;
 
-public class ChangeMajor {
+public class ChangeMajor implements java.io.Serializable{
 	private String applyCode;
 	private String applyDate;
 	private String studentNo;

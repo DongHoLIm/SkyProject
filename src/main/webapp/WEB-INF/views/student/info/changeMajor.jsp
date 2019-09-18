@@ -83,6 +83,8 @@ td.td {
 					<input type="hidden" id="grade" name="grade" value="${basicInfo.grade}">
 					<input type="hidden" id="beforeMajorName" name="beforeMajorName" value="${basicInfo.sdeptName}">
 					<input type="hidden" id="studentNo" name="studentNo" value="${basicInfo.studentNo}">
+					<input type="hidden" id="secondMajor" name="secondMajor" value="${stuInfo.secondMajor}">
+					<input type="hidden" id="studentStatus" name="studentStatus" value="${basicInfo.studentStatus}">
 					<button id="applyBtn">신청</button>
 				</div>
 				</c:if>
@@ -155,7 +157,9 @@ td.td {
 			var collegeName = $("#collegeName option:selected").val();
 			var changeSdeptName = $("#sdeptName option:selected").val();
 			var beforeMajorName = $("#beforeMajorName").val();
-			var studentNo = $("#studentNo").val();			
+			var studentNo = $("#studentNo").val();	
+			var studentStatus = $("#studentStatus").val();
+			var secondMajor = $("#secondMajor").val();
 			
 			if(changeSdeptName == beforeMajorName){
 				
@@ -163,10 +167,18 @@ td.td {
 				
 			}else if(Number(grade) != 2){
 				
-				alert("2학년만 신청 가능합니다..");
+				alert("2학년일 경우에 한해 신청 가능합니다.");
 				
-			}else if((Number(grade) == 2) && (changeSdeptName != beforeMajorName)){				
-				if(confirm("다전공을 신청하시겠습니까?") == true){
+			}else if(studentStatus != "재학생"){
+				
+				alert("재학생이 아닐 경우 신청할 수 없습니다.");
+				
+			}else if(secondMajor != "N"){
+				
+				alert("다전공 신청 중인 경우 신청 할 수 없습니다.");
+				
+			}else if((Number(grade) == 2) && (changeSdeptName != beforeMajorName) && (studentStatus == "재학생") && (secondMajor == "N")){				
+				if(confirm("전과를 신청하시겠습니까?") == true){
 				
 					$.ajax({
 						url:"st_insertChangeMajor.si",
@@ -179,7 +191,6 @@ td.td {
 						},
 						success: function(data){
 								
-							console.log("data.list.length :::: " + data.list.length);	
 							console.log(data)
 							
 							$tbody = $("#tbody");
@@ -193,11 +204,11 @@ td.td {
 							var $td4 = $("<td>");
 							var $td5 = $("<td>");
 							
-							$td1.text(data.cmInfo.beforeMajorName);
-							$td2.text(data.cmInfo.collegeName);
-							$td3.text(data.cmInfo.changeSdeptName);							
-							$td4.text(data.cmInfo.applyDate);
-							$td5.text(data.cmInfo.status);
+							$td1.text(data.changeMajor.beforeMajorName);
+							$td2.text(data.changeMajor.collegeName);
+							$td3.text(data.changeMajor.changeSdeptName);							
+							$td4.text(data.changeMajor.applyDate);
+							$td5.text(data.changeMajor.status);
 							
 							$tr.append($td1);
 							$tr.append($td2);
