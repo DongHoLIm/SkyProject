@@ -10,6 +10,7 @@ import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
+import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
@@ -276,10 +277,46 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		return list;
 	}
 
-  @Override
-  public ArrayList<Graduation> selectGraduationSchool(SqlSessionTemplate sqlSession) {
+   @Override
+   public ArrayList<Graduation> selectGraduationSchool(SqlSessionTemplate sqlSession) {
 	
-	  return (ArrayList)sqlSession.selectList("Graduation.selectGraduationSchool");
-  }
+	   return (ArrayList)sqlSession.selectList("Graduation.selectGraduationSchool");
+   }
+
+	@Override
+	public int searchSecondMajorApplyCount2(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("SecondMajor.searchSecondMajorApplyCount2", sc);
+	}
+	
+	@Override
+	public ArrayList<SecondMajor> searchSecondMajorApplyList2(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
+		ArrayList<SecondMajor> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("SecondMajor.searchSecondMajorApplyList2", sc, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;	
+	}
+
+	@Override
+	public ChangeMajor cmInfo(SqlSessionTemplate sqlSession, String studentNo) {
+		return sqlSession.selectOne("ChangeMajor.selectcmInfo", studentNo);
+	}
+
+	@Override
+	public int insertChangeMajor(SqlSessionTemplate sqlSession, ChangeMajor cm) {
+		return sqlSession.insert("ChangeMajor.insertChangeMajor", cm);
+	}
+
+	@Override
+	public ChangeMajor selectChangeMajor(SqlSessionTemplate sqlSession, ChangeMajor cm) {
+		return sqlSession.selectOne("ChangeMajor.selectChangeMajor", cm);
+	}
 
 }

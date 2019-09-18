@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="ChangeMajor">    
+  	
+  	<resultMap type="ChangeMajor" id="changeMajorResultSet">
+  		<id property="applyCode" column="APPLY_CODE"/>
+  		<result property="applyDate" column="APPLY_DATE"/>
+  		<result property="studentNo" column="STUDENT_NO"/>
+  		<result property="changeSdept" column="CHANGE_SDEPT"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="doneDate" column="DONE_DATE"/>
+  		<result property="beforeMajor" column="BEFORE_MAJOR"/>
+  		<result property="reason" column="REASON"/>
+  		<result property="collegeCode" column="COLLEGE_CODE"/> 
+  		<result property="collegeName" column="COLLEGE_NAME"/> 
+  		<result property="grade" column="GRADE"/> 
+  		<result property="avgScore" column="AVG_SCORE"/> 
+  		<result property="memberKName" column="MEMBER_KNAME"/> 
+  		<result property="changeSdeptName" column="CHANGE_NAME"/>
+  		<result property="beforeMajorName" column="SDEPT_NAME"/>
+  	</resultMap> 	
+  	
+  	 <select id="selectcmInfo" resultMap="changeMajorResultSet">
+		SELECT C.APPLY_CODE, C.APPLY_DATE, C.STUDENT_NO, C.CHANGE_SDEPT, C.STATUS, C.DONE_DATE, C.BEFORE_MAJOR, C.REASON,
+		       O.COLLEGE_NAME, I.GRADE, I.AVG_SCORE, M.MEMBER_KNAME, D.SDEPT_NAME AS CHANGE_NAME, P.SDEPT_NAME 
+		FROM CHANGE_MAJOR C
+		JOIN SDEPARTMENT D ON(C.CHANGE_SDEPT = D.SDEPT_CODE)
+		JOIN COLLEGE O ON(D.COLLEGE_CODE = O.COLLEGE_CODE)
+		JOIN STUDENT_INFO I ON(C.STUDENT_NO = I.STUDENT_NO)
+		JOIN MEMBER M ON(C.STUDENT_NO = M.MEMBER_ID)
+		JOIN SDEPARTMENT P ON(C.BEFORE_MAJOR = P.SDEPT_CODE)
+		WHERE C.STUDENT_NO = #{studentNo}
+	</select>
+	
+	<insert id="insertChangeMajor">
+		INSERT INTO CHANGE_MAJOR (APPLY_CODE, APPLY_DATE, STUDENT_NO, CHANGE_SDEPT, STATUS, DONE_DATE, BEFORE_MAJOR, REASON)
+		VALUES ('CM'||SEQ_CHANGEMAJOR.NEXTVAL, SYSDATE, #{studentNo}, 
+		       (SELECT SDEPT_CODE
+		        FROM SDEPARTMENT 
+		        WHERE SDEPT_NAME = #(changeSdeptName)),
+		       '신청',
+		       NULL,
+		       (SELECT SDEPT_CODE
+		        FROM SDEPARTMENT
+		        WHERE SDEPT_NAME = #(beforeMajorName)),
+		       NULL)
+	</insert>
+	
+	<select id="selectChangeMajor" resultMap="changeMajorResultSet">
+		SELECT C.APPLY_CODE, C.APPLY_DATE, C.STUDENT_NO, C.CHANGE_SDEPT, C.STATUS, C.DONE_DATE, C.BEFORE_MAJOR, C.REASON,
+		       O.COLLEGE_NAME, I.GRADE, I.AVG_SCORE, M.MEMBER_KNAME, D.SDEPT_NAME AS CHANGE_NAME, P.SDEPT_NAME 
+		FROM CHANGE_MAJOR C
+		JOIN SDEPARTMENT D ON(C.CHANGE_SDEPT = D.SDEPT_CODE)
+		JOIN COLLEGE O ON(D.COLLEGE_CODE = O.COLLEGE_CODE)
+		JOIN STUDENT_INFO I ON(C.STUDENT_NO = I.STUDENT_NO)
+		JOIN MEMBER M ON(C.STUDENT_NO = M.MEMBER_ID)
+		JOIN SDEPARTMENT P ON(C.BEFORE_MAJOR = P.SDEPT_CODE)
+		WHERE C.STUDENT_NO = #{studentNo}
+	</select>
+  	 
+  </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

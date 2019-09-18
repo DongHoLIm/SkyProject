@@ -11,6 +11,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.dao.StudentInfoDao;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
+import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
@@ -171,11 +172,36 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		return sd.searchSecondMajorApplyList(sqlSession, sc, pi);
 	}
 
-  @Override
-  public ArrayList<Graduation> selectGraduationSchool() {
-	
-	  return sd.selectGraduationSchool(sqlSession);
-  }
+	@Override
+	public ArrayList<Graduation> selectGraduationSchool() {
+		
+		return sd.selectGraduationSchool(sqlSession);
+	}
+
+	@Override
+	public int searchSecondMajorApplyCount2(SearchCondition sc) {
+		return sd.searchSecondMajorApplyCount2(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<SecondMajor> searchSecondMajorApplyList2(SearchCondition sc, PageInfo pi) {
+		return sd.searchSecondMajorApplyList2(sqlSession, sc, pi);
+	}
+
+	@Override
+	public ChangeMajor cmInfo(String studentNo) {
+		return sd.cmInfo(sqlSession,studentNo);
+	}
+
+	@Override
+	public int insertChangeMajor(ChangeMajor cm) {
+		return sd.insertChangeMajor(sqlSession, cm);
+	}
+
+	@Override
+	public ChangeMajor selectChangeMajor(ChangeMajor cm) {
+		return sd.selectChangeMajor(sqlSession, cm);
+	}
 
 }
 

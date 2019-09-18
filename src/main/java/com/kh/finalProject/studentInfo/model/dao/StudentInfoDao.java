@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
+import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
@@ -67,7 +68,17 @@ public interface StudentInfoDao {
 
 	ArrayList<SecondMajor> searchSecondMajorApplyList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);	
 
-	ArrayList<Graduation> selectGraduationSchool(SqlSessionTemplate sqlSession);	
+	ArrayList<Graduation> selectGraduationSchool(SqlSessionTemplate sqlSession);
+
+	int searchSecondMajorApplyCount2(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<SecondMajor> searchSecondMajorApplyList2(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);
+
+	ChangeMajor cmInfo(SqlSessionTemplate sqlSession, String studentNo);
+
+	int insertChangeMajor(SqlSessionTemplate sqlSession, ChangeMajor cm);
+
+	ChangeMajor selectChangeMajor(SqlSessionTemplate sqlSession, ChangeMajor cm);	
 
 	
 

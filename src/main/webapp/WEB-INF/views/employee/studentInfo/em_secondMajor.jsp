@@ -941,7 +941,7 @@
 					<h4>다전공 등록 완료 내역</h4>
 				</div>
 				<div class="btnArea2">
-					<button>검색</button>
+					<button id="secondBtn">검색</button>
 				</div>
 				<div class="inputArea2">
 					<input type="text" id="searchValue2" name="searchValue2">	
@@ -1070,76 +1070,7 @@
 								$tr.append($td11);
 								
 								$tbody.append($tr);
-							}
-							
-							var currentPage = data.pi.currentPage;
-							var listCount = data.pi.listCount;
-							var limit = data.pi.limit;
-							var maxPage = data.pi.maxPage;
-							var startPage = data.pi.startPage;
-							var endPage = data.pi.endPage;
-							
-							var $ul = $("<ul>");
-							$ul.addClass("pagination");
-							$ul.attr({
-								"style":"justify-content: center; cursor: pointer;"
-							});
-							
-							var $li1 = $("<li>");
-							var $a1 = $("<a>");
-							
-							if(currentPage <= 1){
-								$li1.addClass("page-item disabled");
-								$a1.addClass("page-link");					
-								$a1.html("이전");
-								$li1.append($a1);
-								$ul.append($li1);					
-							}else if(currentPage > 1){
-								$li1.addClass("page-item");
-								$a1.addClass("page-link");
-								$a1.attr({
-									"onclick":"loadAjax3("+(currentPage-1)+")",
-								});
-								$a1.html("이전");
-								$li1.append($a1);
-								$ul.append($li1);
-							}
-							
-							for(var p = startPage; p <= endPage; p++){
-								var $li2 = $("<li>");
-								var $a2 = $("<a>");		
-								$li2.addClass("page-item");
-								$a2.addClass("page-link");
-								$a2.attr({
-									"onclick":"loadAjax3("+p+")",
-								});
-								$a2.html(p);
-								$li2.append($a2);
-								$ul.append($li2);				
-							}
-							
-							var $li3 = $("<li>");
-							var $a3 = $("<a>");	
-							
-							if(currentPage < maxPage){
-								$li3.addClass("page-item");
-								$a3.addClass("page-link");
-								$a3.attr({
-									"onclick":"loadAjax3("+(currentPage+1)+")",
-								});
-								$a3.html("다음");
-								$li3.append($a3);
-								$ul.append($li3);	
-							}else{
-								$li3.addClass("page-item disabled");
-								$a3.addClass("page-link");
-								$a3.html("다음");
-								$li3.append($a3);
-								$ul.append($li3);
-							}
-							
-							$(".pagingArea").children().remove();
-							$(".pagingArea").append($ul);	
+							}							
 							
 							$(".enrollSpan").click(function(){
 								var applyCode = $(this).parents("tr").children().eq(0).text();
@@ -1160,6 +1091,8 @@
 									})
 								}
 							});
+							
+							$(".pagingArea").children().remove();						
 						}
 					});
 				});
@@ -1171,6 +1104,8 @@
 				if(searchCondition == "all"){
 					$(".btnArea2").hide();
 					$(".inputArea2").hide();
+					
+					successList2();
 				}else if(searchCondition == "studentNo"){
 					$(".btnArea2").show();
 					$(".inputArea2").show();
@@ -1181,8 +1116,71 @@
 					$(".btnArea2").show();
 					$(".inputArea2").show();
 				}
+				
+				$("#secondBtn").click(function(){
+					var searchCondition = $("#searchCondition2").val();
+					var searchValue = $("#searchValue2").val();					
+					
+					$.ajax({
+						url:"searchSecondMajorApply2.si",
+						type:"GET",
+						data:{
+							"searchCondition":searchCondition,
+							"searchValue":searchValue
+						},
+						success:function(data){
+							$("#searchValue2").val("");
+							
+							var $tbody = $("#tbody2");
+							
+							$tbody.children().remove();
+							
+							for(var i = 0; i < data.list.length; i++){
+								var $tr = $("<tr>");
+								var $td1 = $("<td style='text-align: center;'>");
+								var $td2 = $("<td style='text-align: center;'>");
+								var $td3 = $("<td style='text-align: center;'>");
+								var $td4 = $("<td style='text-align: center;'>");
+								var $td5 = $("<td style='text-align: center;'>");
+								var $td6 = $("<td style='text-align: center;'>");
+								var $td7 = $("<td style='text-align: center;'>");
+								var $td8 = $("<td style='text-align: center;'>");
+								var $td9 = $("<td style='text-align: center;'>");
+								var $td10 = $("<td style='text-align: center;'>");
+								
+								$td1.text(data.list[i].applyCode);
+								$td2.text(data.list[i].studentNo);
+								$td3.text(data.list[i].memberKName);
+								$td4.text(data.list[i].grade);
+								$td5.text(data.list[i].avgScore);
+								$td6.text(data.list[i].originSdept);
+								$td7.text(data.list[i].majorCheck);
+								$td8.text(data.list[i].sdeptName);
+								$td9.text(data.list[i].majorStatus);								
+								$td10.text(data.list[i].successDate);
+								
+								$tr.append($td1);
+								$tr.append($td2);
+								$tr.append($td3);
+								$tr.append($td4);
+								$tr.append($td5);
+								$tr.append($td6);
+								$tr.append($td7);
+								$tr.append($td8);
+								$tr.append($td9);
+								$tr.append($td10);
+								
+								$tbody.append($tr);
+							}						
+							
+							$(".pagingArea2").children().remove();						
+						}
+					});
+				});
 			});
-		});		
+		});
+		
+		
 	</script>
 </body>
 </html>
