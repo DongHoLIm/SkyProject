@@ -17,6 +17,23 @@
   		<result property="collegeName" column="COLLEGE_NAME"/> 
   	</resultMap>
   	
+  	<resultMap type="SecondMajor" id="secondMajorResultSet2">
+  		<id property="applyCode" column="APPLY_CODE"/>
+  		<result property="majorCheck" column="MAJOR_CHECK"/>
+  		<result property="majorStatus" column="MAJOR_STATUS"/>
+  		<result property="studentNo" column="STUDENT_NO"/>
+  		<result property="sdeptCode" column="SDEPT_CODE"/>
+  		<result property="applyDate" column="APPLY_DATE"/>
+  		<result property="sdeptName" column="SDEPT_NAME"/>
+  		<result property="collegeCode" column="COLLEGE_CODE"/>
+  		<result property="collegeName" column="COLLEGE_NAME"/> 
+  		<result property="grade" column="GRADE"/> 
+  		<result property="avgScore" column="AVG_SCORE"/> 
+  		<result property="memberKName" column="MEMBER_KNAME"/> 
+  		<result property="originSdept" column="ORIGIN_SDEPT"/> 
+  		<result property="successDate" column="SUCCESS_DATE"/>
+  	</resultMap>
+  	
   	<insert id="insertSecondMajor">
 		INSERT INTO SECOND_MAJOR (APPLY_CODE, MAJOR_CHECK, MAJOR_STATUS, STUDENT_NO, SDEPT_CODE, APPLY_DATE)
 		VALUES ('SM'||SEQ_SECONDMAJOR.NEXTVAL, #{majorCheck}, DEFAULT, #{studentNo}, 
@@ -43,6 +60,127 @@
 		JOIN COLLEGE C ON(C.COLLEGE_CODE = S.COLLEGE_CODE)
 		JOIN STUDENT_INFO I ON(M.STUDENT_NO = I.STUDENT_NO)
 		WHERE M.STUDENT_NO = #{userId}
+	</select>
+	
+	<select id="selectSecondMajorListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SECOND_MAJOR A
+		JOIN MEMBER M ON(A.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(A.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(A.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN SDEPARTMENT E ON(I.SDEPT_CODE = E.SDEPT_CODE)
+		JOIN COLLEGE C ON(C.COLLEGE_CODE = S.COLLEGE_CODE)
+		WHERE A.MAJOR_STATUS = 'N'
+		ORDER BY A.APPLY_DATE ASC
+	</select>
+	
+	<select id="selectSecondMajorList" resultMap="secondMajorResultSet2">
+		SELECT A.APPLY_CODE, A.STUDENT_NO, M.MEMBER_KNAME, I.GRADE, I.AVG_SCORE, 
+			   E.SDEPT_NAME AS ORIGIN_SDEPT, A.MAJOR_CHECK, S.SDEPT_NAME, A.MAJOR_STATUS,
+			   A.APPLY_DATE
+		FROM SECOND_MAJOR A
+		JOIN MEMBER M ON(A.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(A.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(A.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN SDEPARTMENT E ON(I.SDEPT_CODE = E.SDEPT_CODE)
+		JOIN COLLEGE C ON(C.COLLEGE_CODE = S.COLLEGE_CODE)
+		WHERE A.MAJOR_STATUS = 'N'
+		ORDER BY A.APPLY_DATE ASC
+	</select>
+	
+	<update id="SuccessSecondMajor" parameterType="java.lang.String">
+		UPDATE SECOND_MAJOR 
+		SET MAJOR_STATUS = 'Y', SUCCESS_DATE = SYSDATE
+		WHERE APPLY_CODE = #{applyCode}
+	</update>
+	
+	<update id="ChangeStudentInfo" parameterType="java.lang.String">
+		UPDATE STUDENT_INFO
+		SET SECOND_MAJOR = 'Y'
+		WHERE STUDENT_NO = #{studentNo}
+	</update>
+	
+	<select id="selectSecondMajorSuccessListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SECOND_MAJOR A
+		JOIN MEMBER M ON(A.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(A.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(A.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN SDEPARTMENT E ON(I.SDEPT_CODE = E.SDEPT_CODE)
+		JOIN COLLEGE C ON(C.COLLEGE_CODE = S.COLLEGE_CODE)
+		WHERE A.MAJOR_STATUS = 'Y'
+		ORDER BY A.SUCCESS_DATE DESC
+	</select>
+	
+	<select id="selectSecondMajorSuccessList" resultMap="secondMajorResultSet2">
+		SELECT A.APPLY_CODE, A.STUDENT_NO, M.MEMBER_KNAME, I.GRADE, I.AVG_SCORE, 
+			   E.SDEPT_NAME AS ORIGIN_SDEPT, A.MAJOR_CHECK, S.SDEPT_NAME, A.MAJOR_STATUS,
+			   A.SUCCESS_DATE
+		FROM SECOND_MAJOR A
+		JOIN MEMBER M ON(A.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(A.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(A.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN SDEPARTMENT E ON(I.SDEPT_CODE = E.SDEPT_CODE)
+		JOIN COLLEGE C ON(C.COLLEGE_CODE = S.COLLEGE_CODE)
+		WHERE A.MAJOR_STATUS = 'Y'
+		ORDER BY A.SUCCESS_DATE DESC		
+	</select>
+	
+	<select id="smInfo" resultMap="secondMajorResultSet2">
+  		SELECT M.MEMBER_KNAME, S.MAJOR_CHECK, D.SDEPT_NAME
+		FROM STUDENT_INFO I
+		JOIN SECOND_MAJOR S ON(I.STUDENT_NO = S.STUDENT_NO)
+		JOIN MEMBER M ON(M.MEMBER_ID = I.STUDENT_NO)
+		JOIN SDEPARTMENT D ON(S.SDEPT_CODE = D.SDEPT_CODE)
+		WHERE I.SECOND_MAJOR = 'Y' AND MEMBER_ID = #{studentNo}
+  	</select>
+  	
+  	<select id="searchSecondMajorApplyCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SECOND_MAJOR A
+		JOIN MEMBER M ON(A.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(A.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(A.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN SDEPARTMENT E ON(I.SDEPT_CODE = E.SDEPT_CODE)
+		JOIN COLLEGE C ON(C.COLLEGE_CODE = S.COLLEGE_CODE)
+		WHERE A.MAJOR_STATUS = 'N'
+		<choose>
+			<when test="studentNo != null">
+				AND A.STUDENT_NO = #{studentNo}
+			</when>
+			<when test="majorCheck != null">
+				AND A.MAJOR_CHECK = #{majorCheck}
+			</when>
+			<otherwise>
+				AND S.SDEPT_NAME = #{sdeptName}
+			</otherwise>
+		</choose>
+		ORDER BY A.APPLY_DATE ASC		
+	</select>
+	
+	<select id="searchSecondMajorApplyList" resultMap="secondMajorResultSet2">
+		SELECT A.APPLY_CODE, A.STUDENT_NO, M.MEMBER_KNAME, I.GRADE, I.AVG_SCORE, 
+			   E.SDEPT_NAME AS ORIGIN_SDEPT, A.MAJOR_CHECK, S.SDEPT_NAME, A.MAJOR_STATUS,
+			   A.APPLY_DATE
+		FROM SECOND_MAJOR A
+		JOIN MEMBER M ON(A.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(A.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(A.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN SDEPARTMENT E ON(I.SDEPT_CODE = E.SDEPT_CODE)
+		JOIN COLLEGE C ON(C.COLLEGE_CODE = S.COLLEGE_CODE)
+		WHERE A.MAJOR_STATUS = 'N'
+		<choose>
+			<when test="studentNo != null">
+				AND A.STUDENT_NO = #{studentNo}
+			</when>
+			<when test="majorCheck != null">
+				AND A.MAJOR_CHECK = #{majorCheck}
+			</when>
+			<otherwise>
+				AND S.SDEPT_NAME = #{sdeptName}
+			</otherwise>
+		</choose>
+		ORDER BY A.APPLY_DATE ASC
 	</select>
   	 
   	 

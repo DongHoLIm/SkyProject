@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -79,10 +80,26 @@ table.basicinfo {
 
             <table class="basicinfo">
                <tr>
-                  <td class="td" width="20%">복수전공</td>
-                  <td width="30%"></td>
-                  <td class="td" width="20%">부전공</td>
-                  <td width="30%"></td>
+               	  <c:if test="${empty smInfo}">
+	                  <td class="td" width="20%">복수전공</td>
+	                  <td width="30%"></td>
+	                  <td class="td" width="20%">부전공</td>
+	                  <td width="30%"></td>
+                  </c:if>
+                  <c:if test="${!empty smInfo}">
+                  	  <c:if test="${smInfo.majorCheck eq '복수전공'}">
+	                  	  <td class="td" width="20%">복수전공</td>
+		                  <td width="30%">${smInfo.sdeptName}</td>
+		                  <td class="td" width="20%">부전공</td>
+		                  <td width="30%"></td>
+	                  </c:if>
+	                  <c:if test="${smInfo.majorCheck eq '부전공'}">
+	                  	  <td class="td" width="20%">복수전공</td>
+		                  <td width="30%"></td>
+		                  <td class="td" width="20%">부전공</td>
+		                  <td width="30%">${smInfo.sdeptName}</td>
+	                  </c:if>
+                  </c:if>
                </tr>
             </table>
 

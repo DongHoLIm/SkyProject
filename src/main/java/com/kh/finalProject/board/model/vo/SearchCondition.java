@@ -15,6 +15,10 @@ public class SearchCondition implements java.io.Serializable{
 	private String proof;
 	private String account;
 	private String school;
+	private String studentNo;
+	private String originSdept;
+	private String majorCheck;
+	private String sdeptName;
 	
 	public SearchCondition() {}
 
@@ -36,6 +40,64 @@ public class SearchCondition implements java.io.Serializable{
 		this.proof = proof;
 		this.account = account;
 		this.school = school;
+	}
+
+	public SearchCondition(String memberId, String writer, String writeDept, String title, String all, String normal,
+			String schol, String schedule, String event, String praise, String free, String proof, String account,
+			String school, String studentNo, String originSdept, String majorCheck, String sdeptName) {
+		super();
+		this.memberId = memberId;
+		this.writer = writer;
+		this.writeDept = writeDept;
+		this.title = title;
+		this.all = all;
+		this.normal = normal;
+		this.schol = schol;
+		this.schedule = schedule;
+		this.event = event;
+		this.praise = praise;
+		this.free = free;
+		this.proof = proof;
+		this.account = account;
+		this.school = school;
+		this.studentNo = studentNo;
+		this.originSdept = originSdept;
+		this.majorCheck = majorCheck;
+		this.sdeptName = sdeptName;
+	}
+	
+	
+
+	public String getStudentNo() {
+		return studentNo;
+	}
+
+	public void setStudentNo(String studentNo) {
+		this.studentNo = studentNo;
+	}
+
+	public String getOriginSdept() {
+		return originSdept;
+	}
+
+	public void setOriginSdept(String originSdept) {
+		this.originSdept = originSdept;
+	}
+
+	public String getMajorCheck() {
+		return majorCheck;
+	}
+
+	public void setMajorCheck(String majorCheck) {
+		this.majorCheck = majorCheck;
+	}
+
+	public String getSdeptName() {
+		return sdeptName;
+	}
+
+	public void setSdeptName(String sdeptName) {
+		this.sdeptName = sdeptName;
 	}
 
 	public String getMemberId() {
@@ -155,8 +217,10 @@ public class SearchCondition implements java.io.Serializable{
 		return "SearchCondition [memberId=" + memberId + ", writer=" + writer + ", writeDept=" + writeDept + ", title="
 				+ title + ", all=" + all + ", normal=" + normal + ", schol=" + schol + ", schedule=" + schedule
 				+ ", event=" + event + ", praise=" + praise + ", free=" + free + ", proof=" + proof + ", account="
-				+ account + ", school=" + school + "]";
+				+ account + ", school=" + school + ", studentNo=" + studentNo + ", originSdept=" + originSdept
+				+ ", majorCheck=" + majorCheck + ", sdeptName=" + sdeptName + "]";
 	}
+
 
 	
 	

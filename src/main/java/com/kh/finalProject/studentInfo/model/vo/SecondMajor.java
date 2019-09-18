@@ -4,16 +4,22 @@ public class SecondMajor implements java.io.Serializable{
 	private String applyCode;
 	private String majorCheck;
 	private String majorStatus;
-	private int studentNo;
+	private String studentNo;
 	private String sdeptCode;
 	private String applyDate;
 	private String sdeptName;
 	private String collegeCode;
 	private String collegeName;
+	private int grade;
+	private Double avgScore;
+	private String memberKName;
+	private String originSdept;
+	private String successDate;
+	
 	
 	public SecondMajor() {}
 
-	public SecondMajor(String applyCode, String majorCheck, String majorStatus, int studentNo, String sdeptCode,
+	public SecondMajor(String applyCode, String majorCheck, String majorStatus, String studentNo, String sdeptCode,
 			String applyDate, String sdeptName, String collegeCode, String collegeName) {
 		super();
 		this.applyCode = applyCode;
@@ -25,6 +31,68 @@ public class SecondMajor implements java.io.Serializable{
 		this.sdeptName = sdeptName;
 		this.collegeCode = collegeCode;
 		this.collegeName = collegeName;
+	}
+
+	public SecondMajor(String applyCode, String majorCheck, String majorStatus, String studentNo, String sdeptCode,
+			String applyDate, String sdeptName, String collegeCode, String collegeName, int grade, Double avgScore,
+			String memberKName, String originSdept, String successDate) {
+		super();
+		this.applyCode = applyCode;
+		this.majorCheck = majorCheck;
+		this.majorStatus = majorStatus;
+		this.studentNo = studentNo;
+		this.sdeptCode = sdeptCode;
+		this.applyDate = applyDate;
+		this.sdeptName = sdeptName;
+		this.collegeCode = collegeCode;
+		this.collegeName = collegeName;
+		this.grade = grade;
+		this.avgScore = avgScore;
+		this.memberKName = memberKName;
+		this.originSdept = originSdept;
+		this.successDate = successDate;
+	}
+	
+	
+
+	public String getSuccessDate() {
+		return successDate;
+	}
+
+	public void setSuccessDate(String successDate) {
+		this.successDate = successDate;
+	}
+
+	public String getOriginSdept() {
+		return originSdept;
+	}
+
+	public void setOriginSdept(String originSdept) {
+		this.originSdept = originSdept;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+
+	public Double getAvgScore() {
+		return avgScore;
+	}
+
+	public void setAvgScore(Double avgScore) {
+		this.avgScore = avgScore;
+	}
+
+	public String getMemberKName() {
+		return memberKName;
+	}
+
+	public void setMemberKName(String memberKName) {
+		this.memberKName = memberKName;
 	}
 
 	public String getApplyCode() {
@@ -51,11 +119,11 @@ public class SecondMajor implements java.io.Serializable{
 		this.majorStatus = majorStatus;
 	}
 
-	public int getStudentNo() {
+	public String getStudentNo() {
 		return studentNo;
 	}
 
-	public void setStudentNo(int studentNo) {
+	public void setStudentNo(String studentNo) {
 		this.studentNo = studentNo;
 	}
 
@@ -103,9 +171,10 @@ public class SecondMajor implements java.io.Serializable{
 	public String toString() {
 		return "SecondMajor [applyCode=" + applyCode + ", majorCheck=" + majorCheck + ", majorStatus=" + majorStatus
 				+ ", studentNo=" + studentNo + ", sdeptCode=" + sdeptCode + ", applyDate=" + applyDate + ", sdeptName="
-				+ sdeptName + ", collegeCode=" + collegeCode + ", collegeName=" + collegeName + "]";
+				+ sdeptName + ", collegeCode=" + collegeCode + ", collegeName=" + collegeName + ", grade=" + grade
+				+ ", avgScore=" + avgScore + ", memberKName=" + memberKName + ", originSdept=" + originSdept
+				+ ", successDate=" + successDate + "]";
 	}
-
 	
 	
 }
