@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 import com.kh.finalProject.student.classmanagement.model.vo.Sdepartment;
+import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
 public interface ClassDao {
 
@@ -23,5 +24,9 @@ public interface ClassDao {
 	ArrayList<OpenSubject> selectProfessor(SqlSessionTemplate sqlSession, String professor);
 
 	ArrayList<OpenSubject> seletProGwamok(SqlSessionTemplate sqlSession, OpenSubject os);
+
+	void insertCourseApply(SqlSessionTemplate sqlSession, String[] subCode, SubjectApply sa);
+
+	ArrayList<SubjectApply> selectMySugang(SqlSessionTemplate sqlSession, SubjectApply sa);
 
 }

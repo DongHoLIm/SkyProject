@@ -264,12 +264,27 @@
 
 	});
 	function insertSubjectApply(){
-		var test = new Array();
-		$("input[name=chk]:checked").each(function() {
-			test += $(this).val()+","; 
-			});
-
-			  console.log(test);
+		var subCodeArr = new Array();
+		var input = $("input[name=chk]:checked");
+		input.each(function() {
+			subCodeArr += $(this).val()+",";
+		});
+		var subCode = subCodeArr.split(',');
+		subCode.pop();
+		console.log(subCode);
+		
+		$.ajax({
+			url:"insertPreliminaryCourseRegistration.st",
+			type:"post",
+			data:{subCode:subCode},
+			success:function(data){			
+				alert('예비 수강신청이 등록되었습니다.');
+			},
+			error:function(err){
+				console.log("실패!");
+			}
+		});
+			  
 
 	}
 	
