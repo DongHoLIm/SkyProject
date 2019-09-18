@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.service.StudentInfoService;
+import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
@@ -597,6 +597,87 @@ public class StudentInfoController {
 		return mv;
 	}
 	
+	// 교직원_다전공 처리 완료_ajax 검색
+	@RequestMapping("searchSecondMajorApply2.si")
+	public ModelAndView searchSecondMajorApply2(ModelAndView mv, String searchCondition, String searchValue, HttpServletRequest request) {
+		int currentPage = 1;
+		int listCount = 0;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+		System.out.println("currentPage :::: " + currentPage);
+
+		SearchCondition sc = new SearchCondition();
+
+		if(searchCondition.equals("studentNo")) {
+			sc.setStudentNo(searchValue);
+		}
+		if(searchCondition.equals("majorCheck")) {
+			sc.setMajorCheck(searchValue);
+		}
+		if(searchCondition.equals("sdeptName")) {
+			sc.setSdeptName(searchValue);
+		}
+
+		listCount = ss.searchSecondMajorApplyCount2(sc);
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+		ArrayList<SecondMajor> list = ss.searchSecondMajorApplyList2(sc, pi);
+
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	
+	// 학생_다전공신청_뷰 출력
+	@RequestMapping("st_showChangeMajor.si")
+	public String st_showChangeMajor(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
+
+		String userId = loginUser.getMemberId();
+		System.out.println(userId);
+
+		StudentInfo basicInfo = ss.basicInfo(userId);
+		StudentInfo stuInfo = ss.stuInfo(userId);		
+		ChangeMajor cmInfo = ss.cmInfo(userId);
+
+		System.out.println(basicInfo);
+		System.out.println(stuInfo);
+		System.out.println(cmInfo);
+
+		request.setAttribute("basicInfo",basicInfo);
+		request.setAttribute("stuInfo",stuInfo);
+		request.setAttribute("cmInfo", cmInfo);	
+
+		return "student/info/changeMajor";
+	}
+	
+	// 학생_전과신청_insert
+	@RequestMapping("st_insertChangeMajor.si")
+	public ModelAndView st_insertChangeMajor(ModelAndView mv, HttpServletRequest request, ChangeMajor cm) {	
+
+		System.out.println("insert 전 cm :::: " + cm);
+
+//		int result = ss.insertChangeMajor(cm);
+//
+//		ChangeMajor changeMajor = null;
+//
+//		if(result > 0) {
+//			changeMajor = ss.selectChangeMajor(cm);
+//		}
+//
+//		mv.addObject("changeMajor", changeMajor);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+
 }
 
 
