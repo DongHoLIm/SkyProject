@@ -155,7 +155,7 @@ public class ProfessorController {
 		String date = request.getParameter("date");
 		SendSMSList sl = new SendSMSList();
 		sl.setSendDate(date);
-		ArrayList <SendSMSList> resultList = ps.SendSMSDetail(sl);
+		ArrayList <StudentList> resultList = ps.SendSMSDetail(sl);
 		
 		request.setAttribute("list", resultList);
 		return "professor/sendSMS/sendSMSDetailList";

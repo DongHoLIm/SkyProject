@@ -17,6 +17,6 @@ public interface professorService {
 
 	ArrayList<SendSMSList> sendSMSList(SendSMSList list);
 
-	ArrayList<SendSMSList> SendSMSDetail(SendSMSList sl);
+	ArrayList<StudentList> SendSMSDetail(SendSMSList sl);
 
 }
