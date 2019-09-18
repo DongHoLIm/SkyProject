@@ -177,5 +177,13 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	  return sd.selectGraduationSchool(sqlSession);
   }
 
+@Override
+public Graduation selectGraduationScDetail(String code) {
+	
+	return sd.selectGraduationScDetail(sqlSession,code);
+}
+
+
+
 }
 

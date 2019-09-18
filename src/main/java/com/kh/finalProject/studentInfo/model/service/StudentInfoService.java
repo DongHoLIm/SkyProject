@@ -61,4 +61,7 @@ public interface StudentInfoService {
 
 	ArrayList<Graduation> selectGraduationSchool();
 
+	Graduation selectGraduationScDetail(String code);
+
+	
 }

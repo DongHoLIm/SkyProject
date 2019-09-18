@@ -282,4 +282,10 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	  return (ArrayList)sqlSession.selectList("Graduation.selectGraduationSchool");
   }
 
+@Override
+public Graduation selectGraduationScDetail(SqlSessionTemplate sqlSession, String code) {
+	
+	return sqlSession.selectOne("Graduation.selectGraduationScDetail", code);
+}
+
 }
