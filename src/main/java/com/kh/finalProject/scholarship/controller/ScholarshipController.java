@@ -118,4 +118,6 @@ public class ScholarshipController {
 		return "common/successAlert";
 	}
 	
+	
+	
 }

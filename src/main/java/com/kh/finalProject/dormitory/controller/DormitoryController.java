@@ -75,6 +75,7 @@ public class DormitoryController {
 		System.out.println("loginUser ::: " + loginUser);
 		
 		dormitory.setMemberId(loginUser.getMemberId());
+		System.out.println("dormitory :::" + dormitory);
 		ds.insertDormitory(dormitory);
 		
 		return "common/successAlert";

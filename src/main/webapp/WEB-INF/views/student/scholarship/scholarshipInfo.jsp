@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,9 +35,8 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-					        
 	  				<h2>장학금 수혜내역 조회</h2>	
-					       
+					
 	  					<table class="table" style="border:2px solid lightgray;">
 	  						<thead>
 		  					  	<tr style="background-color:#eff1f2">
@@ -47,12 +47,14 @@
 		 					    </tr>
 	 					    </thead>
 	 					    <tbody>
+	 					    <c:forEach var="scholarship" items="${ memberScholarship }" varStatus="st">
 		 					   	<tr style="background-color:white">
-		 					   		<td style="border:1px solid lightgray; color:black;">20191234</td>
-		 					   		<td style="border:1px solid lightgray; color:black">홍길동</td>
+		 					   		<td style="border:1px solid lightgray; color:black;">${ scholarship.studentNo }</td>
+		 					   		<td style="border:1px solid lightgray; color:black">${ scholarship.memberKname }</td>
 		 					   		<td style="border:1px solid lightgray; color:black">서울</td>
-		 					   		<td style="border:1px solid lightgray; color:black">컴퓨터학과</td>
+		 					   		<td style="border:1px solid lightgray; color:black">${ scholarship.sdeptName }</td>
 		 					   	</tr>
+		 					</c:forEach>
 	 					   	</tbody>
 	 					 </table>
 					
@@ -72,42 +74,17 @@
 		 					    </tr>
 	 					    </thead>
 	 					    <tbody>
+	 					    <c:forEach var="scholarship" items="${ memberScholarship }">
 		 					   	<tr style="background-color:white">
-		 					   		<td style="border:1px solid lightgray; color:black">2019년도 2학기</td>
+		 					   		<td style="border:1px solid lightgray; color:black"><c:out value="${ scholarship.schoYear }"/>학년도 <c:out value="${ scholarship.schoSemester }"/>학기</td>
 		 					   		<td style="border:1px solid lightgray; color:black">직전학기성적</td>
 		 					   		<td style="border:1px solid lightgray; color:black">성적우수자</td>
 		 					   		<td style="border:1px solid lightgray; color:black">수업료</td>
-		 					   		<td style="border:1px solid lightgray; color:black">540,000 원</td>
+		 					   		<td style="border:1px solid lightgray; color:black"><c:out value="${ scholarship.schoAmount }"/> 원</td>
 		 					   		<td style="border:1px solid lightgray; color:black">21</td>
 		 					   		<td style="border:1px solid lightgray; color:black">4.0</td>
 		 					   	</tr>
-		 					   	<tr style="background-color:white">
-		 					   		<td style="border:1px solid lightgray; color:black">2019년도 1학기</td>
-		 					   		<td style="border:1px solid lightgray; color:black">직전학기성적</td>
-		 					   		<td style="border:1px solid lightgray; color:black">성적우수자</td>
-		 					   		<td style="border:1px solid lightgray; color:black">수업료</td>
-		 					   		<td style="border:1px solid lightgray; color:black">1,440,000 원</td>
-		 					   		<td style="border:1px solid lightgray; color:black">18</td>
-		 					   		<td style="border:1px solid lightgray; color:black">4.1</td>
-		 					   	</tr>
-		 					   	<tr style="background-color:white">
-		 					   		<td style="border:1px solid lightgray; color:black">2018년도 2학기</td>
-		 					   		<td style="border:1px solid lightgray; color:black">직전학기성적</td>
-		 					   		<td style="border:1px solid lightgray; color:black">성적우수자</td>
-		 					   		<td style="border:1px solid lightgray; color:black">수업료</td>
-		 					   		<td style="border:1px solid lightgray; color:black">840,000 원</td>
-		 					   		<td style="border:1px solid lightgray; color:black">21</td>
-		 					   		<td style="border:1px solid lightgray; color:black">4.2</td>
-		 					   	</tr>
-		 					   	<tr style="background-color:white">
-		 					   		<td style="border:1px solid lightgray; color:black">2018년도 1학기</td>
-		 					   		<td style="border:1px solid lightgray; color:black">직전학기성적</td>
-		 					   		<td style="border:1px solid lightgray; color:black">성적우수자</td>
-		 					   		<td style="border:1px solid lightgray; color:black">수업료</td>
-		 					   		<td style="border:1px solid lightgray; color:black">180,000 원</td>
-		 					   		<td style="border:1px solid lightgray; color:black">18</td>
-		 					   		<td style="border:1px solid lightgray; color:black">4.3</td>
-		 					   	</tr>
+		 					</c:forEach>
 	 					   	</tbody>
 	 					 </table>
 	 				</div>		
