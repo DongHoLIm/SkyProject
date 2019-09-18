@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
@@ -41,4 +42,20 @@ public interface StudentInfoService {
 	ArrayList<SecondMajor> selectSecondMajor(String userId);
 
 	ArrayList<Graduation> selectGraduationCondition(String userId) throws StudentInfoSelectListException;
+
+	ArrayList<SecondMajor> selectSecondMajorList(PageInfo pi);
+
+	int selectSecondMajorListCount();
+
+	int SuccessSecondMajor(SecondMajor sm);
+
+	int selectSecondMajorSuccessListCount();
+
+	ArrayList<SecondMajor> selectSecondMajorSuccessList(PageInfo pi);
+
+	SecondMajor smInfo(String studentNo);
+
+	int searchSecondMajorApplyCount(SearchCondition sc);
+
+	ArrayList<SecondMajor> searchSecondMajorApplyList(SearchCondition sc, PageInfo pi);
 }

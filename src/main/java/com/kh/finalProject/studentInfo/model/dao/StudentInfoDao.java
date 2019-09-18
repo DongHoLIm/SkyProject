@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
@@ -46,7 +47,25 @@ public interface StudentInfoDao {
 
 	ArrayList<SecondMajor> selectSecondMajor(SqlSessionTemplate sqlSession, String userId);
 
-	ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException;	
+	ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException;
+
+	ArrayList<SecondMajor> selectSecondMajorList(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int selectSecondMajorListCount(SqlSessionTemplate sqlSession);
+
+	int SuccessSecondMajor(SqlSessionTemplate sqlSession, SecondMajor sm);
+
+	int ChangeStudentInfo(SqlSessionTemplate sqlSession, SecondMajor sm);
+
+	int selectSecondMajorSuccessListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondMajor> selectSecondMajorSuccessList(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	SecondMajor smInfo(SqlSessionTemplate sqlSession, String studentNo);
+
+	int searchSecondMajorApplyCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<SecondMajor> searchSecondMajorApplyList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi);	
 	
 
 }

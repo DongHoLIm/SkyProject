@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.dao.StudentInfoDao;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
@@ -119,10 +120,55 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		return sd.selectSecondMajor(sqlSession, userId);
 	}
   
-  @Override
+	@Override
 	public ArrayList<Graduation> selectGraduationCondition(String userId) throws StudentInfoSelectListException {
 		
 		return sd.selectGraduationCondition(sqlSession,userId);
+	}
+
+	@Override
+	public ArrayList<SecondMajor> selectSecondMajorList(PageInfo pi) {
+		return sd.selectSecondMajorList(sqlSession, pi);
+	}
+	
+	@Override
+	public int selectSecondMajorListCount() {
+		return sd.selectSecondMajorListCount(sqlSession);
+	}
+
+	@Override
+	public int SuccessSecondMajor(SecondMajor sm) {
+		int result = sd.SuccessSecondMajor(sqlSession, sm);
+		
+		if(result > 0) {
+			sd.ChangeStudentInfo(sqlSession, sm);
+		}
+		return result;
+	}
+
+	@Override
+	public int selectSecondMajorSuccessListCount() {
+		return sd.selectSecondMajorSuccessListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<SecondMajor> selectSecondMajorSuccessList(PageInfo pi) {
+		return sd.selectSecondMajorSuccessList(sqlSession, pi);
+	}
+
+	@Override
+	public SecondMajor smInfo(String studentNo) {
+		return sd.smInfo(sqlSession, studentNo);
+	}
+
+	@Override
+	public int searchSecondMajorApplyCount(SearchCondition sc) {
+		return sd.searchSecondMajorApplyCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<SecondMajor> searchSecondMajorApplyList(SearchCondition sc, PageInfo pi) {
+		return sd.searchSecondMajorApplyList(sqlSession, sc, pi);
 	}
 }
 

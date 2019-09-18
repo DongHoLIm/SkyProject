@@ -57,45 +57,47 @@ td.td {
 			</div>
 
 			<jsp:include page="../info/common.jsp" />
-		
-			<h4 id="basic">다전공 신청</h4>
-			<table class="basicinfo">
-				<tr>
-					<td class="td">다전공 분류</td>
-					<td colspan="5">
-						<select name="majorCheck" id="majorCheck">
-							<option value="복수전공">복수전공</option>
-							<option value="부전공">부전공</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td class="td">단과대학</td>
-					<td colspan="2">
-						<select name="collegeName" id="collegeName">
-							<option value="CollegeChoice">-- 선택 --</option>
-							<option value="인문대학">인문대학</option>
-							<option value="예술대학">예술대학</option>
-							<option value="공과대학">공과대학</option>
-						</select>
-					</td>
-					<td class="td">학과</td>
-					<td colspan="2">
-						<select name="sdeptName" id="sdeptName">
-						
-						</select>
-					</td>
-				</tr>
-			</table>
-			<div align="right" style="margin: 0 auto; width:85%;">
-				<input type="hidden" id="grade" name="grade" value="${basicInfo.grade}">
-				<input type="hidden" id="firstMajor" name="firstMajor" value="${basicInfo.sdeptName}">
-				<input type="hidden" id="studentNo" name="studentNo" value="${basicInfo.studentNo}">
-				<input type="hidden" id="secondMajor" name="secondMajor" value="${basicInfo.secondMajor}">
-				<button id="applyBtn">신청</button>
-			</div>
-				
-			<h4 id="basic">신청 내역</h4>
+			
+			<c:if test="${empty list}">
+				<h4 id="basic" class="applyH4">다전공 신청</h4>
+				<table class="basicinfo" id="applyTable">
+					<tr>
+						<td class="td">다전공 분류</td>
+						<td colspan="5">
+							<select name="majorCheck" id="majorCheck">
+								<option value="복수전공">복수전공</option>
+								<option value="부전공">부전공</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="td">단과대학</td>
+						<td colspan="2">
+							<select name="collegeName" id="collegeName">
+								<option value="CollegeChoice">-- 선택 --</option>
+								<option value="인문대학">인문대학</option>
+								<option value="예술대학">예술대학</option>
+								<option value="공과대학">공과대학</option>
+							</select>
+						</td>
+						<td class="td">학과</td>
+						<td colspan="2">
+							<select name="sdeptName" id="sdeptName">
+							
+							</select>
+						</td>
+					</tr>
+				</table>
+				<div align="right" style="margin: 0 auto; width:85%;" id="applyArea">
+					<input type="hidden" id="grade" name="grade" value="${basicInfo.grade}">
+					<input type="hidden" id="firstMajor" name="firstMajor" value="${basicInfo.sdeptName}">
+					<input type="hidden" id="studentNo" name="studentNo" value="${basicInfo.studentNo}">
+					<input type="hidden" id="secondMajor" name="secondMajor" value="${basicInfo.secondMajor}">
+					<button id="applyBtn">신청</button>
+				</div>
+				</c:if>
+			
+			<h4 id="basic">다전공 신청 내역</h4>
 			<table class="basicinfo" id="Change">
 				<thead>
 					<tr>
@@ -178,50 +180,56 @@ td.td {
 				
 				alert("2학년 이상 신청 가능합니다.");
 				
-			}else if((Number(grade) >= 2) && (sdeptName != firstMajor)){
+			}else if((Number(grade) >= 2) && (sdeptName != firstMajor)){				
+				if(confirm("다전공을 신청하시겠습니까?") == true){
 				
-				$.ajax({
-					url:"st_insertSecondMajor.si",
-					type:"POST",
-					data:{
-						"majorCheck":majorCheck,
-						"collegeName":collegeName,
-						"sdeptName":sdeptName,
-						"studentNo":studentNo
-					},
-					success: function(data){
-						console.log("data.list.length :::: " + data.list.length);	
-						console.log(data)
-						
-						$tbody = $("#tbody");
-						
-						for(var i = 0; i < data.list.length; i++){						
+					$.ajax({
+						url:"st_insertSecondMajor.si",
+						type:"POST",
+						data:{
+							"majorCheck":majorCheck,
+							"collegeName":collegeName,
+							"sdeptName":sdeptName,
+							"studentNo":studentNo
+						},
+						success: function(data){
+							console.log("data.list.length :::: " + data.list.length);	
+							console.log(data)
 							
-							var $tr = $("<tr>");
-							var $td1 = $("<td>");
-							var $td2 = $("<td>");
-							var $td3 = $("<td>");
-							var $td4 = $("<td>");
-							var $td5 = $("<td>");
+							$tbody = $("#tbody");
 							
-							$td1.text(data.list[i].majorCheck);
-							$td2.text(data.list[i].collegeName);
-							$td3.text(data.list[i].sdeptName);							
-							$td4.text(data.list[i].applyDate);
-							$td5.text(data.list[i].majorStatus);
+							$tbody.children().remove();
 							
-							$tr.append($td1);
-							$tr.append($td2);
-							$tr.append($td3);
-							$tr.append($td4);
-							$tr.append($td5);
-							
-							$tbody.append($tr);							
+							for(var i = 0; i < data.list.length; i++){						
+								
+								var $tr = $("<tr>");
+								var $td1 = $("<td>");
+								var $td2 = $("<td>");
+								var $td3 = $("<td>");
+								var $td4 = $("<td>");
+								var $td5 = $("<td>");
+								
+								$td1.text(data.list[i].majorCheck);
+								$td2.text(data.list[i].collegeName);
+								$td3.text(data.list[i].sdeptName);							
+								$td4.text(data.list[i].applyDate);
+								$td5.text(data.list[i].majorStatus);
+								
+								$tr.append($td1);
+								$tr.append($td2);
+								$tr.append($td3);
+								$tr.append($td4);
+								$tr.append($td5);
+								
+								$tbody.append($tr);	
+								
+								$("#applyTable").hide();
+								$(".applyH4").hide();
+								$("#applyArea").hide();
+							}							
 						}
-						
-						
-					}
-				});
+					});
+				}
 			}
 		});
 	</script>

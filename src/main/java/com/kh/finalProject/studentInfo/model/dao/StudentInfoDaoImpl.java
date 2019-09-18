@@ -6,7 +6,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
@@ -179,8 +181,8 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		return (ArrayList) sqlSession.selectList("SecondMajor.selectSecondMajor2", userId);
   }
   
-  @Override
-  public ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException {
+	@Override
+	public ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException {
 		
 		ArrayList<Graduation> list = null;
 		
@@ -193,5 +195,83 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		
 		return list;
 
+	}
+
+	@Override
+	public ArrayList<SecondMajor> selectSecondMajorList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<SecondMajor> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("SecondMajor.selectSecondMajorList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
+	}
+	
+	@Override
+	public int selectSecondMajorListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("SecondMajor.selectSecondMajorListCount");
+	}
+
+	@Override
+	public int SuccessSecondMajor(SqlSessionTemplate sqlSession, SecondMajor sm) {
+		return sqlSession.update("SecondMajor.SuccessSecondMajor", sm);
+	}
+
+	@Override
+	public int ChangeStudentInfo(SqlSessionTemplate sqlSession, SecondMajor sm) {
+		return sqlSession.update("SecondMajor.ChangeStudentInfo", sm);
+	}
+
+	@Override
+	public int selectSecondMajorSuccessListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("SecondMajor.selectSecondMajorSuccessListCount");
+	}
+
+	@Override
+	public ArrayList<SecondMajor> selectSecondMajorSuccessList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<SecondMajor> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("SecondMajor.selectSecondMajorSuccessList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
+	}
+
+	@Override
+	public SecondMajor smInfo(SqlSessionTemplate sqlSession, String studentNo) {
+		return sqlSession.selectOne("SecondMajor.smInfo", studentNo);
+	}
+
+	@Override
+	public int searchSecondMajorApplyCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("SecondMajor.searchSecondMajorApplyCount", sc);
+	}
+
+	@Override
+	public ArrayList<SecondMajor> searchSecondMajorApplyList(SqlSessionTemplate sqlSession, SearchCondition sc,	PageInfo pi) {
+		ArrayList<SecondMajor> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("SecondMajor.searchSecondMajorApplyList", sc, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
 	}
 }

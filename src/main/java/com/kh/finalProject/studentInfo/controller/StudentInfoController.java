@@ -12,14 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.service.StudentInfoService;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
-import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
+import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 
@@ -40,11 +42,16 @@ public class StudentInfoController {
 		StudentInfo basicInfo = ss.basicInfo(userId);
 		StudentInfo stuInfo = ss.stuInfo(userId);
 		
+		// 학적 정보 조회에 복수/부전공 조회용 객체
+		SecondMajor smInfo = ss.smInfo(userId);
+		
 		System.out.println(basicInfo);
 		System.out.println(stuInfo);
+		System.out.println(smInfo);
 		
 		request.setAttribute("basicInfo",basicInfo);
 		request.setAttribute("stuInfo",stuInfo);
+		request.setAttribute("smInfo", smInfo);
 		
 		return "student/info/studentInfo";
 	}
@@ -434,7 +441,115 @@ public class StudentInfoController {
 		return mv;
 	}
 
+	// 교직원_다전공 신청 관리_뷰 출력
+	@RequestMapping("em_showSecondMajor.si")
+	public String em_showSecondMajor(){
+		
+		return "employee/studentInfo/em_secondMajor";
+	}
+	
+	// 교직원_다전공 신청 관리_ajax 리스트 출력
+	@RequestMapping("em_SecondMajorList.si")
+	public ModelAndView em_SecondMajorList(ModelAndView mv, HttpServletRequest request){
+		int currentPage = 1;
+		int listCount = 0;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		listCount = ss.selectSecondMajorListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<SecondMajor> list = ss.selectSecondMajorList(pi);		
+		
+		System.out.println("SecondMajorList list :::: " + list);
+		System.out.println("SecondMajorList pi :::: " + pi);
+		
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	// 교직원_다전공 신청 관리_ajax 리스트 출력2
+	@RequestMapping("em_SecondMajorList2.si")
+	public ModelAndView em_SecondMajorList2(ModelAndView mv, HttpServletRequest request){
+		int currentPage = 1;
+		int listCount = 0;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		listCount = ss.selectSecondMajorSuccessListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<SecondMajor> list = ss.selectSecondMajorSuccessList(pi);	
+		
+		System.out.println("selectSecondMajorSuccessList list :::: " + list);
+		System.out.println("selectSecondMajorSuccessList pi :::: " + pi);
+		
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("jsonView");	
 
+		return mv;
+	}
+	
+	// 교직원_다전공 신청 관리_ajax 리스트 출력
+	@RequestMapping("em_SecondMajorUpdate.si")
+	public ModelAndView em_SecondMajorUpdate(ModelAndView mv, SecondMajor sm, HttpServletRequest request) {	
+		
+		ss.SuccessSecondMajor(sm);		
+		
+		mv.setViewName("jsonView");	
+		
+		return mv;
+	}
+	
+	// 교직원_다전공 신청 검색_ajax 검색
+	@RequestMapping("searchSecondMajorApply.si")
+	public ModelAndView searchSecondMajorApply(ModelAndView mv, String searchCondition, String searchValue, HttpServletRequest request) {
+		int currentPage = 1;
+		int listCount = 0;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+		System.out.println("currentPage :::: " + currentPage);
+		
+		SearchCondition sc = new SearchCondition();
+		
+		if(searchCondition.equals("studentNo")) {
+			sc.setStudentNo(searchValue);
+		}
+		if(searchCondition.equals("majorCheck")) {
+			sc.setMajorCheck(searchValue);
+		}
+		if(searchCondition.equals("sdeptName")) {
+			sc.setSdeptName(searchValue);
+		}
+		
+		listCount = ss.searchSecondMajorApplyCount(sc);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<SecondMajor> list = ss.searchSecondMajorApplyList(sc, pi);
+		
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
 }
 
 
