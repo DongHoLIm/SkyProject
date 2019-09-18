@@ -74,5 +74,9 @@ public interface StudentInfoService {
 
 	Graduation selectGraduationScDetail(String code);
 
+	ArrayList<Graduation> selectGraduationMajor();
+
+	Graduation selectGraduationMaDetail(String code);
+
 
 }

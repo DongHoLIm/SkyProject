@@ -11,11 +11,13 @@ public class Graduation implements Serializable{
 	private String graduationContent;	//인증내용
 	private String check;				//인증여부
 	private String graduationInfo;		//학생인증내용
+	private String sdeptName;			//학과이름
+	private String college;				//단과대이름
 	
 	public Graduation() {}
 
 	public Graduation(String studentNo, String graduationCode, String sDeptCode, String division, String graduationName,
-			String graduationContent, String check, String graduationInfo) {
+			String graduationContent, String check, String graduationInfo, String sdeptName, String college) {
 		super();
 		this.studentNo = studentNo;
 		this.graduationCode = graduationCode;
@@ -25,6 +27,8 @@ public class Graduation implements Serializable{
 		this.graduationContent = graduationContent;
 		this.check = check;
 		this.graduationInfo = graduationInfo;
+		this.sdeptName = sdeptName;
+		this.college = college;
 	}
 
 	public String getStudentNo() {
@@ -91,13 +95,29 @@ public class Graduation implements Serializable{
 		this.graduationInfo = graduationInfo;
 	}
 
+	public String getSdeptName() {
+		return sdeptName;
+	}
+
+	public void setSdeptName(String sdeptName) {
+		this.sdeptName = sdeptName;
+	}
+
+	public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
 	@Override
 	public String toString() {
 		return "Graduation [studentNo=" + studentNo + ", graduationCode=" + graduationCode + ", sDeptCode=" + sDeptCode
 				+ ", division=" + division + ", graduationName=" + graduationName + ", graduationContent="
-				+ graduationContent + ", check=" + check + ", graduationInfo=" + graduationInfo + "]";
+				+ graduationContent + ", check=" + check + ", graduationInfo=" + graduationInfo + ", sdeptName="
+				+ sdeptName + ", college=" + college + "]";
 	}
 
 	
-
 }
