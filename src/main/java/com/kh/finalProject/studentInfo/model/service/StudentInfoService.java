@@ -41,4 +41,6 @@ public interface StudentInfoService {
 	ArrayList<SecondMajor> selectSecondMajor(String userId);
 
 	ArrayList<Graduation> selectGraduationCondition(String userId) throws StudentInfoSelectListException;
+
+	ArrayList<Graduation> selectGraduationSchool();
 }

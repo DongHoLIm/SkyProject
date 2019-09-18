@@ -188,7 +188,9 @@
 							var id = $(this).parents().children("td").eq(3).text();
 							
 							console.log(id);
-							location.href = "em_selectStudent.si?id="+id;
+							//location.href = "em_selectStudent.si?id="+id;
+							
+							window.open("em_selectStudent.si?id="+id,'popup' ,"height=550, width=900");
 							
 						});
 						
@@ -377,7 +379,9 @@
 							var id = $(this).parents().children("td").eq(3).text();
 							
 							console.log(id);
-							location.href = "em_selectStudent.si?id="+id;
+							//location.href = "em_selectStudent.si?id="+id;
+							
+							window.open("em_selectStudent.si?id="+id,'popup' ,"height=550, width=900");
 							
 						});
 						
@@ -528,7 +532,9 @@
 							var id = $(this).parents().children("td").eq(3).text();
 							
 							console.log(id);
-							location.href = "em_selectStudent.si?id="+id;
+							//location.href = "em_selectStudent.si?id="+id;
+							
+							window.open("em_selectStudent.si?id="+id,'popup' ,"height=550, width=900");
 							
 						});
 						
@@ -678,7 +684,9 @@
 							var id = $(this).parents().children("td").eq(3).text();
 							
 							console.log(id);
-							location.href = "em_selectStudent.si?id="+id;
+							//location.href = "em_selectStudent.si?id="+id;
+							
+							window.open("em_selectStudent.si?id="+id,'popup' ,"height=550, width=900");
 							
 						});
 						

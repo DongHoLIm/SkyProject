@@ -337,7 +337,16 @@ public class StudentInfoController {
 	@RequestMapping(value="em_selectStudent.si")
 	public String selectStudent(HttpServletRequest request) {
 		
-		return "student/info/studentDetail";
+		String id = request.getParameter("id");
+		System.out.println(id);
+		
+		StudentInfo basicInfo = ss.basicInfo(id);
+		StudentInfo stuInfo = ss.stuInfo(id);
+		
+		request.setAttribute("basicInfo",basicInfo);
+		request.setAttribute("stuInfo",stuInfo);
+		
+		return "employee/studentInfo/studentDetail";
 	}
 	
 	//학생_졸업관리
@@ -385,8 +394,18 @@ public class StudentInfoController {
 			return "common/errorPage";
 		}
 		
-		
 	}
+	
+	//교직원_졸업인증관리_교내인증
+	@RequestMapping(value="em_graduationSchool.si")
+	public String graduationSchool(HttpServletRequest request) {
+		
+		ArrayList<Graduation> list = ss.selectGraduationSchool(); 
+		
+		
+		return "employee/studentInfo/graduationSchool";
+	}
+	
 	
 
   

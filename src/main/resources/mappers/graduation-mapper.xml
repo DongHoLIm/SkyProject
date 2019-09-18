@@ -21,4 +21,12 @@
   	WHERE STUDENT_NO=#{studentNo} 
   </select> 
   
+  <select id="selectGraduationSchool" resultMap="graduationResultSet">
+  	SELECT M.SDEPT_CODE, C.GRADUATION_NAME, C.GRADUATION_CONTENT
+  	FROM GRADURATION_MANAGE M
+  	LEFT JOIN GRADURATION_CRITERIA C ON(M.GRADUATION_CODE=C.GRADUATION_CODE)
+  	WHERE STUDENT_NO=#{studentNo} 
+  
+  </select>
+  
 </mapper>

@@ -46,7 +46,9 @@ public interface StudentInfoDao {
 
 	ArrayList<SecondMajor> selectSecondMajor(SqlSessionTemplate sqlSession, String userId);
 
-	ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException;	
+	ArrayList<Graduation> selectGraduationCondition(SqlSessionTemplate sqlSession, String userId) throws StudentInfoSelectListException;
+
+	ArrayList<Graduation> selectGraduationSchool(SqlSessionTemplate sqlSession);	
 	
 
 }
