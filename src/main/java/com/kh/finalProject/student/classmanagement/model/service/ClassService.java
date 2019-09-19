@@ -28,4 +28,12 @@ public interface ClassService {
 
 	ArrayList<OpenSubject> selectPreliminaryCourseApplyList(SubjectApply sa);
 
+	ArrayList<OpenSubject> prliminaryGwamokSelect(OpenSubject os);
+
+	ArrayList<OpenSubject> prliminaryProfessorSelect(OpenSubject os);
+
+	ArrayList<OpenSubject> prliminaryCompleteSelect(OpenSubject os);
+
+	void deleteCourseApply(String[] subCode, SubjectApply sa);
+
 }

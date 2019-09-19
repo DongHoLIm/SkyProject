@@ -92,4 +92,34 @@ public class ClassServiceImpl implements ClassService{
 		return cd.selectPreliminaryCourseApplyList(sqlSession, sa);
 	}
 
+
+
+	@Override
+	public ArrayList<OpenSubject> prliminaryGwamokSelect(OpenSubject os) {
+
+		return cd.prliminaryGwamokSelect(sqlSession, os);
+	}
+
+
+
+	@Override
+	public ArrayList<OpenSubject> prliminaryProfessorSelect(OpenSubject os) {
+		return cd.prliminaryProfessorSelect(sqlSession, os);
+	}
+
+
+
+	@Override
+	public ArrayList<OpenSubject> prliminaryCompleteSelect(OpenSubject os) {
+
+		return cd.prliminaryCompleteSelect(sqlSession, os);
+	}
+
+
+
+	@Override
+	public void deleteCourseApply(String[] subCode, SubjectApply sa) {
+		 cd.deleteCourseApply(sqlSession, sa, subCode);
+	}
+
 }

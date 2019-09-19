@@ -31,4 +31,12 @@ public interface ClassDao {
 
 	ArrayList<OpenSubject> selectPreliminaryCourseApplyList(SqlSessionTemplate sqlSession, SubjectApply sa);
 
+	ArrayList<OpenSubject> prliminaryGwamokSelect(SqlSessionTemplate sqlSession, OpenSubject os);
+
+	ArrayList<OpenSubject> prliminaryProfessorSelect(SqlSessionTemplate sqlSession, OpenSubject os);
+
+	ArrayList<OpenSubject> prliminaryCompleteSelect(SqlSessionTemplate sqlSession, OpenSubject os);
+
+	void deleteCourseApply(SqlSessionTemplate sqlSession, SubjectApply sa, String[] subCode);
+
 }

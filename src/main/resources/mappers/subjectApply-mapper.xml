@@ -21,4 +21,10 @@
 	<insert id="insertCourseApply" parameterType="SubjectApply">
 		INSERT INTO SUBJECT_APPLY VALUES(#{openSubCode}, 'SUBA' || SEQ_SUBAPPLY.NEXTVAL, #{studentNo}, '예비', SYSDATE,'신청')
 	</insert>
+	<delete id="deleteCourseApply">
+	    DELETE FROM SUBJECT_APPLY 
+		WHERE STUDENT_NO = #{studentNo}
+		AND OPENSUB_CODE = #{openSubCode}
+		AND APPLY_TYPE = '예비'
+    </delete>
 </mapper>
