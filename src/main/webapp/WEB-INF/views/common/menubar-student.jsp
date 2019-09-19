@@ -43,6 +43,7 @@
 												<li><a href="#">복학신청 관리</a></li>
 												<li><a href="st_showSecondMajor.si">다전공 신청</a></li>
 												<li><a href="st_showChangeMajor.si">전과 신청</a></li>
+												<li><a href="st_showDropOut.si">자퇴 신청</a></li>
 											</ul>
 										</li>
 											<li>

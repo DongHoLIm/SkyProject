@@ -7591,7 +7591,7 @@ public class BoardController {
 		
 	}
 	
-	@Scheduled(cron = "0 25 23 * * *")
+	@Scheduled(cron = "0 10 14 * * *")
 	public void autoDeletenNotice() {
 		ArrayList<Board> b = null;
 		
@@ -7607,7 +7607,7 @@ public class BoardController {
 		}
 	}
 	
-	@Scheduled(cron = "0 25 23 * * *")
+	@Scheduled(cron = "0 10 14 * * *")
 	public void autoDeletesNotice() {
 		ArrayList<Board> b = null;
 		
@@ -7623,7 +7623,7 @@ public class BoardController {
 		}
 	}
 	
-	@Scheduled(cron = "0 25 23 * * *")
+	@Scheduled(cron = "0 10 14 * * *")
 	public void autoDeleteeNotice() {
 		ArrayList<Board> b = null;
 		
@@ -7639,8 +7639,9 @@ public class BoardController {
 		}
 	}
 	
-	@Scheduled(cron = "0 25 23 * * *")
+	@Scheduled(cron = "0 30 14 * * *")
 	public void autoDeleteaNotice() {
+		
 		ArrayList<Board> b = null;
 		
 		try {
@@ -7653,6 +7654,28 @@ public class BoardController {
 		} catch (BoardSelectListException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("머지하자ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+		System.out.println("머지하자ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+		System.out.println("머지하자ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+		System.out.println("머지하자ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+		System.out.println("머지하자ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+		System.out.println("머지하자ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+		System.out.println("머지하자ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+		System.out.println("머지하자ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+	}
+	
+	@Scheduled(cron = "0 00 23 * * *")
+	public void a() {
+		System.out.println("*********************************");
+		System.out.println("*********************************");
+		System.out.println("*********************************");
+		System.out.println("*********************************");
+		System.out.println("정웅님 늦을거 같으면 머지하고 자세요ㅎㅎㅎㅎ");
+		System.out.println("동호님 늦을거 같으면 머지하고 자세요ㅎㅎㅎㅎ");
+		System.out.println("인우님 늦을거 같으면 머지하고 자세요ㅎㅎㅎㅎ");
+		System.out.println("현수님 늦을거 같으면 머지하고 자세요ㅎㅎㅎㅎ");
+		System.out.println("지은님 늦을거 같으면 머지하고 자세요ㅎㅎㅎㅎ");
 	}
 	
 	//main board list 

@@ -9,6 +9,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
@@ -104,11 +105,30 @@ public interface StudentInfoDao {
 
 	Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code);
 
+	int ExplusionListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Explusion> ExplusionList(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int ExplusionListCount2(SqlSessionTemplate sqlSession);
+
+	ArrayList<Explusion> ExplusionList2(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int ExplusionEnroll(SqlSessionTemplate sqlSession, Explusion exp);
+
+	ArrayList<Explusion> searchExplusion(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<Explusion> searchExplusion2(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	int ExplusionUpdateStudent(SqlSessionTemplate sqlSession, Explusion exp);
+
+	Explusion expInfo(SqlSessionTemplate sqlSession, String studentNo);	
+
 	int updateGraduationSc(SqlSessionTemplate sqlSession, Graduation gd);
 
 	int updateGraduationMa(SqlSessionTemplate sqlSession, Graduation gd);
 
 		
+
 
 
 

@@ -16,9 +16,157 @@
   		<result property="sdeptName" column="SDEPT_NAME"/>
   		<result property="grade" column="GRADE"/> 
   		<result property="memberKName" column="MEMBER_KNAME"/> 
+  		<result property="seStudentNo" column="SE_STUDENT_NO"/> 
+  		<result property="warnStudentNo" column="WARN_STUDENT_NO"/> 
+  		<result property="osStudentNo" column="OS_STUDENT_NO"/> 
   	</resultMap> 	
   	
-	  	 
+	<select id="ExplusionListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM STUDENT_INFO I 
+		LEFT JOIN WARNING W ON(I.STUDENT_NO = W.STUDENT_NO)
+		LEFT JOIN OFF_SCHOOL O ON(I.STUDENT_NO = O.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(I.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN MEMBER M ON(I.STUDENT_NO = M.MEMBER_ID)
+		JOIN COLLEGE C ON(S.COLLEGE_CODE = C.COLLEGE_CODE)
+		LEFT JOIN EXPLUSION E ON(I.STUDENT_NO = E.STUDENT_NO)
+		WHERE (W.STUDENT_NO IN (SELECT STUDENT_NO
+		                       FROM WARNING
+		                       WHERE WARNING_COUNT >= 3)
+		OR O.STUDENT_NO IN (SELECT O.STUDENT_NO
+		                    FROM OFF_SCHOOL O
+		                    JOIN RETURN_SCHOOL R ON(O.STUDENT_NO = R.STUDENT_NO)
+		                    WHERE O.RETURN_DATE NOT IN R.ON_SEMESTER)
+		OR I.STUDENT_NO IN (SELECT STUDENT_NO
+		                    FROM STUDENT_INFO
+		                    WHERE STUDENT_STATUS = '재학생'
+		                    AND STUDENT_NO NOT IN (SELECT STUDENT_NO
+		                                           FROM ENROLLMENT)))
+		AND E.EXPLUSION_NO IS NULL
+	</select>
+	
+	<select id="ExplusionList" resultMap="explusionResultSet">
+		SELECT I.STUDENT_NO AS SE_STUDENT_NO,
+		       W.STUDENT_NO AS WARN_STUDENT_NO, 
+		       O.STUDENT_NO AS OS_STUDENT_NO, 
+		       C.COLLEGE_NAME, S.SDEPT_NAME, I.GRADE, I.STUDENT_NO, M.MEMBER_KNAME
+		FROM STUDENT_INFO I 
+		LEFT JOIN WARNING W ON(I.STUDENT_NO = W.STUDENT_NO)
+		LEFT JOIN OFF_SCHOOL O ON(I.STUDENT_NO = O.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(I.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN MEMBER M ON(I.STUDENT_NO = M.MEMBER_ID)
+		JOIN COLLEGE C ON(S.COLLEGE_CODE = C.COLLEGE_CODE)
+		LEFT JOIN EXPLUSION E ON(I.STUDENT_NO = E.STUDENT_NO)
+		WHERE (W.STUDENT_NO IN (SELECT STUDENT_NO
+		                       FROM WARNING
+		                       WHERE WARNING_COUNT >= 3)
+		OR O.STUDENT_NO IN (SELECT O.STUDENT_NO
+		                    FROM OFF_SCHOOL O
+		                    JOIN RETURN_SCHOOL R ON(O.STUDENT_NO = R.STUDENT_NO)
+		                    WHERE O.RETURN_DATE NOT IN R.ON_SEMESTER)
+		OR I.STUDENT_NO IN (SELECT STUDENT_NO
+		                    FROM STUDENT_INFO
+		                    WHERE STUDENT_STATUS = '재학생'
+		                    AND STUDENT_NO NOT IN (SELECT STUDENT_NO
+		                                           FROM ENROLLMENT)))
+		AND E.EXPLUSION_NO IS NULL
+	</select>
+	
+	<select id="ExplusionListCount2" resultType="_int">
+		SELECT COUNT(*)
+		FROM EXPLUSION E
+		JOIN MEMBER M ON(E.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(E.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(I.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN COLLEGE C ON(S.COLLEGE_CODE = C.COLLEGE_CODE)
+	</select>
+	
+	<select id="ExplusionList2" resultMap="explusionResultSet">
+		SELECT E.EXPLUSION_NO, C.COLLEGE_NAME, S.SDEPT_NAME, I.GRADE, I.STUDENT_NO, 
+		       M.MEMBER_KNAME, E.EXPLUSION_REASON, E.EXPLUSION_DATE
+		FROM EXPLUSION E
+		JOIN MEMBER M ON(E.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(E.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(I.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN COLLEGE C ON(S.COLLEGE_CODE = C.COLLEGE_CODE)
+		ORDER BY E.EXPLUSION_DATE DESC
+	</select>
+	
+	<insert id="ExplusionEnroll">
+		INSERT INTO EXPLUSION 
+		VALUES('EXP'||SEQ_EXPLUSION.NEXTVAL, SYSDATE, #{explusionReason}, #{studentNo})
+	</insert>
+	
+	<update id="ExplusionUpdateStudent" parameterType="Explusion">
+		UPDATE STUDENT_INFO 
+		SET STUDENT_STATUS = '제적'
+		WHERE STUDENT_NO = #{studentNo}
+	</update>
+	
+	<select id="searchExplusion" resultMap="explusionResultSet">
+		SELECT I.STUDENT_NO AS SE_STUDENT_NO,
+		       W.STUDENT_NO AS WARN_STUDENT_NO, 
+		       O.STUDENT_NO AS OS_STUDENT_NO, 
+		       C.COLLEGE_NAME, S.SDEPT_NAME, I.GRADE, I.STUDENT_NO, M.MEMBER_KNAME
+		FROM STUDENT_INFO I 
+		LEFT JOIN WARNING W ON(I.STUDENT_NO = W.STUDENT_NO)
+		LEFT JOIN OFF_SCHOOL O ON(I.STUDENT_NO = O.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(I.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN MEMBER M ON(I.STUDENT_NO = M.MEMBER_ID)
+		JOIN COLLEGE C ON(S.COLLEGE_CODE = C.COLLEGE_CODE)
+		LEFT JOIN EXPLUSION E ON(I.STUDENT_NO = E.STUDENT_NO)
+		WHERE (W.STUDENT_NO IN (SELECT STUDENT_NO
+		                       FROM WARNING
+		                       WHERE WARNING_COUNT >= 3)
+		OR O.STUDENT_NO IN (SELECT O.STUDENT_NO
+		                    FROM OFF_SCHOOL O
+		                    JOIN RETURN_SCHOOL R ON(O.STUDENT_NO = R.STUDENT_NO)
+		                    WHERE O.RETURN_DATE NOT IN R.ON_SEMESTER)
+		OR I.STUDENT_NO IN (SELECT STUDENT_NO
+		                    FROM STUDENT_INFO
+		                    WHERE STUDENT_STATUS = '재학생'
+		                    AND STUDENT_NO NOT IN (SELECT STUDENT_NO
+		                                           FROM ENROLLMENT)))
+		AND E.EXPLUSION_NO IS NULL
+		<choose>
+			<when test="sdeptName != null">
+				AND S.SDEPT_NAME = #{sdeptName}
+			</when>
+			<otherwise>
+				AND M.MEMBER_KNAME = #{memberKName}
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="searchExplusion2" resultMap="explusionResultSet">
+		SELECT E.EXPLUSION_NO, C.COLLEGE_NAME, S.SDEPT_NAME, I.GRADE, I.STUDENT_NO, 
+		       M.MEMBER_KNAME, E.EXPLUSION_REASON, E.EXPLUSION_DATE
+		FROM EXPLUSION E
+		JOIN MEMBER M ON(E.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(E.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(I.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN COLLEGE C ON(S.COLLEGE_CODE = C.COLLEGE_CODE)
+		<choose>
+			<when test="sdeptName != null">
+				AND S.SDEPT_NAME = #{sdeptName}
+			</when>
+			<otherwise>
+				AND M.MEMBER_KNAME = #{memberKName}
+			</otherwise>
+		</choose>
+		ORDER BY E.EXPLUSION_DATE DESC
+	</select>
+	
+	<select id="expInfo" resultMap="explusionResultSet">
+		SELECT E.EXPLUSION_NO, C.COLLEGE_NAME, S.SDEPT_NAME, I.GRADE, I.STUDENT_NO, 
+		       M.MEMBER_KNAME, E.EXPLUSION_REASON, E.EXPLUSION_DATE
+		FROM EXPLUSION E
+		JOIN MEMBER M ON(E.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(E.STUDENT_NO = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(I.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN COLLEGE C ON(S.COLLEGE_CODE = C.COLLEGE_CODE)
+		WHERE E.STUDENT_NO = #{studentNo}
+	</select>
   	 
   </mapper>
   
