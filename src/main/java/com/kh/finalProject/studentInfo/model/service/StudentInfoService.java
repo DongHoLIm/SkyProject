@@ -95,4 +95,10 @@ public interface StudentInfoService {
 
 	Graduation selectGraduationMaDetail(String code);
 
+	int updateGraduationSc(Graduation gd);
+
+	int updateGraduationMa(Graduation gd);
+
+	
+
 }

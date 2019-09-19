@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="SchoolOff">
+  	<resultMap type="SchoolOff" id="schoolOffResultSet">
+  		<id property="studentNo" column="STUDENT_NO"/>
+  		<id property="applyNo" column="APPLY_NO"/>
+  		<result property="applyDate" column="APPLY_DATE"/>
+  		<result property="offStart" column="OFF_START"/>
+  		<result property="offType" column="OFF_TYPE"/>
+  		<result property="offReason" column="OFF_REASON"/>
+  		<result property="offTerm" column="OFF_TERM"/>
+  		<result property="returnDate" column="RETURN_DATE"/>
+  		<result property="enlistmentDate" column="ENLISTMENT_DATE"/>
+  		<result property="demobilizationDate" column="DEMOBILIZATION_DATE"/>
+  		<result property="requiredDoc" column="REQUIRED_DOC"/>
+  		<result property="offStatus" column="OFF_STATUS"/>
+  	
+  	</resultMap>
+  
+  
+  
+  
+  
+  </mapper>

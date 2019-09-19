@@ -64,7 +64,7 @@
 					
 					console.log(code);
 					
-					window.open("em_changeGraduationMa.si?code="+code,'changMa' ,"height=550, width=900");
+					window.open("em_selectGraduationMa.si?code="+code,'changMa' ,"height=550, width=900");
 
 				});
 			});

@@ -102,7 +102,13 @@ public interface StudentInfoDao {
 
 	ArrayList<Graduation> selectGraduationMajor(SqlSessionTemplate sqlSession);
 
-	Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code);	
+	Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code);
+
+	int updateGraduationSc(SqlSessionTemplate sqlSession, Graduation gd);
+
+	int updateGraduationMa(SqlSessionTemplate sqlSession, Graduation gd);
+
+		
 
 
 

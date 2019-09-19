@@ -52,4 +52,16 @@
   	WHERE GRADUATION_CODE=#{graduationCode}
   </select>
   
+ <update id="updateGraduationSc" parameterType="Graduation">
+  	UPDATE GRADURATION_CRITERIA
+  	SET GRADUATION_CONTENT = #{graduationContent}
+  	WHERE GRADUATION_CODE=#{graduationCode}
+  </update>
+  
+  <update id="updateGraduationMa" parameterType="Graduation">
+  	UPDATE GRADURATION_CRITERIA
+  	SET GRADUATION_CONTENT = #{graduationContent}
+  	WHERE GRADUATION_CODE=#{graduationCode}
+  </update>
+  
 </mapper>
