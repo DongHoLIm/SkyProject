@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
- 
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport"
@@ -50,11 +49,11 @@ table.basicinfo {
 
 </head>
 <body>
- <div id="wrapper">
+<div id="wrapper">
       <div id="main">
   
         <br>
-	<h4 id="basic">졸업인증 변경</h4>
+		<h4 id="basic">학과 졸업인증 변경</h4>
        
             <table class="basicinfo">
                <tr>
@@ -66,13 +65,15 @@ table.basicinfo {
                
                <tr>
                	<th width="15%">졸업인증 명칭</th>
-               	<td colspan='3'>${graduation.graduationName }</td>
+               	<td>${graduation.graduationName }</td>
+               	<th width="15%">학과</th>
+               	<td>${graduation.sdeptName }</td>
                </tr>
                
                <tr>
                	<th width="15%">졸업인증 내용</th>
                	<td colspan='3'>
-               	<input type="text" id="content" value="${graduation.graduationContent }">
+               	<textarea id="content" rows="10" cols="5">${graduation.graduationContent }</textarea>
                	</td>
                </tr>
                
@@ -103,4 +104,3 @@ table.basicinfo {
    </div>
 </body>
 </html>
-

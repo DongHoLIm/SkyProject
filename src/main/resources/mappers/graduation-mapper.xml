@@ -12,6 +12,8 @@
   		<result property="graduationContent" column="GRADUATION_CONTENT"/>
   		<result property="check" column="GRADUATION_CHECK"/> 
   		<result property="graduationInfo" column="GRADUATION_INFO"/>
+  		<result property="sdeptName" column="SDEPT_NAME"/> 
+  		<result property="college" column="COLLEGE_NAME"/>
   </resultMap>
   
   <select id="selectGraduationCondition" resultMap="graduationResultSet">
@@ -28,9 +30,26 @@
   </select>
   
   <select id="selectGraduationScDetail" resultMap="graduationResultSet">
-  SELECT *
-  FROM GRADURATION_CRITERIA 
-  WHERE GRADUATION_CODE=#{graduationCode}
+  	SELECT *
+  	FROM GRADURATION_CRITERIA 
+  	WHERE GRADUATION_CODE=#{graduationCode}
+  </select>
+  
+  <select id="selectGraduationMajor" resultMap="graduationResultSet">
+    SELECT G.SDEPT_CODE, G.GRADUATION_NAME, G.GRADUATION_CONTENT, G.GRADUATION_CODE,
+  		 S.SDEPT_NAME, C.COLLEGE_NAME
+  	FROM GRADURATION_CRITERIA G
+  	LEFT JOIN SDEPARTMENT S ON(G.SDEPT_CODE=S.SDEPT_CODE)
+  	LEFT JOIN COLLEGE C ON(S.COLLEGE_CODE=C.COLLEGE_CODE)
+  	WHERE G.SDEPT_CODE !='SD100' 
+  </select>
+  
+  <select id="selectGraduationMaDetail" resultMap="graduationResultSet">
+  	SELECT G.SDEPT_CODE, G.GRADUATION_NAME, G.GRADUATION_CONTENT, G.GRADUATION_CODE,
+  		   S.SDEPT_NAME
+  	FROM GRADURATION_CRITERIA G
+  	LEFT JOIN SDEPARTMENT S ON(G.SDEPT_CODE=S.SDEPT_CODE)
+  	WHERE GRADUATION_CODE=#{graduationCode}
   </select>
   
 </mapper>

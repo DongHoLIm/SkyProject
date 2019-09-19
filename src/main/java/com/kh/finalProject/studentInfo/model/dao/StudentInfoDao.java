@@ -80,7 +80,11 @@ public interface StudentInfoDao {
 
 	ChangeMajor selectChangeMajor(SqlSessionTemplate sqlSession, ChangeMajor cm);	
 
-	Graduation selectGraduationScDetail(SqlSessionTemplate sqlSession, String code);	
+	Graduation selectGraduationScDetail(SqlSessionTemplate sqlSession, String code);
+
+	ArrayList<Graduation> selectGraduationMajor(SqlSessionTemplate sqlSession);
+
+	Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code);	
 
 
 	

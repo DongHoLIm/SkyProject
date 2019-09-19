@@ -52,6 +52,7 @@
 				</c:forEach>
 			</tbody>
 			</table>
+			
 			<script>
 			/* $("#tableArea").find("td").parents().children("td").eq(4).mouseenter(function(){
 				$(this).css({"font-weight":"bold", "cursor":"pointer"});
@@ -78,11 +79,12 @@
 			});
 			</script>
 			
+		</div>
 		<div>
 		<jsp:include page="../../common/menubar-employee.jsp" />
 		</div>
 	</div>
-</div>
+
 
 </body>
 </html>

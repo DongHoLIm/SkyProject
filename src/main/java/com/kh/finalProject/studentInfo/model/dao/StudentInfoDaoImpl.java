@@ -325,4 +325,16 @@ public Graduation selectGraduationScDetail(SqlSessionTemplate sqlSession, String
 	return sqlSession.selectOne("Graduation.selectGraduationScDetail", code);
 }
 
+@Override
+public ArrayList<Graduation> selectGraduationMajor(SqlSessionTemplate sqlSession) {
+	
+	return (ArrayList)sqlSession.selectList("Graduation.selectGraduationMajor");
+}
+
+@Override
+public Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code) {
+	
+	return sqlSession.selectOne("Graduation.selectGraduationMaDetail", code);
+}
+
 }

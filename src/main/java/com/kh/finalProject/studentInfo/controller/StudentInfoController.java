@@ -426,7 +426,7 @@ public class StudentInfoController {
 		return "employee/studentInfo/graduationSchool";
 	}
 	
-	//졸업관리_교내인증 상세보기
+	//교직원_졸업관리_교내인증 상세보기
 	@RequestMapping(value="em_changeGraduationSc.si")
 	public String graSchoolChange(HttpServletRequest request) {
 		
@@ -435,12 +435,64 @@ public class StudentInfoController {
 		
 		Graduation graduation = ss.selectGraduationScDetail(code);
 		
+		String division = graduation.getsDeptCode();
+		if(division.equals("SD100")) {
+			graduation.setDivision("교내 인증");
+		}else {
+			graduation.setDivision("학과 인증");
+		}
+		
 		System.out.println("graduation::" + graduation);
 		request.setAttribute("graduation",graduation);
 		
 		return "employee/studentInfo/changeGraduationSc";
 	}
 	
+	//교직원_졸업인증관리_학과인증
+	@RequestMapping(value="em_graduationMajor.si")
+	public String graduationMajor(HttpServletRequest request){
+		
+		ArrayList<Graduation> list = ss.selectGraduationMajor(); 
+		
+		System.out.println("list::"+list);
+		
+		String division="";
+		for(int i=0 ; i<list.size() ; i++) {
+			division = list.get(i).getsDeptCode();
+			if(division.equals("SD100")) {
+				list.get(i).setDivision("교내 인증");
+			}else {
+				list.get(i).setDivision("학과 인증");
+			}
+		}
+		System.out.println("list::" + list);
+		request.setAttribute("list",list);
+		
+		return "employee/studentInfo/graduationMajor";
+		
+	}
+	
+	//교직원_졸업관리_학과인증 상세보기
+	@RequestMapping(value="em_changeGraduationMa.si")
+	public String graMajorChange(HttpServletRequest request) {
+		
+		String code = request.getParameter("code");
+		System.out.println(code);
+		
+		Graduation graduation = ss.selectGraduationMaDetail(code);
+		
+		String division = graduation.getsDeptCode();
+		if(division.equals("SD100")) {
+			graduation.setDivision("교내 인증");
+		}else {
+			graduation.setDivision("학과 인증");
+		}
+		
+		System.out.println("graduation::" + graduation);
+		request.setAttribute("graduation",graduation);
+		
+		return "employee/studentInfo/changeGraduationMa";
+	}
 	
 
   
