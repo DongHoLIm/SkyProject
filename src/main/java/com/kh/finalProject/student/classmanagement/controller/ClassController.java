@@ -49,8 +49,15 @@ public class ClassController {
 	}
 	//예비수강신청목록
 	@RequestMapping(value="goPreliminaryCourse.st")
-	public String goPreliminaryCourse(@ModelAttribute("loginUser") Member loginUser) {
-
+	public String goPreliminaryCourse(@ModelAttribute("loginUser") Member loginUser, HttpServletRequest request) {
+		SubjectApply sa = new SubjectApply();
+		sa.setStudentNo(loginUser.getMemberId());
+		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
+		
+		ArrayList<OpenSubject> list2 = cs.selectPreliminaryCourseApplyList(sa);
+		
+		request.setAttribute("list2", list2);
+		
 		return "student/class/preliminaryCourseApplyList";
 	}
 	//수강신청
@@ -143,18 +150,21 @@ public class ClassController {
 		sa.setStudentNo(loginUser.getMemberId());
 		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
 
-		if(list.size() == 0) {
-			System.out.println("IN!!!");
-			cs.insertCourseApply(subCode, sa);			
-		}else {
-			for(int i=0;i<list.size();i++) {
-				if(list.get(i).getOpenSubCode().equals(subCode[i])) {
-					String[] subCodeArr;
-					/* subCodeArr = subCode[i]; */
-				}else {
-					cs.insertCourseApply(subCode, sa);
+		int count = 0;
+		for(int i=0;i<subCode.length;i++) {
+			for(int j=0;j<list.size();j++) {
+				if(list.get(j).getOpenSubCode().equals(subCode[i])) {				
+					count ++;
 				}
 			}
+		}
+		if(count < 1) {
+			cs.insertCourseApply(subCode, sa);
+			String ok = "ok";
+			mv.addObject("check", ok);
+		}else {
+			String no = "no";
+			mv.addObject("check", no);
 		}
 		mv.setViewName("jsonView");
 
