@@ -19,6 +19,7 @@ import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.service.StudentInfoService;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
@@ -45,13 +46,19 @@ public class StudentInfoController {
 		// 학적 정보 조회에 복수/부전공 조회용 객체
 		SecondMajor smInfo = ss.smInfo(userId);
 		
-		System.out.println(basicInfo);
-		System.out.println(stuInfo);
-		System.out.println(smInfo);
+		// 학적 정보 조회에 전과정보 조회용 객체
+		ChangeMajor cmInfo = ss.cmInfo(userId);
+		
+		System.out.println("basicInfo :::: " + basicInfo);
+		System.out.println("stuInfo :::: " + stuInfo);
+		System.out.println("smInfo :::: " + smInfo);
+		System.out.println("cmInfo :::: " + cmInfo);
+		
 		
 		request.setAttribute("basicInfo",basicInfo);
 		request.setAttribute("stuInfo",stuInfo);
 		request.setAttribute("smInfo", smInfo);
+		request.setAttribute("cmInfo", cmInfo);
 		
 		return "student/info/studentInfo";
 	}
@@ -599,7 +606,7 @@ public class StudentInfoController {
 		return mv;
 	}
 	
-	// 교직원_다전공 신청 관리_ajax 리스트 출력
+	// 교직원_다전공 신청 관리_ajax 완료처리
 	@RequestMapping("em_SecondMajorUpdate.si")
 	public ModelAndView em_SecondMajorUpdate(ModelAndView mv, SecondMajor sm, HttpServletRequest request) {	
 		
@@ -688,7 +695,7 @@ public class StudentInfoController {
 		return mv;
 	}
 	
-	// 학생_다전공신청_뷰 출력
+	// 학생_전과신청_뷰 출력
 	@RequestMapping("st_showChangeMajor.si")
 	public String st_showChangeMajor(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
 
@@ -716,20 +723,168 @@ public class StudentInfoController {
 
 		System.out.println("insert 전 cm :::: " + cm);
 
-//		int result = ss.insertChangeMajor(cm);
-//
-//		ChangeMajor changeMajor = null;
-//
-//		if(result > 0) {
-//			changeMajor = ss.selectChangeMajor(cm);
-//		}
-//
-//		mv.addObject("changeMajor", changeMajor);
+		int result = ss.insertChangeMajor(cm);
+
+		ChangeMajor changeMajor = null;
+
+		if(result > 0) {
+			changeMajor = ss.selectChangeMajor(cm);
+		}
+
+		mv.addObject("changeMajor", changeMajor);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	
+	// 교직원_전과 신청 관리_뷰 출력
+	@RequestMapping("em_showChangeMajor.si")
+	public String em_showChangeMajor(){
+			
+		return "employee/studentInfo/em_changeMajor";
+	}
+	
+	// 교직원_전과 신청 관리_ajax 리스트 출력
+	@RequestMapping("em_ChangeMajorList.si")
+	public ModelAndView em_ChangeMajorList(ModelAndView mv, HttpServletRequest request){
+		int currentPage = 1;
+		int listCount = 0;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		listCount = ss.ChangeMajorListCount();
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+		ArrayList<ChangeMajor> list = ss.ChangeMajorList(pi);		
+
+		System.out.println("ChangeMajorList list :::: " + list);
+		System.out.println("ChangeMajorList pi :::: " + pi);
+
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	
+	// 교직원_전과 신청 관리_ajax 리스트2 출력
+	@RequestMapping("em_ChangeMajorList2.si")
+	public ModelAndView em_ChangeMajorList2(ModelAndView mv, HttpServletRequest request){
+		int currentPage = 1;
+		int listCount = 0;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		listCount = ss.ChangeMajorListCount2();
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+		ArrayList<ChangeMajor> list = ss.ChangeMajorList2(pi);		
+
+		System.out.println("ChangeMajorList2 list :::: " + list);
+		System.out.println("ChangeMajorList2 pi :::: " + pi);
+
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	
+	// 교직원_전과 신청 관리_ajax 전과 처리
+	@RequestMapping("em_ChangeMajorEnroll.si")
+	public ModelAndView em_ChangeMajorEnroll(ModelAndView mv, ChangeMajor cm, HttpServletRequest request) {	
+
+		ss.ChangeMajorEnroll(cm);		
+
+		mv.setViewName("jsonView");	
+
+		return mv;
+	}
+	
+	// 교직원_전과 신청 관리_ajax 반려 처리
+	@RequestMapping("em_ChangeMajorReject.si")
+	public ModelAndView em_ChangeMajorReject(ModelAndView mv, ChangeMajor cm, HttpServletRequest request) {	
+
+		ss.ChangeMajorReject(cm);		
+
+		mv.setViewName("jsonView");	
+
+		return mv;
+	}
+	
+	// 교직원_전과 신청 검색_ajax 검색
+	@RequestMapping("searchChangeMajor.si")
+	public ModelAndView searchChangeMajor(ModelAndView mv, String searchCondition, String searchValue, HttpServletRequest request) {
+
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+
+		SearchCondition sc = new SearchCondition();
+
+		if(searchCondition.equals("studentNo")) {
+			sc.setStudentNo(searchValue);
+		}
+		if(searchCondition.equals("sdeptName")) {
+			sc.setSdeptName(searchValue);
+		}
+		
+		ArrayList<ChangeMajor> list = ss.searchChangeMajor(sc);
+
+		mv.addObject("list", list);
 		mv.setViewName("jsonView");
 
 		return mv;
 	}
 
+	// 교직원_전과 처리 완료_ajax 검색
+	@RequestMapping("searchChangeMajor2.si")
+	public ModelAndView searchChangeMajor2(ModelAndView mv, String searchCondition, String searchValue, HttpServletRequest request) {
+
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+
+		SearchCondition sc = new SearchCondition();
+
+		if(searchCondition.equals("studentNo")) {
+			sc.setStudentNo(searchValue);
+		}
+		if(searchCondition.equals("status")) {
+			sc.setStatus(searchValue);
+		}
+		if(searchCondition.equals("sdeptName")) {
+			sc.setSdeptName(searchValue);
+		}
+		
+		ArrayList<ChangeMajor> list = ss.searchChangeMajor2(sc);
+
+		mv.addObject("list", list);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	
+	// 교직원_제적 처리_뷰 출력
+	@RequestMapping("em_showExplusion.si")
+	public String em_showExplusion(){
+
+		return "employee/studentInfo/em_explusion";
+	}
+	
+	// 교직원_전과 신청 관리_ajax 리스트 출력
+	@RequestMapping("em_ExplusionList.si")
+	public ModelAndView em_ExplusionList(ModelAndView mv, HttpServletRequest request){
+		
+		mv.setViewName("jsonView");
+
+		return mv;
+		}
+	
 }
 
 

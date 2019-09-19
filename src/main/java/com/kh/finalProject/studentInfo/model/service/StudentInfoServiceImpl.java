@@ -12,6 +12,7 @@ import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.dao.StudentInfoDao;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
@@ -203,25 +204,67 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		return sd.selectChangeMajor(sqlSession, cm);
 	}
 
-@Override
-public Graduation selectGraduationScDetail(String code) {
+	@Override
+	public Graduation selectGraduationScDetail(String code) {
+		
+		return sd.selectGraduationScDetail(sqlSession,code);
+	}
 	
-	return sd.selectGraduationScDetail(sqlSession,code);
-}
-
-@Override
-public ArrayList<Graduation> selectGraduationMajor() {
+	@Override
+	public int ChangeMajorListCount() {
+		return sd.ChangeMajorListCount(sqlSession);
+	}
 	
-	return sd.selectGraduationMajor(sqlSession);
-}
+	@Override
+	public ArrayList<ChangeMajor> ChangeMajorList(PageInfo pi) {
+		return sd.ChangeMajorList(sqlSession, pi);
+	}
 
-@Override
-public Graduation selectGraduationMaDetail(String code) {
-	
-	return sd.selectGraduationMaDetail(sqlSession,code);
-}
+	@Override
+	public int ChangeMajorListCount2() {
+		return sd.ChangeMajorListCount2(sqlSession);
+	}
 
+	@Override
+	public ArrayList<ChangeMajor> ChangeMajorList2(PageInfo pi) {
+		return sd.ChangeMajorList2(sqlSession, pi);
+	}
 
+	@Override
+	public int ChangeMajorEnroll(ChangeMajor cm) {
+		int result = sd.ChangeMajorEnroll(sqlSession, cm);
+		
+		if(result > 0) {
+			sd.ChangeMajorEnrollStudentInfo(sqlSession, cm);
+		}
+		return result;
+	}
 
+	@Override
+	public int ChangeMajorReject(ChangeMajor cm) {
+		return sd.ChangeMajorReject(sqlSession, cm);
+	}
+
+	@Override
+	public ArrayList<ChangeMajor> searchChangeMajor(SearchCondition sc) {
+		return sd.searchChangeMajor(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<ChangeMajor> searchChangeMajor2(SearchCondition sc) {
+		return sd.searchChangeMajor2(sqlSession, sc);
+	}
+  
+  @Override
+  public ArrayList<Graduation> selectGraduationMajor() {
+
+    return sd.selectGraduationMajor(sqlSession);
+  }
+
+  @Override
+  public Graduation selectGraduationMaDetail(String code) {
+
+    return sd.selectGraduationMaDetail(sqlSession,code);
+  }
 }
 

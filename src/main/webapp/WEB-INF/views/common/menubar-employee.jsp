@@ -58,7 +58,7 @@
 												<li><a href="em_studentInfoList.si">학생 전체 조회</a></li>
 												<li><a href="#">학사경고 관리</a></li>
 												<li><a href="#">자퇴처리</a></li>
-												<li><a href="#">제적처리</a></li>
+												<li><a href="em_showExplusion.si">제적처리</a></li>
 												<li><a href="#">휴,복학 처리</a></li>
 												<li><a href="#">학적부 정정</a></li>												
 												<li><h4>졸업관리</h4></li>
@@ -66,8 +66,8 @@
 												<li><a href="em_graduationMajor.si">학과별 졸업 기준 관리</a></li>
 												<li><a href="em_graduationManagement.si">졸업인증 승인 처리</a></li>
 												<li><h4>전공관리</h4></li>
-												<li><a href="">전공신청 관리</a></li>
 												<li><a href="em_showSecondMajor.si">다전공 신청 관리</a></li>
+												<li><a href="em_showChangeMajor.si">전과 신청 관리</a></li>
 											</ul>
 										</li>
 										</c:if>

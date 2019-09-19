@@ -82,9 +82,28 @@ public interface StudentInfoDao {
 
 	Graduation selectGraduationScDetail(SqlSessionTemplate sqlSession, String code);
 
+	int ChangeMajorListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<ChangeMajor> ChangeMajorList(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int ChangeMajorListCount2(SqlSessionTemplate sqlSession);
+
+	ArrayList<ChangeMajor> ChangeMajorList2(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int ChangeMajorEnroll(SqlSessionTemplate sqlSession, ChangeMajor cm);
+
+	int ChangeMajorEnrollStudentInfo(SqlSessionTemplate sqlSession, ChangeMajor cm);
+
+	int ChangeMajorReject(SqlSessionTemplate sqlSession, ChangeMajor cm);
+
+	ArrayList<ChangeMajor> searchChangeMajor(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<ChangeMajor> searchChangeMajor2(SqlSessionTemplate sqlSession, SearchCondition sc);
+
 	ArrayList<Graduation> selectGraduationMajor(SqlSessionTemplate sqlSession);
 
 	Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code);	
+
 
 
 	

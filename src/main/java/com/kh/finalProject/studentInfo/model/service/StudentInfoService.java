@@ -7,6 +7,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
@@ -74,9 +75,24 @@ public interface StudentInfoService {
 
 	Graduation selectGraduationScDetail(String code);
 
+	int ChangeMajorListCount();
+
+	ArrayList<ChangeMajor> ChangeMajorList(PageInfo pi);
+
+	int ChangeMajorListCount2();
+
+	ArrayList<ChangeMajor> ChangeMajorList2(PageInfo pi);
+
+	int ChangeMajorEnroll(ChangeMajor cm);
+
+	int ChangeMajorReject(ChangeMajor cm);
+
+	ArrayList<ChangeMajor> searchChangeMajor(SearchCondition sc);
+
+	ArrayList<ChangeMajor> searchChangeMajor2(SearchCondition sc);
+
 	ArrayList<Graduation> selectGraduationMajor();
 
 	Graduation selectGraduationMaDetail(String code);
-
 
 }
