@@ -254,7 +254,17 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	public ArrayList<ChangeMajor> searchChangeMajor2(SearchCondition sc) {
 		return sd.searchChangeMajor2(sqlSession, sc);
 	}
+  
+  @Override
+  public ArrayList<Graduation> selectGraduationMajor() {
 
+    return sd.selectGraduationMajor(sqlSession);
+  }
 
+  @Override
+  public Graduation selectGraduationMaDetail(String code) {
+
+    return sd.selectGraduationMaDetail(sqlSession,code);
+  }
 }
 

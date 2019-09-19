@@ -1,6 +1,7 @@
 package com.kh.finalProject.scholarship.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +20,7 @@ import com.kh.finalProject.scholarship.model.exception.ScholarshipException;
 import com.kh.finalProject.scholarship.model.service.ScholarshipService;
 import com.kh.finalProject.scholarship.model.vo.Scholarship;
 import com.kh.finalProject.scholarship.model.vo.ScholarshipApply;
+import com.sun.org.glassfish.gmbal.ParameterNames;
 
 @Controller
 @SessionAttributes("memberScholarship")
@@ -31,16 +34,47 @@ public class ScholarshipController {
 	}
 	
 	@RequestMapping(value="beforeScholarshipApply.sc")
-	public String beforeScholarshipApplyInfo(Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String beforeScholarshipApplyInfo(@RequestParam("schoYear") String schoYear, @RequestParam("schoSemester") String schoSemester,  Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("장학금 조회 컨트롤러 들어옴");
+		
+		if(schoYear == "" || schoSemester == "") {
+			String studentNo = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
+			System.out.println("studentNo :::" + studentNo);
+			
+			System.out.println("schoYear :::" + schoYear);
+			System.out.println("schoSemester :::" + schoSemester);
+			
+			List<Scholarship> beforeScholarship;
+			
+			try {
+				beforeScholarship = ss.beforeScholarData(studentNo);
+				System.out.println("beforeScholarship ::: " + beforeScholarship);
+				
+				request.setAttribute("beforeScholarship", beforeScholarship);
+				
+				return "student/scholarship/scholarshipApply";
+				
+			} catch (ScholarshipException e) {
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorAlert";
+			}
+		}
 		
 		String studentNo = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
 		System.out.println("studentNo :::" + studentNo);
 		
-		ArrayList<Scholarship> beforeScholarship;
+		System.out.println("schoYear :::" + schoYear);
+		System.out.println("schoSemester :::" + schoSemester);
+		
+		List<Scholarship> beforeScholarship;
+		
+		Scholarship scholarship = new Scholarship();
+		scholarship.setStudentNo(studentNo);
+		scholarship.setSchoYear(schoYear);
+		scholarship.setSchoSemester(schoSemester);
 		
 		try {
-			beforeScholarship = ss.beforeScholarshipData(studentNo);
+			beforeScholarship = ss.beforeScholarshipData(scholarship);
 			System.out.println("beforeScholarship ::: " + beforeScholarship);
 			
 			request.setAttribute("beforeScholarship", beforeScholarship);

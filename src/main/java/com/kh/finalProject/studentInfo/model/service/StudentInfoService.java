@@ -91,5 +91,8 @@ public interface StudentInfoService {
 
 	ArrayList<ChangeMajor> searchChangeMajor2(SearchCondition sc);
 
+	ArrayList<Graduation> selectGraduationMajor();
+
+	Graduation selectGraduationMaDetail(String code);
 
 }

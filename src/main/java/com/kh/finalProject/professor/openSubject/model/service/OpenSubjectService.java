@@ -7,5 +7,7 @@ import com.kh.finalProject.professor.openSubject.model.vo.OpenSubject;
 public interface OpenSubjectService {
 
 	List<OpenSubject> selectOpenSubjectList();
+
+	OpenSubject selectOneSubject(String subCode);
 	
 }

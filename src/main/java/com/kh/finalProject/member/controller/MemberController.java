@@ -506,5 +506,10 @@ public class MemberController {
 		 mv.setViewName("jsonView");
 		 return mv;
 	}
+	@RequestMapping("viewChangToMain.me")
+	public String viewChangToMain() {
+		
+		return "main/main";
+	}
 	
 }

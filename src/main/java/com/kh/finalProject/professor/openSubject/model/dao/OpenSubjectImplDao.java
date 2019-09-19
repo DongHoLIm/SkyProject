@@ -18,6 +18,12 @@ public class OpenSubjectImplDao implements OpenSubjectDao{
 		return sqlSession.selectList("OpenSubject.selectOpenSubjectList");
 	
 	}
+
+	@Override
+	public OpenSubject seletOneSubject(SqlSessionTemplate sqlSession, String subCode) {
+		
+		return sqlSession.selectOne("OpenSubject.selectOpenSubject", subCode);
+	}
 	
 
 }

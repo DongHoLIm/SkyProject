@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>장학관리</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 		#searchInfo {
 			float:left;
@@ -58,9 +59,8 @@
 	  				
 					<h4 align="right" class="sibal">교내장학금 신청 및 결과</h4>
 					<div style="float:right">
-						<button class="sibal" id="show" onclick="location.href='beforeScholarshipApply.sc'">조회</button>
-						<button class="sibal" id="new" onclick="location.href='scholarshipNew.sc'">신규</button>
-						<button class="sibal" id="save">저장</button>
+						<button class="sibal" id="show" onclick="beforeScholarshipApply()">조회</button>
+						<button class="sibal" id="new" onclick="scholarshipNew()">신규</button>
 						<button class="sibal" id="help">도움말</button>
 					</div>
 					</div>
@@ -69,19 +69,23 @@
 						<thead>
 							<tr  style="text-align:center">
 								<th width="5%"><p class="sipal">년도</p></th>
-								<th width="40%"><select name='mulitple'>
-											<option value=''>-- 선택 --</option>
-											<option value='' selected>제2전공(복수전공)</option>
-											<option value='' disabled>경영</option>
-											<option value='' label=''>영문</option>
+								<th width="40%"><select name='schoYear' id="schoYear">
+											<option value=" ">-- 선택 --</option>
+											<option value='2019'>2019학년도</option>
+											<option value='2018'>2018학년도</option>
+											<option value='2017'>2017학년도</option>
+											<option value='2016'>2016학년도</option>
+											<option value='2015'>2015학년도</option>
+											<option value='2014'>2014학년도</option>
+											<option value='2013'>2013학년도</option>
+											<option value='2012'>2012학년도</option>
 									</select>
 								</th>
 								<th width="5%"><p>학기</p></th>
-								<th width="40%"><select name='mulitple'>
-											<option value=''>-- 선택 --</option>
-											<option value='' selected>제2전공(복수전공)</option>
-											<option value='' disabled>경영</option>
-											<option value='' label=''>영문</option>
+								<th width="40%"><select name='schoSemester' id="schoSemester">
+											<option value=" ">-- 선택 --</option>
+											<option value='1'>1</option>
+											<option value='2'>2</option>
 									</select>
 								</th>
 							</tr>
@@ -107,19 +111,21 @@
 	 					    </tr>
 	 					   </thead>
 	 					   <tbody>
+	 					   <c:forEach var="scholarship" items="${ beforeScholarship }">
 	 					   	<tr style="background-color:white">
-	 					   		<td style="border:1px solid lightgray; color:black;">승인완료</td>
-	 					   		<td style="border:1px solid lightgray; color:black;">2019</td>
-	 					   		<td style="border:1px solid lightgray; color:black;">2</td>
-	 					   		<td style="border:1px solid lightgray; color:black;">20191234</td>
-	 					   		<td style="border:1px solid lightgray; color:black;">홍길동</td>
-	 					   		<td style="border:1px solid lightgray; color:black;">컴퓨터학과</td>
-	 					   		<td style="border:1px solid lightgray; color:black;">남</td>
-	 					   		<td style="border:1px solid lightgray; color:black;">성적장학금</td>
-	 					   		<td style="border:1px solid lightgray; color:black;">2019-08-24</td>
-	 					   		<td style="border:1px solid lightgray; color:black;">승인</td>
-	 					   		<td style="border:1px solid lightgray; color:black;">2019-08-25</td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.schoAggrementStatus }"/></td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.schoYear }"/></td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.schoSemester }"/></td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.studentNo }"/></td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.memberKname }"/></td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.sdeptName }"/></td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.memberGender }"/></td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.schoApplyName }"/></td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.schoApplyDate }"/></td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.schoApplyYn }"/></td>
+	 					   		<td style="border:1px solid lightgray; color:black;"><c:out value="${ scholarship.schoAggrementDate }"/></td>
 	 					   	</tr>
+	 					   	</c:forEach>
 	 					   </tbody>
 	 					 </table>
 	 				</div>
@@ -185,4 +191,18 @@
 	</div>
 </div>
 </body>
+<script type="text/javascript">
+function beforeScholarshipApply(){
+	var schoYear = $("#schoYear").val();
+	var schoSemester = $("#schoSemester").val();
+	console.log(schoYear);
+	console.log(schoSemester);
+	location.href = "beforeScholarshipApply.sc?schoYear=" + schoYear + "&schoSemester=" + schoSemester;
+}
+
+function scholarshipNew(){
+	location.href = "scholarshipNew.sc"
+
+}
+</script>
 </html>

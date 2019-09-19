@@ -261,6 +261,7 @@ address {
 </head>
 <body>
 <c:set var="member" value="${scopeSession.loginUser}" />
+<c:out value="${member}"/>
 <c:if test="${empty member}">
    <div id="wrap">
    <img src="resources/images/bg_borderTop.png">
@@ -296,8 +297,9 @@ address {
       </address>
    </div>
 </c:if>
+
 <c:if test="${!empty member}">
-	<jsp:forward page="main/main"/>
+	<jsp:forward page="WEB-INF/views/common/main/main.jsp"/>
 </c:if>
 <c:set var="message" value="${scopeRequest.msg}"/>
 <c:if test="${!empty message}">

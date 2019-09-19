@@ -1,6 +1,7 @@
 package com.kh.finalProject.scholarship.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,12 +14,12 @@ import com.kh.finalProject.scholarship.model.vo.ScholarshipApply;
 public class ScholarshipDaoImpl implements ScholarshipDao{
 
 	@Override
-	public ArrayList<Scholarship> beforeScholarshipData(SqlSessionTemplate sqlSession, String studentNo) throws ScholarshipException {
+	public List<Scholarship> beforeScholarshipData(SqlSessionTemplate sqlSession, Scholarship scholarship) throws ScholarshipException {
 		System.out.println("장학금 조회 dao 들어옴");
 		
-		ArrayList<Scholarship> beforeScholarship = null;
-		
-		beforeScholarship = (ArrayList) sqlSession.selectList("Scholarship.beforeScholarshipApplyInfo", studentNo);
+		List<Scholarship> beforeScholarship = null;
+		System.out.println("12345" + scholarship);
+		beforeScholarship = (List) sqlSession.selectList("Scholarship.beforeScholarshipApplyInfo", scholarship);
 		
 		if(beforeScholarship == null) {
 			throw new ScholarshipException("정보가 존재하지 않습니다.");
@@ -59,6 +60,21 @@ public class ScholarshipDaoImpl implements ScholarshipDao{
 		System.out.println("들어옴");
 		
 		sqlSession.insert("Scholarship.add", scholarship);
+	}
+
+	@Override
+	public List<Scholarship> beforeScholarData(SqlSessionTemplate sqlSession, String studentNo) throws ScholarshipException {
+System.out.println("장학금 조회 dao 들어옴12112112");
+		
+		List<Scholarship> beforeScholarship = null;
+		System.out.println("12345" + studentNo);
+		beforeScholarship = (List) sqlSession.selectList("Scholarship.beforeScholarApply", studentNo);
+		
+		if(beforeScholarship == null) {
+			throw new ScholarshipException("정보가 존재하지 않습니다.");
+		}
+		
+		return beforeScholarship;
 	}
 
 

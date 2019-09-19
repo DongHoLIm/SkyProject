@@ -100,6 +100,10 @@ public interface StudentInfoDao {
 
 	ArrayList<ChangeMajor> searchChangeMajor2(SqlSessionTemplate sqlSession, SearchCondition sc);
 
+	ArrayList<Graduation> selectGraduationMajor(SqlSessionTemplate sqlSession);
+
+	Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code);	
+
 
 
 	
