@@ -8,6 +8,7 @@ import javax.security.auth.login.LoginException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
@@ -22,19 +23,30 @@ public class MemberServiceImpl implements MemberService{
 	private SqlSessionTemplate sqlSession;
 	@Autowired
 	private MemberDao md;
-
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private DataSourceTransactionManager transactionManager;
+	
+	
 	@Override
 	public Member loginCheck(Member m) throws loginException {
 		Member loginUser = null;
+		Member encPassword = md.selectEncPwd(sqlSession,m);
 		
-		loginUser = md.loginCheck(sqlSession,m);
 		
-		if(loginUser.getLoginCheck().equals("1")) {
+//		if(!passwordEncoder.matches(m.getMemberPwd(), encPassword.getMemberPwd())) {
+//			throw new loginException("비밀번호가 틀렸습니다.");
+//		}else {
+			loginUser = md.loginCheck(sqlSession,m);
 			
-			throw new loginException("해당 아이디는 이미 로그인 되었습니다.");
-		}else {
-			md.updateLoginCheck(sqlSession,loginUser);
-		}
+			if(loginUser.getLoginCheck().equals("1")) {
+				
+				throw new loginException("해당 아이디는 이미 로그인 되었습니다.");
+			}else {
+				md.updateLoginCheck(sqlSession,loginUser);
+			}			
+//		}
 		return loginUser;
 	}
 	//로그아웃 에 대한 로그인 상태 변경 
@@ -75,7 +87,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public int changeNewpassword(Member findMemberPwd) {
-		// TODO Auto-generated method stub
+		String newPwden = passwordEncoder.encode(findMemberPwd.getMemberPwd());
+		findMemberPwd.setMemberPwd(newPwden);		
 		return md.changeNewPassword(sqlSession,findMemberPwd);
 	}
 	@Override
@@ -128,6 +141,11 @@ public class MemberServiceImpl implements MemberService{
 	public int updatingAccount(MemberAccount ma) {
 		// TODO Auto-generated method stub
 		return md.updatingAccount(sqlSession,ma);
+	}
+	@Override
+	public int accountMember() {
+		// TODO Auto-generated method stub
+		return md.accountMember(sqlSession);
 	}
 
 	

@@ -23,7 +23,7 @@ public class mailController {
 		int result = 0;
 		 String host     = "smtp.naver.com";
 		  final String user   = "limdh93";
-		  final String password  = "luck0826";
+		  final String password  = "luck0826^^";
 
 		  String to     = userEmail;
 

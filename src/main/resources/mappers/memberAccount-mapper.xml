@@ -28,4 +28,5 @@
 	    SCHOL_MANAGEMENT=#{ scholManager}, DORMITORY_MANAGEMENT=#{dormitoryManager},BOARD_MANAGEMENT=#{boardManager}
 	    WHERE EMPLOYEE_NO=#{employeeNo}	
 	</update>
+	
 </mapper>
