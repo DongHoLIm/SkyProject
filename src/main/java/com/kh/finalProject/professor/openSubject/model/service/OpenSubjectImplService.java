@@ -25,4 +25,10 @@ public class OpenSubjectImplService implements OpenSubjectService {
 		return openSubjectDao.selectOpenSubjectList(sqlSession);
 	}
 
+	@Override
+	public OpenSubject selectOneSubject(String subCode) {
+		
+		return  openSubjectDao.seletOneSubject(sqlSession, subCode);
+	}
+
 }

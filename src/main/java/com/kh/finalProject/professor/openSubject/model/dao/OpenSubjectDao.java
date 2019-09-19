@@ -10,4 +10,6 @@ public interface OpenSubjectDao {
 
 	public List<OpenSubject> selectOpenSubjectList(SqlSessionTemplate sqlSession);
 
+	public OpenSubject seletOneSubject(SqlSessionTemplate sqlSession, String subCode);
+
 }

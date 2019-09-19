@@ -24,25 +24,28 @@
 				
 
 				<table style="border: 1px solid #e3dcca">
+			
 					<tr>
 						<td bgcolor="E7EEE3" align="center">강의명 / 과목 번호</td>
-						<td colspan="2"><input type="text" class="inputbox"></td>
+						<td colspan="2"><input type="text" class="inputbox" value="${os.subName } / ${os.opensubCode }"></td>
 						<td bgcolor="E7EEE3" align="center">강의 시간</td>
-						<td colspan="2"><input type="text" class="inputbox"></td>
+						<td colspan="2"><input type="text" class="inputbox" value=${os.timeInfo }></td>
 					</tr>
 					<tr>
 						<td bgcolor="E7EEE3" align="center">교수명</td>
-						<td colspan="2"><input type="text" class="inputbox"></td>
+						<td colspan="2"><input type="text" class="inputbox" value=${ loginUser.memberKName }></td>
 						<td bgcolor="E7EEE3" align="center">이수구분</td>
-						<td colspan="2"><input type="text" class="inputbox"></td>
+						<td colspan="2"><input type="text" class="inputbox" value=${os.completeType }></td>
 					</tr>
 					<tr>
 						<td bgcolor="E7EEE3" align="center">강의실</td>
-						<td colspan="2"><input type="text" class="inputbox"></td>
+						<td colspan="2"><input type="text" class="inputbox" value=${os.roomName }></td>
 						<td bgcolor="E7EEE3" align="center">학점</td>
-						<td colspan="2"><input type="text" class="inputbox"></td>
+						<td colspan="2"><input type="text" class="inputbox" value=${os.subGrade }></td>
 					
 					</tr>
+			
+					
 					<tr>
 						<td bgcolor="E7EEE3" align="center">수업목표</td>
 						<td colspan="5"><textarea rows="8" cols="2" style="resize: none" placeholder="내용을 입력해주세요"></textarea>
@@ -67,7 +70,6 @@
 						<td bgcolor="E7EEE3" style="text-align:center;">평가기간</td>
 						<td colspan="5"><input type="text" class="inputbox"></td>
 					</tr>
-				
 				
 				</table>
 				<button type="reset" style="margin:0 0 0 40%;">취소</button>
