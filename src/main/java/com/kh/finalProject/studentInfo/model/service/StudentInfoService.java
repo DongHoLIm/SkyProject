@@ -111,4 +111,8 @@ public interface StudentInfoService {
 
 	Explusion expInfo(String studentNo);
 
+	int updateGraduationSc(Graduation gd);
+
+	int updateGraduationMa(Graduation gd);
+  
 }

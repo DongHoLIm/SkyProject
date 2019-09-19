@@ -472,5 +472,18 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	public Explusion expInfo(SqlSessionTemplate sqlSession, String studentNo) {
 		return sqlSession.selectOne("Explusion.expInfo", studentNo);
 	}
+	
+	@Override
+	public int updateGraduationSc(SqlSessionTemplate sqlSession, Graduation gd) {
+		
+		return sqlSession.update("Graduation.updateGraduationSc", gd);
+	}
+
+	@Override
+	public int updateGraduationMa(SqlSessionTemplate sqlSession, Graduation gd) {
+		
+		return sqlSession.update("Graduation.updateGraduationMa", gd);
+	}
+
 
 }

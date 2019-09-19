@@ -60,6 +60,29 @@
 					</tbody>
 				</table>
 				</form>
+				<c:set var = "pageInfo" value="${pi }"/>
+				<ul class="pagination" align="center">
+					<c:if test = "${pi.currentPage<=1 }">
+						<li><span class="button disabled" >Prev</span></li>
+					</c:if>
+					<c:if test = "${pi.currentPage>1 }">
+						<li><span class="button" id="prevBtn">Prev</span></li>
+					</c:if>
+					<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}"> 
+						<c:if test="${p eq pi.currentPage }">
+							<li class="pageNumber"><p class="page active">${p}</p></li>
+						</c:if>
+						<c:if test ="${p ne pi.currentPage }">
+							<li class="pageNumber"><a class="page">${p}</a></li>
+						</c:if>
+					</c:forEach>
+					<c:if test="${pi.currentPage < pi.maxPage }">					
+					<li><span class="button" id="nextBtn">next</span></li>
+					</c:if>
+					<c:if test = "${pi.currentPage ==pi.maxPage }">
+					<li><span class="button disabled">Next</span></li>
+					</c:if>
+				</ul>
 			</div>
 		</div>
 		

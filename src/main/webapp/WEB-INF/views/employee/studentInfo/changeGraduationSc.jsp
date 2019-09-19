@@ -13,6 +13,7 @@
  <link rel="stylesheet" href="resources/css/main.css" />
 <link href="https://fonts.googleapis.com/css?family=Karla&display=swap"
    rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
 #basic {
@@ -56,6 +57,7 @@ table.basicinfo {
         <br>
 	<h4 id="basic">졸업인증 변경</h4>
        
+       
             <table class="basicinfo">
                <tr>
                	<th width="15%">구분</th>
@@ -71,8 +73,8 @@ table.basicinfo {
                
                <tr>
                	<th width="15%">졸업인증 내용</th>
-               	<td colspan='3'>
-               	<input type="text" id="content" value="${graduation.graduationContent }">
+               	<td id="co" colspan='3'>
+               	<textarea id="content" rows="10" cols="5">${graduation.graduationContent }</textarea>
                	</td>
                </tr>
                
@@ -81,21 +83,37 @@ table.basicinfo {
             <br><br>
             <div style="text-align:center">
             <button onclick="changeInfo();">수정</button>
-            <button onclick="self.close();">취소</button>
+            <button onclick="self.close();">닫기</button>
             </div>
+         
          <br><br><br><br><br>
       </div>
       
       <script>
       	function changeInfo(){
       		
-      		var code = $("#id").text();
-      		var content = $("#content").text();
+      		var code = $("#code").text();
+      		var content = $("#content").val();
       		
       		console.log(code);
-      		console.log(content);
+      		console.log(content); 
       		
-      		
+      		$.ajax({
+      			url:"em_changeGraduationSc.si",
+      			type:"post",
+      			data:{code:code,
+      				  content:content},
+      			success:function(data){
+      				console.log("접속성공");
+      				
+      				document.location.reload();
+      				alert("수정 완료");
+      				opener.parent.location.reload();
+      				window.self.close();
+      			}
+      			
+      		})
+      		    		
       	}
       
       </script>

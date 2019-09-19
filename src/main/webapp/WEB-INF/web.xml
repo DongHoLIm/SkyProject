@@ -3,7 +3,8 @@
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
-		classpath:root-context.xml		
+		classpath:root-context.xml
+		/WEB-INF/config/spring-security.xml		
 		</param-value>
   </context-param>
   <servlet>

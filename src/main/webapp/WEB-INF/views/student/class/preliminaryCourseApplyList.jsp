@@ -111,110 +111,40 @@ table.tableList2 td.right {
 table.tableList2 td img {
 	vertical-align: middle;
 }
-#menu ul, #menu ul li, #menu ul li a {
-	padding: 0;
-	margin: 0;
-	line-height: 1;
-	font-family: '돋움', '돋움체';
-}
-
-#munu {
-	width: auto;
-	zoom: 1;
-	height: 49px;
-	background: #cecdce;
-	border-radius: 2px;
-}
-
-#menu ul {
-	background: black;
-	height: 49px;
-	padding-top: 0px;
-}
-
-#menu ul li {
-	float: left;
-	list-style: none;
-	padding: 0 0px;
-}
-
-#menu ul li a {
-	display: block;
-	height: 35px;
-	padding: 15px 30px 0;
-	border-radius: 2px 2px 0 0;
-	text-decoration: none;
-	font-size: 14px;
-	color: white;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
-	font-weight: bold;
-	opacity: .9;
-}
-
-#menu ul li:first-child a {
-	margin: 0px 2px 0 0;
-}
-
-#menu ul li a:hover, #menu ul li.active a {
-	background: darkgray;
-	display: block;
-	height: 49;
-	margin-top: 0px;
-	padding-top: 15px;
-	color: #000000;
-	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.55);
-	opacity: 1;
-}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
 <body>
 	<div id="menu" class="menu">
-		<ul>
-			<li style="width: 25.0%; text-align: center;" class=""><a
-				href="goNotice.st">공지사항</a></li>
-			<li style="width: 25.0%; text-align: center;" class=""><a
-				href="goCourseInquiry.st">교과목조회</a></li>
-			<li style="width: 25.0%; text-align: center;" class="active"><a
-				href="goPreliminaryCourse.st">예비수강신청목록</a></li>
-			<li style="width: 25.0%; text-align: center;" class=""><a
-				href="goCourseApply.st">수강신청</a></li>
-		</ul>
+		<jsp:include page="common/menubar-CourseApply.jsp" />
 	</div>
 	<table class="tableList1" width="100%">
 		<tbody>
 			<tr id="choice">
 				<td>
-					<span> &nbsp;&nbsp;
-						<b>이름 : </b>
-						<input type="text" value="" readonly style="width:5%;">
-					</span> 
-					<span id="choice1" name="choice1">
-						<span>
-							<strong>학과 : </strong>
-							<input type="text" value="" readonly>						
-						</span>
+					<span> &nbsp;&nbsp;&nbsp;<b>카테고리</b> : 
+							<select name="category" id="category" onchange="change_cate()" style="background-color: #FFD9EC;">
+									<option value="0">과목 검색</option>
+									<option value="1">교수 검색</option>
+									<option value="2">이수구분</option>
+							</select>&nbsp;&nbsp;&nbsp;
 					</span>
-					<span>
+					<span id="choice0" name="choice0" style="display:inline;"> 
 						<span>
-							<strong>학년 : </strong>
-							<input type="text" value="" readonly style="width:5%;">
+							<input type="text" id=gwamok size="25" placeholder="과목명을 입력하세요" onkeypress="if(event.keyCode==13) {gwamokSearch(); return false;}" >
+							<input type="text" id="professor" size="25" placeholder="교수명을 입력하세요" onkeypress="if(event.keyCode==13) {professorSearch(); return false;}" style="display:none;">
+							<input type="text" id="complete" size="25" placeholder="이수구분을 입력하세요" onkeypress="if(event.keyCode==13) {completeSearch(); return false;}" style="display:none;">
 						</span>
-					</span>
+					</span>&nbsp;&nbsp;&nbsp;
+					<span class="btn1" onclick="gwamokSearch();" id="search_btn" style="background:red">조 회</span>
+					<span class="btn2" onclick="professorSearch();" id="search_btn" style="background:red; display:none;">조 회</span>
+					<span class="btn3" onclick="completeSearch();" id="search_btn" style="background:red; display:none;">조 회</span>
+					&nbsp;&nbsp;&nbsp;
+					<span class="delete" onclick="deleteSubjectApply();" style="background:skyblue;"> 삭 제 </span>
 				</td>
-				<td>
-					<span>
-						<strong>이수구분</strong>
-						<select name="allIsu" id="allIsu" class="Layer1">
-								<option value="">* 전체 *</option>
-								<option value="">교필</option>
-								<option value="">교선</option>
-								<option value="">평생</option>
-						</select>
-					</span>
-					<button type="submit" style="background: red;">조회</button>
-					<button type="submit" style="background: red;">수강신청</button></td>
 			</tr>
-		</tbody>
+		</tbody> 
 	</table>
 	<table class="tableList2" style="width: 100%">
 		<thead>	
@@ -236,7 +166,7 @@ table.tableList2 td img {
 		</thead>
 		<tbody>
 			<c:forEach var="openSubject" items="${ list2 }" varStatus="status">
-			<tr>
+			<tr id="search">
 				<td><input name='chk' type='checkbox' value="<c:out value="${ openSubject.openSubCode }" />"></td>
 				<td><c:out value="${ status.count }" /></td>
 				<td><c:out value="${ openSubject.completeType }" /></td>
@@ -245,7 +175,7 @@ table.tableList2 td img {
 				<td><c:out value="${ openSubject.subGrade }" /></td>
 				<td><c:out value="${ openSubject.professorName }" /></td>
 				<td><c:out value="${ openSubject.dayInfo }" /> / <c:out value="${ openSubject.timeInfo }" /></td>
-				<td><c:out value="${ openSubject.roomName }" /> / / <c:out value="${ openSubject.timeInfo }" /></td>
+				<td><c:out value="${ openSubject.roomName }" /> / <c:out value="${ openSubject.buildingName }" /></td>
 				<td><c:out value="${ openSubject.studentMax }" /></td>
 				<td><a style="color:red;">조회</a></td>
 				<td></td>
@@ -255,5 +185,191 @@ table.tableList2 td img {
 			</c:forEach>
 		</tbody>
 	</table>
+	<script>
+		function change_cate(){
+			var category = $("#category").val();
+			console.log(category);
+			if(category == "0"){
+				$(".btn1").show();
+				$(".btn2").hide();
+				$(".btn3").hide();
+				$("#gwamok").show();
+				$("#professor").hide();
+				$("#complete").hide();
+				$('#gwamok').val("");
+				$('#professor').val("");
+				$('#complete').val("");
+			}else if(category == "1"){
+				$(".btn1").hide();
+				$(".btn2").show();
+				$(".btn3").hide();
+				$("#gwamok").hide();
+				$("#professor").show();
+				$("#complete").hide();
+				$('#gwamok').val("");
+				$('#professor').val("");
+				$('#complete').val("");
+			}else if(category == "2"){	
+				$(".btn1").hide();
+				$(".btn2").hide();
+				$(".btn3").show();
+				$("#gwamok").hide();
+				$("#professor").hide();
+				$("#complete").show();
+				$('#gwamok').val("");
+				$('#professor').val("");
+				$('#complete').val("");
+			}
+		}
+		
+		function gwamokSearch(){
+			var subName = $("#gwamok").val();
+			
+			$.ajax({
+				url:"prliminaryGwamokSearch.st",
+				type:"post",
+				data:{subName:subName},
+				success:function(data){
+					var list = new Array();
+					for(var i=0;i<data.list.length;i++){
+						list[i] = data.list[i];
+					}
+					var count = 1;
+					$( '.tableList2 > tbody').empty(); 
+					for(var i=0;i<data.list.length;i++){
+						 var table = $("<tr>"+
+											"<td>"+"<input name='chk' type='checkbox' value='"+list[i].openSubCode+"'>"+"</td>"+
+											"<td>"+count+"</td>"+
+											"<td>"+list[i].completeType+"</td>"+
+											"<td>"+list[i].openSubCode+"</td>"+
+											"<td>"+list[i].subName+"</td>"+
+											"<td>"+list[i].subGrade+"</td>"+
+											"<td>"+list[i].professorName+"</td>"+
+											"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
+											"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
+											"<td>"+list[i].studentMax+"</td>"+
+											"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
+											"<td>"+"</td>"+
+											"<td>"+"</td>"+
+										"</tr>");
+						$(".tableList2").append(table);  				
+						count++;
+					} 	
+				},
+				error:function(err){
+					console.log("실패!");
+				}
+			});
+		}
+		$(function(){
+			$('.tableList2').on('click','tbody tr',function(){
+				 var checkbox = $(this).find('td:first-child :checkbox');
+		            checkbox.attr('checked', !checkbox.is(':checked'));
+			 });
+
+		});
+		function professorSearch(){
+			var professor = $("#professor").val();
+			
+			$.ajax({
+				url:"prliminaryProfessorSearch.st",
+				type:"post",
+				data:{professor:professor},
+				success:function(data){
+					var list = new Array();
+					for(var i=0;i<data.list.length;i++){
+						list[i] = data.list[i];
+					}
+					var count = 1;
+					$( '.tableList2 > tbody').empty(); 
+					for(var i=0;i<data.list.length;i++){
+						 var table = $("<tr>"+
+											"<td>"+"<input name='chk' type='checkbox' value='"+list[i].openSubCode+"'>"+"</td>"+
+											"<td>"+count+"</td>"+
+											"<td>"+list[i].completeType+"</td>"+
+											"<td>"+list[i].openSubCode+"</td>"+
+											"<td>"+list[i].subName+"</td>"+
+											"<td>"+list[i].subGrade+"</td>"+
+											"<td>"+list[i].professorName+"</td>"+
+											"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
+											"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
+											"<td>"+list[i].studentMax+"</td>"+
+											"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
+											"<td>"+"</td>"+
+											"<td>"+"</td>"+
+										"</tr>");
+						$(".tableList2").append(table);  				
+						count++;
+					} 	
+				},
+				error:function(err){
+					console.log("실패!");
+				}
+			});
+		}
+		function completeSearch(){
+			var complete = $("#complete").val();
+			
+			$.ajax({
+				url:"prliminaryCompleteSearch.st",
+				type:"post",
+				data:{complete:complete},
+				success:function(data){
+					var list = new Array();
+					for(var i=0;i<data.list.length;i++){
+						list[i] = data.list[i];
+					}
+					var count = 1;
+					$( '.tableList2 > tbody').empty(); 
+					for(var i=0;i<data.list.length;i++){
+						 var table = $("<tr>"+
+											"<td>"+"<input name='chk' type='checkbox' value='"+list[i].openSubCode+"'>"+"</td>"+
+											"<td>"+count+"</td>"+
+											"<td>"+list[i].completeType+"</td>"+
+											"<td>"+list[i].openSubCode+"</td>"+
+											"<td>"+list[i].subName+"</td>"+
+											"<td>"+list[i].subGrade+"</td>"+
+											"<td>"+list[i].professorName+"</td>"+
+											"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
+											"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
+											"<td>"+list[i].studentMax+"</td>"+
+											"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
+											"<td>"+"</td>"+
+											"<td>"+"</td>"+
+										"</tr>");
+						$(".tableList2").append(table);  				
+						count++;
+					} 	
+				},
+				error:function(err){
+					console.log("실패!");
+				}
+			});
+		}
+		function deleteSubjectApply(){
+			var subCodeArr = new Array();
+			var input = $("input[name=chk]:checked");
+			input.each(function() {
+				subCodeArr += $(this).val()+",";
+			});
+			var subCode = subCodeArr.split(',');
+			subCode.pop();
+			
+			
+			$.ajax({
+				url:"deletePreliminaryCourseRegistration.st",
+				type:"post",
+				data:{subCode:subCode},
+				success:function(data){
+					alert('선택한 과목이 삭제되었습니다.');
+					location.reload();
+				},
+				error:function(err){
+					console.log("실패!");
+				}
+			});
+		}
+		
+	</script>
 </body>
 </html>

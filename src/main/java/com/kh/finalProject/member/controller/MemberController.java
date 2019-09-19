@@ -29,6 +29,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -55,8 +56,8 @@ import com.kh.finalProject.member.model.vo.MemberAccount;
 public class MemberController {
 	@Autowired
 	private MemberService ms;
-	//@Autowired
-	//private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	//비밀번호 (암호화 비처리 메소드 )
 	@RequestMapping("login.me")
@@ -84,7 +85,23 @@ public class MemberController {
 		return "main/main";
 	}
 	//비밀번호 (암호화 처리 메소드)
-
+//	@RequestMapping("login.me")
+//	public String loginMember(Member m,Model model,HttpSession session) {
+//		Member loginUser=null;
+//		MemberAccount ma = null;	
+//		try {			
+//			loginUser = ms.loginCheck(m);
+//			if(loginUser.getMemberStatus().equals("3")) {
+//				ma = ms.Account(loginUser.getMemberId());				
+//				session.setAttribute("Account",ma);
+//			}
+//			model.addAttribute("loginUser",loginUser);			
+//			return "redirect:loginOk.me";									
+//		} catch (loginException e) {			
+//			model.addAttribute("msg",e.getMessage());
+//			return "common/errorAlert";
+//		}
+//	}
 
 	//로그 아웃  
 	@RequestMapping("logOut.me" )
@@ -168,7 +185,7 @@ public class MemberController {
 	                        	if(columnindex==0) {	                        		
 	                        		insertMember.setMemberId(value);
 	                        	}else if(columnindex==1) {
-	                        		insertMember.setMemberPwd(value);
+	                        		insertMember.setMemberPwd(passwordEncoder.encode(value));
 	                        	}else if(columnindex==2) {
 	                        		insertMember.setMemberKName(value);
 	                        	}else if(columnindex==3) {
@@ -406,6 +423,22 @@ public class MemberController {
 	}
 	@RequestMapping("account.me")
 	public String accountMember (HttpServletRequest request) {
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}		
+		int listCount;
+		try {
+		listCount = ms.accountMember();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		}catch(Exception e) {
+			
+		}
+		
+		
+		
+		
 		ArrayList<Member> list = ms.employeeList();
 		System.out.println("Account : "+list);
 		request.setAttribute("list",list);
@@ -472,6 +505,7 @@ public class MemberController {
 		String userId = request.getParameter("userId");
 		Member employee = new Member();
 		employee.setMemberId(userId);
+		
 		ma.setEmployeeNo(userId);
 		
 		Member employeeList = ms.employeeDetailList(employee);

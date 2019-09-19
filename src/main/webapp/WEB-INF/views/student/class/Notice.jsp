@@ -1,145 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	<style>
-body {
+<
+style>body {
 	font-family: 돋움;
 	font: 12px "Trebuchet MS", sans-serif;
-}
-/*일반 텍스트*/
-table {
-	font-family: "돋움", "돋움체";
-	font-size: 12px;
-	color: #666666;
-	text-decoration: none;
-}
-
-table.tableList {
-	table-layout: fixed;
-	border-top: 2px #A6D9DC solid;
-	border-bottom: 1px #CFCFCF solid;
-}
-
-table.tableList tr.even {
-	background: #FFFFEA
-} /* CSS2 나 CSS3 에 even 은 없다 */
-table.tableList tr:hover {
-	background: #E3F2FF
-} /* 마우스 커서가 올려진 경우라서 모바일에선 무용. :focus 가 아님에 유의 */
-table.tableList th, table.tableList td {
-	padding: 7px 3px 3px 3px;
-	text-align: center;
-	font-size: 9pt;
-}
-
-table.tableList th {
-	border-right: 1px #F3D7D7 solid;
-	border-bottom: 1px #CFCFCF solid;
-	color: #000000;
-	background: #FCEFEF;
-}
-
-table.tableList th.end, table.tableList td.end {
-	border-right: none
-}
-
-table.tableList td {
-	border-right: 1px #F0F0F0 solid;
-	border-bottom: 1px #CFCFCF dotted;
-	vertical-align: center;
-}
-
-table.tableList td.dot {
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-} /* 말줄임 */
-table.tableList td.left {
-	text-align: left;
-}
-
-table.tableList td.right {
-	text-align: right;
-}
-
-table.tableList td img {
-	vertical-align: middle;
-}
-#menu ul, #menu ul li, #menu ul li a {
-	padding: 0;
-	margin: 0;
-	line-height: 1;
-	font-family: '돋움', '돋움체';
-}
-
-#munu {
-	width: auto;
-	zoom: 1;
-	height: 49px;
-	background: #cecdce;
-	border-radius: 2px;
-}
-
-#menu ul {
-	background: black;
-	height: 49px;
-	padding-top: 0px;
-}
-
-#menu ul li {
-	float: left;
-	list-style: none;
-	padding: 0 0px;
-}
-
-#menu ul li a {
-	display: block;
-	height: 35px;
-	padding: 15px 30px 0;
-	border-radius: 2px 2px 0 0;
-	text-decoration: none;
-	font-size: 14px;
-	color: white;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
-	font-weight: bold;
-	opacity: .9;
-}
-
-#menu ul li:first-child a {
-	margin: 0px 2px 0 0;
-}
-
-#menu ul li a:hover, #menu ul li.active a {
-	background: darkgray;
-	display: block;
-	height: 49;
-	margin-top: 0px;
-	padding-top: 15px;
-	color: #000000;
-	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.55);
-	opacity: 1;
 }
 </style>
 </head>
 <body>
 	<div id="menu" class="menu">
-		<ul>
-			<li style="width: 25.0%; text-align: center;" class="active"><a
-				href="goNotice.st">공지사항</a></li>
-			<li style="width: 25.0%; text-align: center;" class=""><a
-				href="goCourseInquiry.st">교과목조회</a></li>
-			<li style="width: 25.0%; text-align: center;" class=""><a
-				href="goPreliminaryCourse.st">예비수강신청목록</a></li>
-			<li style="width: 25.0%; text-align: center;" class=""><a
-				href="goCourseApply.st">수강신청</a></li>
-		</ul>
+		<jsp:include page="common/menubar-CourseApply.jsp" />
 	</div>
-	<br><br>
+	<br>
+	<br>
 	<table width="95%" border="0" cellspacing="0" cellpadding="0"
 		align="center">
 		<tbody>

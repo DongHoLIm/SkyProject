@@ -16,7 +16,7 @@ public class OpenSubject implements java.io.Serializable{
 	private int enrolType;
 	private String studentNo;
 	
-	public OpenSubject() {}
+	public OpenSubject() {} 
 
 	public OpenSubject(String openSubCode, String subName, String sdeptName, String professorName, String professorNo,
 			int subGrade, String completeType, int studentMax, String roomName, String buildingName, String dayInfo,

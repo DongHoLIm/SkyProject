@@ -123,6 +123,13 @@ public interface StudentInfoDao {
 
 	Explusion expInfo(SqlSessionTemplate sqlSession, String studentNo);	
 
+	int updateGraduationSc(SqlSessionTemplate sqlSession, Graduation gd);
+
+	int updateGraduationMa(SqlSessionTemplate sqlSession, Graduation gd);
+
+		
+
+
 
 
 	

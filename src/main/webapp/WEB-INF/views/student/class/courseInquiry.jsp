@@ -283,6 +283,7 @@
 					alert('이미 신청한 과목이 있습니다.');
 				}else{
 					alert('수강 신청이 완료되었습니다.');
+					location.reload();
 				}
 			},
 			error:function(err){
@@ -303,7 +304,7 @@ table {
 	text-decoration: none;
 }
 /*검색 테이블*/
-table.tableList1 {
+table.tableList3 {
 	table-layout: fixed;
 	border-top: 1px #C0C0C0 solid;
 	border-bottom: 1px #C0C0C0 solid;
@@ -311,7 +312,7 @@ table.tableList1 {
 	border-right: 1px #C0C0C0 solid;
 }
 
-table.tableList1 th, table.tableList1 td {
+table.tableList3 th, table.tableList3 td {
 	padding: 7px 3px 3px 3px;
 	font-size: 9pt;
 }
@@ -321,30 +322,30 @@ table.tableList1 th, table.tableList1 td {
 		color:#000000;
 		background:#E3F2FF;
 	} */
-table.tableList1 td {
+table.tableList3 td {
 	border-right: 1px #F0F0F0 solid;
 	border-bottom: 1px #CFCFCF dotted;
 	vertical-align: center;
 }
 
-table.tableList1 td.dot {
+table.tableList3 td.dot {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
 } /* 말줄임 */
-table.tableList1 td.left {
+table.tableList3 td.left {
 	text-align: left;
 }
 
-table.tableList1 td.right {
+table.tableList3 td.right {
 	text-align: right;
 }
 
-table.tableList1 td img {
+table.tableList3 td img {
 	vertical-align: middle;
 }
 
-table.tableList1 th.end, table.tableList2 td.end {
+table.tableList3 th.end, table.tableList2 td.end {
 	border-right: none
 }
 /*조회 테이블*/
@@ -399,75 +400,11 @@ table.tableList2 td.right {
 table.tableList2 td img {
 	vertical-align: middle;
 }
-
-#menu ul, #menu ul li, #menu ul li a {
-	padding: 0;
-	margin: 0;
-	line-height: 1;
-	font-family: '돋움', '돋움체';
-}
-
-#munu {
-	width: auto;
-	zoom: 1;
-	height: 49px;
-	background: #cecdce;
-	border-radius: 2px;
-}
-
-#menu ul {
-	background: black;
-	height: 49px;
-	padding-top: 0px;
-}
-
-#menu ul li {
-	float: left;
-	list-style: none;
-	padding: 0 0px;
-}
-
-#menu ul li a {
-	display: block;
-	height: 35px;
-	padding: 15px 30px 0;
-	border-radius: 2px 2px 0 0;
-	text-decoration: none;
-	font-size: 14px;
-	color: white;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
-	font-weight: bold;
-	opacity: .9;
-}
-
-#menu ul li:first-child a {
-	margin: 0px 2px 0 0;
-}
-
-#menu ul li a:hover, #menu ul li.active a {
-	background: darkgray;
-	display: block;
-	height: 49;
-	margin-top: 0px;
-	padding-top: 15px;
-	color: #000000;
-	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.55);
-	opacity: 1;
-}
 </style>
 </head>
 <body>
 	<div id="menu" class="menu">
-		<ul>
-			<li style="width: 25.0%; text-align: center;" class=""><a
-				href="goNotice.st">공지사항</a></li>
-			<li style="width: 25.0%; text-align: center;" class="active"><a
-				href="goCourseInquiry.st">교과목조회</a></li>
-			<li style="width: 25.0%; text-align: center;" class=""><a
-				href="goPreliminaryCourse.st">예비수강신청목록</a></li>
-			<li style="width: 25.0%; text-align: center;" class=""><a
-				href="goCourseApply.st">수강신청</a></li>
-		</ul>
+		<jsp:include page="common/menubar-CourseApply.jsp" />
 	</div>
 	<form action="inquiry.st" method="post">
 		<table class="tableList3" width="100%">
@@ -477,68 +414,67 @@ table.tableList2 td img {
 						<span> &nbsp;&nbsp;&nbsp;<b>카테고리</b> : 
 							<select
 								name="category" id="category" onchange="change_cate()"
-								style="background-color: #FFD9EC;">
+								style="background-color: #FFD9EC;"> 
 									<option value="0">학과 조회</option>
 									<option value="1">과목 검색</option>
 									<option value="2">교수 검색</option>
 							</select>&nbsp;&nbsp;&nbsp;
-					</span>
-					 <!-- 개설강좌 --> 
-					 <span id="choice0" name="choice0" style="display: inline;"> 
-					 	<span> <strong>학과</strong> : 
-					 		<select name="Sdepartment" id="Sdepartment" class="Sdepartment" onchange="goSubJect();">
-					 		<c:forEach var="Sdepartment" items="${ sdList }">
-					 			<option value="<c:out value="${Sdepartment.sdeptCode}" />"><c:out value="${Sdepartment.sdeptName}"/></option>
-							</c:forEach>
-							</select>
-							&nbsp;&nbsp;&nbsp; <strong>이수구분</strong> : 
-							<select name="Isu" id="Isu" class="Isu" onchange="goSubJect();">
-								<option value="ALL">* 전체 *</option>
-								<option value="교필">교필</option>
-								<option value="교선">교선</option>
-								<option value="전필">전필</option>
-								<option value="전선">전선</option>
-							</select>
-							
-							&nbsp;&nbsp;&nbsp; <strong>과목</strong> : 
-							<select name="subJect" id="subJect" class="subJect" style="background-color: #FFD9EC;">
-							<c:forEach var="openSubject" items="${ osList }">
-					 			<option value="<c:out value="${openSubject.openSubCode}" />"><c:out value="${openSubject.subName}"/></option>
-							</c:forEach>
-							</select>&nbsp;&nbsp;&nbsp;
 						</span>
-					</span>
-					 <!-- 과목조회 -->
-					 <span id="choice1" name="choice1" style="display: none;">
-					 	<span>
-					 		<span class="ui-widget"> 
-					 			<label for="gwamok">조회 : </label>
-					 			<input type="text" name="gwamok" id="gwamok" size="20" placeholder="과목명(과목코드)을 입력하세요." onkeypress="if(event.keyCode==13) {gwamokSearch(); return false;}">	
-									&nbsp;&nbsp;&nbsp;
-							</span>
-							
-						</span>
-					</span>
-					<!-- 교수조회 -->
-					<span id="choice2" name="choice2" style="display: none">
-						<span>
-							<span class="ui-widget"> <label for="prof_nm">조회 : </label>
-							<input type="text" name="professor" id="professor" size="20" placeholder="교수명(교수코드)을 입력하세요" onkeypress="if(event.keyCode==13) {professorSearch(); return false;}">
-							교수 : <select name="professorS" id="professorS" class="professorS"
-									style="width: 150;" onchange="searchGwamok();">
-								</select>&nbsp;&nbsp;&nbsp; 
-							과목 : <select name="proGwamok" id="proGwamok" class="proGwamok" style="width: 200; background-color: #FFD9EC;">
+						 <!-- 개설강좌 --> 
+						 <span id="choice0" name="choice0" style="display: inline;"> 
+						 	<span> <strong>학과</strong> : 
+						 		<select name="Sdepartment" id="Sdepartment" class="Sdepartment" onchange="goSubJect();">
+						 		<c:forEach var="Sdepartment" items="${ sdList }">
+						 			<option value="<c:out value="${Sdepartment.sdeptCode}" />"><c:out value="${Sdepartment.sdeptName}"/></option>
+								</c:forEach>
+								</select>
+								&nbsp;&nbsp;&nbsp; <strong>이수구분</strong> : 
+								<select name="Isu" id="Isu" class="Isu" onchange="goSubJect();">
+									<option value="ALL">* 전체 *</option>
+									<option value="교필">교필</option>
+									<option value="교선">교선</option>
+									<option value="전필">전필</option>
+									<option value="전선">전선</option>
+								</select>
+								
+								&nbsp;&nbsp;&nbsp; <strong>과목</strong> : 
+								<select name="subJect" id="subJect" class="subJect" style="background-color: #FFD9EC;">
+								<c:forEach var="openSubject" items="${ osList }">
+						 			<option value="<c:out value="${openSubject.openSubCode}" />"><c:out value="${openSubject.subName}"/></option>
+								</c:forEach>
 								</select>&nbsp;&nbsp;&nbsp;
 							</span>
 						</span>
-					</span>
-					<span>
-						<span class="btn1" onclick="deptSearch();" name="search_btn" id="search_btn" style="background:red">조 회</span>
-						<span class="btn2" onclick="gwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;">조 회</span>
-						<span class="btn3" onclick="professorGwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;">조 회</span>
-						&nbsp;&nbsp;&nbsp;
-						<span class="apply" onclick="insertSubjectApply();" style="background:skyblue;"> 신 청 </span>
-					</span>
+						 <!-- 과목조회 -->
+						 <span id="choice1" name="choice1" style="display: none;">
+						 	<span>
+						 		<span class="ui-widget"> 
+						 			<label for="gwamok">조회 : </label>
+						 			<input type="text" name="gwamok" id="gwamok" size="25" placeholder="과목명(과목코드)을 입력하세요." onkeypress="if(event.keyCode==13) {gwamokSearch(); return false;}">	
+										&nbsp;&nbsp;&nbsp;
+								</span>
+							</span>
+						</span>
+						<!-- 교수조회 -->
+						<span id="choice2" name="choice2" style="display: none">
+							<span>
+								<span class="ui-widget"> <label for="prof_nm">조회 : </label>
+								<input type="text" name="professor" id="professor" size="25" placeholder="교수명(교수코드)을 입력하세요" onkeypress="if(event.keyCode==13) {professorSearch(); return false;}">
+								교수 : <select name="professorS" id="professorS" class="professorS"
+										style="width: 150;" onchange="searchGwamok();">
+									</select>&nbsp;&nbsp;&nbsp; 
+								과목 : <select name="proGwamok" id="proGwamok" class="proGwamok" style="width: 200; background-color: #FFD9EC;">
+									</select>&nbsp;&nbsp;&nbsp;
+								</span>
+							</span>
+						</span>
+						<span>
+							<span class="btn1" onclick="deptSearch();" name="search_btn" id="search_btn" style="background:red">조 회</span>
+							<span class="btn2" onclick="gwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;">조 회</span>
+							<span class="btn3" onclick="professorGwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;">조 회</span>
+							&nbsp;&nbsp;&nbsp;
+							<span class="apply" onclick="insertSubjectApply();" style="background:skyblue;"> 신 청 </span>
+						</span>
 					</td>				
 				</tr>
 			</tbody>
