@@ -1,6 +1,7 @@
 package com.kh.finalProject.scholarship.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class ScholarshipServiceImpl implements ScholarshipService{
 	private DataSourceTransactionManager transactionManager;
 	
 	@Override
-	public ArrayList<Scholarship> beforeScholarshipData(String studentNo) throws ScholarshipException {
+	public List<Scholarship> beforeScholarshipData(Scholarship scholarship) throws ScholarshipException {
 		
-		return sd.beforeScholarshipData(sqlSession, studentNo);
+		return sd.beforeScholarshipData(sqlSession, scholarship);
 	}
 	
 	@Override
@@ -43,6 +44,12 @@ public class ScholarshipServiceImpl implements ScholarshipService{
 	@Override
 	public void insertScholarship(Scholarship scholarship) {
 		sd.insertScholarship(sqlSession, scholarship);
+	}
+
+	@Override
+	public List<Scholarship> beforeScholarData(String studentNo) throws ScholarshipException {
+		
+		return sd.beforeScholarData(sqlSession, studentNo);
 	}
 
 }

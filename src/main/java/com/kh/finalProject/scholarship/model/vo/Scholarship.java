@@ -3,14 +3,14 @@ package com.kh.finalProject.scholarship.model.vo;
 import java.sql.Date;
 
 public class Scholarship implements java.io.Serializable{
-	private int schoSemester;
+	private String schoSemester;
 	private int schoAmount;
 	private String schoType;
 	private String studentNo;
 	
 	private String schoApplyCode;
 	private String schoStatus;
-	private int schoYear;
+	private String schoYear;
 	private String memberKname;
 	private String sdeptName;
 	private String memberGender;
@@ -18,12 +18,14 @@ public class Scholarship implements java.io.Serializable{
 	private String schoApplyYn;
 	private Date schoApplyDate;
 	private Date schoAggrementDate;
+	private String schoAggrementStatus;
 	
 	public Scholarship() {}
 
-	public Scholarship(int schoSemester, int schoAmount, String schoType, String studentNo, String schoApplyCode,
-			String schoStatus, int schoYear, String memberKname, String sdeptName, String memberGender,
-			String schoApplyName, String schoApplyYn, Date schoApplyDate, Date schoAggrementDate) {
+	public Scholarship(String schoSemester, int schoAmount, String schoType, String studentNo, String schoApplyCode,
+			String schoStatus, String schoYear, String memberKname, String sdeptName, String memberGender,
+			String schoApplyName, String schoApplyYn, Date schoApplyDate, Date schoAggrementDate,
+			String schoAggrementStatus) {
 		super();
 		this.schoSemester = schoSemester;
 		this.schoAmount = schoAmount;
@@ -39,13 +41,14 @@ public class Scholarship implements java.io.Serializable{
 		this.schoApplyYn = schoApplyYn;
 		this.schoApplyDate = schoApplyDate;
 		this.schoAggrementDate = schoAggrementDate;
+		this.schoAggrementStatus = schoAggrementStatus;
 	}
 
-	public int getSchoSemester() {
+	public String getSchoSemester() {
 		return schoSemester;
 	}
 
-	public void setSchoSemester(int schoSemester) {
+	public void setSchoSemester(String schoSemester) {
 		this.schoSemester = schoSemester;
 	}
 
@@ -89,11 +92,11 @@ public class Scholarship implements java.io.Serializable{
 		this.schoStatus = schoStatus;
 	}
 
-	public int getSchoYear() {
+	public String getSchoYear() {
 		return schoYear;
 	}
 
-	public void setSchoYear(int schoYear) {
+	public void setSchoYear(String schoYear) {
 		this.schoYear = schoYear;
 	}
 
@@ -153,61 +156,23 @@ public class Scholarship implements java.io.Serializable{
 		this.schoAggrementDate = schoAggrementDate;
 	}
 
+	public String getSchoAggrementStatus() {
+		return schoAggrementStatus;
+	}
+
+	public void setSchoAggrementStatus(String schoAggrementStatus) {
+		this.schoAggrementStatus = schoAggrementStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "Scholarship [schoSemester=" + schoSemester + ", schoAmount=" + schoAmount + ", schoType=" + schoType
 				+ ", studentNo=" + studentNo + ", schoApplyCode=" + schoApplyCode + ", schoStatus=" + schoStatus
 				+ ", schoYear=" + schoYear + ", memberKname=" + memberKname + ", sdeptName=" + sdeptName
 				+ ", memberGender=" + memberGender + ", schoApplyName=" + schoApplyName + ", schoApplyYn=" + schoApplyYn
-				+ ", schoApplyDate=" + schoApplyDate + ", schoAggrementDate=" + schoAggrementDate + "]";
+				+ ", schoApplyDate=" + schoApplyDate + ", schoAggrementDate=" + schoAggrementDate
+				+ ", schoAggrementStatus=" + schoAggrementStatus + "]";
 	}
 
 	
-	
-	
-//	public Scholarship(int schoSemester, int schoAmount, String schoType, String studentNo) {
-//		super();
-//		this.schoSemester = schoSemester;
-//		this.schoAmount = schoAmount;
-//		this.schoType = schoType;
-//		this.studentNo = studentNo;
-//	}
-//
-//	public int getSchoSemester() {
-//		return schoSemester;
-//	}
-//
-//	public void setSchoSemester(int schoSemester) {
-//		this.schoSemester = schoSemester;
-//	}
-//
-//	public int getSchoAmount() {
-//		return schoAmount;
-//	}
-//
-//	public void setSchoAmount(int schoAmount) {
-//		this.schoAmount = schoAmount;
-//	}
-//
-//	public String getSchoType() {
-//		return schoType;
-//	}
-//
-//	public void setSchoType(String schoType) {
-//		this.schoType = schoType;
-//	}
-//
-//	public String getStudentNo() {
-//		return studentNo;
-//	}
-//
-//	public void setStudentNo(String studentNo) {
-//		this.studentNo = studentNo;
-//	}
-//
-//	@Override
-//	public String toString() {
-//		return "Scholarship [schoSemester=" + schoSemester + ", schoAmount=" + schoAmount + ", schoType=" + schoType
-//				+ ", studentNo=" + studentNo + "]";
-//	}
 }

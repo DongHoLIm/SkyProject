@@ -21,12 +21,15 @@
 		<result property="schoApplyYn" column="SCHO_APPLY_YN"/>
 		<result property="schoApplyDate" column="SCHO_APPLY_DATE"/>
 		<result property="schoAggrementDate" column="SCHO_AGGREMENT_DATE"/>
+		<result property="schoAggrementStatus" column="SCHO_AGGREMENT_STATUS"/>
 	</resultMap>
 	
-	<select id="beforeScholarshipApplyInfo" resultMap="scholarshipResultSet" parameterType="String">
+	<select id="beforeScholarshipApplyInfo" resultMap="scholarshipResultSet" parameterType="Scholarship">
 		SELECT *
 		FROM SCHO_APPLY
 		WHERE STUDENT_NO = #{studentNo}
+		AND SCHO_YEAR = #{schoYear}
+		AND SCHO_SEMESTER = #{schoSemester}
 	</select>
 	
 	<select id="ScholarshipCheck" resultMap="scholarshipResultSet" parameterType="String">
@@ -61,4 +64,11 @@
 	<insert id="add" parameterType="Scholarship">
 		INSERT INTO SCHO_APPLY VALUES ('shcho1234', '신청', 2019, 2, '이청용', '컴퓨터학과', '남', '성적장학금', 'Y', SYSDATE, SYSDATE, #{studentNo})
 	</insert>
+	
+	<select id="beforeScholarApply" resultMap="scholarshipResultSet" parameterType="String">
+		SELECT *
+		FROM SCHO_APPLY
+		WHERE STUDENT_NO = #{studentNo}
+	</select>
+	
 </mapper>
