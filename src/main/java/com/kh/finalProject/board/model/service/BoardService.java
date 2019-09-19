@@ -14,6 +14,7 @@ import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.board.model.vo.SystemQuestion;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
+import com.kh.finalProject.board.model.vo.mainDate;
 
 public interface BoardService {
 
@@ -208,6 +209,10 @@ public interface BoardService {
 	ArrayList<Board> selectaNoticeInfo() throws BoardSelectListException;
 
 	int autoDeleteaNotice(ArrayList<Board> b);
+
+	ArrayList<Board> mainBoardList();
+
+	ArrayList<mainDate> mainDateList();
 
 
 

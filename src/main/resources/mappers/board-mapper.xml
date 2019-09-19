@@ -20,6 +20,16 @@
 		<result property="count" column="COUNT"/>
 	</resultMap>
 	
+	<resultMap type="com.kh.finalProject.board.model.vo.mainDate" id="DateListResultSet">
+		<id property="sYear" column="SYEAR"/>
+		<result property="sMonth" column="SMONTH"/>
+		<result property="sDate" column="SDATE"/>
+		<result property="eYear" column="EYEAR"/>
+		<result property="eMonth" column="EMONTH"/>
+		<result property="eDate" column="EDATE"/>		
+		<result property="title" column="TITLE"/>
+	</resultMap>
+	
 	<!-- 게시글 수 조회  -->
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -697,6 +707,23 @@
 		UPDATE SET STATUS ='N'
 		WHERE S.DEADLINE = #{sqlDate}
 	</update>
-	
-	
+	<select id="mainBoardList" resultMap="boardResultSet">
+		SELECT *
+		FROM (SELECT RANK() OVER (ORDER BY ENROLL_DATE DESC),B.BOARD_NO,B.MEMBER_ID,B.TITLE,B.CONTENT,B.WRITER,
+				TO_CHAR(B.ENROLL_DATE,'YYYY-MM-DD')AS ENROLL_DATE,B.STATUS,B.BOARD_TYPE,B.COUNT,ED.EDEPT_NAME AS WRITE_DEPT
+				FROM BOARD B
+		        JOIN EMPLOYEE E ON(B.MEMBER_ID = E.EMPLOYEE_NO)
+		        JOIN E_DEPARTMENT ED ON(E.EDEPT_CODE=ED.EDEPT_CODE)
+				WHERE BOARD_TYPE='일반공지'
+		        AND STATUS ='Y')
+		WHERE BOARD_NO  BETWEEN 1 AND 5	
+	</select>
+	<select id="mainDateList" resultMap="DateListResultSet">
+		SELECT B.TITLE,TO_CHAR(S.START_DATE,'YYYY')AS SYEAR,TO_CHAR(S.START_DATE,'MM')AS SMONTH,TO_CHAR(S.START_DATE,'DD')AS SDATE,
+		TO_CHAR(S.END_DATE,'YYYY') AS EYEAR,TO_CHAR(S.END_DATE,'MM')AS EMONTH,TO_CHAR(S.END_DATE,'DD') AS EDATE
+		FROM 
+		BOARD B
+		JOIN SCHOOLSCHEDULE S ON(B.BOARD_NO=S.BOARD_NO)
+		WHERE BOARD_TYPE='학사일정'
+	</select>
 </mapper>

@@ -13,6 +13,7 @@ import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.board.model.vo.SystemQuestion;
 import com.kh.finalProject.board.model.vo.UploadFile;
 import com.kh.finalProject.board.model.vo.Writer;
+import com.kh.finalProject.board.model.vo.mainDate;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -842,5 +843,17 @@ public class BoardDaoImpl implements BoardDao{
 		}
 		
 		return result;
+	}
+
+	@Override
+	public ArrayList<Board> mainBoardList(SqlSessionTemplate sqlSession) {
+		ArrayList<Board>list = (ArrayList) sqlSession.selectList("Board.mainBoardList");
+		return list;
+	}
+
+	@Override
+	public ArrayList<mainDate> mainDateList(SqlSessionTemplate sqlSession) {
+		ArrayList<mainDate> list = (ArrayList)sqlSession.selectList("Board.mainDateList");
+		return list;
 	}
 }
