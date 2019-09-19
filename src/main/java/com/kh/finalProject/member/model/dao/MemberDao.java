@@ -51,4 +51,8 @@ public interface MemberDao {
 
 	int updatingAccount(SqlSessionTemplate sqlSession, MemberAccount ma);
 
+	Member selectEncPwd(SqlSessionTemplate sqlSession, Member m);
+
+	int accountMember(SqlSessionTemplate sqlSession);
+
 }

@@ -49,4 +49,6 @@ public interface MemberService {
 	MemberAccount employeeMachart(MemberAccount ma);
 
 	int updatingAccount(MemberAccount ma);
+
+	int accountMember();
 }

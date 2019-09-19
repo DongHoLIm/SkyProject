@@ -18,10 +18,6 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Member loginCheck(SqlSessionTemplate sqlSession, Member m) throws loginException {		
 		Member loginUser =  sqlSession.selectOne("Member.loginCheck",m);
-		
-		if(loginUser==null) {
-			throw new loginException("해당아이디가 없습니다.");
-		}
 			
 		return loginUser;
 	}
@@ -139,6 +135,16 @@ public class MemberDaoImpl implements MemberDao {
 	public int updatingAccount(SqlSessionTemplate sqlSession, MemberAccount ma) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("MemberAccount.updatingAccount",ma);
+	}
+	@Override
+	public Member selectEncPwd(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.encPwdCheck", m);
+	}
+	@Override
+	public int accountMember(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.AccountCount");
 	}
 	
 }

@@ -183,7 +183,7 @@
 							$("#dateDetail tbody").append($tr);
 								for(var j= 0; j<date.length;j++){								
 									 if(Number (data.dateList[i].sDate) == Number(date.eq(j).text())){
-										date.eq(j).css({color:"red"}); 
+										date.eq(j).css({color:"cyon"}); 
 										date.eq(j).append($br);
 										date.eq(j).append(title);
 									} 
