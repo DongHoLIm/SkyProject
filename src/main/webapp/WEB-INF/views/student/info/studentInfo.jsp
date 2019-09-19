@@ -126,25 +126,42 @@ table.basicinfo {
                   </c:if>
                </tr>
             </table>
-
-            <h4 id="basic">졸업 사항</h4>
-
-            <table class="basicinfo">
-               <tr>
-                  <td class="td" width="20%">졸업 일자</td>
-                  <td width="30%">${stuInfo.graduatedDate }</td>
-                  <td class="td" width="20%">졸업 증서 번호</td>
-                  <td width="30%">${stuInfo.graduatedNo }</td>
-               </tr>
-               <tr>
-                  <td class="td">학위명</td>
-                  <td>${stuInfo.degreeName }</td>
-                  <td class="td">학위 등록 번호</td>
-                  <td>${stuInfo.graduatedNo }</td>
-               </tr>
-
-            </table>
-         
+			<c:if test="${empty expInfo}">
+	            <h4 id="basic">졸업 사항</h4>
+	
+	            <table class="basicinfo">
+	               <tr>
+	                  <td class="td" width="20%">졸업 일자</td>
+	                  <td width="30%">${stuInfo.graduatedDate }</td>
+	                  <td class="td" width="20%">졸업 증서 번호</td>
+	                  <td width="30%">${stuInfo.graduatedNo }</td>
+	               </tr>
+	               <tr>
+	                  <td class="td">학위명</td>
+	                  <td>${stuInfo.degreeName }</td>
+	                  <td class="td">학위 등록 번호</td>
+	                  <td>${stuInfo.graduatedNo }</td>
+	               </tr>
+	            </table>
+	        </c:if>
+	        <c:if test="${!empty expInfo}">
+	            <h4 id="basic">제적 정보</h4>
+	
+	            <table class="basicinfo">
+	               <tr>
+	                  <td class="td" width="20%">제적번호</td>
+	                  <td width="30%">${expInfo.explusionNo }</td>
+	                  <td class="td" width="20%">학번</td>
+	                  <td>${expInfo.studentNo }</td>
+	               </tr>
+	               <tr>
+	                  <td class="td" width="20%">제적사유</td>
+	                  <td width="30%">${expInfo.explusionReason }</td>
+	                  <td class="td" width="20%">제적일</td>
+	                  <td width="30%">${expInfo.explusionDate }</td>
+	               </tr>
+	            </table>
+	        </c:if>         
       </div>
       <div>
          <jsp:include page="../../common/menubar-student.jsp" />

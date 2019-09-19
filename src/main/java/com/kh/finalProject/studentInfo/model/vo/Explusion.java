@@ -11,11 +11,15 @@ public class Explusion implements java.io.Serializable{
 	private String sdeptName;
 	private int grade;
 	private String memberKName;
+	private String seStudentNo;
+	private String warnStudentNo;
+	private String osStudentNo;
 	
 	public Explusion() {}
-	
+
 	public Explusion(String explusionNo, String explusionDate, String explusionReason, String studentNo,
-			String collegeCode, String collegeName, String sdeptCode, String sdeptName, int grade, String memberKName) {
+			String collegeCode, String collegeName, String sdeptCode, String sdeptName, int grade, String memberKName,
+			String seStudentNo, String warnStudentNo, String osStudentNo) {
 		super();
 		this.explusionNo = explusionNo;
 		this.explusionDate = explusionDate;
@@ -27,6 +31,9 @@ public class Explusion implements java.io.Serializable{
 		this.sdeptName = sdeptName;
 		this.grade = grade;
 		this.memberKName = memberKName;
+		this.seStudentNo = seStudentNo;
+		this.warnStudentNo = warnStudentNo;
+		this.osStudentNo = osStudentNo;
 	}
 
 	public String getExplusionNo() {
@@ -109,14 +116,37 @@ public class Explusion implements java.io.Serializable{
 		this.memberKName = memberKName;
 	}
 
+	public String getSeStudentNo() {
+		return seStudentNo;
+	}
+
+	public void setSeStudentNo(String seStudentNo) {
+		this.seStudentNo = seStudentNo;
+	}
+
+	public String getWarnStudentNo() {
+		return warnStudentNo;
+	}
+
+	public void setWarnStudentNo(String warnStudentNo) {
+		this.warnStudentNo = warnStudentNo;
+	}
+
+	public String getOsStudentNo() {
+		return osStudentNo;
+	}
+
+	public void setOsStudentNo(String osStudentNo) {
+		this.osStudentNo = osStudentNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Explusion [explusionNo=" + explusionNo + ", explusionDate=" + explusionDate + ", explusionReason="
 				+ explusionReason + ", studentNo=" + studentNo + ", collegeCode=" + collegeCode + ", collegeName="
 				+ collegeName + ", sdeptCode=" + sdeptCode + ", sdeptName=" + sdeptName + ", grade=" + grade
-				+ ", memberKName=" + memberKName + "]";
-	}
-	
-	
+				+ ", memberKName=" + memberKName + ", seStudentNo=" + seStudentNo + ", warnStudentNo=" + warnStudentNo
+				+ ", osStudentNo=" + osStudentNo + "]";
+	}	
 	
 }

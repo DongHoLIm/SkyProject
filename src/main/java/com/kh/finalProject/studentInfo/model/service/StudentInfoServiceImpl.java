@@ -254,17 +254,62 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	public ArrayList<ChangeMajor> searchChangeMajor2(SearchCondition sc) {
 		return sd.searchChangeMajor2(sqlSession, sc);
 	}
-  
-  @Override
-  public ArrayList<Graduation> selectGraduationMajor() {
 
-    return sd.selectGraduationMajor(sqlSession);
-  }
+	@Override
+	public ArrayList<Graduation> selectGraduationMajor() {
 
-  @Override
-  public Graduation selectGraduationMaDetail(String code) {
+		return sd.selectGraduationMajor(sqlSession);
+	}
 
-    return sd.selectGraduationMaDetail(sqlSession,code);
-  }
+	@Override
+	public Graduation selectGraduationMaDetail(String code) {
+
+		return sd.selectGraduationMaDetail(sqlSession,code);
+	}
+
+	@Override
+	public int ExplusionListCount() {
+		return sd.ExplusionListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Explusion> ExplusionList(PageInfo pi) {
+		return sd.ExplusionList(sqlSession, pi);
+	}
+
+	@Override
+	public int ExplusionListCount2() {
+		return sd.ExplusionListCount2(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Explusion> ExplusionList2(PageInfo pi) {
+		return sd.ExplusionList2(sqlSession, pi);
+	}
+
+	@Override
+	public int ExplusionEnroll(Explusion exp) {
+		int result = sd.ExplusionEnroll(sqlSession, exp);
+		
+		if(result > 0) {
+			sd.ExplusionUpdateStudent(sqlSession, exp);
+		}
+		return result; 
+	}
+
+	@Override
+	public ArrayList<Explusion> searchExplusion(SearchCondition sc) {
+		return sd.searchExplusion(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Explusion> searchExplusion2(SearchCondition sc) {
+		return sd.searchExplusion2(sqlSession, sc);
+	}
+
+	@Override
+	public Explusion expInfo(String studentNo) {
+		return sd.expInfo(sqlSession,studentNo);
+	}
 }
 

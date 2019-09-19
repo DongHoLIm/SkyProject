@@ -95,4 +95,20 @@ public interface StudentInfoService {
 
 	Graduation selectGraduationMaDetail(String code);
 
+	int ExplusionListCount();
+
+	ArrayList<Explusion> ExplusionList(PageInfo pi);
+
+	int ExplusionListCount2();
+
+	ArrayList<Explusion> ExplusionList2(PageInfo pi);
+
+	int ExplusionEnroll(Explusion exp);
+
+	ArrayList<Explusion> searchExplusion(SearchCondition sc);
+
+	ArrayList<Explusion> searchExplusion2(SearchCondition sc);
+
+	Explusion expInfo(String studentNo);
+
 }

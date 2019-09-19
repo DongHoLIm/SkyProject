@@ -49,16 +49,21 @@ public class StudentInfoController {
 		// 학적 정보 조회에 전과정보 조회용 객체
 		ChangeMajor cmInfo = ss.cmInfo(userId);
 		
+		// 학적 정보 조회에 제적정보 조회용 객체
+		Explusion expInfo = ss.expInfo(userId);
+		
 		System.out.println("basicInfo :::: " + basicInfo);
 		System.out.println("stuInfo :::: " + stuInfo);
 		System.out.println("smInfo :::: " + smInfo);
 		System.out.println("cmInfo :::: " + cmInfo);
+		System.out.println("expInfo :::: " + expInfo);
 		
 		
 		request.setAttribute("basicInfo",basicInfo);
 		request.setAttribute("stuInfo",stuInfo);
 		request.setAttribute("smInfo", smInfo);
 		request.setAttribute("cmInfo", cmInfo);
+		request.setAttribute("expInfo", expInfo);
 		
 		return "student/info/studentInfo";
 	}
@@ -879,11 +884,133 @@ public class StudentInfoController {
 	// 교직원_전과 신청 관리_ajax 리스트 출력
 	@RequestMapping("em_ExplusionList.si")
 	public ModelAndView em_ExplusionList(ModelAndView mv, HttpServletRequest request){
-		
+		int currentPage = 1;
+		int listCount = 0;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		listCount = ss.ExplusionListCount();
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+		ArrayList<Explusion> list = ss.ExplusionList(pi);		
+
+		System.out.println("ExplusionList list :::: " + list);
+		System.out.println("ExplusionList pi :::: " + pi);
+
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
 		mv.setViewName("jsonView");
 
 		return mv;
+	}
+	
+	@RequestMapping("em_ExplusionList2.si")
+	public ModelAndView em_ExplusionList2(ModelAndView mv, HttpServletRequest request) {
+		int currentPage = 1;
+		int listCount = 0;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+
+		listCount = ss.ExplusionListCount2();
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+		ArrayList<Explusion> list = ss.ExplusionList2(pi);		
+
+		System.out.println("ExplusionList list :::: " + list);
+		System.out.println("ExplusionList pi :::: " + pi);
+
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}	
+	
+	// 교직원_전과 신청 관리_ajax 전과 처리
+	@RequestMapping("em_ExplusionEnroll.si")
+	public ModelAndView em_ExplusionEnroll(ModelAndView mv, Explusion exp, HttpServletRequest request) {	
+		
+		System.out.println("ExplusionEnroll exp :::: " + exp);
+
+		ss.ExplusionEnroll(exp);		
+
+		mv.setViewName("jsonView");	
+
+		return mv;
+	}
+	
+	// 교직원_전과 신청 검색_ajax 검색
+	@RequestMapping("searchExplusion.si")
+	public ModelAndView searchExplusion(ModelAndView mv, String searchCondition, String searchValue, HttpServletRequest request) {
+
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+
+		SearchCondition sc = new SearchCondition();
+
+		if(searchCondition.equals("memberKName")) {
+			sc.setMemberKName(searchValue);
+		}
+		if(searchCondition.equals("sdeptName")) {
+			sc.setSdeptName(searchValue);
+		}
+
+		ArrayList<Explusion> list = ss.searchExplusion(sc);
+
+		mv.addObject("list", list);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+
+	// 교직원_전과 처리 완료_ajax 검색
+	@RequestMapping("searchExplusion2.si")
+	public ModelAndView searchExplusion2(ModelAndView mv, String searchCondition, String searchValue, HttpServletRequest request) {
+
+		System.out.println("searchCondition :::: " + searchCondition);
+		System.out.println("searchValue :::: " + searchValue);
+
+		SearchCondition sc = new SearchCondition();
+
+		if(searchCondition.equals("memberKName")) {
+			sc.setMemberKName(searchValue);
+		}
+		if(searchCondition.equals("sdeptName")) {
+			sc.setSdeptName(searchValue);
+		}
+
+		ArrayList<Explusion> list = ss.searchExplusion2(sc);
+
+		mv.addObject("list", list);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	
+	// 학생_자퇴 신청_뷰 출력
+	@RequestMapping("st_showDropOut.si")
+	public String st_showDropOut(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser){
+		
+		String userId = loginUser.getMemberId();
+		System.out.println(userId);
+		
+		StudentInfo basicInfo = ss.basicInfo(userId);
+		StudentInfo stuInfo = ss.stuInfo(userId);		
+		
+		System.out.println(basicInfo);
+		System.out.println(stuInfo);
+		
+		request.setAttribute("basicInfo",basicInfo);
+		request.setAttribute("stuInfo",stuInfo);
+
+		return "student/info/dropOut";
+	}
 	
 }
 

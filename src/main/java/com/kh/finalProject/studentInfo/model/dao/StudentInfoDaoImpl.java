@@ -11,6 +11,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
@@ -393,16 +394,83 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	}
 
 
-@Override
-public ArrayList<Graduation> selectGraduationMajor(SqlSessionTemplate sqlSession) {
+	@Override
+	public ArrayList<Graduation> selectGraduationMajor(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("Graduation.selectGraduationMajor");
+	}
 	
-	return (ArrayList)sqlSession.selectList("Graduation.selectGraduationMajor");
-}
+	@Override
+	public Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code) {
+		
+		return sqlSession.selectOne("Graduation.selectGraduationMaDetail", code);
+	}
+	
+	@Override
+	public int ExplusionListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Explusion.ExplusionListCount");
+	}
+	
+	@Override
+	public ArrayList<Explusion> ExplusionList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Explusion> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Explusion.ExplusionList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
+	}
 
-@Override
-public Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code) {
-	
-	return sqlSession.selectOne("Graduation.selectGraduationMaDetail", code);
-}
+	@Override
+	public int ExplusionListCount2(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Explusion.ExplusionListCount2");
+	}
+
+	@Override
+	public ArrayList<Explusion> ExplusionList2(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Explusion> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Explusion.ExplusionList2", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
+	}
+
+	@Override
+	public int ExplusionEnroll(SqlSessionTemplate sqlSession, Explusion exp) {
+		return sqlSession.insert("Explusion.ExplusionEnroll", exp);
+	}
+
+	@Override
+	public ArrayList<Explusion> searchExplusion(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return (ArrayList) sqlSession.selectList("Explusion.searchExplusion", sc);
+	}
+
+	@Override
+	public ArrayList<Explusion> searchExplusion2(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return (ArrayList) sqlSession.selectList("Explusion.searchExplusion2", sc);
+	}
+
+	@Override
+	public int ExplusionUpdateStudent(SqlSessionTemplate sqlSession, Explusion exp) {
+		return sqlSession.update("Explusion.ExplusionUpdateStudent", exp);
+	}
+
+	@Override
+	public Explusion expInfo(SqlSessionTemplate sqlSession, String studentNo) {
+		return sqlSession.selectOne("Explusion.expInfo", studentNo);
+	}
 
 }
