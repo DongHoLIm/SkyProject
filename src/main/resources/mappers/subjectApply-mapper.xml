@@ -23,8 +23,8 @@
 	</insert>
 	<delete id="deleteCourseApply">
 	    DELETE FROM SUBJECT_APPLY 
-		WHERE STUDENT_NO = #{studentNo}
+		WHERE STUDENT_NO = #{studentNo} 
 		AND OPENSUB_CODE = #{openSubCode}
 		AND APPLY_TYPE = '예비'
     </delete>
-</mapper>
+</mapper> 

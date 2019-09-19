@@ -40,3 +40,4 @@ public interface ClassDao {
 	void deleteCourseApply(SqlSessionTemplate sqlSession, SubjectApply sa, String[] subCode);
 
 }
+ 

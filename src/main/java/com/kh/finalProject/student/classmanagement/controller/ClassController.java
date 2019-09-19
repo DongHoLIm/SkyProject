@@ -77,7 +77,7 @@ public class ClassController {
 		request.setAttribute("osList", osList);
 		request.setAttribute("list2", list2);
 		
-		return "student/class/courseApply";
+		return "student/class/courseApply"; 
 	}
 
 	@RequestMapping(value="goSubject.st")

@@ -20,7 +20,7 @@ public class Sdepartment implements java.io.Serializable{
 
 	public void setSdeptCode(String sdeptCode) {
 		this.sdeptCode = sdeptCode;
-	}
+	} 
 
 	public String getSdeptName() {
 		return sdeptName;

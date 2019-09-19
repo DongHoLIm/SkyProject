@@ -135,7 +135,7 @@ public class ClassDaoImpl implements ClassDao{
 		list = (ArrayList) sqlSession.selectList("courseRegistration.prliminarySdeptSelect", os);
 
 		return list;
-	}
+	} 
 
 	@Override
 	public void deleteCourseApply(SqlSessionTemplate sqlSession, SubjectApply sa, String[] subCode) {

@@ -414,7 +414,7 @@ table.tableList2 td img {
 						<span> &nbsp;&nbsp;&nbsp;<b>카테고리</b> : 
 							<select
 								name="category" id="category" onchange="change_cate()"
-								style="background-color: #FFD9EC;">
+								style="background-color: #FFD9EC;"> 
 									<option value="0">학과 조회</option>
 									<option value="1">과목 검색</option>
 									<option value="2">교수 검색</option>

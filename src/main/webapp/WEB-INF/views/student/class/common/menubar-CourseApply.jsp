@@ -28,7 +28,7 @@
 }
 
 #menu ul li {
-	float: left;
+	float: left; 
 	list-style: none;
 	padding: 0 0px;
 }

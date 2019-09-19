@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	<style>
-body {
+<
+style>body {
 	font-family: 돋움;
 	font: 12px "Trebuchet MS", sans-serif;
 }
@@ -17,7 +17,8 @@ body {
 	<div id="menu" class="menu">
 		<jsp:include page="common/menubar-CourseApply.jsp" />
 	</div>
-	<br><br>
+	<br>
+	<br>
 	<table width="95%" border="0" cellspacing="0" cellpadding="0"
 		align="center">
 		<tbody>

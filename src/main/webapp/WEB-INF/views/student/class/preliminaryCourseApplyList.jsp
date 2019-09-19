@@ -144,7 +144,7 @@ table.tableList2 td img {
 					<span class="delete" onclick="deleteSubjectApply();" style="background:skyblue;"> 삭 제 </span>
 				</td>
 			</tr>
-		</tbody>
+		</tbody> 
 	</table>
 	<table class="tableList2" style="width: 100%">
 		<thead>	

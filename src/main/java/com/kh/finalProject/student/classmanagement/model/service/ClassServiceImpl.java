@@ -116,7 +116,7 @@ public class ClassServiceImpl implements ClassService{
 	}
 
 
-
+ 
 	@Override
 	public void deleteCourseApply(String[] subCode, SubjectApply sa) {
 		 cd.deleteCourseApply(sqlSession, sa, subCode);
