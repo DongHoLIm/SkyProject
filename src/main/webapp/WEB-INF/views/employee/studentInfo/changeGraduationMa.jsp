@@ -12,6 +12,7 @@
  <link rel="stylesheet" href="resources/css/main.css" />
 <link href="https://fonts.googleapis.com/css?family=Karla&display=swap"
    rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
 #basic {
@@ -82,7 +83,7 @@ table.basicinfo {
             <br><br>
             <div style="text-align:center">
             <button onclick="changeInfo();">수정</button>
-            <button onclick="self.close();">취소</button>
+            <button onclick="self.close();">닫기</button>
             </div>
          <br><br><br><br><br>
       </div>
@@ -90,12 +91,27 @@ table.basicinfo {
       <script>
       	function changeInfo(){
       		
-      		var code = $("#id").text();
-      		var content = $("#content").text();
+      		var code = $("#code").text();
+      		var content = $("#content").val();
       		
       		console.log(code);
       		console.log(content);
       		
+      		$.ajax({
+      			url:"em_changeGraduationMa.si",
+      			type:"post",
+      			data:{code:code,
+      				  content:content},
+      			success:function(data){
+      				console.log("접속성공");
+      				
+      				document.location.reload();
+      				alert("수정 완료");
+      				opener.parent.location.reload();
+      				//window.self.close();
+      			}
+      			
+      		})
       		
       	}
       

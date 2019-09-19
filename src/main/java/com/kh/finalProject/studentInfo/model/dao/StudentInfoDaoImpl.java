@@ -393,16 +393,30 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	}
 
 
-@Override
-public ArrayList<Graduation> selectGraduationMajor(SqlSessionTemplate sqlSession) {
+	@Override
+	public ArrayList<Graduation> selectGraduationMajor(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("Graduation.selectGraduationMajor");
+	}
 	
-	return (ArrayList)sqlSession.selectList("Graduation.selectGraduationMajor");
-}
+	@Override
+	public Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code) {
+		
+		return sqlSession.selectOne("Graduation.selectGraduationMaDetail", code);
+	}
+	
+	@Override
+	public int updateGraduationSc(SqlSessionTemplate sqlSession, Graduation gd) {
+		
+		return sqlSession.update("Graduation.updateGraduationSc", gd);
+	}
 
-@Override
-public Graduation selectGraduationMaDetail(SqlSessionTemplate sqlSession, String code) {
+	@Override
+	public int updateGraduationMa(SqlSessionTemplate sqlSession, Graduation gd) {
+		
+		return sqlSession.update("Graduation.updateGraduationMa", gd);
+	}
 	
-	return sqlSession.selectOne("Graduation.selectGraduationMaDetail", code);
-}
+
 
 }

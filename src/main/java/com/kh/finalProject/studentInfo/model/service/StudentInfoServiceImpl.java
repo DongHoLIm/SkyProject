@@ -266,5 +266,21 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 
     return sd.selectGraduationMaDetail(sqlSession,code);
   }
+
+@Override
+public int updateGraduationSc(Graduation gd) {
+	
+	return sd.updateGraduationSc(sqlSession,gd);
+}
+
+@Override
+public int updateGraduationMa(Graduation gd) {
+	
+	return sd.updateGraduationMa(sqlSession, gd);
+}
+  
+  
+
+
 }
 

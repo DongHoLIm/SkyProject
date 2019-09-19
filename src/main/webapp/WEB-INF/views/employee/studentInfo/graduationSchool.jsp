@@ -73,7 +73,7 @@
 					
 					console.log(code);
 					
-					window.open("em_changeGraduationSc.si?code="+code,'changSc' ,"height=550, width=900");
+					window.open("em_selectGraduationSc.si?code="+code,'changSc' ,"height=550, width=900");
 
 				});
 			});

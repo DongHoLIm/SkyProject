@@ -434,7 +434,7 @@ public class StudentInfoController {
 	}
 	
 	//교직원_졸업관리_교내인증 상세보기
-	@RequestMapping(value="em_changeGraduationSc.si")
+	@RequestMapping(value="em_selectGraduationSc.si")
 	public String graSchoolChange(HttpServletRequest request) {
 		
 		String code = request.getParameter("code");
@@ -454,6 +454,36 @@ public class StudentInfoController {
 		
 		return "employee/studentInfo/changeGraduationSc";
 	}
+	
+	//교직원_졸업관리_교내인증 수정하기
+	@RequestMapping(value="em_changeGraduationSc.si")
+	public ModelAndView changeGraduationSc(ModelAndView mv, HttpServletRequest request) {
+		
+		String code = request.getParameter("code");
+		String content = request.getParameter("content");
+		
+		System.out.println("code::" + code);
+		System.out.println("content::" + content);
+		
+		Graduation gd = new Graduation();
+		
+		gd.setGraduationCode(code);
+		gd.setGraduationContent(content);
+		
+		System.out.println("수정내용::"+gd);
+		
+		int result = ss.updateGraduationSc(gd);
+		
+		if(result>0) {
+			mv.addObject("gd", gd);
+			mv.setViewName("jsonView");
+		}else {
+			mv.setViewName("jsonView");
+		}
+		
+		return mv;
+	}
+	
 	
 	//교직원_졸업인증관리_학과인증
 	@RequestMapping(value="em_graduationMajor.si")
@@ -480,7 +510,7 @@ public class StudentInfoController {
 	}
 	
 	//교직원_졸업관리_학과인증 상세보기
-	@RequestMapping(value="em_changeGraduationMa.si")
+	@RequestMapping(value="em_selectGraduationMa.si")
 	public String graMajorChange(HttpServletRequest request) {
 		
 		String code = request.getParameter("code");
@@ -501,6 +531,48 @@ public class StudentInfoController {
 		return "employee/studentInfo/changeGraduationMa";
 	}
 	
+	//교직원_졸업관리_학과인증 수정하기
+	@RequestMapping(value="em_changeGraduationMa.si")
+	public ModelAndView changeGraduationMa(ModelAndView mv, HttpServletRequest request) {
+			
+		String code = request.getParameter("code");
+		String content = request.getParameter("content");
+			
+		System.out.println("code::" + code);
+		System.out.println("content::" + content);
+			
+		Graduation gd = new Graduation();
+			
+		gd.setGraduationCode(code);
+		gd.setGraduationContent(content);
+			
+		System.out.println("수정내용::"+gd);
+			
+		int result = ss.updateGraduationMa(gd);
+			
+		if(result>0) {
+			mv.addObject("gd", gd);
+			mv.setViewName("jsonView");
+		}else {
+			mv.setViewName("jsonView");
+		}
+			
+		return mv;
+	}
+	
+	//학생_휴학신청 관리
+	@RequestMapping("st_schoolOff.si")
+	public String schoolOnOff(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
+			
+		String userId = loginUser.getMemberId();
+		System.out.println(userId);
+		
+		StudentInfo basicInfo = ss.basicInfo(userId);
+		request.setAttribute("basicInfo",basicInfo);
+		
+		return "student/info/schoolOff";
+	}
+		
 
   
 	// 학생_다전공신청_뷰 출력
@@ -546,6 +618,7 @@ public class StudentInfoController {
 		
 		return mv;
 	}
+	
 
 	// 교직원_다전공 신청 관리_뷰 출력
 	@RequestMapping("em_showSecondMajor.si")
