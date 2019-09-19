@@ -13,33 +13,33 @@ import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 @Repository
 public class ClassDaoImpl implements ClassDao{
 
-	
+
 	@Override
 	public ArrayList<Sdepartment> selectSdept(SqlSessionTemplate sqlSession) {
 		ArrayList<Sdepartment> sdList = null;
-		
+
 		sdList = (ArrayList) sqlSession.selectList("Sdepartment.selectSdept");
-		
+
 		return sdList;
 	}
 
 	@Override
 	public ArrayList<OpenSubject> selectOpenSubject(SqlSessionTemplate sqlSession) {
 		ArrayList<OpenSubject> osList = null;
-		
+
 		osList = (ArrayList) sqlSession.selectList("courseRegistration.selectOpenSubject");
-		
+
 		return osList;
 	}
 
 	@Override
 	public ArrayList<OpenSubject> selectSubject(SqlSessionTemplate sqlSession, OpenSubject os) {
 		ArrayList<OpenSubject> osList = null;
-		
+
 		if(os.getCompleteType().equals("ALL")) {
 			osList = (ArrayList) sqlSession.selectList("courseRegistration.selectSubject1", os);
 		}else {
-		
+
 			osList= (ArrayList) sqlSession.selectList("courseRegistration.selectSubject2", os);		
 		}
 		return osList;
@@ -48,8 +48,8 @@ public class ClassDaoImpl implements ClassDao{
 	@Override
 	public ArrayList<OpenSubject> selectOpenSubject(SqlSessionTemplate sqlSession, OpenSubject os) {
 		ArrayList<OpenSubject> list = null;
-		
-		
+
+
 		list = (ArrayList) sqlSession.selectList("courseRegistration.studentSelectOpenSubject", os);
 
 		return list;
@@ -58,9 +58,9 @@ public class ClassDaoImpl implements ClassDao{
 	@Override
 	public ArrayList<OpenSubject> selectSearchgwamok(SqlSessionTemplate sqlSession, String gwamok) {
 		ArrayList<OpenSubject> list = null;
-		
+
 		list = (ArrayList) sqlSession.selectList("courseRegistration.selectSearchGwamok", gwamok);
-		
+
 		System.out.println(list);
 		return list;
 	}
@@ -68,30 +68,30 @@ public class ClassDaoImpl implements ClassDao{
 	@Override
 	public ArrayList<OpenSubject> selectProfessor(SqlSessionTemplate sqlSession, String professor) {
 		ArrayList<OpenSubject> list2 = null;
-		
+
 		list2 = (ArrayList) sqlSession.selectList("courseRegistration.selectSearchProfessor", professor);
-		
+
 		return list2;
 	}
 
 	@Override
 	public ArrayList<OpenSubject> seletProGwamok(SqlSessionTemplate sqlSession, OpenSubject os) {
 		ArrayList<OpenSubject> list = null;
-		
+
 		list = (ArrayList) sqlSession.selectList("courseRegistration.selectProGwamok", os);
-		
+
 		return list;
 	}
 
 	@Override
 	public ArrayList<SubjectApply> selectMySugang(SqlSessionTemplate sqlSession, SubjectApply sa) {
 		ArrayList<SubjectApply> list = null;
-		
+
 		list = (ArrayList) sqlSession.selectList("subjectApply.selectMySugang", sa);
-		
+
 		return list;
 	}
-	
+
 	@Override
 	public void insertCourseApply(SqlSessionTemplate sqlSession, String[] subCode, SubjectApply sa) {		
 		for(int i=0; i<subCode.length;i++) {
@@ -105,11 +105,44 @@ public class ClassDaoImpl implements ClassDao{
 		ArrayList<OpenSubject> list2 = null;
 		OpenSubject os = new OpenSubject();
 		os.setStudentNo(sa.getStudentNo());
-		
+
 		list2 = (ArrayList) sqlSession.selectList("courseRegistration.selectPreliminaryCourseApplyList", os);
-		
+
 		return list2;
 	}
 
+	@Override
+	public ArrayList<OpenSubject> prliminaryGwamokSelect(SqlSessionTemplate sqlSession, OpenSubject os) {
+		ArrayList<OpenSubject> list = null;
 
+		list = (ArrayList) sqlSession.selectList("courseRegistration.prliminaryGwamokSelect", os);
+
+		return list;
+	}
+
+	@Override
+	public ArrayList<OpenSubject> prliminaryProfessorSelect(SqlSessionTemplate sqlSession, OpenSubject os) {
+		ArrayList<OpenSubject> list = null;
+
+		list = (ArrayList) sqlSession.selectList("courseRegistration.prliminaryProfessorSelect", os);
+
+		return list;
+	}
+	@Override
+	public ArrayList<OpenSubject> prliminaryCompleteSelect(SqlSessionTemplate sqlSession, OpenSubject os) {
+		ArrayList<OpenSubject> list = null;
+
+		list = (ArrayList) sqlSession.selectList("courseRegistration.prliminarySdeptSelect", os);
+
+		return list;
+	} 
+
+	@Override
+	public void deleteCourseApply(SqlSessionTemplate sqlSession, SubjectApply sa, String[] subCode) {
+		
+		for(int i=0; i<subCode.length;i++) {
+			sa.setOpenSubCode(subCode[i]);
+			sqlSession.delete("subjectApply.deleteCourseApply", sa);
+		}
+	}
 }

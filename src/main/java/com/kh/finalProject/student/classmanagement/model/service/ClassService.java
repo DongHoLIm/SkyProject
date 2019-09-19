@@ -17,7 +17,7 @@ public interface ClassService {
 	ArrayList<OpenSubject> selectOpenSubject(OpenSubject os);
 
 	ArrayList<OpenSubject> selectSearchgwamok(String gwamok);
-
+ 
 	ArrayList<OpenSubject> selectProfessor(String professor);
 
 	ArrayList<OpenSubject> selectProGwamok(OpenSubject os);
@@ -27,5 +27,13 @@ public interface ClassService {
 	ArrayList<SubjectApply> selectMySugang(SubjectApply sa);
 
 	ArrayList<OpenSubject> selectPreliminaryCourseApplyList(SubjectApply sa);
+
+	ArrayList<OpenSubject> prliminaryGwamokSelect(OpenSubject os);
+
+	ArrayList<OpenSubject> prliminaryProfessorSelect(OpenSubject os);
+
+	ArrayList<OpenSubject> prliminaryCompleteSelect(OpenSubject os);
+
+	void deleteCourseApply(String[] subCode, SubjectApply sa);
 
 }

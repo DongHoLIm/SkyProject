@@ -53,18 +53,31 @@ public class ClassController {
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
 		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
-		
+
 		ArrayList<OpenSubject> list2 = cs.selectPreliminaryCourseApplyList(sa);
-		
+
 		request.setAttribute("list2", list2);
-		
+
 		return "student/class/preliminaryCourseApplyList";
 	}
 	//수강신청
 	@RequestMapping(value="goCourseApply.st")
-	public String goCourseApply(@ModelAttribute("loginUser") Member loginUser) {
+	public String goCourseApply(@ModelAttribute("loginUser") Member loginUser, HttpServletRequest request) {
+		//조회
+		ArrayList<Sdepartment> sdList = cs.selectSdept();
+		ArrayList<OpenSubject> osList = cs.selectOpenSubject();
+		//예비수강신청
+		SubjectApply sa = new SubjectApply();
+		sa.setStudentNo(loginUser.getMemberId());
+		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
 
-		return "student/class/courseApply";
+		ArrayList<OpenSubject> list2 = cs.selectPreliminaryCourseApplyList(sa);
+
+		request.setAttribute("sdList", sdList);
+		request.setAttribute("osList", osList);
+		request.setAttribute("list2", list2);
+		
+		return "student/class/courseApply"; 
 	}
 
 	@RequestMapping(value="goSubject.st")
@@ -166,6 +179,67 @@ public class ClassController {
 			String no = "no";
 			mv.addObject("check", no);
 		}
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	@RequestMapping(value="prliminaryGwamokSearch.st")
+	public ModelAndView prliminaryGwamokSelect(String subName, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
+		
+		
+		OpenSubject os = new OpenSubject();
+		os.setStudentNo(loginUser.getMemberId());
+		os.setSubName(subName);
+		
+		ArrayList<OpenSubject> list = cs.prliminaryGwamokSelect(os);
+		
+		
+		mv.addObject("list", list);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	@RequestMapping(value="prliminaryProfessorSearch.st")
+	public ModelAndView prliminaryProfessorSelect(String professor, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
+		
+		
+		OpenSubject os = new OpenSubject();
+		os.setStudentNo(loginUser.getMemberId());
+		os.setProfessorName(professor);
+		
+		ArrayList<OpenSubject> list = cs.prliminaryProfessorSelect(os);
+		
+		
+		mv.addObject("list", list);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	@RequestMapping(value="prliminaryCompleteSearch.st")
+	public ModelAndView prliminaryCompleteSelect(String complete, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
+		
+		
+		OpenSubject os = new OpenSubject();
+		os.setStudentNo(loginUser.getMemberId());
+		os.setCompleteType(complete);
+		
+		ArrayList<OpenSubject> list = cs.prliminaryCompleteSelect(os);
+		
+		
+		mv.addObject("list", list);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	@RequestMapping(value="deletePreliminaryCourseRegistration.st")
+	public ModelAndView deleteCourseApply(@RequestParam(value="subCode[]") String[] subCode, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
+
+		SubjectApply sa = new SubjectApply();
+		sa.setStudentNo(loginUser.getMemberId());
+		
+		cs.deleteCourseApply(subCode, sa);
+		
+		mv.addObject("");
 		mv.setViewName("jsonView");
 
 		return mv;
