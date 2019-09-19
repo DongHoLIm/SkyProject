@@ -26,4 +26,6 @@ public interface ClassService {
 
 	ArrayList<SubjectApply> selectMySugang(SubjectApply sa);
 
+	ArrayList<OpenSubject> selectPreliminaryCourseApplyList(SubjectApply sa);
+
 }

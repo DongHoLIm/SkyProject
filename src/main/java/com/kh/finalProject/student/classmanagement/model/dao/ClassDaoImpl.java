@@ -2,6 +2,7 @@ package com.kh.finalProject.student.classmanagement.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -95,10 +96,19 @@ public class ClassDaoImpl implements ClassDao{
 	public void insertCourseApply(SqlSessionTemplate sqlSession, String[] subCode, SubjectApply sa) {		
 		for(int i=0; i<subCode.length;i++) {
 			sa.setOpenSubCode(subCode[i]);
-			System.out.println(sa.getOpenSubCode());
-			
 			sqlSession.insert("subjectApply.insertCourseApply", sa);
 		}
+	}
+
+	@Override
+	public ArrayList<OpenSubject> selectPreliminaryCourseApplyList(SqlSessionTemplate sqlSession, SubjectApply sa) {
+		ArrayList<OpenSubject> list2 = null;
+		OpenSubject os = new OpenSubject();
+		os.setStudentNo(sa.getStudentNo());
+		
+		list2 = (ArrayList) sqlSession.selectList("courseRegistration.selectPreliminaryCourseApplyList", os);
+		
+		return list2;
 	}
 
 

@@ -271,14 +271,19 @@
 		});
 		var subCode = subCodeArr.split(',');
 		subCode.pop();
-		console.log(subCode);
+		
 		
 		$.ajax({
 			url:"insertPreliminaryCourseRegistration.st",
 			type:"post",
 			data:{subCode:subCode},
-			success:function(data){			
-				alert('예비 수강신청이 등록되었습니다.');
+			success:function(data){
+				var key = data.modelAndView.modelMap;
+				if(key.check == 'no'){
+					alert('이미 신청한 과목이 있습니다.');
+				}else{
+					alert('수강 신청이 완료되었습니다.');
+				}
 			},
 			error:function(err){
 				console.log("실패!");
@@ -454,13 +459,13 @@ table.tableList2 td img {
 <body>
 	<div id="menu" class="menu">
 		<ul>
-			<li style="width: 23.0%; text-align: center;" class=""><a
+			<li style="width: 25.0%; text-align: center;" class=""><a
 				href="goNotice.st">공지사항</a></li>
-			<li style="width: 23.0%; text-align: center;" class="active"><a
+			<li style="width: 25.0%; text-align: center;" class="active"><a
 				href="goCourseInquiry.st">교과목조회</a></li>
-			<li style="width: 23.0%; text-align: center;" class=""><a
+			<li style="width: 25.0%; text-align: center;" class=""><a
 				href="goPreliminaryCourse.st">예비수강신청목록</a></li>
-			<li style="width: 23.0%; text-align: center;" class=""><a
+			<li style="width: 25.0%; text-align: center;" class=""><a
 				href="goCourseApply.st">수강신청</a></li>
 		</ul>
 	</div>

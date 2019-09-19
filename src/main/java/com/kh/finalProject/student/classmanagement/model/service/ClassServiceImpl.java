@@ -84,4 +84,12 @@ public class ClassServiceImpl implements ClassService{
 		return cd.selectMySugang(sqlSession, sa);
 	}
 
+
+
+	@Override
+	public ArrayList<OpenSubject> selectPreliminaryCourseApplyList(SubjectApply sa) {
+
+		return cd.selectPreliminaryCourseApplyList(sqlSession, sa);
+	}
+
 }

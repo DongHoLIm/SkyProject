@@ -29,4 +29,6 @@ public interface ClassDao {
 
 	ArrayList<SubjectApply> selectMySugang(SqlSessionTemplate sqlSession, SubjectApply sa);
 
+	ArrayList<OpenSubject> selectPreliminaryCourseApplyList(SqlSessionTemplate sqlSession, SubjectApply sa);
+
 }

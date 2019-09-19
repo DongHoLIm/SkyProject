@@ -19,6 +19,7 @@
 		<result property="dayInfo" column="DAY_INFO" />
 		<result property="timeInfo" column="TIME_INFO" />
 		<result property="enrolType" column="ENROL_TYPE" />
+		<result property="studentNo" column="STUDENT_NO" />
 	</resultMap>
 
 
@@ -96,5 +97,18 @@
 		FROM OPEN_SUBJECT
 		JOIN SUBJECT ON(OPENSUB_CODE = SUB_CODE)
 		WHERE PROFESSOR_NO = #{professorNo}
+    </select>
+    <select id="selectPreliminaryCourseApplyList" resultMap="courseRegistrationResultSet">
+		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
+		SUB_GRADE,
+		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
+		FROM SUBJECT_APPLY SA
+        JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
+		JOIN SUBJECT S ON(OS.OPENSUB_CODE = S.SUB_CODE)
+		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
+		JOIN MEMBER M ON(OS.PROFESSOR_NO = M.MEMBER_ID)
+		JOIN ROOM R ON(OS.ROOM_CODE = R.ROOM_CODE)
+		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
+        WHERE STUDENT_NO = #{studentNo}
     </select>
 </mapper>

@@ -14,12 +14,13 @@ public class OpenSubject implements java.io.Serializable{
 	private String dayInfo;
 	private String timeInfo;
 	private int enrolType;
+	private String studentNo;
 	
 	public OpenSubject() {}
 
 	public OpenSubject(String openSubCode, String subName, String sdeptName, String professorName, String professorNo,
 			int subGrade, String completeType, int studentMax, String roomName, String buildingName, String dayInfo,
-			String timeInfo, int enrolType) {
+			String timeInfo, int enrolType, String studentNo) {
 		super();
 		this.openSubCode = openSubCode;
 		this.subName = subName;
@@ -34,6 +35,7 @@ public class OpenSubject implements java.io.Serializable{
 		this.dayInfo = dayInfo;
 		this.timeInfo = timeInfo;
 		this.enrolType = enrolType;
+		this.studentNo = studentNo;
 	}
 
 	public String getOpenSubCode() {
@@ -140,15 +142,21 @@ public class OpenSubject implements java.io.Serializable{
 		this.enrolType = enrolType;
 	}
 
+	public String getStudentNo() {
+		return studentNo;
+	}
+
+	public void setStudentNo(String studentNo) {
+		this.studentNo = studentNo;
+	}
+
 	@Override
 	public String toString() {
 		return "OpenSubject [openSubCode=" + openSubCode + ", subName=" + subName + ", sdeptName=" + sdeptName
 				+ ", professorName=" + professorName + ", professorNo=" + professorNo + ", subGrade=" + subGrade
 				+ ", completeType=" + completeType + ", studentMax=" + studentMax + ", roomName=" + roomName
 				+ ", buildingName=" + buildingName + ", dayInfo=" + dayInfo + ", timeInfo=" + timeInfo + ", enrolType="
-				+ enrolType + "]";
+				+ enrolType + ", studentNo=" + studentNo + "]";
 	}
 
-	
-	
 }

@@ -65,13 +65,13 @@
 <body>
 	<div id="menu" class="menu">
 		<ul>
-			<li style="width: 23.0%; text-align: center;" class=""><a
+			<li style="width: 25.0%; text-align: center;" class=""><a
 				href="goNotice.st">공지사항</a></li>
-			<li style="width: 23.0%; text-align: center;" class=""><a
+			<li style="width: 25.0%; text-align: center;" class=""><a
 				href="goCourseInquiry.st">교과목조회</a></li>
-			<li style="width: 23.0%; text-align: center;" class=""><a
+			<li style="width: 25.0%; text-align: center;" class=""><a
 				href="goPreliminaryCourse.st">예비수강신청목록</a></li>
-			<li style="width: 23.0%; text-align: center;" class="active"><a
+			<li style="width: 25.0%; text-align: center;" class="active"><a
 				href="goCourseApply.st">수강신청</a></li>
 		</ul>
 	</div>

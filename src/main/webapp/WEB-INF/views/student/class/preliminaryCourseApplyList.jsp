@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -168,13 +170,13 @@ table.tableList2 td img {
 <body>
 	<div id="menu" class="menu">
 		<ul>
-			<li style="width: 23.0%; text-align: center;" class=""><a
+			<li style="width: 25.0%; text-align: center;" class=""><a
 				href="goNotice.st">공지사항</a></li>
-			<li style="width: 23.0%; text-align: center;" class=""><a
+			<li style="width: 25.0%; text-align: center;" class=""><a
 				href="goCourseInquiry.st">교과목조회</a></li>
-			<li style="width: 23.0%; text-align: center;" class="active"><a
+			<li style="width: 25.0%; text-align: center;" class="active"><a
 				href="goPreliminaryCourse.st">예비수강신청목록</a></li>
-			<li style="width: 23.0%; text-align: center;" class=""><a
+			<li style="width: 25.0%; text-align: center;" class=""><a
 				href="goCourseApply.st">수강신청</a></li>
 		</ul>
 	</div>
@@ -215,26 +217,42 @@ table.tableList2 td img {
 		</tbody>
 	</table>
 	<table class="tableList2" style="width: 100%">
-		<tbody>
+		<thead>	
 			<tr>
-				<th width="35"><input type="checkbox" class="Allcheck"></th>
-				<th width="35">No</th>
-				<th width="45">학년</th>
-				<th width="60">이수구분</th>
-				<th width="80">학수번호</th>
-				<th width="180">교과목명</th>
-				<th width="40">학점</th>
-				<th width="70">교수</th>
-				<th>교시</th>
-				<th>강의실(건물명)</th>
-				<th width="60">인원</th>
-				<th width="50">계획서</th>
-				<th width="50">강의평가</th>
-				<th>비고</th>
+				<th width="2%"><input type="checkbox" class="Allcheck"></th>
+				<th width="3%">No</th>
+				<th width="6%">이수구분</th>
+				<th width="6%">과목번호</th>
+				<th width="15%">교과목명</th>
+				<th width="5%">학점</th>
+				<th width="8%">교수</th>
+				<th width="12%">교시</th>
+				<th width="13%">강의실(건물명)</th>
+				<th width="5%">인원</th>
+				<th width="7%">계획서</th>
+				<th width="7%">강의평가</th>
+				<th width="11%">비고</th>
 			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="openSubject" items="${ list2 }" varStatus="status">
 			<tr>
+				<td><input name='chk' type='checkbox' value="<c:out value="${ openSubject.openSubCode }" />"></td>
+				<td><c:out value="${ status.count }" /></td>
+				<td><c:out value="${ openSubject.completeType }" /></td>
+				<td><c:out value="${ openSubject.openSubCode }" /></td>
+				<td><c:out value="${ openSubject.subName }" /></td>
+				<td><c:out value="${ openSubject.subGrade }" /></td>
+				<td><c:out value="${ openSubject.professorName }" /></td>
+				<td><c:out value="${ openSubject.dayInfo }" /> / <c:out value="${ openSubject.timeInfo }" /></td>
+				<td><c:out value="${ openSubject.roomName }" /> / / <c:out value="${ openSubject.timeInfo }" /></td>
+				<td><c:out value="${ openSubject.studentMax }" /></td>
+				<td><a style="color:red;">조회</a></td>
+				<td></td>
+				<td></td>
 				
 			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </body>
