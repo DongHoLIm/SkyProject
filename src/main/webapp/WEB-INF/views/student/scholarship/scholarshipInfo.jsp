@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +81,7 @@
 		 					   		<td style="border:1px solid lightgray; color:black">직전학기성적</td>
 		 					   		<td style="border:1px solid lightgray; color:black">성적우수자</td>
 		 					   		<td style="border:1px solid lightgray; color:black">수업료</td>
-		 					   		<td style="border:1px solid lightgray; color:black"><c:out value="${ scholarship.schoAmount }"/> 원</td>
+		 					   		<td style="border:1px solid lightgray; color:black"><fmt:formatNumber value="${ scholarship.schoAmount }" pattern="#,###"/> 원</td>
 		 					   		<td style="border:1px solid lightgray; color:black">21</td>
 		 					   		<td style="border:1px solid lightgray; color:black">4.0</td>
 		 					   	</tr>
@@ -88,12 +89,13 @@
 	 					   	</tbody>
 	 					 </table>
 	 				</div>		
-		</div>
+		</div> 
 		</div>
 		
 		<div>
 		<jsp:include page="../../common/menubar-student.jsp" />
 	</div>
 </div>
+
 </body>
 </html>

@@ -19,13 +19,18 @@ public class Scholarship implements java.io.Serializable{
 	private Date schoApplyDate;
 	private Date schoAggrementDate;
 	private String schoAggrementStatus;
+	private String postNum;
+	private String address; 
+	private String addressDetail;
+	
 	
 	public Scholarship() {}
+
 
 	public Scholarship(String schoSemester, int schoAmount, String schoType, String studentNo, String schoApplyCode,
 			String schoStatus, String schoYear, String memberKname, String sdeptName, String memberGender,
 			String schoApplyName, String schoApplyYn, Date schoApplyDate, Date schoAggrementDate,
-			String schoAggrementStatus) {
+			String schoAggrementStatus, String postNum, String address, String addressDetail) {
 		super();
 		this.schoSemester = schoSemester;
 		this.schoAmount = schoAmount;
@@ -42,127 +47,191 @@ public class Scholarship implements java.io.Serializable{
 		this.schoApplyDate = schoApplyDate;
 		this.schoAggrementDate = schoAggrementDate;
 		this.schoAggrementStatus = schoAggrementStatus;
+		this.postNum = postNum;
+		this.address = address;
+		this.addressDetail = addressDetail;
 	}
+
 
 	public String getSchoSemester() {
 		return schoSemester;
 	}
 
+
 	public void setSchoSemester(String schoSemester) {
 		this.schoSemester = schoSemester;
 	}
+
 
 	public int getSchoAmount() {
 		return schoAmount;
 	}
 
+
 	public void setSchoAmount(int schoAmount) {
 		this.schoAmount = schoAmount;
 	}
+
 
 	public String getSchoType() {
 		return schoType;
 	}
 
+
 	public void setSchoType(String schoType) {
 		this.schoType = schoType;
 	}
+
 
 	public String getStudentNo() {
 		return studentNo;
 	}
 
+
 	public void setStudentNo(String studentNo) {
 		this.studentNo = studentNo;
 	}
+
 
 	public String getSchoApplyCode() {
 		return schoApplyCode;
 	}
 
+
 	public void setSchoApplyCode(String schoApplyCode) {
 		this.schoApplyCode = schoApplyCode;
 	}
+
 
 	public String getSchoStatus() {
 		return schoStatus;
 	}
 
+
 	public void setSchoStatus(String schoStatus) {
 		this.schoStatus = schoStatus;
 	}
+
 
 	public String getSchoYear() {
 		return schoYear;
 	}
 
+
 	public void setSchoYear(String schoYear) {
 		this.schoYear = schoYear;
 	}
+
 
 	public String getMemberKname() {
 		return memberKname;
 	}
 
+
 	public void setMemberKname(String memberKname) {
 		this.memberKname = memberKname;
 	}
+
 
 	public String getSdeptName() {
 		return sdeptName;
 	}
 
+
 	public void setSdeptName(String sdeptName) {
 		this.sdeptName = sdeptName;
 	}
+
 
 	public String getMemberGender() {
 		return memberGender;
 	}
 
+
 	public void setMemberGender(String memberGender) {
 		this.memberGender = memberGender;
 	}
+
 
 	public String getSchoApplyName() {
 		return schoApplyName;
 	}
 
+
 	public void setSchoApplyName(String schoApplyName) {
 		this.schoApplyName = schoApplyName;
 	}
+
 
 	public String getSchoApplyYn() {
 		return schoApplyYn;
 	}
 
+
 	public void setSchoApplyYn(String schoApplyYn) {
 		this.schoApplyYn = schoApplyYn;
 	}
+
 
 	public Date getSchoApplyDate() {
 		return schoApplyDate;
 	}
 
+
 	public void setSchoApplyDate(Date schoApplyDate) {
 		this.schoApplyDate = schoApplyDate;
 	}
+
 
 	public Date getSchoAggrementDate() {
 		return schoAggrementDate;
 	}
 
+
 	public void setSchoAggrementDate(Date schoAggrementDate) {
 		this.schoAggrementDate = schoAggrementDate;
 	}
+
 
 	public String getSchoAggrementStatus() {
 		return schoAggrementStatus;
 	}
 
+
 	public void setSchoAggrementStatus(String schoAggrementStatus) {
 		this.schoAggrementStatus = schoAggrementStatus;
 	}
+
+
+	public String getPostNum() {
+		return postNum;
+	}
+
+
+	public void setPostNum(String postNum) {
+		this.postNum = postNum;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getAddressDetail() {
+		return addressDetail;
+	}
+
+
+	public void setAddressDetail(String addressDetail) {
+		this.addressDetail = addressDetail;
+	}
+
 
 	@Override
 	public String toString() {
@@ -171,7 +240,8 @@ public class Scholarship implements java.io.Serializable{
 				+ ", schoYear=" + schoYear + ", memberKname=" + memberKname + ", sdeptName=" + sdeptName
 				+ ", memberGender=" + memberGender + ", schoApplyName=" + schoApplyName + ", schoApplyYn=" + schoApplyYn
 				+ ", schoApplyDate=" + schoApplyDate + ", schoAggrementDate=" + schoAggrementDate
-				+ ", schoAggrementStatus=" + schoAggrementStatus + "]";
+				+ ", schoAggrementStatus=" + schoAggrementStatus + ", postNum=" + postNum + ", address=" + address
+				+ ", addressDetail=" + addressDetail + "]";
 	}
 
 	

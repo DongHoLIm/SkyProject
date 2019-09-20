@@ -22,6 +22,9 @@
 		<result property="schoApplyDate" column="SCHO_APPLY_DATE"/>
 		<result property="schoAggrementDate" column="SCHO_AGGREMENT_DATE"/>
 		<result property="schoAggrementStatus" column="SCHO_AGGREMENT_STATUS"/>
+		<result property="postNum" column="POST_NUM"/>
+		<result property="adress" column="ADDRESS"/>
+		<result property="addressDetail" column="ADDRESS_DETAIL"/>
 	</resultMap>
 	
 	<select id="beforeScholarshipApplyInfo" resultMap="scholarshipResultSet" parameterType="Scholarship">
@@ -62,7 +65,7 @@
 	</select>
 	
 	<insert id="add" parameterType="Scholarship">
-		INSERT INTO SCHO_APPLY VALUES ('shcho1234', '신청', 2019, 2, '이청용', '컴퓨터학과', '남', '성적장학금', 'Y', SYSDATE, SYSDATE, #{studentNo})
+		INSERT INTO SCHO_APPLY VALUES ('shcho1234', '신청', 2019, 2, '이청용', '컴퓨터학과', '남', '성적장학금', 'Y', SYSDATE, SYSDATE, #{studentNo}, '신청',#{postNum}, #{address}, #{addressDetail})
 	</insert>
 	
 	<select id="beforeScholarApply" resultMap="scholarshipResultSet" parameterType="String">

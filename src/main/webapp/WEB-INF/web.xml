@@ -6,7 +6,7 @@
 		classpath:root-context.xml
 		/WEB-INF/config/spring-security.xml		
 		</param-value>
-  </context-param>
+  </context-param> 
   <servlet>
     <servlet-name>appServlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -118,6 +118,20 @@
   <servlet-mapping>
     <servlet-name>scholarship</servlet-name>
     <url-pattern>*.sc</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>print</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/config/print-servlet.xml</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>print</servlet-name>
+    <url-pattern>*.pr</url-pattern>
   </servlet-mapping>
   
   <servlet>
