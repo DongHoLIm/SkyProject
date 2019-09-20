@@ -34,14 +34,19 @@ public class professorServiceImpl implements professorService{
 		return pd.insertSMS(sqlSession,sl);
 	}
 	@Override
-	public ArrayList<SendSMSList> sendSMSList(SendSMSList list) {
+	public ArrayList<SendSMSList> sendSMSList(SendSMSList list,PageInfo pi) {
 		// TODO Auto-generated method stub
-		return pd.sendSMSList(sqlSession,list);
+		return pd.sendSMSList(sqlSession,list,pi);
 	}
 	@Override
 	public ArrayList<StudentList> SendSMSDetail(SendSMSList sl) {
 		// TODO Auto-generated method stub
 		return pd.SendSMSDetail(sqlSession,sl);
+	}
+	@Override
+	public int sendSMSListCount(SendSMSList list) {
+		// TODO Auto-generated method stub
+		return pd.sendSMSListCount(sqlSession,list);
 	}
 	
 }

@@ -201,4 +201,30 @@
 		WHERE MEMBER_ID!='emp'
 		AND M.MEMBER_CHECK = '3')
 	 </select>
+	 <select id="searchMemberCount" resultType="_int" parameterType="String">
+	 	SELECT COUNT(MEMBER_ID)
+	 	FROM MEMBER 
+	 	WHERE MEMBER_ID!='emp'
+	 	<choose>
+	 		<when test="searchValue==1 and searchValue==2 and searchValue==3">
+	 			AND MEMBER_CHECK=#{searchValue}
+	 		</when>
+	 		<otherwise>
+	 			AND MEMBER_NAME=#{searchValue}
+	 		</otherwise>
+	 	</choose>
+	 </select>
+	 <select id="searchMemberList" resultMap="memberResultSet" parameterType="String">
+	 	SELECT *
+	 	FROM MEMBER 
+	 	WHERE MEMBER_ID !='emp'
+	 	<choose>
+	 		<when test="searchValue==1 and searchValue==2 and searchValue==3">
+	 			AND MEMBER_CHECK=#{searchValue}
+	 		</when>
+	 		<otherwise>
+	 			AND MEMBER_NAME=#{searchValue}
+	 		</otherwise>
+	 	</choose>
+	 </select>
 </mapper>

@@ -107,8 +107,13 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.update("Member.memberUpdate",updateMember);
 	}
 	@Override
-	public ArrayList<Member> employeelist(SqlSessionTemplate sqlSession) {
-		ArrayList<Member> list = (ArrayList) sqlSession.selectList("Member.employeelist");		
+	public ArrayList<Member> employeelist(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		ArrayList<Member> list = (ArrayList) sqlSession.selectList("Member.employeelist"," ",rowBounds);		
 		return list;
 	}
 	@Override
@@ -145,6 +150,20 @@ public class MemberDaoImpl implements MemberDao {
 	public int accountMember(SqlSessionTemplate sqlSession) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("Member.AccountCount");
+	}
+	@Override
+	public int searchMemberCount(SqlSessionTemplate sqlSession, String searchValue) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.searchMemberCount",searchValue);
+	}
+	@Override
+	public ArrayList<Member> searchMember(SqlSessionTemplate sqlSession, String searchValue, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		ArrayList<Member> list = (ArrayList)sqlSession.selectList("Member.searchMemberList", searchValue, rowBounds);
+		System.out.println(list);
+		return list;
 	}
 	
 }

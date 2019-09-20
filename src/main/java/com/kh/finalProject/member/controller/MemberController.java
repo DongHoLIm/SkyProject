@@ -432,18 +432,15 @@ public class MemberController {
 		listCount = ms.accountMember();
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<Member> list = ms.employeeList(pi);
+		request.setAttribute("list",list);
+		request.setAttribute("pi",pi);
+		return "employee/systemAccountManagement/systemAccount";
 		}catch(Exception e) {
-			
+			request.setAttribute("msg", "리스트 출력 실패");
+			return "common/errorAlert";
 		}
 		
-		
-		
-		
-		ArrayList<Member> list = ms.employeeList();
-		System.out.println("Account : "+list);
-		request.setAttribute("list",list);
-		
-		return "employee/systemAccountManagement/systemAccount";
 	}
 	
 	@RequestMapping("MemberListview.me")
@@ -544,6 +541,51 @@ public class MemberController {
 	public String viewChangToMain() {
 		
 		return "main/main";
+	}
+	@RequestMapping("ajaxPagingMemberList.me")
+	public ModelAndView ajaxPML(ModelAndView mv,HttpServletRequest request) {
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}		
+		int listCount;
+		try {
+		listCount = ms.accountMember();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<Member> list = ms.employeeList(pi);
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("jsonView");
+		}catch(Exception e) {
+			mv.addObject("msg", "리스트 출력 실패");
+			mv.setViewName("common/errorAlert");
+		}
+		return mv;
+	}
+	@RequestMapping("searchMember.me")
+	@ResponseBody
+	public ModelAndView searchMember(ModelAndView mv,HttpServletRequest request) {
+		String searchValue = request.getParameter("searchValue");
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}		
+		int listCount;
+		try {
+			listCount =ms.searchMemberCount(searchValue);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<Member>list = ms.searchMember(searchValue,pi);
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			
+			
+		}catch(Exception e){
+			mv.addObject("msg", "검색 실패");
+			/* mv.setViewName("common/errorAlert"); */
+		}
+		mv.setViewName("jsonView");
+		return mv;
 	}
 	
 }
