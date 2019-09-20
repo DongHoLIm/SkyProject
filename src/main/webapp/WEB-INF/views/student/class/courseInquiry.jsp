@@ -96,7 +96,7 @@
 										"<td>"+list[i].professorName+"</td>"+
 										"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
 										"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
-										"<td>"+list[i].studentMax+"</td>"+
+										"<td>"+list[i].studentCount+'/'+list[i].studentMax+"</td>"+
 										"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
 										"<td>"+"</td>"+
 										"<td>"+"</td>"+
@@ -140,7 +140,7 @@
 											"<td>"+list[i].professorName+"</td>"+
 											"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
 											"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
-											"<td>"+list[i].studentMax+"</td>"+
+											"<td>"+list[i].studentCount+'/'+list[i].studentMax+"</td>"+
 											"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
 											"<td>"+"</td>"+
 											"<td>"+"</td>"+
@@ -242,7 +242,7 @@
 										"<td>"+list[i].professorName+"</td>"+
 										"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
 										"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
-										"<td>"+list[i].studentMax+"</td>"+
+										"<td>"+list[i].studentCount+'/'+list[i].studentMax+"</td>"+
 										"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
 										"<td>"+"</td>"+
 										"<td>"+"</td>"+

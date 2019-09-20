@@ -52,7 +52,6 @@ public class ClassController {
 	public String goPreliminaryCourse(@ModelAttribute("loginUser") Member loginUser, HttpServletRequest request) {
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
-		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
 
 		ArrayList<OpenSubject> list2 = cs.selectPreliminaryCourseApplyList(sa);
 
@@ -66,17 +65,16 @@ public class ClassController {
 		//조회
 		ArrayList<Sdepartment> sdList = cs.selectSdept();
 		ArrayList<OpenSubject> osList = cs.selectOpenSubject();
-		//예비수강신청
+		//수강신청목록
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
-		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
 
-		ArrayList<OpenSubject> list2 = cs.selectPreliminaryCourseApplyList(sa);
+		ArrayList<OpenSubject> list2 = cs.selectFinishSubjectApplyList(sa);
 
 		request.setAttribute("sdList", sdList);
 		request.setAttribute("osList", osList);
 		request.setAttribute("list2", list2);
-		
+
 		return "student/class/courseApply"; 
 	}
 
@@ -185,15 +183,15 @@ public class ClassController {
 	}
 	@RequestMapping(value="prliminaryGwamokSearch.st")
 	public ModelAndView prliminaryGwamokSelect(String subName, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
-		
-		
+
+
 		OpenSubject os = new OpenSubject();
 		os.setStudentNo(loginUser.getMemberId());
 		os.setSubName(subName);
-		
+
 		ArrayList<OpenSubject> list = cs.prliminaryGwamokSelect(os);
-		
-		
+
+
 		mv.addObject("list", list);
 		mv.setViewName("jsonView");
 
@@ -201,15 +199,15 @@ public class ClassController {
 	}
 	@RequestMapping(value="prliminaryProfessorSearch.st")
 	public ModelAndView prliminaryProfessorSelect(String professor, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
-		
-		
+
+
 		OpenSubject os = new OpenSubject();
 		os.setStudentNo(loginUser.getMemberId());
 		os.setProfessorName(professor);
-		
+
 		ArrayList<OpenSubject> list = cs.prliminaryProfessorSelect(os);
-		
-		
+
+
 		mv.addObject("list", list);
 		mv.setViewName("jsonView");
 
@@ -217,15 +215,15 @@ public class ClassController {
 	}
 	@RequestMapping(value="prliminaryCompleteSearch.st")
 	public ModelAndView prliminaryCompleteSelect(String complete, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
-		
-		
+
+
 		OpenSubject os = new OpenSubject();
 		os.setStudentNo(loginUser.getMemberId());
 		os.setCompleteType(complete);
-		
+
 		ArrayList<OpenSubject> list = cs.prliminaryCompleteSelect(os);
-		
-		
+
+
 		mv.addObject("list", list);
 		mv.setViewName("jsonView");
 
@@ -236,10 +234,49 @@ public class ClassController {
 
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
-		
+
 		cs.deleteCourseApply(subCode, sa);
-		
+
 		mv.addObject("");
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	@RequestMapping(value="insertFinishSubjectApply.st")
+	public ModelAndView insertFinishSubjectApply(String subCode, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
+
+		SubjectApply sa = new SubjectApply();
+		sa.setStudentNo(loginUser.getMemberId());
+		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
+
+		int result = cs.selectStudentCount(subCode);
+		System.out.println(result);
+		if(result <= 30) {
+			for(int j=0;j<list.size();j++) {
+				if(list.get(j).getOpenSubCode().equals(subCode)) {				
+					String no = "no";
+					mv.addObject("check", no);
+				}else {
+					cs.insertFinishSubjectApply(subCode, sa);
+					String ok = "ok";
+					mv.addObject("check", ok);
+				}
+			}
+		}
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	@RequestMapping(value="selectPreliminaryCourseApplyList2.st")
+	public ModelAndView selectPreliminaryCourseApplyList2(String professor, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
+
+		SubjectApply sa = new SubjectApply();
+		sa.setStudentNo(loginUser.getMemberId());
+
+		ArrayList<OpenSubject> list2 = cs.selectPreliminaryCourseApplyList(sa);
+
+
+		mv.addObject("list", list2);
 		mv.setViewName("jsonView");
 
 		return mv;

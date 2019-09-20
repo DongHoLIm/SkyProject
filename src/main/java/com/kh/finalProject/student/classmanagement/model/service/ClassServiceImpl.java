@@ -122,4 +122,28 @@ public class ClassServiceImpl implements ClassService{
 		 cd.deleteCourseApply(sqlSession, sa, subCode);
 	}
 
+
+
+	@Override
+	public void insertFinishSubjectApply(String subCode, SubjectApply sa) {
+		cd.insertFinishSubjectApply(sqlSession, subCode, sa);
+		
+	}
+
+
+
+	@Override
+	public ArrayList<OpenSubject> selectFinishSubjectApplyList(SubjectApply sa) {
+		
+		return cd.selectFinishSubjectApplyList(sqlSession, sa);
+	}
+
+
+
+	@Override
+	public int selectStudentCount(String subCode) {
+		
+		return cd.selectStudentCount(sqlSession, subCode);
+	}
+
 }

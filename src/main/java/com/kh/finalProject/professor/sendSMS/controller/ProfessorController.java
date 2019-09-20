@@ -143,12 +143,27 @@ public class ProfessorController {
 		String memberId = loginUser.getMemberId();
 		SendSMSList list = new SendSMSList();
 		list.setMemberId(memberId);
-		ArrayList<SendSMSList> sendSMSList = ps.sendSMSList(list); 	
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}		
+		int listCount;
+		try {
+			listCount =ps.sendSMSListCount(list);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<SendSMSList> sendSMSList = ps.sendSMSList(list,pi);
+			request.setAttribute("list", sendSMSList);
+			request.setAttribute("pi",pi);
+			return "professor/sendSMS/sendSMSList";
+		}catch(Exception e) {
+			e.printStackTrace();
+			request.setAttribute("msg","MemberList실패");
+			return "common/errorAlert";	
+		}	
 		
-		request.setAttribute("list", sendSMSList);
 		
-		
-		return "professor/sendSMS/sendSMSList";
 	}
 	@RequestMapping("SendSMSDetail.pro")
 	public String SendSMSDetail(HttpServletRequest request) {
@@ -159,6 +174,33 @@ public class ProfessorController {
 		
 		request.setAttribute("list", resultList);
 		return "professor/sendSMS/sendSMSDetailList";
+	}
+	@RequestMapping("ajaxPagingSMSList.pro")
+	public ModelAndView ajaxPSL(ModelAndView mv,HttpServletRequest request,HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String memberId = loginUser.getMemberId();
+		SendSMSList list = new SendSMSList();
+		list.setMemberId(memberId);
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}		
+		int listCount;
+		try {
+			listCount =ps.sendSMSListCount(list);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<SendSMSList> sendSMSList = ps.sendSMSList(list,pi);
+			mv.addObject("list", sendSMSList);
+			mv.addObject("pi",pi);
+			mv.setViewName("jsonView");
+			
+		}catch(Exception e) {
+			mv.addObject("msg","List 출력에 실패 했습니다.");
+			mv.setViewName("common/errorAlert");			
+		}	
+		return mv;
 	}
 	
 }
