@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LessonPlan">
+	<resultMap type="com.kh.finalProject.employee.classManagement.model.vo.LessonPlan" id="lessonPlanResultSet">
+		<id property="opensubCode" column="OPENSUB_CODE"/>
+		<result property="middleExam" column="MIDDLE_EXAM"/>
+		<result property="finalExam" column="FINAL_EXAM"/>
+		<result property="homework" column="HOMEWORK"/>
+		<result property="attendance" column="ATTENDANCE"/>
+		<result property="classGoal" column="CLASS_GOAL"/>
+		<result property="evaluationPeriod" column="EVALUATION_PERIOD"/>
+		<result property="subName" column="SUB_NAME"/>
+		<result property="timeInfo" column="TIME_INFO"/>
+		<result property="mebmerKname" column="MEMBER_KNAME"/>
+		<result property="completeType" column="COMPLETE_TYPE"/>
+		<result property="subGrade" column="SUB_GRADE"/>
+		<result property="engagement" column="ENGAGEMENT"/>
+	</resultMap>
+	<!-- <insert id="insertLessonPlan" parameterType="LessonPlan">
+	INSERT INTO LESSON_PLAN VALUES(#{opensubCode}, #{middleExam},#{finalExam},#{homework},
+	#{attendance},#{classGoal},#{evaluationPeriod},#{subName},#{timeInfo},#{mebmerKname},#{completeType},
+	#{subGrade},#{engagement}) 
+	
+	</insert> -->
+
+</mapper>

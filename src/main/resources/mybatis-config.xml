@@ -33,6 +33,7 @@
 		<typeAlias type="com.kh.finalProject.student.classmanagement.model.vo.SubjectApply" alias="subjectApply"/>
 		<typeAlias type="com.kh.finalProject.board.model.vo.mainDate" alias="mainDate"/>
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.SchoolOff" alias="SchoolOff"/>
+		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.LessonPlan" alias="LessonPlan"/>
 	</typeAliases>
 	
 	<mappers>
@@ -62,6 +63,7 @@
 		<mapper resource="mappers/explusion-mapper.xml"/>
 		<mapper resource="mappers/subjectApply-mapper.xml"/>
 		<mapper resource="mappers/schoolOff-mapper.xml"/>
+		<mapper resource="mappers/lessonPlan/lessonPlan-mapper.xml"/>
 	</mappers>
 	
 </configuration>
