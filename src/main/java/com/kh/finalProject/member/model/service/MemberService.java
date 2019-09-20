@@ -40,7 +40,7 @@ public interface MemberService {
 
 	int stuUpdate(Member updateMember);
 
-	ArrayList<Member> employeeList();
+	ArrayList<Member> employeeList(PageInfo pi);
 
 	MemberAccount Account(String userId);
 
@@ -51,4 +51,8 @@ public interface MemberService {
 	int updatingAccount(MemberAccount ma);
 
 	int accountMember();
+
+	int searchMemberCount(String searchValue);
+
+	ArrayList<Member> searchMember(String searchValue, PageInfo pi);
 }

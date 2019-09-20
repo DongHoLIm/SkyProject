@@ -39,7 +39,7 @@ public interface MemberDao {
 
 	int memberUpdate(SqlSessionTemplate sqlSession, Member updateMember);
 
-	ArrayList<Member> employeelist(SqlSessionTemplate sqlSession);
+	ArrayList<Member> employeelist(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	int employeeUpdate(SqlSessionTemplate sqlSession, Member updateMember);
 
@@ -54,5 +54,9 @@ public interface MemberDao {
 	Member selectEncPwd(SqlSessionTemplate sqlSession, Member m);
 
 	int accountMember(SqlSessionTemplate sqlSession);
+
+	int searchMemberCount(SqlSessionTemplate sqlSession, String searchValue);
+
+	ArrayList<Member> searchMember(SqlSessionTemplate sqlSession, String searchValue, PageInfo pi);
 
 }

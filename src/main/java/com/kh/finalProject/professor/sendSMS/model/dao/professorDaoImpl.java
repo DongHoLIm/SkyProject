@@ -37,10 +37,12 @@ public class professorDaoImpl implements professorDao{
 	}
 
 	@Override
-	public ArrayList<SendSMSList> sendSMSList(SqlSessionTemplate sqlSession, SendSMSList list) {
-		ArrayList<SendSMSList> SMSList =(ArrayList) sqlSession.selectList("professorSendSMS.sendSMSList", list);
+	public ArrayList<SendSMSList> sendSMSList(SqlSessionTemplate sqlSession, SendSMSList list,PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
+		ArrayList<SendSMSList> SMSList =(ArrayList) sqlSession.selectList("professorSendSMS.sendSMSList", list,rowBounds);		
 		return SMSList;
 	}
 
@@ -49,6 +51,12 @@ public class professorDaoImpl implements professorDao{
 		ArrayList<StudentList> list = (ArrayList) sqlSession.selectList("professorSendSMS.sendSMSDetail", sl);
 		
 		return list;
+	}
+
+	@Override
+	public int sendSMSListCount(SqlSessionTemplate sqlSession, SendSMSList list) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("professorSendSMS.sendSMSListCount",list);
 	}
 
 	
