@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
+import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.dao.StudentInfoDao;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
@@ -312,17 +314,127 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		return sd.expInfo(sqlSession,studentNo);
 	}
 
-  @Override
-  public int updateGraduationSc(Graduation gd) {
+	@Override
+	public int updateGraduationSc(Graduation gd) {
 
-    return sd.updateGraduationSc(sqlSession,gd);
-  }
+		return sd.updateGraduationSc(sqlSession,gd);
+	}
 
-  @Override
-  public int updateGraduationMa(Graduation gd) {
+	@Override
+	public int updateGraduationMa(Graduation gd) {
 
-    return sd.updateGraduationMa(sqlSession, gd);
-  }
+		return sd.updateGraduationMa(sqlSession, gd);
+	}
+
+	@Override
+	public DropOut doInfo(String studentNo) {
+		return sd.doInfo(sqlSession, studentNo);
+	}
+
+	@Override
+	public int insertDropOut(DropOut dpo) {
+		return sd.insertDropOut(sqlSession, dpo);
+	}
+
+	@Override
+	public ArrayList<DropOut> selectDropOut(DropOut dpo) {
+		return sd.selectDropOut(sqlSession, dpo);
+	}
+
+	@Override
+	public ArrayList<DropOut> selectDropOut(String studentNo) {
+		return sd.selectDropOut(sqlSession, studentNo);
+	}
+
+	@Override
+	public int pro_dropOutListCount(String pdeptCode) {
+		return sd.pro_dropOutListCount(sqlSession, pdeptCode);
+	}
+
+	@Override
+	public ArrayList<DropOut> pro_dropOutList(PageInfo pi, String pdeptCode) {
+		return sd.pro_dropOutList(sqlSession, pi, pdeptCode);
+	}
+
+	@Override
+	public DropOut selectProInfo(String professorNo) {
+		return sd.selectProInfo(sqlSession, professorNo);
+	}
+
+	@Override
+	public int pro_dropOutListCount2(String pdeptCode) {
+		return sd.pro_dropOutListCount2(sqlSession, pdeptCode);
+	}
+
+	@Override
+	public ArrayList<DropOut> pro_dropOutList2(PageInfo pi, String pdeptCode) {
+		return sd.pro_dropOutList2(sqlSession, pi, pdeptCode);
+	}
+
+	@Override
+	public int pro_DropOutEnroll(DropOut dpo) {
+		return sd.pro_DropOutEnroll(sqlSession, dpo);
+	}
+
+	@Override
+	public ArrayList<DropOut> searchDropOut(SearchCondition sc) {
+		return sd.searchDropOut(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<DropOut> searchDropOut2(SearchCondition sc) {
+		return sd.searchDropOut2(sqlSession, sc);
+	}
+
+	@Override
+	public int em_dropOutListCount() {
+		return sd.em_dropOutListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<DropOut> em_dropOutList(PageInfo pi) {
+		return sd.em_dropOutList(sqlSession, pi);
+	}
+
+	@Override
+	public int em_dropOutListCount2() {
+		return sd.em_dropOutListCount2(sqlSession);
+	}
+
+	@Override
+	public ArrayList<DropOut> em_dropOutList2(PageInfo pi) {
+		return sd.em_dropOutList2(sqlSession, pi);
+	}
+
+	@Override
+	public int em_DropOutEnroll(DropOut dpo) {
+		int result = sd.em_DropOutEnroll(sqlSession, dpo);
+		
+		if(result > 0) {
+			sd.dropOutStudentInfoUpdate(sqlSession, dpo);
+		}
+		return result;
+	}
+
+	@Override
+	public ArrayList<DropOut> searchDropOut3(SearchCondition sc) {
+		return sd.searchDropOut3(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<DropOut> searchDropOut4(SearchCondition sc) {
+		return sd.searchDropOut4(sqlSession, sc);
+	}
+
+	@Override
+	public int em_DropOutReject(DropOut dpo) {
+		return sd.em_DropOutReject(sqlSession, dpo);
+	}
+
+	@Override
+	public DropOut dpoInfo(String studentNo) {
+		return sd.dpoInfo(sqlSession,studentNo);
+	}
 
 }
 

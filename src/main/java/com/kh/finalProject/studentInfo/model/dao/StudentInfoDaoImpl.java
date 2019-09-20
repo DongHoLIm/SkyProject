@@ -9,8 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.kh.finalProject.board.model.vo.Board;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
+import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
@@ -483,6 +485,160 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	public int updateGraduationMa(SqlSessionTemplate sqlSession, Graduation gd) {
 		
 		return sqlSession.update("Graduation.updateGraduationMa", gd);
+	}
+
+	@Override
+	public DropOut doInfo(SqlSessionTemplate sqlSession, String studentNo) {
+		return sqlSession.selectOne("DropOut.doInfo", studentNo);
+	}
+
+	@Override
+	public int insertDropOut(SqlSessionTemplate sqlSession, DropOut dpo) {
+		return sqlSession.insert("DropOut.insertDropOut", dpo);
+	}
+
+	@Override
+	public ArrayList<DropOut> selectDropOut(SqlSessionTemplate sqlSession, DropOut dpo) {
+		return (ArrayList)sqlSession.selectList("DropOut.selectDropOutList", dpo);
+	}
+
+	@Override
+	public ArrayList<DropOut> selectDropOut(SqlSessionTemplate sqlSession, String studentNo) {
+		return (ArrayList)sqlSession.selectList("DropOut.selectDropOutList2", studentNo);
+	}
+
+	@Override
+	public int pro_dropOutListCount(SqlSessionTemplate sqlSession, String pdeptCode) {
+		return sqlSession.selectOne("DropOut.pro_dropOutListCount", pdeptCode);
+	}
+
+	@Override
+	public ArrayList<DropOut> pro_dropOutList(SqlSessionTemplate sqlSession, PageInfo pi, String pdeptCode) {
+		ArrayList<DropOut> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("DropOut.pro_dropOutList", pdeptCode, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
+	}
+
+	@Override
+	public DropOut selectProInfo(SqlSessionTemplate sqlSession, String professorNo) {
+		return sqlSession.selectOne("DropOut.selectProInfo", professorNo);
+	}
+
+	@Override
+	public int pro_dropOutListCount2(SqlSessionTemplate sqlSession, String pdeptCode) {
+		return sqlSession.selectOne("DropOut.pro_dropOutListCount2", pdeptCode);
+	}
+
+	@Override
+	public ArrayList<DropOut> pro_dropOutList2(SqlSessionTemplate sqlSession, PageInfo pi, String pdeptCode) {
+		ArrayList<DropOut> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("DropOut.pro_dropOutList2", pdeptCode, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
+	}
+
+	@Override
+	public int pro_DropOutEnroll(SqlSessionTemplate sqlSession, DropOut dpo) {
+		return sqlSession.update("DropOut.pro_DropOutEnroll", dpo);
+	}
+
+	@Override
+	public ArrayList<DropOut> searchDropOut(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return (ArrayList) sqlSession.selectList("DropOut.searchDropOut", sc);
+	}
+
+	@Override
+	public ArrayList<DropOut> searchDropOut2(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return (ArrayList) sqlSession.selectList("DropOut.searchDropOut2", sc);
+	}
+
+	@Override
+	public int em_dropOutListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("DropOut.em_dropOutListCount");
+	}
+
+	@Override
+	public ArrayList<DropOut> em_dropOutList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<DropOut> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("DropOut.em_dropOutList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
+	}
+
+	@Override
+	public int em_dropOutListCount2(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("DropOut.em_dropOutListCount2");
+	}
+
+	@Override
+	public ArrayList<DropOut> em_dropOutList2(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<DropOut> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("DropOut.em_dropOutList2", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		return list;
+	}
+
+	@Override
+	public int em_DropOutEnroll(SqlSessionTemplate sqlSession, DropOut dpo) {
+		return sqlSession.update("DropOut.em_DropOutEnroll", dpo);
+	}
+
+	@Override
+	public int dropOutStudentInfoUpdate(SqlSessionTemplate sqlSession, DropOut dpo) {
+		return sqlSession.update("DropOut.dropOutStudentInfoUpdate", dpo);
+	}
+
+	@Override
+	public ArrayList<DropOut> searchDropOut3(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return (ArrayList) sqlSession.selectList("DropOut.searchDropOut3", sc);
+	}
+
+	@Override
+	public ArrayList<DropOut> searchDropOut4(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return (ArrayList) sqlSession.selectList("DropOut.searchDropOut4", sc);
+	}
+
+	@Override
+	public int em_DropOutReject(SqlSessionTemplate sqlSession, DropOut dpo) {
+		return sqlSession.update("DropOut.em_DropOutReject", dpo);
+	}
+
+	@Override
+	public DropOut dpoInfo(SqlSessionTemplate sqlSession, String studentNo) {
+		return sqlSession.selectOne("DropOut.dpoInfo", studentNo);
 	}
 
 

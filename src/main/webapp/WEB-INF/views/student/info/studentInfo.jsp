@@ -126,7 +126,7 @@ table.basicinfo {
                   </c:if>
                </tr>
             </table>
-			<c:if test="${empty expInfo}">
+			<c:if test="${empty expInfo or empty dpoInfo}">
 	            <h4 id="basic">졸업 사항</h4>
 	
 	            <table class="basicinfo">
@@ -159,6 +159,24 @@ table.basicinfo {
 	                  <td width="30%">${expInfo.explusionReason }</td>
 	                  <td class="td" width="20%">제적일</td>
 	                  <td width="30%">${expInfo.explusionDate }</td>
+	               </tr>
+	            </table>
+	        </c:if>
+	         <c:if test="${!empty dpoInfo}">
+	            <h4 id="basic">자퇴 정보</h4>
+	
+	            <table class="basicinfo">
+	               <tr>
+	                  <td class="td" width="20%">자퇴번호</td>
+	                  <td width="30%">${dpoInfo.dropNo }</td>
+	                  <td class="td" width="20%">학번</td>
+	                  <td>${dpoInfo.studentNo }</td>
+	               </tr>
+	               <tr>
+	                  <td class="td" width="20%">자퇴사유</td>
+	                  <td width="30%">${dpoInfo.dropReason }</td>
+	                  <td class="td" width="20%">자퇴일</td>
+	                  <td width="30%">${dpoInfo.successDate }</td>
 	               </tr>
 	            </table>
 	        </c:if>         
