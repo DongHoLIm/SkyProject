@@ -27,4 +27,7 @@
 		AND OPENSUB_CODE = #{openSubCode}
 		AND APPLY_TYPE = '예비'
     </delete>
+    <insert id="insertFinishSubjectApply" parameterType="SubjectApply">
+		INSERT INTO SUBJECT_APPLY VALUES(#{openSubCode}, 'SUBA' || SEQ_SUBAPPLY.NEXTVAL, #{studentNo}, '정기', SYSDATE,'신청')
+	</insert>
 </mapper> 

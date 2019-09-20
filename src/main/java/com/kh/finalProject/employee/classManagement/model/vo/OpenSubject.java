@@ -15,12 +15,14 @@ public class OpenSubject implements java.io.Serializable{
 	private String timeInfo;
 	private int enrolType;
 	private String studentNo;
-	
-	public OpenSubject() {} 
+	private int studentCount;
+	private String applyType;
+
+	public OpenSubject() {}
 
 	public OpenSubject(String openSubCode, String subName, String sdeptName, String professorName, String professorNo,
 			int subGrade, String completeType, int studentMax, String roomName, String buildingName, String dayInfo,
-			String timeInfo, int enrolType, String studentNo) {
+			String timeInfo, int enrolType, String studentNo, int studentCount, String applyType) {
 		super();
 		this.openSubCode = openSubCode;
 		this.subName = subName;
@@ -36,6 +38,8 @@ public class OpenSubject implements java.io.Serializable{
 		this.timeInfo = timeInfo;
 		this.enrolType = enrolType;
 		this.studentNo = studentNo;
+		this.studentCount = studentCount;
+		this.applyType = applyType;
 	}
 
 	public String getOpenSubCode() {
@@ -150,13 +154,30 @@ public class OpenSubject implements java.io.Serializable{
 		this.studentNo = studentNo;
 	}
 
+	public int getStudentCount() {
+		return studentCount;
+	}
+
+	public void setStudentCount(int studentCount) {
+		this.studentCount = studentCount;
+	}
+
+	public String getApplyType() {
+		return applyType;
+	}
+
+	public void setApplyType(String applyType) {
+		this.applyType = applyType;
+	}
+
 	@Override
 	public String toString() {
 		return "OpenSubject [openSubCode=" + openSubCode + ", subName=" + subName + ", sdeptName=" + sdeptName
 				+ ", professorName=" + professorName + ", professorNo=" + professorNo + ", subGrade=" + subGrade
 				+ ", completeType=" + completeType + ", studentMax=" + studentMax + ", roomName=" + roomName
 				+ ", buildingName=" + buildingName + ", dayInfo=" + dayInfo + ", timeInfo=" + timeInfo + ", enrolType="
-				+ enrolType + ", studentNo=" + studentNo + "]";
+				+ enrolType + ", studentNo=" + studentNo + ", studentCount=" + studentCount + ", applyType=" + applyType
+				+ "]";
 	}
-
+ 
 }

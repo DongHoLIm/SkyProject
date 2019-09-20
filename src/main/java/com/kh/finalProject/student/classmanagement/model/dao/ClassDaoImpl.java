@@ -2,10 +2,10 @@ package com.kh.finalProject.student.classmanagement.model.dao;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 import com.kh.finalProject.student.classmanagement.model.vo.Sdepartment;
 import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
@@ -144,5 +144,37 @@ public class ClassDaoImpl implements ClassDao{
 			sa.setOpenSubCode(subCode[i]);
 			sqlSession.delete("subjectApply.deleteCourseApply", sa);
 		}
+	}
+
+	@Override
+	public void insertFinishSubjectApply(SqlSessionTemplate sqlSession, String subCode, SubjectApply sa) {
+		LectureRegistration lr = new LectureRegistration();
+			sa.setOpenSubCode(subCode);
+			lr.setOpenSubCode(subCode);
+			sqlSession.insert("subjectApply.insertFinishSubjectApply", sa);
+			sqlSession.update("LectureRegistration.updateStudentCount", lr);
+		
+	}
+
+	@Override
+	public ArrayList<OpenSubject> selectFinishSubjectApplyList(SqlSessionTemplate sqlSession, SubjectApply sa) {
+		ArrayList<OpenSubject> list2 = null;
+		OpenSubject os = new OpenSubject();
+		os.setStudentNo(sa.getStudentNo());
+
+		list2 = (ArrayList) sqlSession.selectList("courseRegistration.selectFinishSubjectApplyList", os);
+
+		return list2;
+	}
+
+	@Override
+	public int selectStudentCount(SqlSessionTemplate sqlSession, String subCode) {
+		int result = 0;
+
+		System.out.println("!!!!!");
+		
+		result = sqlSession.selectOne("courseRegistration.selectStudentCount", subCode);
+		
+		return result;
 	}
 }
