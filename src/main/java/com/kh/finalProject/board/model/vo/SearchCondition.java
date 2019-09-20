@@ -21,6 +21,8 @@ public class SearchCondition implements java.io.Serializable{
 	private String sdeptName;
 	private String status;
 	private String memberKName;
+	private String dropNo;
+	private String studentName;
 	
 	public SearchCondition() {}
 
@@ -47,7 +49,7 @@ public class SearchCondition implements java.io.Serializable{
 	public SearchCondition(String memberId, String writer, String writeDept, String title, String all, String normal,
 			String schol, String schedule, String event, String praise, String free, String proof, String account,
 			String school, String studentNo, String originSdept, String majorCheck, String sdeptName, String status,
-			String memberKName) {
+			String memberKName, String dropNo, String studentName) {
 		super();
 		this.memberId = memberId;
 		this.writer = writer;
@@ -69,9 +71,27 @@ public class SearchCondition implements java.io.Serializable{
 		this.sdeptName = sdeptName;
 		this.status = status;
 		this.memberKName = memberKName;
+		this.dropNo = dropNo;
+		this.studentName = studentName;
 	}
 	
 	
+
+	public String getDropNo() {
+		return dropNo;
+	}
+
+	public void setDropNo(String dropNo) {
+		this.dropNo = dropNo;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
 
 	public String getMemberKName() {
 		return memberKName;
@@ -240,9 +260,10 @@ public class SearchCondition implements java.io.Serializable{
 				+ ", event=" + event + ", praise=" + praise + ", free=" + free + ", proof=" + proof + ", account="
 				+ account + ", school=" + school + ", studentNo=" + studentNo + ", originSdept=" + originSdept
 				+ ", majorCheck=" + majorCheck + ", sdeptName=" + sdeptName + ", status=" + status + ", memberKName="
-				+ memberKName + "]";
+				+ memberKName + ", dropNo=" + dropNo + ", studentName=" + studentName + "]";
 	}
 
+	
 	
 	
 	

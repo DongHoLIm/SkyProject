@@ -7,8 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
+import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
@@ -126,6 +128,50 @@ public interface StudentInfoDao {
 	int updateGraduationSc(SqlSessionTemplate sqlSession, Graduation gd);
 
 	int updateGraduationMa(SqlSessionTemplate sqlSession, Graduation gd);
+
+	DropOut doInfo(SqlSessionTemplate sqlSession, String studentNo);
+
+	int insertDropOut(SqlSessionTemplate sqlSession, DropOut dpo);
+
+	ArrayList<DropOut> selectDropOut(SqlSessionTemplate sqlSession, DropOut dpo);
+
+	ArrayList<DropOut> selectDropOut(SqlSessionTemplate sqlSession, String studentNo);
+
+	int pro_dropOutListCount(SqlSessionTemplate sqlSession, String pdeptCode);
+
+	ArrayList<DropOut> pro_dropOutList(SqlSessionTemplate sqlSession, PageInfo pi, String pdeptCode);
+
+	DropOut selectProInfo(SqlSessionTemplate sqlSession, String professorNo);
+
+	int pro_dropOutListCount2(SqlSessionTemplate sqlSession, String pdeptCode);
+
+	ArrayList<DropOut> pro_dropOutList2(SqlSessionTemplate sqlSession, PageInfo pi, String pdeptCode);
+
+	int pro_DropOutEnroll(SqlSessionTemplate sqlSession, DropOut dpo);
+
+	ArrayList<DropOut> searchDropOut(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<DropOut> searchDropOut2(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	int em_dropOutListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<DropOut> em_dropOutList(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int em_dropOutListCount2(SqlSessionTemplate sqlSession);
+
+	ArrayList<DropOut> em_dropOutList2(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int em_DropOutEnroll(SqlSessionTemplate sqlSession, DropOut dpo);
+
+	int dropOutStudentInfoUpdate(SqlSessionTemplate sqlSession, DropOut dpo);
+
+	ArrayList<DropOut> searchDropOut3(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<DropOut> searchDropOut4(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	int em_DropOutReject(SqlSessionTemplate sqlSession, DropOut dpo);
+
+	DropOut dpoInfo(SqlSessionTemplate sqlSession, String studentNo);
 
 		
 

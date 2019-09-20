@@ -5,8 +5,10 @@ import java.util.HashMap;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
+import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
@@ -114,5 +116,47 @@ public interface StudentInfoService {
 	int updateGraduationSc(Graduation gd);
 
 	int updateGraduationMa(Graduation gd);
+
+	DropOut doInfo(String studentNo);
+
+	int insertDropOut(DropOut dpo);
+
+	ArrayList<DropOut> selectDropOut(DropOut dpo);
+
+	ArrayList<DropOut> selectDropOut(String studentNo);
+
+	int pro_dropOutListCount(String pdeptCode);
+
+	ArrayList<DropOut> pro_dropOutList(PageInfo pi, String pdeptCode);
+
+	DropOut selectProInfo(String professorNo);
+
+	int pro_dropOutListCount2(String pdeptCode);
+
+	ArrayList<DropOut> pro_dropOutList2(PageInfo pi, String pdeptCode);
+
+	int pro_DropOutEnroll(DropOut dpo);
+
+	ArrayList<DropOut> searchDropOut(SearchCondition sc);
+
+	ArrayList<DropOut> searchDropOut2(SearchCondition sc);
+
+	int em_dropOutListCount();
+
+	ArrayList<DropOut> em_dropOutList(PageInfo pi);
+
+	int em_dropOutListCount2();
+
+	ArrayList<DropOut> em_dropOutList2(PageInfo pi);
+
+	int em_DropOutEnroll(DropOut dpo);
+
+	ArrayList<DropOut> searchDropOut3(SearchCondition sc);
+
+	ArrayList<DropOut> searchDropOut4(SearchCondition sc);
+
+	int em_DropOutReject(DropOut dpo);
+
+	DropOut dpoInfo(String studentNo);
   
 }

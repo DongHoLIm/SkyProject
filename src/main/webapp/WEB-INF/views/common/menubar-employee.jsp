@@ -57,7 +57,7 @@
 												<li><h4>학생관리</h4></li>
 												<li><a href="em_studentInfoList.si">학생 전체 조회</a></li>
 												<li><a href="#">학사경고 관리</a></li>
-												<li><a href="#">자퇴처리</a></li>
+												<li><a href="em_showDropOut.si">자퇴 신청 관리</a></li>
 												<li><a href="em_showExplusion.si">제적처리</a></li>
 												<li><a href="#">휴,복학 처리</a></li>
 												<li><a href="#">학적부 정정</a></li>												

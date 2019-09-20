@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="DropOut">    
+  	
+  	<resultMap type="DropOut" id="dropoutResultSet">
+  		<id property="dropNo" column="DROP_NO"/>
+  		<result property="studentNo" column="STUDENT_NO"/>
+  		<result property="professorNo" column="PROFESSOR_NO"/>
+  		<result property="dropReason" column="DROP_REASON"/>
+  		<result property="dropDate" column="DROP_DATE"/>
+  		<result property="successDate" column="SUCCESS_DATE"/>
+  		<result property="dropInterview" column="DROP_INTERVIEW"/>
+  		<result property="interviewDate" column="INTERVIEW_DATE"/>
+  		<result property="dropStatus" column="DROP_STATUS"/>
+  		<result property="grade" column="GRADE"/> 
+  		<result property="collegeCode" column="COLLEGE_CODE"/> 
+  		<result property="collegeName" column="COLLEGE_NAME"/> 
+  		<result property="sdeptCode" column="SDEPT_CODE"/> 
+  		<result property="sdeptName" column="SDEPT_NAME"/> 
+  		<result property="pdeptCode" column="PDEPT_CODE"/> 
+  		<result property="pdeptName" column="PDEPT_NAME"/> 
+  		<result property="studentName" column="STUDENT_NAME"/> 
+  		<result property="professorName" column="PROFESSOR_NAME"/> 
+  		<result property="studentPhone" column="STUDENT_PHONE"/> 
+  		<result property="professorPhone" column="PROFESSOR_PHONE"/> 
+  		<result property="bank" column="BANK"/> 
+  		<result property="accountNo" column="ACCOUNT_NO"/> 
+  		<result property="accountHolder" column="ACCOUNT_HOLDER"/> 
+  		<result property="rejectReason" column="REJECT_REASON"/> 
+  	</resultMap>  
+  	
+  	<select id="doInfo" resultMap="dropoutResultSet">
+  		SELECT I.STUDENT_NO, M.MEMBER_KNAME AS STUDENT_NAME, I.GRADE, C.COLLEGE_NAME, 
+		       S.SDEPT_NAME, M.PHONE_ONE AS STUDENT_PHONE, I.BANK, I.ACCOUNT_HOLDER, I.ACCOUNT_NO,
+		       N.MEMBER_KNAME AS PROFESSOR_NAME, N.PHONE_ONE AS PROFESSOR_PHONE, P.PROFESSOR_NO
+		FROM MEMBER M
+		JOIN STUDENT_INFO I ON(M.MEMBER_ID = I.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(I.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN COLLEGE C ON(C.COLLEGE_CODE = S.COLLEGE_CODE)
+		JOIN PROFESSOR P ON(P.PDEPT_CODE = S.SDEPT_CODE)
+		JOIN MEMBER N ON(P.PROFESSOR_NO = N.MEMBER_ID)
+		WHERE P.PDEPT_HEAD = 1 AND I.STUDENT_NO = #{studentNo}
+  	</select>
+  	
+  	<select id="selectProInfo" resultMap="dropoutResultSet">
+  		SELECT *
+		FROM PROFESSOR
+		WHERE PROFESSOR_NO = #{professorNo}
+  	</select> 
+  	
+  	<insert id="insertDropOut">
+  		INSERT INTO DROPOUT
+		VALUES('DROP'||SEQ_DROPOUT.NEXTVAL, #{studentNo}, #{professorNo}, #{dropReason}, SYSDATE, NULL, NULL, DEFAULT, DEFAULT, NULL)
+	</insert>
+	
+	<select id="selectDropOutList" resultMap="dropoutResultSet">
+  		SELECT D.DROP_NO, D.STUDENT_NO, M.MEMBER_KNAME AS PROFESSOR_NAME, D.DROP_REASON,
+		       D.DROP_DATE, D.DROP_INTERVIEW, D.DROP_STATUS, D.SUCCESS_DATE
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.PROFESSOR_NO = M.MEMBER_ID)
+		WHERE D.STUDENT_NO = #{studentNo}
+  	</select> 
+  	
+  	<select id="selectDropOutList2" resultMap="dropoutResultSet">
+  		SELECT D.DROP_NO, D.STUDENT_NO, M.MEMBER_KNAME AS PROFESSOR_NAME, D.DROP_REASON,
+		       D.DROP_DATE, D.DROP_INTERVIEW, D.DROP_STATUS, D.SUCCESS_DATE
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.PROFESSOR_NO = M.MEMBER_ID)
+		WHERE D.STUDENT_NO = #{studentNo}
+  	</select> 	
+  	
+  	<select id="pro_dropOutListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		JOIN PROFESSOR P ON(I.SDEPT_CODE = P.PDEPT_CODE)
+		WHERE P.PDEPT_HEAD = 1 
+		AND D.DROP_STATUS = '신청'
+		AND P.PDEPT_CODE = #{pdeptCode}
+	</select>
+	
+	<select id="pro_dropOutList" resultMap="dropoutResultSet">
+		SELECT DROP_NO, D.STUDENT_NO, M.MEMBER_KNAME AS STUDENT_NAME, DROP_REASON, DROP_DATE, DROP_INTERVIEW, DROP_STATUS
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		JOIN PROFESSOR P ON(I.SDEPT_CODE = P.PDEPT_CODE)
+		WHERE P.PDEPT_HEAD = 1 
+		AND D.DROP_STATUS = '신청'
+		AND P.PDEPT_CODE = #{pdeptCode}
+		ORDER BY DROP_NO ASC
+	</select>
+	
+	<select id="pro_dropOutListCount2" resultType="_int">
+		SELECT COUNT(*)
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		JOIN PROFESSOR P ON(I.SDEPT_CODE = P.PDEPT_CODE)
+		WHERE P.PDEPT_HEAD = 1 
+		AND D.DROP_STATUS = '승인'
+		AND P.PDEPT_CODE = #{pdeptCode}
+	</select>
+	
+	<select id="pro_dropOutList2" resultMap="dropoutResultSet">
+		SELECT DROP_NO, D.STUDENT_NO, M.MEMBER_KNAME AS STUDENT_NAME, DROP_REASON, DROP_DATE, DROP_INTERVIEW, DROP_STATUS, INTERVIEW_DATE
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		JOIN PROFESSOR P ON(I.SDEPT_CODE = P.PDEPT_CODE)
+		WHERE P.PDEPT_HEAD = 1 
+		AND D.DROP_STATUS = '승인'
+		AND P.PDEPT_CODE = #{pdeptCode}
+		ORDER BY INTERVIEW_DATE DESC
+	</select>
+	
+	<update id="pro_DropOutEnroll">
+		UPDATE DROPOUT
+		SET INTERVIEW_DATE = SYSDATE, DROP_STATUS = '승인', DROP_INTERVIEW = 'Y'
+		WHERE DROP_NO = #{dropNo}
+	</update>
+	
+	<select id="searchDropOut" resultMap="dropoutResultSet">
+		SELECT DROP_NO, D.STUDENT_NO, M.MEMBER_KNAME AS STUDENT_NAME, DROP_REASON, DROP_DATE, DROP_INTERVIEW, DROP_STATUS
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		JOIN PROFESSOR P ON(I.SDEPT_CODE = P.PDEPT_CODE)
+		WHERE P.PDEPT_HEAD = 1 
+		AND D.DROP_STATUS = '신청'		
+		<choose>
+			<when test="dropNo != null">
+				AND D.DROP_NO = #{dropNo}
+			</when>
+			<when test="studentNo != null">
+				AND D.STUDENT_NO = #{studentNo}
+			</when>
+			<otherwise>
+				AND M.MEMBER_KNAME = #{studentName}
+			</otherwise>
+		</choose>
+		ORDER BY DROP_NO ASC		
+	</select>
+	
+	<select id="searchDropOut2" resultMap="dropoutResultSet">
+		SELECT DROP_NO, D.STUDENT_NO, M.MEMBER_KNAME AS STUDENT_NAME, DROP_REASON, DROP_DATE, DROP_INTERVIEW, DROP_STATUS, INTERVIEW_DATE
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		JOIN PROFESSOR P ON(I.SDEPT_CODE = P.PDEPT_CODE)
+		WHERE P.PDEPT_HEAD = 1 
+		AND D.DROP_STATUS = '승인'		
+		<choose>
+			<when test="dropNo != null">
+				AND DROP_NO = #{dropNo}
+			</when>
+			<when test="studentNo != null">
+				AND D.STUDENT_NO = #{studentNo}
+			</when>
+			<otherwise>
+				AND M.MEMBER_KNAME = #{studentName}
+			</otherwise>
+		</choose>
+		ORDER BY INTERVIEW_DATE DESC
+	</select>
+	
+	<select id="em_dropOutListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		WHERE D.DROP_STATUS = '승인'		
+	</select>
+	
+	<select id="em_dropOutList" resultMap="dropoutResultSet">
+		SELECT DROP_NO, D.STUDENT_NO, M.MEMBER_KNAME AS STUDENT_NAME, DROP_REASON, DROP_DATE, DROP_INTERVIEW, DROP_STATUS
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		WHERE D.DROP_STATUS = '승인'		
+		ORDER BY DROP_NO ASC
+	</select>
+	
+	<select id="em_dropOutListCount2" resultType="_int">
+		SELECT COUNT(*)
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		WHERE D.DROP_STATUS = '완료'	OR D.DROP_STATUS = '반려'	
+	</select>
+	
+	<select id="em_dropOutList2" resultMap="dropoutResultSet">
+		SELECT DROP_NO, D.STUDENT_NO, M.MEMBER_KNAME AS STUDENT_NAME, DROP_REASON, DROP_DATE, DROP_INTERVIEW, DROP_STATUS, SUCCESS_DATE, REJECT_REASON
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		WHERE D.DROP_STATUS = '완료' OR D.DROP_STATUS = '반려'		
+		ORDER BY SUCCESS_DATE DESC
+	</select>
+	
+	<update id="em_DropOutEnroll">
+		UPDATE DROPOUT
+		SET SUCCESS_DATE = SYSDATE, DROP_STATUS = '완료'
+		WHERE DROP_NO = #{dropNo}
+	</update>
+	
+	<update id="em_DropOutReject">
+		UPDATE DROPOUT
+		SET SUCCESS_DATE = SYSDATE, DROP_STATUS = '반려', REJECT_REASON = #{rejectReason}
+		WHERE DROP_NO = #{dropNo}
+	</update>
+	
+	<update id="dropOutStudentInfoUpdate" parameterType="DropOut">
+		UPDATE STUDENT_INFO 
+		SET STUDENT_STATUS = '자퇴'
+		WHERE STUDENT_NO = #{studentNo}
+	</update>
+	
+	<select id="searchDropOut3" resultMap="dropoutResultSet">
+		SELECT DROP_NO, D.STUDENT_NO, M.MEMBER_KNAME AS STUDENT_NAME, DROP_REASON, DROP_DATE, DROP_INTERVIEW, DROP_STATUS
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		WHERE D.DROP_STATUS = '승인'		
+		<choose>
+			<when test="dropNo != null">
+				AND D.DROP_NO = #{dropNo}
+			</when>
+			<when test="studentNo != null">
+				AND D.STUDENT_NO = #{studentNo}
+			</when>
+			<otherwise>
+				AND M.MEMBER_KNAME = #{studentName}
+			</otherwise>
+		</choose>
+		ORDER BY DROP_NO ASC		
+	</select>
+	
+	<select id="searchDropOut4" resultMap="dropoutResultSet">
+		SELECT DROP_NO, D.STUDENT_NO, M.MEMBER_KNAME AS STUDENT_NAME, DROP_REASON, DROP_DATE, DROP_INTERVIEW, DROP_STATUS, SUCCESS_DATE, REJECT_REASON
+		FROM DROPOUT D
+		JOIN MEMBER M ON(D.STUDENT_NO = M.MEMBER_ID)
+		JOIN STUDENT_INFO I ON(D.STUDENT_NO = I.STUDENT_NO)
+		WHERE D.DROP_STATUS = '완료'	OR D.DROP_STATUS = '반려'		
+		<choose>
+			<when test="dropNo != null">
+				AND DROP_NO = #{dropNo}
+			</when>
+			<when test="studentNo != null">
+				AND D.STUDENT_NO = #{studentNo}
+			</when>
+			<otherwise>
+				AND M.MEMBER_KNAME = #{studentName}
+			</otherwise>
+		</choose>
+		ORDER BY SUCCESS_DATE DESC
+	</select>
+	
+	<select id="dpoInfo" resultMap="dropoutResultSet">
+		SELECT *
+		FROM DROPOUT
+		WHERE STUDENT_NO = #{studentNo}
+		AND DROP_STATUS = '완료'
+	</select>
+	
+  </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

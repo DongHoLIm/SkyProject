@@ -49,7 +49,7 @@
 												<li><a href="#">정보조회하기</a></li>
 												<li><h4>자퇴관리</h4></li>
 												<li><a href="#">상담내역</a></li>
-												<li><a href="#">자퇴처리요청</a></li>
+												<li><a href="pro_showDropOut.si">자퇴 신청 관리</a></li>
 											</ul>
 										</li>
 											<li>
