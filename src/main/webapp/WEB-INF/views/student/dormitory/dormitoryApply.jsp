@@ -33,7 +33,7 @@ $(function(){
                 // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
                 if(fullRoadAddr !== ''){
                     fullRoadAddr += extraRoadAddr;
-                }
+                } 
  
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 console.log(data.zonecode);

@@ -41,5 +41,5 @@ public class PrintController {
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorAlert";
 		}
-	}
+	} 
 }

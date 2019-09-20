@@ -11,5 +11,5 @@ import com.kh.finalProject.print.model.vo.Print;
 public interface PrintDao {
 
 	ArrayList<Print> printCheck(SqlSessionTemplate sqlSession, String studentNo) throws PrintException;
-
+ 
 }

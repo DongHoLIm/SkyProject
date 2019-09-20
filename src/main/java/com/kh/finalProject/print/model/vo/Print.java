@@ -12,7 +12,7 @@ public class Print implements java.io.Serializable{
 	private String payStatus;
 	private int payAmount;
 	private int schoAmount;
-	
+	 
 	public Print() {}
 
 	public Print(String college, String sdeptName, int grade, int enrollSemester, String studentNo, String memberNo,

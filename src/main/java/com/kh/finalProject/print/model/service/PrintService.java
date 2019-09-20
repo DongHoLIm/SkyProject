@@ -8,5 +8,5 @@ import com.kh.finalProject.print.model.vo.Print;
 public interface PrintService {
 
 	ArrayList<Print> printCheck(String studentNo) throws PrintException;
-
+ 
 }

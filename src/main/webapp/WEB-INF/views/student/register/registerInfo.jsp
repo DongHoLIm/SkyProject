@@ -59,7 +59,7 @@
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">납부하기</th>
 	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">비고</th>
 	 					    </tr>
-	 					   </thead>
+	 					   </thead> 
 	 					   <tbody>
 	 					   <c:forEach var="enrollment" items="${ memberEnrollment }">
 	     					 <tr style="background-color:white">

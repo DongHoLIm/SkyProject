@@ -23,7 +23,7 @@ public class PrintServiceImpl implements PrintService{
 		return printDao.printCheck(sqlSession, studentNo);
 	}
 	
-	
+	 
 	
 	
 }

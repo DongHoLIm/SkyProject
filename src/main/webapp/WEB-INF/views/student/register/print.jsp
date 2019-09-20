@@ -47,7 +47,7 @@
 			<td>등록상태 : </td>
 			<td><c:out value="${print.payStatus}" /></td> 
 			</tr>
-		</c:forEach>
+		</c:forEach> 
 		</table>
 		
 		<h3 align="center">-학년도 제 학기 등록 내역-</h3>
