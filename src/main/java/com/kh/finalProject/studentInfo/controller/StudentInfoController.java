@@ -1,6 +1,8 @@
 package com.kh.finalProject.studentInfo.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -148,7 +150,7 @@ public class StudentInfoController {
 			return "student/info/studentPersonalInfo";			
 		}else {
 			model.addAttribute("msg","신상정보 수정 실패");
-			return "common/errorPage";	
+			return "common/errorAlert";	
 		}
 	}
 
@@ -183,8 +185,9 @@ public class StudentInfoController {
 
 		} catch (StudentInfoSelectListException e) {
 			request.setAttribute("msg",e.getMessage());
+			
+			return "common/errorAlert";
 
-			return "common/errorPage";
 		}
 
 	}
@@ -226,8 +229,8 @@ public class StudentInfoController {
 
 		} catch (StudentInfoSelectListException e) {
 			mv.addObject("msg",e.getMessage());
-
-			mv.setViewName("common/errorPage");
+			
+			mv.setViewName("common/errorAlert");			
 
 			return mv;
 		}
@@ -288,8 +291,8 @@ public class StudentInfoController {
 
 		} catch (StudentInfoSelectListException e) {
 			mv.addObject("msg",e.getMessage());
-
-			mv.setViewName("common/errorPage");
+			
+			mv.setViewName("common/errorAlert");			
 
 			return mv;
 		}
@@ -318,8 +321,8 @@ public class StudentInfoController {
 
 		} catch (StudentInfoSelectListException e) {
 			mv.addObject("msg",e.getMessage());
-
-			mv.setViewName("common/errorPage");
+			
+			mv.setViewName("common/errorAlert");			
 
 			return mv;
 		}
@@ -330,32 +333,31 @@ public class StudentInfoController {
 	//교직원_학생조회 필터링 초기값
 	@RequestMapping("em_studentSelectBox.si")
 	public ModelAndView studentSelectBox(ModelAndView mv, HttpServletRequest request) {
-
-		try {
-			ArrayList collegeList = ss.selectcollege();
-			System.out.println(collegeList);
-
-			ArrayList sdeptList = ss.selectSdeptList();
-			System.out.println(sdeptList);
-
-			mv.addObject("collegeList", collegeList);
-			mv.addObject("sdeptList", sdeptList);
-			mv.setViewName("jsonView");
-
-			System.out.println("mv.getModel::" + mv.getModel());
-
-			return mv;
-
-		} catch (StudentInfoSelectListException e) {
-			mv.addObject("msg",e.getMessage());
-
-			mv.setViewName("common/errorPage");
-
-			return mv;
-		}
-
-	}	
-
+    
+				try {
+					ArrayList collegeList = ss.selectcollege();
+					System.out.println(collegeList);
+					
+					ArrayList sdeptList = ss.selectSdeptList();
+					System.out.println(sdeptList);
+					
+					mv.addObject("collegeList", collegeList);
+					mv.addObject("sdeptList", sdeptList);
+					mv.setViewName("jsonView");
+					
+					System.out.println("mv.getModel::" + mv.getModel());
+					
+					return mv;
+					
+				} catch (StudentInfoSelectListException e) {
+					mv.addObject("msg",e.getMessage());
+					
+					mv.setViewName("common/errorAlert");
+					
+					return mv;
+				}
+				
+			}		
 
 	//교직원_학생조회_학생선택
 	@RequestMapping(value="em_selectStudent.si")
@@ -414,8 +416,9 @@ public class StudentInfoController {
 
 		} catch (StudentInfoSelectListException e) {
 			request.setAttribute("msg",e.getMessage());
+			
+			return "common/errorAlert";
 
-			return "common/errorPage";
 		}
 
 	}
@@ -576,14 +579,41 @@ public class StudentInfoController {
 
 		String userId = loginUser.getMemberId();
 		System.out.println(userId);
+    
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat("MM");
+		
+		Date time = new Date();
+		
+		String year = format1.format(time);
+		String month = format2.format(time);
+		System.out.println("year::" + year);
+		System.out.println("month::" + month);
+		
+		String start="";
+		if(month=="2" || month=="8") {
+			if(month=="2") {
+				start = year + ".1학기" ;	
+			}else {
+				start = year + ".2학기" ;				
+			}
+			System.out.println("휴학시작학기::"+start);
+			
+			StudentInfo basicInfo = ss.basicInfo(userId);
+			request.setAttribute("basicInfo",basicInfo);
+			request.setAttribute("start",start);
+			
+			return "student/info/schoolOff";
+		
+		}
+		else {
+			request.setAttribute("msg","휴학 신청 기간이 아닙니다.");
+			
+			return "common/errorAlert";
+			
+		}	
 
-		StudentInfo basicInfo = ss.basicInfo(userId);
-		request.setAttribute("basicInfo",basicInfo);
-
-		return "student/info/schoolOff";
 	}
-
-
 
 	// 학생_다전공신청_뷰 출력
 	@RequestMapping("st_showSecondMajor.si")

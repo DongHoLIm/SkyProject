@@ -1,6 +1,7 @@
 package com.kh.finalProject.employee.classManagement.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,22 +9,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.employee.classManagement.model.service.ClassManagementService;
+import com.kh.finalProject.employee.classManagement.model.service.LessonPlanService;
 import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation;
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
+import com.kh.finalProject.employee.classManagement.model.vo.LessonPlan;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
 
 @Controller
 public class ClassManagementController {
 	@Autowired
 	private ClassManagementService cms;
-
+	@Autowired
+	private LessonPlanService lps;
+	
+	
 	//강의개설등록
 	@RequestMapping("lectureOpen.em")
 	public String selectSubject(HttpServletRequest request) {
@@ -140,4 +147,18 @@ public class ClassManagementController {
 		
 		return "employee/class/openCourseRegistration";
 	}
+	
+	@RequestMapping("lessonPlan.em")
+	public ModelAndView LessonPlan (LessonPlan lp, ModelAndView mav) {
+		lps.insertLessonPlan(lp);
+	
+		
+		
+		return mav;
+	
+	}
+	
+	
+	
+	
 }

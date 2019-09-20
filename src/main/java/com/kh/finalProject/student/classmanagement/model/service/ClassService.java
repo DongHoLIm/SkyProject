@@ -36,4 +36,10 @@ public interface ClassService {
 
 	void deleteCourseApply(String[] subCode, SubjectApply sa);
 
+	void insertFinishSubjectApply(String subCode, SubjectApply sa);
+
+	ArrayList<OpenSubject> selectFinishSubjectApplyList(SubjectApply sa);
+
+	int selectStudentCount(String subCode);
+
 }

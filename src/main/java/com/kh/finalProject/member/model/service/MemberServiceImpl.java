@@ -118,9 +118,9 @@ public class MemberServiceImpl implements MemberService{
 		return md.employeeUpdate(sqlSession,updateMember);
 	}
 	@Override
-	public ArrayList<Member> employeeList() {
+	public ArrayList<Member> employeeList(PageInfo pi) {
 		
-		return md.employeelist(sqlSession);
+		return md.employeelist(sqlSession,pi);
 	}
 	@Override
 	public MemberAccount Account(String userId) {
@@ -146,6 +146,16 @@ public class MemberServiceImpl implements MemberService{
 	public int accountMember() {
 		// TODO Auto-generated method stub
 		return md.accountMember(sqlSession);
+	}
+	@Override
+	public int searchMemberCount(String searchValue) {
+		// TODO Auto-generated method stub
+		return md.searchMemberCount(sqlSession,searchValue);
+	}
+	@Override
+	public ArrayList<Member> searchMember(String searchValue, PageInfo pi) {
+		// TODO Auto-generated method stub
+		return md.searchMember(sqlSession,searchValue,pi);
 	}
 
 	

@@ -20,6 +20,8 @@
 		<result property="timeInfo" column="TIME_INFO" />
 		<result property="enrolType" column="ENROL_TYPE" />
 		<result property="studentNo" column="STUDENT_NO" />
+		<result property="studentCount" column="STUDENT_COUNT" />
+		<result property="applyType" column="APPLY_TYPE" />
 	</resultMap>
 
 
@@ -27,7 +29,7 @@
 	<select id="selectOpenSubjectList"
 		resultMap="courseRegistrationResultSet">
 		SELECT OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
-		SUB_GRADE,
+		SUB_GRADE, STUDENT_COUNT,
 		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
 		FROM OPEN_SUBJECT OS
 		JOIN SUBJECT S ON(OS.OPENSUB_CODE = S.SUB_CODE)
@@ -62,7 +64,7 @@
 	</select>
 	<select id="studentSelectOpenSubject" resultMap="courseRegistrationResultSet">
 		SELECT OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
-		SUB_GRADE,
+		SUB_GRADE, STUDENT_COUNT,
 		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
 		FROM OPEN_SUBJECT OS
 		JOIN SUBJECT S ON(OS.OPENSUB_CODE = S.SUB_CODE)
@@ -74,7 +76,7 @@
 	</select>
 	<select id="selectSearchGwamok" resultMap="courseRegistrationResultSet">
 		SELECT OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
-		SUB_GRADE,
+		SUB_GRADE, STUDENT_COUNT,
 		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
 		FROM OPEN_SUBJECT OS
 		JOIN SUBJECT S ON(OS.OPENSUB_CODE = S.SUB_CODE)
@@ -100,7 +102,7 @@
     </select>
     <select id="selectPreliminaryCourseApplyList" resultMap="courseRegistrationResultSet">
 		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
-		SUB_GRADE,
+		SUB_GRADE, STUDENT_COUNT,
 		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
 		FROM SUBJECT_APPLY SA
         JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
@@ -111,10 +113,11 @@
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
         WHERE STUDENT_NO = #{studentNo}
         AND OS.ENROL_TYPE = 1
+        AND APPLY_TYPE = '예비'
     </select>
     <select id="prliminaryGwamokSelect" resultMap="courseRegistrationResultSet">
 		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
-		SUB_GRADE,
+		SUB_GRADE, STUDENT_COUNT,
 		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
 		FROM SUBJECT_APPLY SA
         JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
@@ -126,10 +129,11 @@
         WHERE STUDENT_NO = #{studentNo}
         AND SUB_NAME LIKE '%' ||  #{subName} || '%'
         AND OS.ENROL_TYPE = 1
+        AND APPLY_TYPE = '예비'
     </select>
     <select id="prliminaryProfessorSelect" resultMap="courseRegistrationResultSet">
 		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
-		SUB_GRADE,
+		SUB_GRADE, STUDENT_COUNT,
 		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
 		FROM SUBJECT_APPLY SA
         JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
@@ -141,10 +145,11 @@
         WHERE STUDENT_NO = #{studentNo}
         AND MEMBER_KNAME LIKE '%' ||  #{professorName} || '%'
         AND OS.ENROL_TYPE = 1
+        AND APPLY_TYPE = '예비'
     </select>
     <select id="prliminarySdeptSelect" resultMap="courseRegistrationResultSet">
 		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
-		SUB_GRADE,
+		SUB_GRADE, STUDENT_COUNT,
 		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
 		FROM SUBJECT_APPLY SA
         JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
@@ -156,5 +161,26 @@
         WHERE STUDENT_NO = #{studentNo}
         AND COMPLETE_TYPE LIKE '%' ||  #{completeType} || '%'
         AND OS.ENROL_TYPE = 1
+        AND APPLY_TYPE = '예비'
+    </select>
+    <select id="selectFinishSubjectApplyList" resultMap="courseRegistrationResultSet">
+		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
+		SUB_GRADE, STUDENT_COUNT,
+		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
+		FROM SUBJECT_APPLY SA
+        JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
+		JOIN SUBJECT S ON(OS.OPENSUB_CODE = S.SUB_CODE)
+		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
+		JOIN MEMBER M ON(OS.PROFESSOR_NO = M.MEMBER_ID)
+		JOIN ROOM R ON(OS.ROOM_CODE = R.ROOM_CODE)
+		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
+        WHERE STUDENT_NO = #{studentNo}
+        AND OS.ENROL_TYPE = 1
+        AND APPLY_TYPE = '정기'
+    </select>
+    <select id="selectStudentCount" resultType="_int">
+		SELECT STUDENT_COUNT
+		FROM OPEN_SUBJECT
+		WHERE OPENSUB_CODE = #{subCode}
     </select>
 </mapper>

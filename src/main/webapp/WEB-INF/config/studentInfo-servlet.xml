@@ -25,9 +25,9 @@
 		
 	<aop:aspectj-autoproxy proxy-target-class="true"/> 
 	
-<!-- 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10000000"/>		
-	</beans:bean> -->
+	</beans:bean>
 	
 	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView"/>
 	

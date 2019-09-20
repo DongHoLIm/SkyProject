@@ -65,7 +65,7 @@
 				</c:forEach>
 			</tbody>
 			<tfoot>
-				<tr onclick="">
+				<tr>
 					<td colspan="4" id="paging">
 					<c:set var="pageInfo" value="${pi }" />
 						<ul class="pagination" align="center">

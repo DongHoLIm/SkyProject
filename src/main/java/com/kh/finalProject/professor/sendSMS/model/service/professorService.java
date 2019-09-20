@@ -15,8 +15,10 @@ public interface professorService {
 
 	int insertSMS(StudentList sl);
 
-	ArrayList<SendSMSList> sendSMSList(SendSMSList list);
+	ArrayList<SendSMSList> sendSMSList(SendSMSList list, PageInfo pi);
 
 	ArrayList<StudentList> SendSMSDetail(SendSMSList sl);
+
+	int sendSMSListCount(SendSMSList list);
 
 }

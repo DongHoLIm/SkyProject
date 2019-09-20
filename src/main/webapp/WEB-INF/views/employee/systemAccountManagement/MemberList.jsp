@@ -30,7 +30,7 @@
 		background:white;
 		border:0.5px solid #f56a6a;			
 		cursor: pointer;
-	}
+	}	
 </style>
 </head>
 <body>
@@ -44,16 +44,16 @@
 				<h3 class="updateAccount">계정조회및 수정</h3>
 				<div style="float: right;" class="updateAccount">			
 				<span class="updateAccount">
-					<select name="searchCondition" id="" >
+					<select name="searchCondition" id="searchConditionController" >
 						<option value="name">이름으로 검색</option>
 						<option value="etc">비고로 검색</option>
 					</select>
 				</span>			
-				<span class="updateAccount">
-					<input type="text" name="searchValue"/>
+				<span class="updateAccount" id="inputArea">
+					<input type="text" name="searchValue" id="searchBar"/>
 				</span>
 				<span class="updateAccount">
-					<input type="button" value="search"/>
+					<input type="button" value="search" id="searchBtn"/>
 				</span>				
 				</div>
 				<hr />			
@@ -142,6 +142,40 @@
 			var test = $(this);
 			var userId = test.children().eq(0).text();
 			location.href = "MemberDetailList.me?userId="+userId;
+		});
+		$("#searchConditionController").change(function(){
+			var value = $(this).val();				
+			if(value=='etc'){
+				$("#searchBar").remove();
+				var $select = $("<select name='searchCondition' id='searchBar'>");
+				var $option1 =$("<option value='3'>").text("교직원");
+				var $option2 =$("<option value='2'>").text("교수");
+				var $option3 =$("<option value='1'>").text("학생");				
+				
+				$select.append($option1);
+				$select.append($option2);
+				$select.append($option3);
+				
+				$("#inputArea").append($select);
+				
+			}else{
+				$("#searchBar").remove();
+				var $input =$("<input type='text' name='searchValue' id='searchBar'>")
+				$("#inputArea").append($input);
+			}
+		});
+		$("#searchBtn").click(function(){
+			var searchValue = $("#searchBar").val();
+			$.ajax({
+				url:"searchMember.me",
+				data:{searchValue:searchValue},
+				dataTaype: "json",
+				type:"post",
+				success:function(data){
+					console.log(data);
+				}
+				
+			});
 		});
 	})		
 	</script>

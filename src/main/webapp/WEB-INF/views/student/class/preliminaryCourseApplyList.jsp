@@ -176,7 +176,7 @@ table.tableList2 td img {
 				<td><c:out value="${ openSubject.professorName }" /></td>
 				<td><c:out value="${ openSubject.dayInfo }" /> / <c:out value="${ openSubject.timeInfo }" /></td>
 				<td><c:out value="${ openSubject.roomName }" /> / <c:out value="${ openSubject.buildingName }" /></td>
-				<td><c:out value="${ openSubject.studentMax }" /></td>
+				<td><c:out value="${ openSubject.studentCount }" /> / <c:out value="${ openSubject.studentMax }" /></td>
 				<td><a style="color:red;">조회</a></td>
 				<td></td>
 				<td></td>
@@ -247,7 +247,7 @@ table.tableList2 td img {
 											"<td>"+list[i].professorName+"</td>"+
 											"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
 											"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
-											"<td>"+list[i].studentMax+"</td>"+
+											"<td>"+list[i].studentCount+'/'+list[i].studentMax+"</td>"+
 											"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
 											"<td>"+"</td>"+
 											"<td>"+"</td>"+
@@ -293,7 +293,7 @@ table.tableList2 td img {
 											"<td>"+list[i].professorName+"</td>"+
 											"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
 											"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
-											"<td>"+list[i].studentMax+"</td>"+
+											"<td>"+list[i].studentCount+'/'+list[i].studentMax+"</td>"+
 											"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
 											"<td>"+"</td>"+
 											"<td>"+"</td>"+
@@ -332,7 +332,7 @@ table.tableList2 td img {
 											"<td>"+list[i].professorName+"</td>"+
 											"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
 											"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
-											"<td>"+list[i].studentMax+"</td>"+
+											"<td>"+list[i].studentCount+'/'+list[i].studentMax+"</td>"+
 											"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
 											"<td>"+"</td>"+
 											"<td>"+"</td>"+

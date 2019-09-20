@@ -2,29 +2,68 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<configuration>
+<configuration> 
 	<typeAliases>
 		<typeAlias type="com.kh.finalProject.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.finalProject.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.finalProject.board.model.vo.SystemQuestion" alias="SystemQuestion"/>
+		<typeAlias type="com.kh.finalProject.reply.model.vo.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.finalProject.board.model.vo.Writer" alias="Writer"/>
 		<typeAlias type="com.kh.finalProject.board.model.vo.UploadFile" alias="UploadFile"/>
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.StudentInfo" alias="StudentInfo"/>
 		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.LectureOpen" alias="LectureOpen"/>
+		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor" alias="DepartmentProfessor"/>
 		<typeAlias type="com.kh.finalProject.enrollment.model.vo.Enrollment" alias="Enrollment"/>
 		<typeAlias type="com.kh.finalProject.scholarship.model.vo.Scholarship" alias="Scholarship"/>
 		<typeAlias type="com.kh.finalProject.dormitory.model.vo.Dormitory" alias="Dormitory"/>
+		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation" alias="classroominformation"/>
+		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration" alias="LectureRegistration"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.FilterCondition" alias="FilterCondition"/>
+		<typeAlias type="com.kh.finalProject.professor.openSubject.model.vo.OpenSubject" alias="OpenSubject"/>
+		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.OpenSubject" alias="courseRegistration"/>
+		<typeAlias type="com.kh.finalProject.member.model.vo.MemberAccount" alias="MemberAccount"/>
+		<typeAlias type="com.kh.finalProject.student.classmanagement.model.vo.Sdepartment" alias="Sdepartment"/>
+		<typeAlias type="com.kh.finalProject.professor.sendSMS.model.vo.StudentList" alias="professorSendSMS"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.Graduation" alias="Graduation"/>
+		<typeAlias type="com.kh.finalProject.professor.message.model.vo.MessageVO" alias="MessageVO"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.SecondMajor" alias="SecondMajor"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.ChangeMajor" alias="ChangeMajor"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.Explusion" alias="Explusion"/>
+		<typeAlias type="com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList" alias="SendSMSList"/>
+		<typeAlias type="com.kh.finalProject.student.classmanagement.model.vo.SubjectApply" alias="subjectApply"/>
+		<typeAlias type="com.kh.finalProject.board.model.vo.mainDate" alias="mainDate"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.SchoolOff" alias="SchoolOff"/>
+		<typeAlias type="com.kh.finalProject.print.model.vo.Print" alias="Print"/>
 	</typeAliases>
 	
 	<mappers>
+		<mapper resource="mappers/memberAccount-mapper.xml"/>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/systemQuestion-mapper.xml"/>
+		<mapper resource="mappers/reply-mapper.xml"/>
 		<mapper resource="mappers/writer-mapper.xml"/>
 		<mapper resource="mappers/file-mapper.xml"/>
 		<mapper resource="mappers/studentInfo-mapper.xml"/>
 		<mapper resource="mappers/lectureOpen-mapper.xml"/>
+		<mapper resource="mappers/lectureprofessor-mapper.xml"/>
 		<mapper resource="mappers/enrollment-mapper.xml"/>
 		<mapper resource="mappers/scholarship-mapper.xml"/>
 		<mapper resource="mappers/dormitory-mapper.xml"/>
+		<mapper resource="mappers/classroominformation-mapper.xml"/>
+		<mapper resource="mappers/couseroffered-mapper.xml"/>		
+		<mapper resource="mappers/openSubject/openSubject-mapper.xml"/>
+		<mapper resource="mappers/courseRegistration-mapper.xml"/>
+		<mapper resource="mappers/sdepartment-mapper.xml"/>
+		<mapper resource="mappers/professorSendSMS-mapper.xml"/>
+		<mapper resource="mappers/graduation-mapper.xml"/>
+		<mapper resource="mappers/message/message-mapper.xml"/>
+		<mapper resource="mappers/secondmajor-mapper.xml"/>
+		<mapper resource="mappers/changemajor-mapper.xml"/>
+		<mapper resource="mappers/explusion-mapper.xml"/>
+		<mapper resource="mappers/subjectApply-mapper.xml"/>
+		<mapper resource="mappers/schoolOff-mapper.xml"/>
+		<mapper resource="mappers/print-mapper.xml"/>
 	</mappers>
 	
 </configuration>

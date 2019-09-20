@@ -17,8 +17,10 @@ public interface professorDao {
 
 	int insertSMS(SqlSessionTemplate sqlSession, StudentList sl);
 
-	ArrayList<SendSMSList> sendSMSList(SqlSessionTemplate sqlSession, SendSMSList list);
+	ArrayList<SendSMSList> sendSMSList(SqlSessionTemplate sqlSession, SendSMSList list, PageInfo pi);
 
 	ArrayList<StudentList> SendSMSDetail(SqlSessionTemplate sqlSession, SendSMSList sl);
+
+	int sendSMSListCount(SqlSessionTemplate sqlSession, SendSMSList list);
 
 }

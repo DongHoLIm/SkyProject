@@ -5,7 +5,16 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Insert title here</title> 
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="resources/css/main.css" />
+<link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link href="resources/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
+<script src="resources/dist/js/datepicker.min.js"></script>
+<script src="resources/dist/js/i18n/datepicker.kr.js"></script>
 
 <style>
 #basic {
@@ -16,12 +25,19 @@ table.basicinfo td {
 	background: #FFF;
 }
 
-td.td {
+.td {
 	text-align: center;
 	background: #c7c5b7 !important;
 	color: black;
-	width: 100px !important;
-}
+	
+	}
+	
+.tdd {
+	text-align: center;
+	background: #c7c5b7 !important;
+	color: black;
+	width:15%;
+	}
 
 table.basicinfo {
 	width: 85%;
@@ -50,7 +66,11 @@ table.basicinfo {
 .tbody {
 	text-align: center;
 }
+#modified {
+	margin-left: 80%;
+}
 </style>
+
 
 </head>
 <body>
@@ -66,81 +86,94 @@ table.basicinfo {
 
 			<table class="basicinfo">
 				<h4 id="basic">휴학 신청</h4>
-
+				<form action="st_schoolOffApply.si" method="post">
 				<tr>
-					<td class="td">휴학 구분</td>
-					<td><select name='mulitple'>
-							<option value=''>-- 선택 --</option>
-							<option value='' selected>일반휴학</option>
-							<option value='' selected>군휴학</option>
-
-					</select></td>
-
-					<td class="td">휴학 사유</td>
-					<td><select name='mulitple'>
-							<option value=''>-- 선택 --</option>
-							<option value='' selected>개인 사정</option>
-							<option value='' disabled>경제 사정</option>
-							<option value='' label=''></option>
-					</select></td>
-				</tr>
-
-				<tr>
-					<td class="td">희망 휴학<br>기간
+					<td class="tdd">휴학 구분</td>
+					<td width="35%"  name="offType">
+					<select name='mulitple'>
+							<option value='선택'>-- 선택 --</option>
+							<option value='일반휴학'>일반휴학</option>
+							<option value='군휴학'>군휴학</option>
+					</select>
 					</td>
-					<td><select name='mulitple'>
-							<option value=''>-- 선택 --</option>
-							<option value='' selected>2019-09-12</option>
-							<option value='' disabled>경제 사정</option>
-							<option value='' label=''></option>
-					</select></td>
 
-					<td class="td">복학 예정</td>
-					<td><select name='mulitple'>
-							<option value=''>-- 선택 --</option>
-							<option value='' selected>2020-10-12</option>
-							<option value='' disabled>경제 사정</option>
-							<option value='' label=''></option>
-					</select></td>
+					<td class="tdd">휴학 사유</td>
+					<td name="offReason">
+					<select name='mulitple'>
+							<option value='선택'>-- 선택 --</option>
+							<option value='개인사정'>개인 사정</option>
+							<option value='경제사정'>경제 사정</option>
+					</select>
+					</td>
+				</tr>
+				
+
+				<tr>
+					<td class="tdd">휴학신청 학기</td>
+					<td name="offStart">
+						<input type="text" value="2019.1학기" readonly>
+					</td>
+					
+					<td class="tdd">희망 휴학 기간</td>
+					<td name="offTerm">
+					<select name='mulitple'>
+							<option value='선택'>-- 선택 --</option>
+							<option value='1'>1</option>
+							<option value='2'>2</option>
+					</select>
+					</td>
+
+					
+				</tr>
+					
+				<tr>
+					<td class="tdd">휴학기간</td>
+					<td name="offTermT">
+						<input type="text" value="2019.1학기 - 2019.2학기" readonly>
+					</td>
+					
+					<td class="tdd">복학 예정</td>
+					<td name="returnDate">
+						<input type="text" value="2020.1학기 " readonly>
+					</td>	
+				
 				</tr>
 
 				<tr>
-					<td class="td">입대 일자</td>
-					<td><select name='mulitple'>
-							<option value=''>-- 선택 --</option>
-							<option value='' selected>2019-09-12</option>
-							<option value='' disabled>경제 사정</option>
-							<option value='' label=''></option>
-					</select></td>
+					<td class="tdd">입대 일자</td>
+					<td name="enlistmentDate">
+						<input type='text' class='datepicker-here' data-language='kr' id="datepicker1" name="startDate"/>	
+					</td>
 
-					<td class="td">전역 예정</td>
-					<td><select name='mulitple'>
-							<option value=''>-- 선택 --</option>
-							<option value='' selected>2020-10-12</option>
-							<option value='' disabled>경제 사정</option>
-							<option value='' label=''></option>
-					</select></td>
+					<td class="tdd">전역 예정</td>
+					<td name="demobilizationDate">
+						<input type='text' class='datepicker-here' data-language='kr' id="datepicker2" name="ENDDate"/>
+					</td>
 				</tr>
-
+				
 				<tr>
-					<td class="td">연락처</td>
-					<td><input type="text" value=""></td>
-					<td class="td">주소</td>
-					<td><input type="text" value=""></td>
-
+					<td class="tdd">제출 서류</td>
+					<td name="requiredDoc" style="border: solid 1px; color: #dde1e3;">
+						<input type="text" value="">
+					</td>			
+					
+					<td class="tdd">연락처</td>
+					<td><input type="tel" value=""></td>
+				
 				</tr>
-
-				<tr>
-					<td class="td">제출 서류</td>
-					<td style="border: solid 1px; color: #dde1e3;"><input
-						type="text" value=""></td>
-				</tr>
+				
 
 			</table>
+			
+			<table id="modified">
+				<button type="submit" id="modified">신청하기</button> 
+			</table>
 
-			<input type="button" value="신청하기" id="modified"
-				style="float: right; margin-right: 50px;"> <br>
+			</form>
+				
 			<br>
+			<br>
+			
 			<table class="basicinfo">
 				<h4 id="basic">신청 내역</h4>
 				<thead>
@@ -149,7 +182,7 @@ table.basicinfo {
 						<th style="text-align: center" id="t1">휴학 구분</th>
 						<th style="text-align: center" id="t1">휴학 사유</th>
 						<th style="text-align: center" id="t1">휴학 기간</th>
-						<th style="text-align: center" id="t1">휴학 학기수</th>
+						<th style="text-align: center" id="t1">복학예정</th>
 						<th style="text-align: center" id="t1">신청일</th>
 						<th style="text-align: center" id="t1">상태</th>
 					</tr>
@@ -166,10 +199,8 @@ table.basicinfo {
 					</tr>
 				</tbody>
 			</table>
-
-
-
-
+			
+			
 
 		</div>
 		<div>
@@ -178,3 +209,5 @@ table.basicinfo {
 	</div>
 </body>
 </html>
+
+

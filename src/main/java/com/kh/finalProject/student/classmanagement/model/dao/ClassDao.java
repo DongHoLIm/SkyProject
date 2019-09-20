@@ -39,5 +39,11 @@ public interface ClassDao {
 
 	void deleteCourseApply(SqlSessionTemplate sqlSession, SubjectApply sa, String[] subCode);
 
+	void insertFinishSubjectApply(SqlSessionTemplate sqlSession, String subCode, SubjectApply sa);
+
+	ArrayList<OpenSubject> selectFinishSubjectApplyList(SqlSessionTemplate sqlSession, SubjectApply sa);
+
+	int selectStudentCount(SqlSessionTemplate sqlSession, String subCode);
+
 }
  
