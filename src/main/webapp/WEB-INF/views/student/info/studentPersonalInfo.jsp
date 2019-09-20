@@ -27,7 +27,7 @@ td.td {
 	text-align: center;
 	background: #c7c5b7 !important;
 	color: black;
-	width: 100px !important;
+	
 }
 
 table.basicinfo {
