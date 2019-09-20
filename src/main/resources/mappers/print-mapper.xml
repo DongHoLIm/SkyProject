@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Print">
+	<resultMap type="Print" id="printResultSet">
+		<id property="studentNo" column="STUDENT_NO"/>
+		<result property="college" column="COLLEGE"/>
+		<result property="sdeptName" column="SDEPT_NAME"/>
+		<result property="grade" column="GRADE"/>
+		<result property="enrollSemester" column="ENROLL_SEMESTER"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="memberKname" column="MEMBER_KNAME"/>
+		<result property="enrollYear" column="ENROLL_YEAR"/>
+		<result property="payStatus" column="PAY_STATUS"/>
+		<result property="payAmount" column="PAY_AMOUNT"/>
+		<result property="schoAmount" column="SCHO_AMOUNT"/>
+	</resultMap>
+	
+	<select id="printCheckInfo" resultMap="printResultSet" parameterType="String">
+		SELECT *
+		FROM PRINT
+		WHERE STUDENT_NO = #{studentNo}
+	</select>
+</mapper>

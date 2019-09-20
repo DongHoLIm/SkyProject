@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -68,13 +69,17 @@ public class DormitoryController {
 	}
 	
 	@RequestMapping(value="dormitoryApply.dor", method=RequestMethod.POST)
-	public String insert(Dormitory dormitory, ModelAndView mav, HttpSession session) {
+	public String insert(@RequestParam("postNum") String postNum, @RequestParam("address") String address, @RequestParam("addressDetail") String addressDetail, Dormitory dormitory, ModelAndView mav, HttpSession session) {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		System.out.println("loginUser ::: " + loginUser);
 		
 		dormitory.setMemberId(loginUser.getMemberId());
+		dormitory.setPostNum(postNum);
+		dormitory.setAddress(address);
+		dormitory.setAddressDetail(addressDetail);
+		
 		System.out.println("dormitory :::" + dormitory);
 		ds.insertDormitory(dormitory);
 		

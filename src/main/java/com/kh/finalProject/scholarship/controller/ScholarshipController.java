@@ -138,7 +138,7 @@ public class ScholarshipController {
 	}
 	
 	@RequestMapping(value="scholarshipNewApply.sc")
-	public String insert(Scholarship scholarship, ModelAndView mav, HttpSession session) {
+	public String insert(@RequestParam("postNum") String postNum, @RequestParam("address") String address, @RequestParam("addressDetail") String addressDetail, Scholarship scholarship, ModelAndView mav, HttpSession session) {
 		
 		System.out.println("들어옴");
 		
@@ -146,7 +146,11 @@ public class ScholarshipController {
 		
 		System.out.println("loginUser ::: " + loginUser);
 		
+		scholarship.setPostNum(postNum);
+		scholarship.setAddress(address);
+		scholarship.setAddressDetail(addressDetail);
 		scholarship.setStudentNo(loginUser.getMemberId());
+		
 		ss.insertScholarship(scholarship);
 		
 		return "common/successAlert";

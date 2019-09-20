@@ -64,11 +64,11 @@
 	 					   <c:forEach var="enrollment" items="${ memberEnrollment }">
 	     					 <tr style="background-color:white">
 	    					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ enrollment.enrollYear }"/>학년도 <c:out value="${ enrollment.enrollSemester }"/>학기</td>
-	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${enrollment.tuition}"/> 원</td>
-	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br><c:out value="${ enrollment.schoAmount }"/> 원</td>
-	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ enrollment.payAmount }"/> 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><fmt:formatNumber value="${ enrollment.tuition }" pattern="#,###"/> 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br><fmt:formatNumber value="${ enrollment.schoAmount }" pattern="#,###"/> 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><fmt:formatNumber value="${ enrollment.payAmount }" pattern="#,###"/> 원</td>
 	     					   <c:if test="${ enrollment.payStatus == 'Y'}">
-	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="print.pr" style="border-bottom: dotted 0px;">출력하기</a></td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">해당없음</td>
 	     					   </c:if>
 	     					   <c:if test="${ enrollment.payStatus == 'N'}">

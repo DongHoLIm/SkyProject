@@ -8,12 +8,45 @@
 <title>장학금신청</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="/resources/js/addressapi.js"></script>
 <script>
 $(function(){	
 	$("button[name='postNum']").click(function(){
 		new daum.Postcode({
 	        oncomplete: function(data) {
-	           $("button[name='postNum']").val(data.postNum);	         
+	        	var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+ 
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                if(fullRoadAddr !== ''){
+                    fullRoadAddr += extraRoadAddr;
+                }
+ 
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                console.log(data.zonecode);
+                console.log(fullRoadAddr);
+                
+                
+                $("[name=postNum]").val(data.zonecode);
+                $("[name=address]").val(fullRoadAddr);
+                
+                document.getElementById('postNum').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('address').value = fullRoadAddr;
+                document.getElementById('postNum').value = data.jibunAddress;         
 	        }
 	    }).open();
 	});
@@ -66,9 +99,9 @@ $(function(){
 	 					   </tr>
 	     				   <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">우편번호</td>
-	  					      <td style="text-align:center; background-color:white;"><div style="display: inline-flex;" ><input type="text" style="width:75px;">&nbsp;-&nbsp;<input type="text" style="width:75px;" name="postNum">&nbsp;<button type="button" style="width:50px; padding:0px" name="postNum">검색</button></div></td>
+	  					      <td style="text-align:center; background-color:white;"><div style="display: inline-flex;" ><input type="text" style="width:75px;" name="postNum">&nbsp;<button type="button" style="width:50px; padding:0px" name="postNum">검색</button></div></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">주소</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:385px;" name="address"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:385px;" name="address"/></td>
 	 					    </tr>
 	 					    <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">상세주소</td>
