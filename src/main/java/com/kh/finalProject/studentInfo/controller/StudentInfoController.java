@@ -1,6 +1,8 @@
 package com.kh.finalProject.studentInfo.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -143,7 +145,7 @@ public class StudentInfoController {
 			return "student/info/studentPersonalInfo";			
 		}else {
 			model.addAttribute("msg","신상정보 수정 실패");
-			return "common/errorPage";	
+			return "common/errorAlert";	
 		}
 	}
 	
@@ -179,7 +181,7 @@ public class StudentInfoController {
 		} catch (StudentInfoSelectListException e) {
 			request.setAttribute("msg",e.getMessage());
 			
-			return "common/errorPage";
+			return "common/errorAlert";
 		}
 		
 	}
@@ -222,7 +224,7 @@ public class StudentInfoController {
 		} catch (StudentInfoSelectListException e) {
 			mv.addObject("msg",e.getMessage());
 			
-			mv.setViewName("common/errorPage");
+			mv.setViewName("common/errorAlert");
 			
 			return mv;
 		}
@@ -284,7 +286,7 @@ public class StudentInfoController {
 		} catch (StudentInfoSelectListException e) {
 			mv.addObject("msg",e.getMessage());
 			
-			mv.setViewName("common/errorPage");
+			mv.setViewName("common/errorAlert");
 			
 			return mv;
 		}
@@ -314,7 +316,7 @@ public class StudentInfoController {
 		} catch (StudentInfoSelectListException e) {
 			mv.addObject("msg",e.getMessage());
 			
-			mv.setViewName("common/errorPage");
+			mv.setViewName("common/errorAlert");
 			
 			return mv;
 		}
@@ -344,7 +346,7 @@ public class StudentInfoController {
 				} catch (StudentInfoSelectListException e) {
 					mv.addObject("msg",e.getMessage());
 					
-					mv.setViewName("common/errorPage");
+					mv.setViewName("common/errorAlert");
 					
 					return mv;
 				}
@@ -410,7 +412,7 @@ public class StudentInfoController {
 		} catch (StudentInfoSelectListException e) {
 			request.setAttribute("msg",e.getMessage());
 			
-			return "common/errorPage";
+			return "common/errorAlert";
 		}
 		
 	}
@@ -572,10 +574,40 @@ public class StudentInfoController {
 		String userId = loginUser.getMemberId();
 		System.out.println(userId);
 		
-		StudentInfo basicInfo = ss.basicInfo(userId);
-		request.setAttribute("basicInfo",basicInfo);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat("MM");
 		
-		return "student/info/schoolOff";
+		Date time = new Date();
+		
+		String year = format1.format(time);
+		String month = format2.format(time);
+		System.out.println("year::" + year);
+		System.out.println("month::" + month);
+		
+		String start="";
+		if(month=="2" || month=="8") {
+			if(month=="2") {
+				start = year + ".1학기" ;	
+			}else {
+				start = year + ".2학기" ;				
+			}
+			System.out.println("휴학시작학기::"+start);
+			
+			StudentInfo basicInfo = ss.basicInfo(userId);
+			request.setAttribute("basicInfo",basicInfo);
+			request.setAttribute("start",start);
+			
+			return "student/info/schoolOff";
+		
+		}
+		else {
+			request.setAttribute("msg","휴학 신청 기간이 아닙니다.");
+			
+			return "common/errorAlert";
+			
+		}
+		
+		
 	}
 		
 
