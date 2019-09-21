@@ -591,7 +591,7 @@ public class StudentInfoController {
 		System.out.println("month::" + month);
 		
 		String start="";
-		if(month=="2" || month=="8") {
+		if(month.equals("02") || month.equals("08") || month.equals("09")) {
 			if(month=="2") {
 				start = year + ".1학기" ;	
 			}else {
@@ -608,11 +608,31 @@ public class StudentInfoController {
 		}
 		else {
 			request.setAttribute("msg","휴학 신청 기간이 아닙니다.");
-			
 			return "common/errorAlert";
 			
 		}	
 
+	}
+	
+	//학생_휴학신청_희망휴학기간 선택
+	@RequestMapping("st_selectOffTerm.si")
+	public ModelAndView selectOffTerm(ModelAndView mv, HttpServletRequest request) {
+		
+		int offTerm = Integer.parseInt(request.getParameter("offTerm"));
+		String start = request.getParameter("start");
+
+		System.out.println(offTerm);
+		System.out.println(start);
+		
+		/*
+		 * String year = String semester=
+		 */
+		
+		//String offTermm = "";
+		
+
+		return mv;
+		
 	}
 
 	// 학생_다전공신청_뷰 출력
