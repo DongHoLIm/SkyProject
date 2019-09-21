@@ -84,13 +84,14 @@ table.basicinfo {
 
 			
 
-			<table class="basicinfo">
+			
 				<h4 id="basic">휴학 신청</h4>
 				<form action="st_schoolOffApply.si" method="post">
+				<table class="basicinfo">
 				<tr>
 					<td class="tdd">휴학 구분</td>
 					<td width="35%">
-					<select name="offType">
+					<select id="offType" name="offType">
 							<option value='선택'>-- 선택 --</option>
 							<option value='일반휴학'>일반휴학</option>
 							<option value='군휴학'>군휴학</option>
@@ -99,7 +100,7 @@ table.basicinfo {
 
 					<td class="tdd">휴학 사유</td>
 					<td>
-					<select name="offReason">
+					<select id="offReason" name="offReason">
 							<option value='선택'>-- 선택 --</option>
 							<option value='개인사정'>개인 사정</option>
 							<option value='경제사정'>경제 사정</option>
@@ -130,12 +131,12 @@ table.basicinfo {
 				<tr>
 					<td class="tdd">휴학기간</td>
 					<td>
-						<input type="text" name="offTermT" value=" " readonly>
+						<input type="text" id="offTermT" name="offTermT" value=" " readonly>
 					</td>
 					
 					<td class="tdd">복학 예정</td>
 					<td>
-						<input type="text" name="returnDate" value=" " readonly>
+						<input type="text" id="returnDate" name="returnDate" value=" " readonly>
 					</td>	
 				
 				</tr>
@@ -143,28 +144,25 @@ table.basicinfo {
 				<tr>
 					<td class="tdd">입대 일자</td>
 					<td>
-						<input type='text' name="enlistmentDate" class='datepicker-here' data-language='kr' id="datepicker1" name="startDate"/>	
+						<input type='text' id="enlistmentDate" name="enlistmentDate" class='datepicker-here' data-language='kr' id="datepicker1" name="startDate" value=""/>	
 					</td>
 
 					<td class="tdd">전역 예정</td>
 					<td>
-						<input type='text' name="demobilizationDate" class='datepicker-here' data-language='kr' id="datepicker2" name="ENDDate"/>
+						<input type='text' id="demobilizationDate" name="demobilizationDate" class='datepicker-here' data-language='kr' id="datepicker2" name="ENDDate" value=""/>
 					</td>
 				</tr>
 				
 				<tr>
 					<td class="tdd">제출 서류</td>
 					<td colspan="3" style="border: solid 1px; color: #dde1e3;">
-						<input type="text" name="requiredDoc" value="">
-					</td>			
-					
+						<input type="text" id="requiredDoc" name="requiredDoc" value="">
+					</td>	
 				</tr>
-				
-
-			</table>
 			
 			<table id="modified">
 				<button type="submit" id="modified">신청하기</button> 
+			</table>
 			</table>
 
 			</form>
@@ -172,8 +170,8 @@ table.basicinfo {
 			<br>
 			<br>
 			
+			<h4 id="basic">신청 내역</h4>
 			<table class="basicinfo">
-				<h4 id="basic">신청 내역</h4>
 				<thead>
 					<tr>
 						<th style="text-align: center" id="t1">순번</th>
@@ -217,6 +215,16 @@ table.basicinfo {
 						success:function(data){
 							console.log("접속성공");
 							console.log("offTerm::" + offTerm);
+							console.log("start::" + start);
+							console.log("offTermm::" + data.offTermm);
+							console.log("returnDay::" + data.returnDay);
+							
+							var $input1 = $("#offTermT");
+							var $input2 = $("#returnDate");
+							
+							$input1.val(data.offTermm);
+							$input2.val(data.returnDay);
+							
 							
 						}
 					})
