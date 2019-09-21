@@ -567,20 +567,20 @@ public class MemberController {
 	@ResponseBody
 	public ModelAndView searchMember(ModelAndView mv,HttpServletRequest request) {
 		String searchValue = request.getParameter("searchValue");
+		
 		int currentPage=1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}		
 		int listCount;
-		try {
-			listCount =ms.searchMemberCount(searchValue);
+		try {			
+			listCount =ms.searchMemberCount(searchValue);		
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<Member>list = ms.searchMember(searchValue,pi);
 			mv.addObject("list", list);
-			mv.addObject("pi", pi);
-			
-			
+			mv.addObject("pi", pi);		
 		}catch(Exception e){
+			e.printStackTrace();
 			mv.addObject("msg", "검색 실패");
 			/* mv.setViewName("common/errorAlert"); */
 		}

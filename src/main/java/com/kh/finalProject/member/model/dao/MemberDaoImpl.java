@@ -153,15 +153,26 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	@Override
 	public int searchMemberCount(SqlSessionTemplate sqlSession, String searchValue) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("Member.searchMemberCount",searchValue);
+		int result =0;
+		if(searchValue.equals("1")||searchValue.equals("2")||searchValue.equals("3")) {
+			result = sqlSession.selectOne("Member.searchMemberCountStatus", searchValue);
+		}else {
+			result= sqlSession.selectOne("Member.searchMemberCount",searchValue);
+		}
+		return result;
 	}
 	@Override
 	public ArrayList<Member> searchMember(SqlSessionTemplate sqlSession, String searchValue, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		ArrayList<Member> list = (ArrayList)sqlSession.selectList("Member.searchMemberList", searchValue, rowBounds);
+		ArrayList<Member> list =null;
+		if(searchValue.equals("1")||searchValue.equals("2")||searchValue.equals("3")) {
+			list = (ArrayList)sqlSession.selectList("Member.searchMemberListCheck",searchValue,rowBounds);
+		}else {
+			list = (ArrayList)sqlSession.selectList("Member.searchMemberList", searchValue, rowBounds);
+			
+		}
 		System.out.println(list);
 		return list;
 	}
