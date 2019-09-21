@@ -31,10 +31,6 @@
 				<jsp:include page="../../common/header.jsp" />
 				<br>
 				<h3 class="updateAccount">권한 부여/수정</h3>			
-				<div style="float: right;">
-				<input type="text" />
-				<button type="reset"class="updateAccount" >취소</button>
-				</div>
 				<hr />
 				<br />
 				<br />			

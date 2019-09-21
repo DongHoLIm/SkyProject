@@ -53,7 +53,7 @@
 					<input type="text" name="searchValue" id="searchBar"/>
 				</span>
 				<span class="updateAccount">
-					<input type="button" value="search" id="searchBtn"/>
+					<button onclick="searchBtn();">SEARCH</button>
 				</span>				
 				</div>
 				<hr />			
@@ -85,31 +85,38 @@
 							</c:if>							
 						</tr>						
 						</c:forEach>
-					</tbody>					
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="5">
+							<c:set var="pageInfo" value="${pi }" />
+								<ul class="pagination" align="center">
+									<c:if test="${pi.currentPage<=1 }">
+										<li><span class="button disabled">Prev</span></li>
+									</c:if>
+									<c:if test="${pi.currentPage>1 }">
+										<li><span class="button" id="prevBtn">Prev</span></li>
+									</c:if>
+									<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+										<c:if test="${p eq pi.currentPage }">
+											<li class="pageNumber"><p class="page active">${p}</p></li>
+										</c:if>
+										<c:if test="${p ne pi.currentPage }">
+											<li class="pageNumber"><a class="page">${p}</a></li>
+										</c:if>
+									</c:forEach>
+									<c:if test="${pi.currentPage < pi.maxPage }">
+										<li><span class="button" id="nextBtn">next</span></li>
+									</c:if>
+									<c:if test="${pi.currentPage ==pi.maxPage }">
+										<li><span class="button disabled">Next</span></li>
+									</c:if>
+								</ul>
+							</td>
+						</tr>
+					</tfoot>					
 				</table>
-				<c:set var = "pageInfo" value="${pi }"/>
-				<ul class="pagination" align="center">
-					<c:if test = "${pi.currentPage<=1 }">
-						<li><span class="button disabled" >Prev</span></li>
-					</c:if>
-					<c:if test = "${pi.currentPage>1 }">
-						<li><span class="button" id="prevBtn">Prev</span></li>
-					</c:if>
-					<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}"> 
-						<c:if test="${p eq pi.currentPage }">
-							<li class="pageNumber"><p class="page active">${p}</p></li>
-						</c:if>
-						<c:if test ="${p ne pi.currentPage }">
-							<li class="pageNumber"><a class="page">${p}</a></li>
-						</c:if>
-					</c:forEach>
-					<c:if test="${pi.currentPage < pi.maxPage }">					
-					<li><span class="button" id="nextBtn">next</span></li>
-					</c:if>
-					<c:if test = "${pi.currentPage ==pi.maxPage }">
-					<li><span class="button disabled">Next</span></li>
-					</c:if>
-				</ul> 		
+				 		
 		</div>
 			</div>
 		<div>		
@@ -164,20 +171,184 @@
 				$("#inputArea").append($input);
 			}
 		});
-		$("#searchBtn").click(function(){
-			var searchValue = $("#searchBar").val();
+	});
+		function searchBtn(){
+			var searchValue =$("#searchBar").val();
+			console.log(searchValue);
 			$.ajax({
 				url:"searchMember.me",
-				data:{searchValue:searchValue},
-				dataTaype: "json",
+				data: {"searchValue":searchValue},
 				type:"post",
-				success:function(data){
+				success: function(data){
 					console.log(data);
+					$("#MemberList tbody").empty();
+ 					for(var i =0;i<data.list.length;i++){
+ 						var $tr = $("<tr>");
+ 						var $td1 = $("<td>").text(data.list[i].memberId);
+ 						var $td2 = $("<td>").text(data.list[i].memberPwd);
+ 						var $td3 = $("<td>").text(data.list[i].memberKName);
+ 						var $td4 = $("<td>").text(data.list[i].email);
+ 						var $td5 = $("<td>");
+ 						if(data.list[i].memberStatus == 1){
+ 							$td5.text("학생");
+ 						}else if(data.list[i].memberStatus==2){
+ 							$td5.text("교수");
+ 						}else{
+ 							$td5.text("교직원");
+ 						}
+ 						$tr.append($td1);
+ 						$tr.append($td2);
+ 						$tr.append($td3);
+ 						$tr.append($td4);
+ 						$tr.append($td5);
+ 						$("#MemberList tbody").append($tr);	 						
+ 					}
+ 					$("#MemberList > tfoot tr").eq(0).empty();
+ 					var $td6 = $("<td colspan='4'>");
+ 					var $ul  =$("<ul class='pagination' align='center'>");
+ 					var $li =$("<li>");
+ 					var $li1 =$("<li>");
+ 					var $li2=$("<li>");	 					 					
+ 					var $li3 =$("<li>");
+ 					var $disabledPrevspan = $("<span class='button disabled' >").text('Prev');
+ 					var $abledPrevSpan = $("<span class='button' id='prevBtn' onclick='goPre()'>").text("Prev");
+ 					var $disabledNextSpan=$("<span class='button disabled'>").text("Next");
+ 					var $abledNextSpan= $("<span class='button' id='nextBtn' onclick='goNext()'>").text("Next");
+ 					
+ 					if(data.pi.currentPage<=1){
+ 						$li.append($disabledPrevspan);
+ 						$ul.append($li);
+ 					}else {
+ 						$li1.append($abledPrevSpan);
+ 						$ul.append($li1);
+ 					}
+ 					for(var i= data.pi.startPage;i<=data.pi.endPage;i++){
+ 						var $a =$("<a class='page' onclick='reajax("+i+")'>").text(i);
+ 						var $p =$("<p class='page active'>").text(i);
+ 						var $li4 =$("<li class='pageNumber'>");	
+ 						if(i==data.pi.currentPage){
+ 							$li4.append($p);
+ 							$ul.append($li4);
+ 						}else{	 							
+ 							$li4.append($a);
+ 							$ul.append($li4);
+ 						}
+ 					}
+ 					if(data.pi.currentPage<data.pi.maxPage){
+ 						$li2.append($abledNextSpan);
+ 						$ul.append($li2);
+ 					}else{
+ 						$li3.append($disabledNextSpan);
+ 						$ul.append($li3);
+ 					}
+ 					$td6.append($ul);
+ 					$("#MemberList > tfoot tr").eq(0).append($td6);
+ 					$("#MemberList tbody tr").click(function(){
+ 						var test = $(this);
+ 						var userId = test.children().eq(0).text();
+ 						location.href = "MemberDetailList.me?userId="+userId;
+ 					});
 				}
 				
 			});
-		});
-	})		
+		}
+		function reajax(index){
+			var searchValue =$("#searchBar").val();
+			var currentPage = index;
+			$.ajax({
+				url:"searchMember.me",
+				data: {"searchValue":searchValue,"currentPage":currentPage},
+				type:"post",
+				success: function(data){
+					console.log(data);
+					$("#MemberList tbody").empty();
+ 					for(var i =0;i<data.list.length;i++){
+ 						var $tr = $("<tr>");
+ 						var $td1 = $("<td>").text(data.list[i].memberId);
+ 						var $td2 = $("<td>").text(data.list[i].memberPwd);
+ 						var $td3 = $("<td>").text(data.list[i].memberKName);
+ 						var $td4 = $("<td>").text(data.list[i].email);
+ 						var $td5 = $("<td>");
+ 						if(data.list[i].memberStatus == 1){
+ 							$td5.text("학생");
+ 						}else if(data.list[i].memberStatus==2){
+ 							$td5.text("교수");
+ 						}else{
+ 							$td5.text("교직원");
+ 						}
+ 						$tr.append($td1);
+ 						$tr.append($td2);
+ 						$tr.append($td3);
+ 						$tr.append($td4);
+ 						$tr.append($td5);
+ 						$("#MemberList tbody").append($tr);	 						
+ 					}
+ 					$("#MemberList > tfoot tr").eq(0).empty();
+ 					var $td6 = $("<td colspan='4'>");
+ 					var $ul  =$("<ul class='pagination' align='center'>");
+ 					var $li =$("<li>");
+ 					var $li1 =$("<li>");
+ 					var $li2=$("<li>");	 					 					
+ 					var $li3 =$("<li>");
+ 					var $disabledPrevspan = $("<span class='button disabled' >").text('Prev');
+ 					var $abledPrevSpan = $("<span class='button' id='prevBtn' onclick='goPre()'>").text("Prev");
+ 					var $disabledNextSpan=$("<span class='button disabled'>").text("Next");
+ 					var $abledNextSpan= $("<span class='button' id='nextBtn' onclick='goNext()'>").text("Next");
+ 					
+ 					if(data.pi.currentPage<=1){
+ 						$li.append($disabledPrevspan);
+ 						$ul.append($li);
+ 					}else {
+ 						$li1.append($abledPrevSpan);
+ 						$ul.append($li1);
+ 					}
+ 					for(var i= data.pi.startPage;i<=data.pi.endPage;i++){
+ 						var $a =$("<a class='page' onclick='reajax("+i+")'>").text(i);
+ 						var $p =$("<p class='page active'>").text(i);
+ 						var $li4 =$("<li class='pageNumber'>");	
+ 						if(i==data.pi.currentPage){
+ 							$li4.append($p);
+ 							$ul.append($li4);
+ 						}else{	 							
+ 							$li4.append($a);
+ 							$ul.append($li4);
+ 						}
+ 					}
+ 					if(data.pi.currentPage<data.pi.maxPage){
+ 						$li2.append($abledNextSpan);
+ 						$ul.append($li2);
+ 					}else{
+ 						$li3.append($disabledNextSpan);
+ 						$ul.append($li3);
+ 					}
+ 					$td6.append($ul);
+ 					$("#MemberList > tfoot tr").eq(0).append($td6);
+ 					$("#MemberList tbody tr").click(function(){
+ 						var test = $(this);
+ 						var userId = test.children().eq(0).text();
+ 						location.href = "MemberDetailList.me?userId="+userId;
+ 					});
+				}
+				
+			});
+		}
+
+		function goNext() {
+
+			var currentPage = $("p[class='page active']").text();
+			var nextPage = Number(currentPage);
+
+			reajax(nextPage + 1);
+
+		}
+		function goPre() {
+
+			var currentPage = $("p[class='page active']").text();
+			var prePage = Number(currentPage);
+
+			reajax(prePage - 1);
+
+		}
 	</script>
 </body>
 </html>
