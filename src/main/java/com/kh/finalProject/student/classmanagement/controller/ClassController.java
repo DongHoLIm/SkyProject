@@ -68,12 +68,13 @@ public class ClassController {
 		//수강신청목록
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
-
-		ArrayList<OpenSubject> list2 = cs.selectFinishSubjectApplyList(sa);
+		ArrayList<OpenSubject> list2 = cs.selectPreliminaryCourseApplyList(sa);
+		ArrayList<OpenSubject> list3 = cs.selectFinishSubjectApplyList(sa);
 
 		request.setAttribute("sdList", sdList);
 		request.setAttribute("osList", osList);
 		request.setAttribute("list2", list2);
+		request.setAttribute("list3", list3);
 
 		return "student/class/courseApply"; 
 	}
@@ -248,8 +249,9 @@ public class ClassController {
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
 		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
-
+		System.out.println("list:::" + list);
 		int result = cs.selectStudentCount(subCode);
+		System.out.println(subCode+"!!!");
 		System.out.println(result);
 		if(result <= 30) {
 			for(int j=0;j<list.size();j++) {
