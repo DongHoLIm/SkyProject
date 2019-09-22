@@ -25,6 +25,7 @@ import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
+import com.kh.finalProject.studentInfo.model.vo.SchoolOff;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
@@ -624,16 +625,64 @@ public class StudentInfoController {
 		System.out.println(offTerm);
 		System.out.println(start);
 		
-		/*
-		 * String year = String semester=
-		 */
+		int year = Integer.parseInt(start.substring(0, 4));
+		//String year = start.substring(0, 3);
+		int semester=Integer.parseInt(start.substring(5, 6));
 		
-		//String offTermm = "";
+		System.out.println("년도:"+year);
+		System.out.println("학기:"+semester);
 		
+		String end = "";
+		String returnDay = "";
+		if(offTerm==1) { //신청휴학학기가 1학기인경우
+			if(semester==1) {//휴학시작학기가 __년.1학기인경우
+				end = start;
+				returnDay = year + "." + (semester+1) + "학기";
+				
+			}else { //휴학신청학기가  __년.2학기인 경우
+				end = start;
+				returnDay = (year+1) + "." + (semester-1) + "학기";
+				
+			}
+		}else { //신청휴학학기가 2학기인 경우(1년휴학)
+			if(semester==1) { //휴학시작학기가 __년.1학기인경우
+				end = year + "." + (semester+1) + "학기";
+				returnDay = (year+1) + "." + semester + "학기";
+				
+			}else { //휴학신청학기가  __년.2학기인 경우
+				end = (year+1) + "." + (semester-1) + "학기";
+				returnDay = (year+1) + "." + semester + "학기";
+			}
+			
+			
+		}
+		
+		String offTermm = start + " - " + end;
+		
+		System.out.println("휴학기간::" + offTermm);
+		System.out.println("복학예정::" + returnDay);
+		
+		mv.addObject("offTermm", offTermm);
+		mv.addObject("returnDay", returnDay);
+		mv.setViewName("jsonView");
 
 		return mv;
 		
 	}
+	
+	@RequestMapping(value="st_schoolOffApply.si")
+	public String schoolOffApply (HttpServletRequest request, SchoolOff so, @ModelAttribute("loginUser") Member loginUser) {
+		
+		String userId = loginUser.getMemberId();
+		System.out.println(userId);
+		
+		System.out.println(so);
+		
+		
+		
+		return "student/info/schoolOff";
+	}
+	
 
 	// 학생_다전공신청_뷰 출력
 	@RequestMapping("st_showSecondMajor.si")
