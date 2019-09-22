@@ -59,40 +59,17 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	//비밀번호 (암호화 비처리 메소드 )
-	@RequestMapping("login.me")
-	public String loginMember(Member m,Model model,HttpSession session) {
-
-		Member loginUser=null;
-		MemberAccount ma = null;
-		try {			
-			loginUser = ms.loginCheck(m);
-			if(loginUser.getMemberStatus().equals("3")) {
-				ma = ms.Account(loginUser.getMemberId());
-				System.out.println("AccountList :"+ma);
-				session.setAttribute("Account",ma);
-			}
-			model.addAttribute("loginUser",loginUser);			
-			return "redirect:loginOk.me";									
-		} catch (loginException e) {			
-			model.addAttribute("msg",e.getMessage());
-			return "common/errorAlert";
-		} 
-	}
-	@RequestMapping("loginOk.me")
-	public String loginOk(Member loginUser) {
-
-		return "main/main";
-	}
-	//비밀번호 (암호화 처리 메소드)
+//	//비밀번호 (암호화 비처리 메소드 )
 //	@RequestMapping("login.me")
 //	public String loginMember(Member m,Model model,HttpSession session) {
+//
 //		Member loginUser=null;
-//		MemberAccount ma = null;	
+//		MemberAccount ma = null;
 //		try {			
 //			loginUser = ms.loginCheck(m);
 //			if(loginUser.getMemberStatus().equals("3")) {
-//				ma = ms.Account(loginUser.getMemberId());				
+//				ma = ms.Account(loginUser.getMemberId());
+//				System.out.println("AccountList :"+ma);
 //				session.setAttribute("Account",ma);
 //			}
 //			model.addAttribute("loginUser",loginUser);			
@@ -100,8 +77,31 @@ public class MemberController {
 //		} catch (loginException e) {			
 //			model.addAttribute("msg",e.getMessage());
 //			return "common/errorAlert";
-//		}
+//		} 
 //	}
+	@RequestMapping("loginOk.me")
+	public String loginOk(Member loginUser) {
+
+		return "main/main";
+	}
+	//비밀번호 (암호화 처리 메소드)
+	@RequestMapping("login.me")
+	public String loginMember(Member m,Model model,HttpSession session) {
+		Member loginUser=null;
+		MemberAccount ma = null;	
+		try {			
+			loginUser = ms.loginCheck(m);
+			if(loginUser.getMemberStatus().equals("3")) {
+				ma = ms.Account(loginUser.getMemberId());				
+				session.setAttribute("Account",ma);
+			}
+			model.addAttribute("loginUser",loginUser);			
+			return "redirect:loginOk.me";									
+		} catch (loginException e) {			
+			model.addAttribute("msg",e.getMessage());
+			return "common/errorAlert";
+		}
+	}
 
 	//로그 아웃  
 	@RequestMapping("logOut.me" )
@@ -185,7 +185,7 @@ public class MemberController {
 	                        	if(columnindex==0) {	                        		
 	                        		insertMember.setMemberId(value);
 	                        	}else if(columnindex==1) {
-	                        		insertMember.setMemberPwd(passwordEncoder.encode(value));
+	                        		insertMember.setMemberPwd(value);
 	                        	}else if(columnindex==2) {
 	                        		insertMember.setMemberKName(value);
 	                        	}else if(columnindex==3) {
@@ -303,7 +303,7 @@ public class MemberController {
 
 				
 				insertMember.setMemberId(memberId);
-				insertMember.setMemberPwd(memberPwd);
+				insertMember.setMemberPwd(passwordEncoder.encode(memberPwd));
 				insertMember.setMemberKName(memberKName);
 				insertMember.setMemberEName(memberEName);
 				insertMember.setMemberNo(memberNo);
@@ -373,7 +373,7 @@ public class MemberController {
 			}else {
 				request.setAttribute("msg","메일 발송에 실패했습니다.");				
 			}			
-		}catch(Exception e) {			
+		}catch(Exception e) {
 			request.setAttribute("msg","해당아이디가 없습니다.");					
 		}
 		return "common/errorAlert";
@@ -403,13 +403,16 @@ public class MemberController {
 		    }
 		}
 		String password = temp.toString() ;
+		Member originalPwd = new Member();
+		originalPwd.setMemberPwd(password);
 		try {
 			findMemberPwd = ms.findPwd(findPwd);
 			findMemberPwd.setMemberPwd(password);
+			originalPwd.setEmail(findMemberPwd.getEmail());
 			int result1 = ms.changeNewpassword(findMemberPwd);
 			if(result1>0) {
 				mailController mc= new mailController();
-				int result = mc.sendEmail(findMemberPwd,request,status);
+				int result = mc.sendEmail(originalPwd,request,status);
 				if(result == 1) {
 					request.setAttribute("msg", "새로운 비밀번호가 이메일로 전송되었습니다.");
 				}else {
@@ -417,6 +420,7 @@ public class MemberController {
 				}
 			}
 		}catch(Exception e) {
+			e.printStackTrace();
 			request.setAttribute("msg","해당 아이디가 없습니다.");
 		}
 		return "common/errorAlert";

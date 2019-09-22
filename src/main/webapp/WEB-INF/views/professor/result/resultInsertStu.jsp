@@ -41,33 +41,39 @@
 						<th>강의시간</th>
 					</tr>
 					<tr>
-						<td>새천년</td>
-						<td>인문관</td>
-						<td>월,수/13:00~15:00</td>
+						<td><c:out value = "${subjectInfo.subName }"/></td>
+						<td><c:out value="${subjectInfo.buildingName }"/></td>
+						<td><c:out value="${subjectInfo.dayInfo}"/></td>
 					</tr>
 				</table>
 				<br />
 				
 				<br />
 				<table id="stuT">
-					<tr>
-						<th>학생이름</th>
-						<th>학번</th>
-						<th>중간고사</th>
-						<th>기말고사</th>
-						<th>출석점수</th>
-						<th>과제점수</th>
-						<th>평점</th>
-					</tr>
-					<tr>
-						<td>임동호</td>
-						<td>201281065</td>
-						<td><input type="text" /></td>
-						<td><input type="text" /></td>
-						<td><input type="text" /></td>
-						<td><input type="text" /></td>
-						<td>4.5</td>
-					</tr>
+					<thead>
+						<tr>
+							<th>학생이름</th>
+							<th>학번</th>
+							<th>중간고사</th>
+							<th>기말고사</th>
+							<th>출석점수</th>
+							<th>과제점수</th>
+							<th>평점</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="insertResultlist" items="${stuList }">
+						<tr>
+							<td><c:out value="${insertResultlist.studentName }"/></td>
+							<td><c:out value="${insertResultlist.studentNo }"/></td>
+							<td><input type="text" value="${insertResultlist. middleScore}"/></td>
+							<td><input type="text" value="${insertResultlist. finalScore}"/></td>
+							<td><input type="text" value="${insertResultlist. attendanceScore}"/></td>
+							<td><input type="text" value="${insertResultlist. workScore}"/></td>
+							<td></td>
+						</tr>
+						</c:forEach>
+					</tbody>
 					<tr>
 						<td colspan="4"><button style="float:right;">입력</button></td>
 						<td colspan="4"><button style="float:left;">취소</button></td>
