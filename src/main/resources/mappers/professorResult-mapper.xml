@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="professorResult">
+  	<resultMap type="com.kh.finalProject.professor.result.model.vo.ProfessorResult" id="ProfessorResultResultSet">
+  		<id property="opensubCode" column="OPENSUB_CODE"/>
+  		<result property="subName" column="SUB_NAME"/>
+  		<result property="completeType" column="COMPLETE_TYPE"/>
+  		<result property="subGrade" column="SUB_GRADE"/>
+  		<result property="roomName" column="ROOM_NAME"/>
+  		<result property="buildingName" column="BUILDING_NAME"/>
+  		<result property="dayInfo" column="DAY_INFO"/>
+  		<result property="timeInfo" column="TIME_INFO"/>
+  	</resultMap>
+  	<select id="subList" resultMap="ProfessorResultResultSet">
+  		SELECT O.OPENSUB_CODE,S.SUB_NAME,S.COMPLETE_TYPE,S.SUB_GRADE,R.ROOM_NAME,B.BUILDING_NAME,
+		O.DAY_INFO,O.TIME_INFO
+		FROM 
+		OPEN_SUBJECT O
+		JOIN SUBJECT S ON(O.OPENSUB_CODE =S.SUB_CODE)
+		JOIN ROOM R ON(O.ROOM_CODE=R.ROOM_CODE)
+		JOIN BUILDING B ON(R.BUILDING_CODE=B.BUILDING_CODE)
+		JOIN SUBJECT_APPLY SA ON(O.OPENSUB_CODE =SA.OPENSUB_CODE)
+		JOIN SUBAPPLY_DONE SD ON(SA.SUBAPPLY_CODE =SD.SUBAPPLY_CODE)
+		JOIN CLASS_MANAGEMENT CM ON(SD.DONE_CODE=CM.DONE_CODE)
+		JOIN MEMBER M ON(CM.STUDENT_NO=MEMBER_ID)
+		WHERE SA.DONE_TYPE='완료'
+		AND O.PROFESSOR_NO = #{memberId}  	
+  	</select>
+  </mapper>
+ 

@@ -20,29 +20,20 @@
 				<jsp:include page="../../common/header.jsp" />
 			<br>
 			<h2>계정 발급/삭제</h2>
-				<a>사용자</a>&nbsp;/<a>고급</a>
 			<hr>
 			<form action="excel.me" method = "post" enctype="multipart/form-data" id="excelfile-form">
+				
+				<br />
 				<div id="ssbox" style="width:100%">
 				<input type="file" name="ExcelFile" id="file" style="display: none" />
 				 	<a class="button icon solid fa-download" id="fileuploader">Excel Upload</a>
 				 	<button type="submit">파일 올리기</button>	
-				 				
-					<div style="display:inline-block;width:50%;float:right;">
-						<select class="sel" style="display: inline-block; ">
-							<option>선택</option>
-							<option>이름</option>
-							<option>구분</option>
-							<option>상태</option>
-						</select>
-						 <input type="text" id="search" value="" placeholder="내용을 입력해주세요" style="width: 75%; display: inline;">
-					</div>	
 				</div>
 				</form>				
 				<br>
 				<div style="float:right">
-					<button id="resetBtn">삭제</button>
-					<button id="insertMemberAll">발급</button>
+				<button id="insertMemberAll">발급</button>
+				<button id="resetBtn">삭제</button>					
 				</div>
 				<br>
 				<br>
@@ -50,7 +41,7 @@
 				<table id="memberlist"class="" style="margin: 0 auto;">
 					<thead>
 						<tr>
-							<th width="30"><input type="checkbox" value="selectAll" id="Allcheck"> <label for="Allcheck"></label></th>
+							<th>번호</th>
 							<th>아이디</th>
 							<th>비밀번호</th>
 							<th>한글이름</th>
@@ -67,9 +58,9 @@
 					</thead>
 					<c:if test="${!empty insertMember_parent }">
 						<tbody>
-						<c:forEach var="insertMember" items="${insertMember_parent}">
+						<c:forEach var="insertMember" items="${insertMember_parent}" varStatus="status">
 								<tr class="trClass">		
-									<td><input type="checkbox" value="${insertMember.memberId}" id="${insertMember.memberId}"><label for="${insertMember.memberId}"></label></td>
+									<td>${status.count }</td>
 									<td>${insertMember.memberId}</td>
 									<td>${insertMember.memberPwd}</td>
 									<td>${insertMember.memberKName}</td>
@@ -162,7 +153,7 @@
 	</div>
 	<script>	
 		$("#fileuploader").click(function(){
-			$("#file").click();
+			$("#file").click();			
 		}) 
 	</script>
 </body>
