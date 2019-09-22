@@ -14,16 +14,15 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>수강신청 열기</h2>
+			<h2>예비수강신청 열기</h2>
 			<hr>
 			<br> <br>
 			<form action="updateOpenSubject.em" method="post">
 				<table style="text-align:center;">
 					<thead>
 						<tr>
-							<th width="3%"><input type="checkbox" value="" name="Allcheck" id="Allcheck"> <label for="Allcheck"></label></th>
 							<th width="8%" style="text-align:center;">과목번호</th>
-							<th width="15%" style="text-align:center;">교과목명</th>
+							<th width="18%" style="text-align:center;">교과목명</th>
 							<th width="11%" style="text-align:center;">학과(부)</th>
 							<th width="7%" style="text-align:center;">교수명</th>
 							<th width="7%" style="text-align:center;">학점</th>
@@ -36,7 +35,6 @@
 					<tbody>
 					<c:forEach var="OpenSubject" items="${ list }">
 						<tr>
-							<td><input type="checkbox" value="" name="check" id="check"><label for="check"></label></td>
 							<td>
 								<input type="hidden" name="openSubCode" value="<c:out value="${OpenSubject.openSubCode}" />">
 								<c:out value="${OpenSubject.openSubCode}" />
@@ -54,7 +52,7 @@
 					</tbody>
 				</table>
 				<br><br><br><br><br>
-				<button style="float:right;">수강열기</button>
+				<button style="float:right;">예비수강열기</button>
 			</form>
 		</div>
 		</div>
@@ -62,10 +60,6 @@
 			<jsp:include page="../../common/menubar-employee.jsp" />
 		</div>
 	</div>
-	<script>
-		 $("#Allcheck").click(function(){
-	        $('#check').prop('checked', this.checked);	         
-	     });
-	</script>
+	
 </body>
 </html>

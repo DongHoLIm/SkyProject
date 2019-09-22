@@ -146,4 +146,12 @@ public class ClassServiceImpl implements ClassService{
 		return cd.selectStudentCount(sqlSession, subCode);
 	}
 
+
+
+	@Override
+	public void updateFinishSubjectApply(SubjectApply sa) {
+		cd.updateFinishSubjectApply(sqlSession, sa);
+		
+	}
+
 }

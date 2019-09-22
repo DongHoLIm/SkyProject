@@ -21,7 +21,7 @@
 	</resultMap>
 	
 	<insert id="insertCouserOffered" parameterType="LectureRegistration">
-		INSERT INTO OPEN_SUBJECT VALUES(#{openSubCode}, #{studentMax}, 0, #{openYear}, #{openSemester},#{professorNo}, 'n', NULL, (SELECT ROOM_CODE FROM ROOM R JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE) WHERE R.ROOM_NAME = #{roomName} AND B.BUILDING_NAME=#{buildingName}),0, #{dayInfo}, #{timeInfo})
+		INSERT INTO OPEN_SUBJECT VALUES(#{openSubCode}, #{studentMax}, 0, #{openYear}, #{openSemester},#{professorNo}, 'n', NULL, (SELECT ROOM_CODE FROM ROOM R JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE) WHERE R.ROOM_NAME = #{roomName} AND B.BUILDING_NAME=#{buildingName}), 1, #{dayInfo}, #{timeInfo})
 	</insert> 	
 	<update id="updateStudentCount">
 		UPDATE OPEN_SUBJECT SET STUDENT_COUNT = (SELECT STUDENT_COUNT FROM OPEN_SUBJECT WHERE OPENSUB_CODE = #{openSubCode}) +1 WHERE OPENSUB_CODE = #{openSubCode}

@@ -37,10 +37,28 @@
 		JOIN MEMBER M ON(OS.PROFESSOR_NO = M.MEMBER_ID)
 		JOIN ROOM R ON(OS.ROOM_CODE = R.ROOM_CODE)
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
-		WHERE OS.ENROL_TYPE = 0
+		WHERE OS.ENROL_TYPE = 1
+	</select>
+	<select id="selectPreliminaryOpenSubjectList"
+		resultMap="courseRegistrationResultSet">
+		SELECT OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
+		SUB_GRADE, STUDENT_COUNT,
+		COMPLETE_TYPE, STUDENT_MAX, ROOM_NAME, BUILDING_NAME, DAY_INFO, TIME_INFO
+		FROM OPEN_SUBJECT OS
+		JOIN SUBJECT S ON(OS.OPENSUB_CODE = S.SUB_CODE)
+		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE) 
+		JOIN MEMBER M ON(OS.PROFESSOR_NO = M.MEMBER_ID)
+		JOIN ROOM R ON(OS.ROOM_CODE = R.ROOM_CODE)
+		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
+		WHERE OS.ENROL_TYPE = 2
 	</select>
 	<update id="updateOpenSubject">
-		UPDATE OPEN_SUBJECT SET ENROL_TYPE = 1
+		UPDATE OPEN_SUBJECT SET ENROL_TYPE = 2
+		WHERE OPENSUB_CODE = #{openSubCode}
+	</update>
+	<update id="updateFinishOpenSubject">
+		UPDATE OPEN_SUBJECT SET ENROL_TYPE = 3
+		WHERE OPENSUB_CODE = #{openSubCode}
 	</update>
 	<select id="selectOpenSubject" resultMap="courseRegistrationResultSet">
 		SELECT S.SUB_NAME, OPENSUB_CODE
@@ -112,7 +130,6 @@
 		JOIN ROOM R ON(OS.ROOM_CODE = R.ROOM_CODE)
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
         WHERE STUDENT_NO = #{studentNo}
-        AND OS.ENROL_TYPE = 1
         AND APPLY_TYPE = '예비'
     </select>
     <select id="prliminaryGwamokSelect" resultMap="courseRegistrationResultSet">
@@ -128,7 +145,6 @@
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
         WHERE STUDENT_NO = #{studentNo}
         AND SUB_NAME LIKE '%' ||  #{subName} || '%'
-        AND OS.ENROL_TYPE = 1
         AND APPLY_TYPE = '예비'
     </select>
     <select id="prliminaryProfessorSelect" resultMap="courseRegistrationResultSet">
@@ -144,7 +160,7 @@
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
         WHERE STUDENT_NO = #{studentNo}
         AND MEMBER_KNAME LIKE '%' ||  #{professorName} || '%'
-        AND OS.ENROL_TYPE = 1
+        AND OS.ENROL_TYPE = 2
         AND APPLY_TYPE = '예비'
     </select>
     <select id="prliminarySdeptSelect" resultMap="courseRegistrationResultSet">
@@ -160,7 +176,6 @@
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
         WHERE STUDENT_NO = #{studentNo}
         AND COMPLETE_TYPE LIKE '%' ||  #{completeType} || '%'
-        AND OS.ENROL_TYPE = 1
         AND APPLY_TYPE = '예비'
     </select>
     <select id="selectFinishSubjectApplyList" resultMap="courseRegistrationResultSet">
@@ -175,7 +190,6 @@
 		JOIN ROOM R ON(OS.ROOM_CODE = R.ROOM_CODE)
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
         WHERE STUDENT_NO = #{studentNo}
-        AND OS.ENROL_TYPE = 1
         AND APPLY_TYPE = '정기'
     </select>
     <select id="selectStudentCount" resultType="_int">

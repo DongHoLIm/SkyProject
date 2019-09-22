@@ -46,7 +46,8 @@
 												<li><a href="#">강의평가 조회</a></li>
 												<li><a href="#">휴강 및 보강 관리</a></li>
 												<li><h4>수강신청관리</h4></li>
-												<li><a href="openCourseRegistration.em">수강신청열기</a></li>
+												<li><a href="openPreliminaryCourseRegistration.em">예비수강신청열기</a></li>
+												<li><a href="openFinishCourseRegistration.em">수강신청열기</a></li>
 											</ul>
 										</li>
 										</c:if>

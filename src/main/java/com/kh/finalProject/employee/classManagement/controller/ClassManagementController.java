@@ -94,7 +94,7 @@ public class ClassManagementController {
 	}
 	//개강과목등록
 	@RequestMapping(value="insertCoursesOffered.em")
-	public String insertCourseOffered(LectureOpen lo, HttpServletRequest request,
+	public String insertCourseOffered(LectureOpen lo, HttpServletRequest request, 
 			@RequestParam(name="proList", required=false) String proList,
 			@RequestParam(name="dayWeek", required=false)String dayWeek,
 			@RequestParam(name="year", required=false)int year,
@@ -126,15 +126,22 @@ public class ClassManagementController {
 		cms.updateSubject(lr.getOpenSubCode());
 		
 		
-		return "employee/class/lectureOpen";
+		return "redirect:/lectureOpen.em";
 	}
-	@RequestMapping(value="openCourseRegistration.em")
+	@RequestMapping(value="openPreliminaryCourseRegistration.em")
 	public String selectCoursesOffered(HttpServletRequest request) {
 		
 		ArrayList<OpenSubject> list = cms.selectOpenSubjectList();
 		System.out.println(list);
 		request.setAttribute("list", list);
-		return "employee/class/openCourseRegistration";
+		return "employee/class/openPreliminaryCourseRegistration";
+	}
+	@RequestMapping(value="openFinishCourseRegistration.em")
+	public String selectPreliminaryCoursesOffered(HttpServletRequest request) {
+		
+		ArrayList<OpenSubject> list = cms.selectPreliminaryOpenSubjectList();
+		request.setAttribute("list", list);
+		return "employee/class/openFinishCourseRegistration";
 	}
 	@RequestMapping(value="updateOpenSubject.em")
 	public String updateOpenSubject(HttpServletRequest request,
@@ -143,21 +150,29 @@ public class ClassManagementController {
 		System.out.println(openSubCode);
 		String subCode[] = openSubCode.split(",");
 		
-		cms.updateOpenSubject();
+		cms.updateOpenSubject(subCode);
 		
-		return "employee/class/openCourseRegistration";
+		return "employee/class/openPreliminaryCourseRegistration";
 	}
 	
 	@RequestMapping("lessonPlan.em")
 	public ModelAndView LessonPlan (LessonPlan lp, ModelAndView mav) {
 		lps.insertLessonPlan(lp);
-	
-		
-		
+
 		return mav;
 	
 	}
-	
+	@RequestMapping(value="updateFinishOpenSubject.em")
+	public String updateFinishOpenSubject(HttpServletRequest request,
+		@RequestParam(name="openSubCode", required=false)String openSubCode){
+			
+		System.out.println(openSubCode);
+		String subCode[] = openSubCode.split(",");
+		
+		cms.updateFinishOpenSubject(subCode);
+		
+		return "employee/class/openFinishCourseRegistration";
+	}
 	
 	
 	

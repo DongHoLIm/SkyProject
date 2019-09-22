@@ -177,4 +177,12 @@ public class ClassDaoImpl implements ClassDao{
 		
 		return result;
 	}
+
+	@Override
+	public void updateFinishSubjectApply(SqlSessionTemplate sqlSession, SubjectApply sa) {
+		LectureRegistration lr = new LectureRegistration();
+		lr.setOpenSubCode(sa.getOpenSubCode());
+		sqlSession.update("subjectApply.updateFinishSubjectApply", sa);
+		sqlSession.update("LectureRegistration.updateStudentCount", lr);		
+	}
 }

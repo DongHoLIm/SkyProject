@@ -30,4 +30,9 @@
     <insert id="insertFinishSubjectApply" parameterType="SubjectApply">
 		INSERT INTO SUBJECT_APPLY VALUES(#{openSubCode}, 'SUBA' || SEQ_SUBAPPLY.NEXTVAL, #{studentNo}, '정기', SYSDATE,'신청')
 	</insert>
+	<update id="updateFinishSubjectApply">
+		UPDATE SUBJECT_APPLY SET APPLY_TYPE = '정기'
+		WHERE OPENSUB_CODE = #{openSubCode}
+		AND STUDENT_NO = #{studentNo}
+	</update>
 </mapper> 

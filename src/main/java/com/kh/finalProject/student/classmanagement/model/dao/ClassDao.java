@@ -45,5 +45,7 @@ public interface ClassDao {
 
 	int selectStudentCount(SqlSessionTemplate sqlSession, String subCode);
 
+	void updateFinishSubjectApply(SqlSessionTemplate sqlSession, SubjectApply sa);
+
 }
  

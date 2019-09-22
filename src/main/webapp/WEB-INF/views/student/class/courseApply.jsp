@@ -153,6 +153,43 @@ table.tableList2 td img, table.tableList4 td img {
 			$('#professor').val("");
 		}
 	}
+	function change_cate2(){
+		var category2 = $("#category2").val();
+		console.log(category2);
+		
+		if(category2 == "4"){
+			$(".btn4").show();
+			$(".btn5").hide();
+			$(".btn6").hide();
+			$("#gwamok2").show();
+			$("#professor2").hide();
+			$("#complete2").hide();
+			$('#gwamok2').val("");
+			$('#professor2').val("");
+			$('#complete2').val("");
+		}else if(category2 == "5"){
+			console.log("in!!!!");
+			$(".btn4").hide();
+			$(".btn5").show();
+			$(".btn6").hide();
+			$("#gwamok2").hide();
+			$("#professor2").show();
+			$("#complete2").hide();
+			$('#gwamok2').val("");
+			$('#professor2').val("");
+			$('#complete2').val("");
+		}else if(category2 == "6"){
+			$(".btn4").hide();
+			$(".btn5").hide();
+			$(".btn6").show();
+			$("#gwamok2").hide();
+			$("#professor2").hide();
+			$("#complete2").show();
+			$('#gwamok2').val("");
+			$('#professor2').val("");
+			$('#complete2').val("");
+		}
+	}
 function goSubJect(){
 	var sdeptCode = $(".Sdepartment").val();
 	var completeType = $(".Isu").val();
@@ -367,13 +404,7 @@ function professorGwamokSearch(){
 		}
 	});
 }
-$(function(){
-	$('.tableList2').on('click','tbody tr',function(){
-		 var checkbox = $(this).find('td:first-child :checkbox');
-            checkbox.attr('checked', !checkbox.is(':checked'));
-	 });
 
-});
 function insertFinishSubjectApply(){
 	
 	var subCode = $("#openSubCode").val();
@@ -387,8 +418,11 @@ function insertFinishSubjectApply(){
 			var key = data.modelAndView.modelMap;
 			if(key.check == 'no'){
 				alert('이미 신청한 과목이 있습니다.');
-			}else{
+			}else if(key.check=='ok'){
 				alert('최종 수강 신청이 완료되었습니다.');
+				location.reload();
+			}else if(key.check=='max'){
+				alert('신청 인원 초과');
 				location.reload();
 			}
 		},
@@ -396,8 +430,199 @@ function insertFinishSubjectApply(){
 			console.log("실패!");
 		}
 	});
-		  
+}
+function gwamokSearch2(){
+	var subName = $("#gwamok2").val();
+	console.log(subName);
+	$.ajax({
+		url:"prliminaryGwamokSearch.st",
+		type:"post",
+		data:{subName:subName},
+		success:function(data){
+			var list = new Array();
+			for(var i=0;i<data.list.length;i++){
+				list[i] = data.list[i];
+			}
+			var count = 1;
+			$( '.tableList4 > tbody').empty(); 
+			for(var i=0;i<data.list.length;i++){
+				 var table = $("<tr>"+
+									"<td>"+count+"</td>"+
+									"<td>"+list[i].completeType+"</td>"+
+									"<td>"+list[i].openSubCode+"</td>"+
+									"<td>"+list[i].subName+"</td>"+
+									"<td>"+list[i].subGrade+"</td>"+
+									"<td>"+list[i].professorName+"</td>"+
+									"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
+									"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
+									"<td>"+list[i].studentCount+'/'+list[i].studentMax+"</td>"+
+									"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
+									"<td>"+"</td>"+
+									"<td>"+"</td>"+
+									"<td>"+"<button id='openSubCode' onclick='updateFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"신청"+"</button>"+"</td>"+
+								"</tr>");
+				$(".tableList4").append(table);  				
+				count++;
+			} 	
+		},
+		error:function(err){
+			console.log("실패!");
+		}
+	});
+}
 
+function professorSearch2(){
+	var professor = $("#professor2").val();
+	
+	$.ajax({
+		url:"prliminaryProfessorSearch.st",
+		type:"post",
+		data:{professor:professor},
+		success:function(data){
+			var list = new Array();
+			for(var i=0;i<data.list.length;i++){
+				list[i] = data.list[i];
+			}
+			var count = 1;
+			$( '.tableList4 > tbody').empty(); 
+			for(var i=0;i<data.list.length;i++){
+				 var table = $("<tr>"+
+									"<td>"+count+"</td>"+
+									"<td>"+list[i].completeType+"</td>"+
+									"<td>"+list[i].openSubCode+"</td>"+
+									"<td>"+list[i].subName+"</td>"+
+									"<td>"+list[i].subGrade+"</td>"+
+									"<td>"+list[i].professorName+"</td>"+
+									"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
+									"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
+									"<td>"+list[i].studentCount+'/'+list[i].studentMax+"</td>"+
+									"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
+									"<td>"+"</td>"+
+									"<td>"+"</td>"+
+									"<td>"+"<button id='openSubCode' onclick='updateFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"신청"+"</button>"+"</td>"+
+								"</tr>");
+				$(".tableList4").append(table);  				
+				count++;
+			} 	
+		},
+		error:function(err){
+			console.log("실패!");
+		}
+	});
+}
+function completeSearch2(){
+	var complete = $("#complete2").val();
+	
+	$.ajax({
+		url:"prliminaryCompleteSearch.st",
+		type:"post",
+		data:{complete:complete},
+		success:function(data){
+			var list = new Array();
+			for(var i=0;i<data.list.length;i++){
+				list[i] = data.list[i];
+			}
+			var count = 1;
+			$( '.tableList2 > tbody').empty(); 
+			for(var i=0;i<data.list.length;i++){
+				 var table = $("<tr>"+
+									"<td>"+count+"</td>"+
+									"<td>"+list[i].completeType+"</td>"+
+									"<td>"+list[i].openSubCode+"</td>"+
+									"<td>"+list[i].subName+"</td>"+
+									"<td>"+list[i].subGrade+"</td>"+
+									"<td>"+list[i].professorName+"</td>"+
+									"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
+									"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
+									"<td>"+list[i].studentCount+'/'+list[i].studentMax+"</td>"+
+									"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
+									"<td>"+"</td>"+
+									"<td>"+"</td>"+
+									"<td>"+"<button id='openSubCode' onclick='updateFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"신청"+"</button>"+"</td>"+
+								"</tr>");
+				$(".tableList2").append(table);  				
+				count++;
+			} 	
+		},
+		error:function(err){
+			console.log("실패!");
+		}
+	});
+}
+function updateFinishSubjectApply(){
+	console.log("in!!!!!!");
+	var subCode = $("#openSubCode").val();
+	console.log(subCode);
+	
+	$.ajax({
+		url:"updateFinishSubjectApply.st",
+		type:"post",
+		data:{subCode:subCode},
+		success:function(data){
+			var key = data.modelAndView.modelMap;
+			if(key.check=='ok'){
+				alert('최종 수강 신청이 완료되었습니다.');
+				location.reload();
+			}else if(key.check=='max'){
+				alert('신청 인원 초과');
+				location.reload();
+			}
+		},
+		error:function(err){
+			console.log("실패!");
+		}
+	});
+}
+function finishSubjectApplyList(){
+	$.ajax({
+		url:"selectFinishSubjectApplyList.st",
+		type:"post",
+		success:function(data){
+			var list = new Array();
+			for(var i=0;i<data.list.length;i++){
+				list[i] = data.list[i];
+			}
+			var count = 1;
+			$( '.tableList2 > tbody').empty(); 
+			for(var i=0;i<data.list.length;i++){
+				 var table = $("<tr>"+
+									"<td>"+count+"</td>"+
+									"<td>"+list[i].completeType+"</td>"+
+									"<td>"+list[i].openSubCode+"</td>"+
+									"<td>"+list[i].subName+"</td>"+
+									"<td>"+list[i].subGrade+"</td>"+
+									"<td>"+list[i].professorName+"</td>"+
+									"<td>"+list[i].dayInfo+'/'+list[i].timeInfo+"</td>"+
+									"<td>"+list[i].roomName+'('+list[i].buildingName+')'+"</td>"+
+									"<td>"+list[i].studentCount+'/'+list[i].studentMax+"</td>"+
+									"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
+									"<td>"+"</td>"+
+									"<td>"+"</td>"+
+									"<td>"+"<button id='openSubCode' onclick='deleteFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"취소"+"</button>"+"</td>"+
+								"</tr>");
+				$(".tableList2").append(table);  				
+				count++;
+			}
+			$("#str").empty();
+			$("#str").append('<수강신청목록>');
+			$("#search").empty();
+			$("#search2").empty();
+			$(".tableList3").empty();
+			$(".tableList1").empty();
+			$(".tableList4").remove();
+			$("#str2").empty();
+			$("#sa").remove();
+			$("#br").remove();
+		},
+		error:function(err){
+			console.log("실패!");
+		}
+	});
+}
+function deleteFinishSubjectApply(){
+	var subCode = $("#openSubCode").val();
+	
+	console.log(subCode);
 }
 </script>
 </head>
@@ -405,8 +630,8 @@ function insertFinishSubjectApply(){
 	<div id="menu" class="menu">
 		<jsp:include page="common/menubar-CourseApply.jsp" />
 	</div>
-	<form action="inquiry.st" method="post">
-	<strong><수강신청></strong>
+	<strong id="str"><수강신청></strong>
+	<button onclick="finishSubjectApplyList();" style="float:right">수강신청 신청목록</button>
 		<table class="tableList3" width="100%">
 			<tbody>
 				<tr id="choice">
@@ -422,7 +647,7 @@ function insertFinishSubjectApply(){
 						</span>
 						 <!-- 개설강좌 --> 
 						 <span id="choice0" name="choice0" style="display: inline;"> 
-						 	<span> <strong>학과</strong> : 
+						 	<span><strong>학과</strong> : 
 						 		<select name="Sdepartment" id="Sdepartment" class="Sdepartment" onchange="goSubJect();">
 						 		<c:forEach var="Sdepartment" items="${ sdList }">
 						 			<option value="<c:out value="${Sdepartment.sdeptCode}" />"><c:out value="${Sdepartment.sdeptName}"/></option>
@@ -479,7 +704,6 @@ function insertFinishSubjectApply(){
 				</tr>
 			</tbody>
 		</table>
-	</form>
 	<table class="tableList2" style="width: 100%">
 		<thead>	
 			<tr>
@@ -504,31 +728,30 @@ function insertFinishSubjectApply(){
 			</tr>
 		</tbody>
 	</table>
-	<br><br><br><br><br><br><br><br>
-	<hr><strong><예비수강신청목록></strong>
+	<br id="br"><br id="br"><br id="br"><br id="br"><br id="br"><br id="br"><br id="br"><br id="br">
+	<hr id="sa"><strong id="str2"><예비수강신청목록></strong>
 	<table class="tableList1" width="100%">
 		<tbody>
 			<tr id="choice">
 				<td>
 					<span> &nbsp;&nbsp;&nbsp;<b>카테고리</b> : 
-							<select name="category" id="category" onchange="change_cate()" style="background-color: #FFD9EC;">
-									<option value="0">과목 검색</option>
-									<option value="1">교수 검색</option>
-									<option value="2">이수구분</option>
+							<select name="category2" id="category2" onchange="change_cate2()" style="background-color: #FFD9EC;">
+									<option value="4">과목 검색</option>
+									<option value="5">교수 검색</option>
+									<option value="6">이수구분</option>
 							</select>&nbsp;&nbsp;&nbsp;
 					</span>
-					<span id="choice0" name="choice0" style="display:inline;"> 
+					<span id="choice4" name="choice4" style="display:inline;"> 
 						<span>
-							<input type="text" id=gwamok size="25" placeholder="과목명을 입력하세요" onkeypress="if(event.keyCode==13) {gwamokSearch(); return false;}" >
-							<input type="text" id="professor" size="25" placeholder="교수명을 입력하세요" onkeypress="if(event.keyCode==13) {professorSearch(); return false;}" style="display:none;">
-							<input type="text" id="complete" size="25" placeholder="이수구분을 입력하세요" onkeypress="if(event.keyCode==13) {completeSearch(); return false;}" style="display:none;">
+							<input type="text" id=gwamok2 size="25" placeholder="과목명을 입력하세요" onkeypress="if(event.keyCode==13) {gwamokSearch(); return false;}" >
+							<input type="text" id="professor2" size="25" placeholder="교수명을 입력하세요" onkeypress="if(event.keyCode==13) {professorSearch(); return false;}" style="display:none;">
+							<input type="text" id="complete2" size="25" placeholder="이수구분을 입력하세요" onkeypress="if(event.keyCode==13) {completeSearch(); return false;}" style="display:none;">
 						</span>
 					</span>&nbsp;&nbsp;&nbsp;
-					<span class="btn1" onclick="gwamokSearch();" id="search_btn" style="background:red">조 회</span>
-					<span class="btn2" onclick="professorSearch();" id="search_btn" style="background:red; display:none;">조 회</span>
-					<span class="btn3" onclick="completeSearch();" id="search_btn" style="background:red; display:none;">조 회</span>
+					<span class="btn4" onclick="gwamokSearch2();" id="search_btn" style="background:red">조 회</span>
+					<span class="btn5" onclick="professorSearch2();" id="search_btn" style="background:red; display:none;">조 회</span>
+					<span class="btn6" onclick="completeSearch2();" id="search_btn" style="background:red; display:none;">조 회</span>
 					&nbsp;&nbsp;&nbsp;
-					<span class="delete" onclick="deleteSubjectApply();" style="background:skyblue;"> 삭 제 </span>
 				</td>
 			</tr>
 		</tbody> 
@@ -553,7 +776,7 @@ function insertFinishSubjectApply(){
 		</thead>
 		<tbody>
 			<c:forEach var="openSubject" items="${ list2 }" varStatus="status">
-			<tr id="search">
+			<tr id="search2">
 				<td><c:out value="${ status.count }" /></td>
 				<td><c:out value="${ openSubject.completeType }" /></td>
 				<td><c:out value="${ openSubject.openSubCode }" /></td>
@@ -566,7 +789,7 @@ function insertFinishSubjectApply(){
 				<td><a style="color:red;">조회</a></td>
 				<td></td>
 				<td></td>
-				<td><button>신청</button></td>
+				<td><button id="openSubCode" onclick="updateFinishSubjectApply();" value="${ openSubject.openSubCode }">신청</button></td>
 			</tr>
 			</c:forEach>
 		</tbody>

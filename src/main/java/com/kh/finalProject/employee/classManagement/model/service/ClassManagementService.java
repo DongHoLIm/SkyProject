@@ -28,6 +28,10 @@ public interface ClassManagementService {
 
 	ArrayList<OpenSubject> selectOpenSubjectList();
 
-	int updateOpenSubject();
+	void updateOpenSubject(String[] subCode);
+
+	ArrayList<OpenSubject> selectPreliminaryOpenSubjectList();
+
+	void updateFinishOpenSubject(String[] subCode);
 
 }
