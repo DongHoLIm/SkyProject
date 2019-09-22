@@ -30,26 +30,32 @@
 				<br />
 				<br />
 				<table id="classList">
-					<tr>
-						<th>과목번호</th>
-						<th>이수구분</th>
-						<th>강의명</th>
-						<th>강의실</th>
-						<th>강의시간</th>
-						<th>학점</th>
-						<th>성적 입력</th>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>
-							<button type="button" id="insertResultView">입력</button>
-						</td>
-					</tr>					
+					<thead>
+						<tr>
+							<th>과목번호</th>
+							<th>이수구분</th>
+							<th>강의명</th>
+							<th>강의실</th>
+							<th>강의시간</th>
+							<th>학점</th>
+							<th>성적 입력</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="listSub" items="${list}">
+						<tr>
+							<td><c:out value="${listSub.opensubCode }"/></td>
+							<td><c:out value="${listSub.completeType }"/></td>
+							<td><c:out value="${listSub.subName }"/></td>
+							<td><c:out value="${listSub.buildingName }/${listSub.roomName }"/></td>
+							<td><c:out value="${listSub.dayInfo }/${listSub.timeInfo }"/></td>
+							<td><c:out value="${listSub.subGrade }학점"/></td>
+							<td>
+								<button type="button" id="insertResultView">입력</button>
+							</td>
+						</tr>
+					</c:forEach>
+					</tbody>					
 				</table>
 			</div>
 		</div>
@@ -63,7 +69,7 @@
 	</c:if>
 	<script>
 		$(function(){
-			$("#insertResultView").click(function(){
+			$("#insertResultView").click(function(){				
 				location.href="insertResult.pror"
 			});
 		});
