@@ -15,6 +15,7 @@ import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
+import com.kh.finalProject.studentInfo.model.vo.SchoolOff;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoDao {
@@ -172,6 +173,8 @@ public interface StudentInfoDao {
 	int em_DropOutReject(SqlSessionTemplate sqlSession, DropOut dpo);
 
 	DropOut dpoInfo(SqlSessionTemplate sqlSession, String studentNo);
+
+	ArrayList<SchoolOff> selectSchoolOff(SqlSessionTemplate sqlSession, String userId);
 
 		
 

@@ -19,6 +19,21 @@
   		<result property="offStatus" column="OFF_STATUS"/>
   	
   	</resultMap>
+  	
+  	<select id="selectSchoolOff" resultMap="schoolOffResultSet">
+  		SELECT OFF_TYPE, OFF_REASON, OFF_START, RETURN_DATE, APPLY_DATE, OFF_STATUS
+  		FROM OFF_SCHOOL
+  		WHERE STUDENT_NO= #{studentNo}
+  	</select>
+  	
+  	<insert id="schoolOffApply" parameterType="SchoolOff">
+  		INSERT INTO OFF_SCHOOL (APPLY_DATE,OFF_TYPE,OFF_REASON,OFF_TERM,RETURN_DATE,
+								ENLISTMENT_DATE,DEMOBILIZATION_DATE,REQUIRED_DOC,
+								OFF_START,OFF_STATUS,APPLY_NO,STUDENT_NO) 
+		VALUES(SYSDATE, #{offType}, #{offReason}, #{offTerm}, #{returnDate}, 
+				#{enlistmentDate}, #{demobilizationDate}, #{requiredDoc}, 
+				#{offStart}, DEFAULT, SEQ_OFFSCHOOL.NEXTVAL, #{studentNo})
+  	</insert>
   
   
   

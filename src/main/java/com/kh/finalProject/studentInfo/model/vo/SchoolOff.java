@@ -6,24 +6,24 @@ import java.sql.Date;
 public class SchoolOff implements Serializable{
 	private String studentNo;			//학번
 	private String applyNo;				//휴학신청번호
-	private Date applyDate;				//휴학신청날짜
+	private String applyDate;				//휴학신청날짜
 	private String offStart;			//휴학시작학기
 	private String offType;				//휴학구분
 	private String offReason;			//휴학사유
 	private String offTerm;				//희망휴학기간(1학기/2학기)
 	private String offTermT;			//휴학기간(년도학기 - 년도학기)
 	private String returnDate;			//복학예정학기
-	private Date enlistmentDate;		//입대일자
-	private Date demobilizationDate;	//전역예정
+	private String enlistmentDate;		//입대일자
+	private String demobilizationDate;	//전역예정
 	private String requiredDoc;			//제출서류경로
 	private String offStatus;			//처리상태
 	private String phone;				//연락처
 	
 	public SchoolOff() {}
 
-	public SchoolOff(String studentNo, String applyNo, Date applyDate, String offStart, String offType,
-			String offReason, String offTerm, String offTermT, String returnDate, Date enlistmentDate,
-			Date demobilizationDate, String requiredDoc, String offStatus, String phone) {
+	public SchoolOff(String studentNo, String applyNo, String applyDate, String offStart, String offType,
+			String offReason, String offTerm, String offTermT, String returnDate, String enlistmentDate,
+			String demobilizationDate, String requiredDoc, String offStatus, String phone) {
 		super();
 		this.studentNo = studentNo;
 		this.applyNo = applyNo;
@@ -57,11 +57,11 @@ public class SchoolOff implements Serializable{
 		this.applyNo = applyNo;
 	}
 
-	public Date getApplyDate() {
+	public String getApplyDate() {
 		return applyDate;
 	}
 
-	public void setApplyDate(Date applyDate) {
+	public void setApplyDate(String applyDate) {
 		this.applyDate = applyDate;
 	}
 
@@ -113,19 +113,19 @@ public class SchoolOff implements Serializable{
 		this.returnDate = returnDate;
 	}
 
-	public Date getEnlistmentDate() {
+	public String getEnlistmentDate() {
 		return enlistmentDate;
 	}
 
-	public void setEnlistmentDate(Date enlistmentDate) {
+	public void setEnlistmentDate(String enlistmentDate) {
 		this.enlistmentDate = enlistmentDate;
 	}
 
-	public Date getDemobilizationDate() {
+	public String getDemobilizationDate() {
 		return demobilizationDate;
 	}
 
-	public void setDemobilizationDate(Date demobilizationDate) {
+	public void setDemobilizationDate(String demobilizationDate) {
 		this.demobilizationDate = demobilizationDate;
 	}
 

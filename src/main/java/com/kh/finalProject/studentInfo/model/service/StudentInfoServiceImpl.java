@@ -18,6 +18,7 @@ import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
+import com.kh.finalProject.studentInfo.model.vo.SchoolOff;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 @Service
@@ -434,6 +435,12 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	@Override
 	public DropOut dpoInfo(String studentNo) {
 		return sd.dpoInfo(sqlSession,studentNo);
+	}
+
+	@Override
+	public ArrayList<SchoolOff> selectSchoolOff(String userId) {
+		
+		return sd.selectSchoolOff(sqlSession,userId);
 	}
 
 }

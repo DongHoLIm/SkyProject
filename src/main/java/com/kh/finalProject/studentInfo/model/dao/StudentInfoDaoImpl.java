@@ -17,6 +17,7 @@ import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
+import com.kh.finalProject.studentInfo.model.vo.SchoolOff;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 @Repository
@@ -639,6 +640,12 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	@Override
 	public DropOut dpoInfo(SqlSessionTemplate sqlSession, String studentNo) {
 		return sqlSession.selectOne("DropOut.dpoInfo", studentNo);
+	}
+
+	@Override
+	public ArrayList<SchoolOff> selectSchoolOff(SqlSessionTemplate sqlSession, String userId) {
+		
+		return (ArrayList)sqlSession.selectList("SchoolOff.selectSchoolOff", userId);
 	}
 
 

@@ -13,6 +13,7 @@ import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
+import com.kh.finalProject.studentInfo.model.vo.SchoolOff;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
 public interface StudentInfoService {
@@ -158,5 +159,7 @@ public interface StudentInfoService {
 	int em_DropOutReject(DropOut dpo);
 
 	DropOut dpoInfo(String studentNo);
+
+	ArrayList<SchoolOff> selectSchoolOff(String userId);
   
 }
