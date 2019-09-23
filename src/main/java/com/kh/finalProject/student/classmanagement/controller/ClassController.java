@@ -69,13 +69,12 @@ public class ClassController {
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
 		ArrayList<OpenSubject> list2 = cs.selectPreliminaryCourseApplyList(sa);
-		ArrayList<OpenSubject> list3 = cs.selectFinishSubjectApplyList(sa);
+		
 
 		request.setAttribute("sdList", sdList);
 		request.setAttribute("osList", osList);
 		request.setAttribute("list2", list2);
-		request.setAttribute("list3", list3);
-
+		
 		return "student/class/courseApply"; 
 	}
 
@@ -253,32 +252,68 @@ public class ClassController {
 		int result = cs.selectStudentCount(subCode);
 		System.out.println(subCode+"!!!");
 		System.out.println(result);
+		int count = 0;
 		if(result <= 30) {
 			for(int j=0;j<list.size();j++) {
 				if(list.get(j).getOpenSubCode().equals(subCode)) {				
-					String no = "no";
-					mv.addObject("check", no);
-				}else {
-					cs.insertFinishSubjectApply(subCode, sa);
-					String ok = "ok";
-					mv.addObject("check", ok);
+					count ++;
 				}
 			}
+			System.out.println("count!!:" +count);
+			if(count < 1) {
+				cs.insertFinishSubjectApply(subCode, sa);
+				String ok = "ok";
+				mv.addObject("check", ok);
+				System.out.println("in!!!");
+
+			}else {
+				String no = "no";
+				mv.addObject("check", no);
+				System.out.println("out!!!");
+			}
+		}else {
+			String max = "max";
+			mv.addObject("check", max);
 		}
 		mv.setViewName("jsonView");
 
 		return mv;
 	}
-	@RequestMapping(value="selectPreliminaryCourseApplyList2.st")
-	public ModelAndView selectPreliminaryCourseApplyList2(String professor, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
+	
+	@RequestMapping(value="updateFinishSubjectApply.st")
+	public ModelAndView updateFinishSubjectApply(String subCode, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
+
+		SubjectApply sa = new SubjectApply();
+		sa.setStudentNo(loginUser.getMemberId());
+		sa.setOpenSubCode(subCode);
+
+
+		int result = cs.selectStudentCount(subCode);
+
+
+		if(result <= 30) {
+			cs.updateFinishSubjectApply(sa);
+			String ok = "ok";
+			mv.addObject("check", ok);
+			System.out.println("in!!!");
+		}else {
+			String max = "no";
+			mv.addObject("check", max);
+			System.out.println("out!!!");
+		}
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	@RequestMapping(value="selectFinishSubjectApplyList.st")
+	public ModelAndView selectFinishSubjectApplyList(@ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
 
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
 
-		ArrayList<OpenSubject> list2 = cs.selectPreliminaryCourseApplyList(sa);
+		ArrayList<OpenSubject> list = cs.selectFinishSubjectApplyList(sa);
 
-
-		mv.addObject("list", list2);
+		mv.addObject("list", list);
 		mv.setViewName("jsonView");
 
 		return mv;

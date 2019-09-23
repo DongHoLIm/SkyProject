@@ -69,9 +69,21 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 	}
 
 	@Override
-	public int updateOpenSubject() {
+	public void updateOpenSubject(String[] subCode) {
 
-		return cmd.updateOpenSubject(sqlSession);
+		cmd.updateOpenSubject(sqlSession, subCode);
+	}
+
+	@Override
+	public ArrayList<OpenSubject> selectPreliminaryOpenSubjectList() {
+		
+		return cmd.selectPreliminaryOpenSubjectList(sqlSession);
+	}
+
+	@Override
+	public void updateFinishOpenSubject(String[] subCode) {
+		cmd.updateFinishOpenSubject(sqlSession, subCode);
+		
 	}
 
 }

@@ -42,4 +42,6 @@ public interface ClassService {
 
 	int selectStudentCount(String subCode);
 
+	void updateFinishSubjectApply(SubjectApply sa);
+
 }

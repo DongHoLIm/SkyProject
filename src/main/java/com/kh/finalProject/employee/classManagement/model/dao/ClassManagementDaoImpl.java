@@ -104,9 +104,32 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 	}
 
 	@Override
-	public int updateOpenSubject(SqlSessionTemplate sqlSession) {
+	public void updateOpenSubject(SqlSessionTemplate sqlSession, String[] subCode) {
+		
+		for(int i=0; i<subCode.length;i++) {
+			OpenSubject os = new OpenSubject();
+			os.setOpenSubCode(subCode[i]);
+			sqlSession.update("courseRegistration.updateOpenSubject", os);
+			
+		}
+	}
 
-		return sqlSession.update("courseRegistration.updateOpenSubject");
+	@Override
+	public ArrayList<OpenSubject> selectPreliminaryOpenSubjectList(SqlSessionTemplate sqlSession) {
+		ArrayList<OpenSubject> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("courseRegistration.selectPreliminaryOpenSubjectList");
+		return list;
+	}
+
+	@Override
+	public void updateFinishOpenSubject(SqlSessionTemplate sqlSession, String[] subCode) {
+		for(int i=0; i<subCode.length;i++) {
+			OpenSubject os = new OpenSubject();
+			os.setOpenSubCode(subCode[i]);
+			sqlSession.update("courseRegistration.updateFinishOpenSubject", os);
+			
+		}
 	}
 
 	

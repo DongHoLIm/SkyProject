@@ -30,6 +30,10 @@ public interface ClassManagementDao {
 
 	ArrayList<OpenSubject> selectOpenSubjectList(SqlSessionTemplate sqlSession);
 
-	int updateOpenSubject(SqlSessionTemplate sqlSession);
+	void updateOpenSubject(SqlSessionTemplate sqlSession, String[] subCode);
+
+	ArrayList<OpenSubject> selectPreliminaryOpenSubjectList(SqlSessionTemplate sqlSession);
+
+	void updateFinishOpenSubject(SqlSessionTemplate sqlSession, String[] subCode);
 
 }
