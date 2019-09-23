@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.proof.model.dao.ProofDao;
 import com.kh.finalProject.proof.model.vo.Proof;
 
@@ -26,5 +27,10 @@ public class ProofServiceImpl implements ProofService{
 	@Override
 	public int insertProofPrint(Proof pf) {
 		return pd.insertProofPint(sqlSession, pf);
+	}
+
+	@Override
+	public ArrayList<Proof> selectProofPrintList(Member loginUser) {
+		return pd.selectProofPrintList(sqlSession, loginUser);
 	}
 }

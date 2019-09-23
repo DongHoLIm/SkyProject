@@ -11,6 +11,7 @@
 		<result property="printDate" column="PRINT_DATE"/>
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="printCount" column="PRINT_COUNT"/>
+		<result property="printStatus" column="PRINT_STATUS"/>
 	</resultMap>
 	
 	<select id="selectProofList" resultMap="proofResultSet">
@@ -20,6 +21,13 @@
 	
 	<insert id="insertProofPrint">
 		INSERT INTO CERTIFICATE_PRINT
-		VALUES('CERP'||SEQ_CERTIFICATEPRINT.NEXTVAL, SYSDATE, #{certiCode}, #{memberId}, #{printCount})
+		VALUES(SYSDATE, #{certiCode}, #{memberId}, 'CERP'||SEQ_CERTIFICATEPRINT.NEXTVAL, #{printCount}, DEFAULT)
 	</insert>
+	
+	<select id="selectProofPrintList" resultMap="proofResultSet">
+		SELECT *
+		FROM CERTIFICATE C
+		JOIN CERTIFICATE_PRINT P ON(C.CERTI_CODE = P.CERTI_CODE)
+		WHERE MEMBER_ID = #{memberId}
+	</select>
 </mapper>
