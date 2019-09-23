@@ -250,30 +250,38 @@ public class ClassController {
 		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
 		System.out.println("list:::" + list);
 		int result = cs.selectStudentCount(subCode);
+		System.out.println("?????????");
+		int result2 = cs.selectSubGrade(sa);
 		System.out.println(subCode+"!!!");
 		System.out.println(result);
 		int count = 0;
-		if(result <= 30) {
-			for(int j=0;j<list.size();j++) {
-				if(list.get(j).getOpenSubCode().equals(subCode)) {				
-					count ++;
+		if(result2 <= 18) {
+			if(result <= 30) {
+				for(int j=0;j<list.size();j++) {
+					if(list.get(j).getOpenSubCode().equals(subCode)) {				
+						count ++;
+					}
 				}
-			}
-			System.out.println("count!!:" +count);
-			if(count < 1) {
-				cs.insertFinishSubjectApply(subCode, sa);
-				String ok = "ok";
-				mv.addObject("check", ok);
-				System.out.println("in!!!");
-
+				System.out.println("count!!:" +count);
+				if(count < 1) {
+					cs.insertFinishSubjectApply(subCode, sa);
+					String ok = "ok";
+					mv.addObject("check", ok);
+					System.out.println("in!!!");
+	
+				}else {
+					String no = "no";
+					mv.addObject("check", no);
+					System.out.println("out!!!");
+				}
 			}else {
-				String no = "no";
-				mv.addObject("check", no);
-				System.out.println("out!!!");
+				String max = "max";
+				mv.addObject("check", max);
 			}
 		}else {
-			String max = "max";
-			mv.addObject("check", max);
+			String nono = "nono";
+			mv.addObject("check", nono);
+			System.out.println(result2);
 		}
 		mv.setViewName("jsonView");
 

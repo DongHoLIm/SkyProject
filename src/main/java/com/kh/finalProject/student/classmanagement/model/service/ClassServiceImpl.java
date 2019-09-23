@@ -154,4 +154,12 @@ public class ClassServiceImpl implements ClassService{
 		
 	}
 
+
+
+	@Override
+	public int selectSubGrade(SubjectApply sa) {
+		
+		return cd.selectSubGrade(sqlSession, sa);
+	}
+
 }

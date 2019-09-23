@@ -185,4 +185,15 @@ public class ClassDaoImpl implements ClassDao{
 		sqlSession.update("subjectApply.updateFinishSubjectApply", sa);
 		sqlSession.update("LectureRegistration.updateStudentCount", lr);		
 	}
+
+	@Override
+	public int selectSubGrade(SqlSessionTemplate sqlSession, SubjectApply sa) {
+		OpenSubject os = new OpenSubject();
+		os.setStudentNo(sa.getStudentNo());
+		int result2 = 0;
+		System.out.println("nn:::" + os.getStudentNo());
+		result2 = sqlSession.selectOne("courseRegistration.selectSubGrade", os);
+		System.out.println("result2" + result2);
+		return result2;
+	}
 }
