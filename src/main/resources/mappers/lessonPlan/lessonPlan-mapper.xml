@@ -16,14 +16,26 @@
 		<result property="timeInfo" column="TIME_INFO"/>
 		<result property="mebmerKname" column="MEMBER_KNAME"/>
 		<result property="completeType" column="COMPLETE_TYPE"/>
+		<result property="roomName" column="ROOM_NAME"/>
 		<result property="subGrade" column="SUB_GRADE"/>
 		<result property="engagement" column="ENGAGEMENT"/>
 	</resultMap>
-	<!-- <insert id="insertLessonPlan" parameterType="LessonPlan">
-	INSERT INTO LESSON_PLAN VALUES(#{opensubCode}, #{middleExam},#{finalExam},#{homework},
-	#{attendance},#{classGoal},#{evaluationPeriod},#{subName},#{timeInfo},#{mebmerKname},#{completeType},
-	#{subGrade},#{engagement}) 
+	<insert id="insertLessonPlan" parameterType="LessonPlan">
+	INSERT INTO LESSON_PLAN VALUES(#{opensubCode},#{middleExam},#{finalExam},#{homework},
+	#{attendance},#{classGoal},#{evaluationPeriod},#{subName},#{timeInfo},#{mebmerKname},#{completeType},#{roomName},#{subGrade},#{engagement})
 	
-	</insert> -->
+	</insert>
+	
+		<select id="selectLessonPlanServiceList"
+		resultMap="lessonPlanResultSet">
+		SELECT
+		OS.OPENSUB_CODE,OS.DAY_INFO,TIME_INFO,SUB_NAME,COMPLETE_TYPE,SUB_GRADE,R.ROOM_NAME,B.BUILDING_NAME
+		FROM OPEN_SUBJECT OS
+		JOIN SUBJECT S ON(OS.OPENSUB_CODE=S.SUB_CODE)
+		JOIN ROOM R ON(OS.ROOM_CODE=R.ROOM_CODE)
+		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
+
+
+	</select>
 
 </mapper>

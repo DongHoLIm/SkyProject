@@ -1,14 +1,19 @@
 package com.kh.finalProject.professor.message.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.message.model.service.MessageService;
 import com.kh.finalProject.professor.message.model.vo.MessageVO;
@@ -56,4 +61,28 @@ public class messageController {
 		return mav;
 		
 	}
+	
+	@RequestMapping("sendMessage")
+	@ResponseBody
+	   public String sendMessage(HttpSession session, String tmp, String title ,String content) throws JsonProcessingException {
+			System.out.println("들어왔니");
+			Member member = (Member) session.getAttribute("loginUser");
+			String memberId = member.getMemberId();
+	      String[] list = tmp.split(",");
+
+	      for (int i = 0; i < list.length; i++) {
+	         System.out.println(list[i]);
+	       //  messageService.sendMessage(VO)
+	         
+	         System.out.println(list[i]);
+	         System.out.println(title);
+	         System.out.println(content);
+	         System.out.println(memberId);
+	      }
+
+	      Map<String, Object> result = new HashMap<String, Object>();
+	      result.put("result", "success");
+	      return new ObjectMapper().writeValueAsString(result);
+
+	   }
 }

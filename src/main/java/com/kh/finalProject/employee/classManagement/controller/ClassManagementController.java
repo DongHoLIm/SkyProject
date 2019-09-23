@@ -22,6 +22,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.LessonPlan;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.professor.openSubject.model.service.OpenSubjectService;
 
 @Controller
 public class ClassManagementController {
@@ -29,7 +30,8 @@ public class ClassManagementController {
 	private ClassManagementService cms;
 	@Autowired
 	private LessonPlanService lps;
-	
+	@Autowired
+	OpenSubjectService openSubjectService;
 	
 	//강의개설등록
 	@RequestMapping("lectureOpen.em")
@@ -155,13 +157,33 @@ public class ClassManagementController {
 		return "employee/class/openPreliminaryCourseRegistration";
 	}
 	
-	@RequestMapping("lessonPlan.em")
-	public ModelAndView LessonPlan (LessonPlan lp, ModelAndView mav) {
+	
+	
+	
+	
+	@RequestMapping("lessonPlan.pro")
+	public String LessonPlan (LessonPlan lp, ModelAndView mav) {
 		lps.insertLessonPlan(lp);
-
-		return mav;
+		System.out.println("123:::: "+lp);
+		return "professor/class/syllabus";
 	
 	}
+	
+	@RequestMapping("lessionPlan.em")
+	public ModelAndView LessonPlan (ModelAndView mav) {
+		List<LessonPlan> lessonPlanList = lps.selectLessonPlanServiceList();
+		System.out.println("lessonPlanList : " + lessonPlanList);
+		mav.addObject("lessonPlanList", lessonPlanList);
+		mav.setViewName("employee/class/lessonPlan");
+		return mav;
+			
+	
+	}
+	
+	
+	
+	
+	
 	@RequestMapping(value="updateFinishOpenSubject.em")
 	public String updateFinishOpenSubject(HttpServletRequest request,
 		@RequestParam(name="openSubCode", required=false)String openSubCode){

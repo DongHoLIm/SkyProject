@@ -22,7 +22,7 @@
 				<h2>강의 계획서 작성</h2>
 				<hr>
 				
-			<form action="lessonPlan.em" method="post">
+			<form action="lessonPlan.pro" method="post">
 				<table style="border: 1px solid #e3dcca">
 			
 						<input type="hidden" name="opensubCode" value="${os.opensubCode }">
@@ -76,7 +76,7 @@
 				
 					<tr>
 						<td bgcolor="E7EEE3" style="text-align:center;">평가기간</td>
-						<td colspan="5"><input type="text" class="inputbox" name="engagement"></td>
+						<td colspan="5"><input type="text" class="inputbox" name="evaluationPeriod"></td>
 					</tr>
 				
 				</table>
