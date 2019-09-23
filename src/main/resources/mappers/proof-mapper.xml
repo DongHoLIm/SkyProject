@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Proof">
+	<resultMap type="com.kh.finalProject.proof.model.vo.Proof" id="proofResultSet">
+		<id property="certiCode" column="CERTI_CODE"/>
+		<result property="certiName" column="CERTI_NAME"/>
+		<result property="printCode" column="PRINT_CODE"/>
+		<result property="printDate" column="PRINT_DATE"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="printCount" column="PRINT_COUNT"/>
+	</resultMap>
+	
+	<select id="selectProofList" resultMap="proofResultSet">
+		SELECT *
+		FROM CERTIFICATE
+	</select>	
+	
+	<insert id="insertProofPrint">
+		INSERT INTO CERTIFICATE_PRINT
+		VALUES('CERP'||SEQ_CERTIFICATEPRINT.NEXTVAL, SYSDATE, #{certiCode}, #{memberId}, #{printCount})
+	</insert>
+</mapper>

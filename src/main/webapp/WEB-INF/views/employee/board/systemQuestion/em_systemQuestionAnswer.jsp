@@ -42,7 +42,7 @@
 			<h4 id="basic">시스템 문의</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
 			<br>
-			<form action="em_SystemQuestionAnswer.bo?memberId=${loginUser.memberId}&questionWriter=${loginUser.memberKName}&originWriter=${sq.questionWriter}" method="post" enctype="multipart/form-data">
+			<form action="em_SystemQuestionAnswer.bo?memberId=${loginUser.memberId}&questionWriter=${loginUser.memberKName}&originWriter=${sq.memberId}" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="originNo" id="originNo" value="${sq.originNo}">
 				<table style="width: 88.5%; margin: 0 auto;">
 					<tr>

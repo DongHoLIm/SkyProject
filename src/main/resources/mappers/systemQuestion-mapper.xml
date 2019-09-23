@@ -24,8 +24,9 @@
 	<select id="systemQuestionListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM SYSTEMQUESTION
-		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER IS NULL) OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
-		AND		QA_STATUS = 'Y'
+		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER = #{memberId})
+		OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
+		AND	QA_STATUS = 'Y'
 		ORDER BY QA_ORIGINNO DESC, QA_GROUPORD ASC
 	</select>	
 	
@@ -33,16 +34,18 @@
 	<select id="systemQuestionList" resultMap="systemQuestionResultSet">
 		SELECT *
 		FROM SYSTEMQUESTION
-		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER IS NULL) OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
-		AND		QA_STATUS = 'Y'
+		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER = #{memberId})
+		OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
+		AND	QA_STATUS = 'Y'
 		ORDER BY QA_ORIGINNO DESC, QA_GROUPORD ASC
 	</select>		
 	
 	<select id="systemQuestionSearchListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM SYSTEMQUESTION
-		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER IS NULL) OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
-		AND		QA_STATUS = 'Y'
+		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER = #{memberId})
+		OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
+		AND	QA_STATUS = 'Y'
 		<choose>
 			<when test="account != null">
 				AND QA_TYPE = '계정 관련'
@@ -59,8 +62,9 @@
 	<select id="systemQuestionSearchList" resultMap="systemQuestionResultSet">
 		SELECT *
 		FROM SYSTEMQUESTION
-		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER IS NULL) OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
-		AND		QA_STATUS = 'Y'
+		WHERE ((MEMBER_ID = #{memberId} AND QA_ORIGINWRITER = #{memberId})
+		OR (MEMBER_ID = 'emp' AND QA_ORIGINWRITER = #{memberId}))
+		AND	QA_STATUS = 'Y'
 		<choose>
 			<when test="account != null">
 				AND QA_TYPE = '계정 관련'
@@ -77,7 +81,7 @@
 	
 	<insert id="insertSystemQuestion">
 		INSERT INTO SYSTEMQUESTION
-		VALUES(SEQ_QUESTIONNO.NEXTVAL, #{questionType}, #{questionTitle}, #{questionContent}, #{questionWriter}, SYSDATE, DEFAULT, DEFAULT, #{memberId}, SEQ_QUESTIONNO.CURRVAL, DEFAULT, DEFAULT, NULL)
+		VALUES(SEQ_QUESTIONNO.NEXTVAL, #{questionType}, #{questionTitle}, #{questionContent}, #{memberId}, #{questionWriter}, SYSDATE, DEFAULT, DEFAULT, SEQ_QUESTIONNO.CURRVAL, DEFAULT, DEFAULT, #{memberId})
 	</insert>
 	
 	<update id="updateSystemQuestionCount" parameterType="_int">
@@ -160,7 +164,7 @@
 	
 	<insert id="insertSystemQuestionAnswer">
 		INSERT INTO SYSTEMQUESTION
-		VALUES(SEQ_QUESTIONNO.NEXTVAL, #{questionType}, #{questionTitle}, #{questionContent}, #{questionWriter}, SYSDATE, DEFAULT, DEFAULT, #{memberId}, #{originNo}, #{groupOrd}+1, #{groupLayer}+1, #{originWriter})
+		VALUES(SEQ_QUESTIONNO.NEXTVAL, #{questionType}, #{questionTitle}, #{questionContent}, #{memberId}, #{questionWriter}, SYSDATE, DEFAULT, DEFAULT, #{originNo}, #{groupOrd}+1, #{groupLayer}+1, #{originWriter})
 	</insert>
 	
 </mapper>
