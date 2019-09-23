@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -604,6 +605,10 @@ public class StudentInfoController {
 			request.setAttribute("basicInfo",basicInfo);
 			request.setAttribute("start",start);
 			
+			ArrayList<SchoolOff> list = ss.selectSchoolOff(userId);
+			System.out.println("휴학신청 list :: " + list);
+			request.setAttribute("list", list);
+			
 			return "student/info/schoolOff";
 		
 		}
@@ -614,6 +619,73 @@ public class StudentInfoController {
 		}	
 
 	}
+	
+	//휴학신청 insert (ajax)
+//	@RequestMapping(value="st_insertSchoolOff.si")
+//	public ModelAndView st_insertSchoolOff( ModelAndView mv, HttpServletRequest request, @ModelAttribute SchoolOff so, @ModelAttribute("loginUser") Member loginUser) {
+//		
+//		
+//		
+//		System.out.println(so);
+//			
+//		return mv;
+//	}
+		
+		
+	//학생_휴학신청후 뷰
+//	@RequestMapping(value="st_schoolOffApply.si")
+//	public String schoolOffApply (HttpServletRequest request, SchoolOff so, @ModelAttribute("loginUser") Member loginUser) {
+//			
+//		System.out.println("SchoolOff so ::::" + so);
+//			
+//		String userId = loginUser.getMemberId();
+//		System.out.println(userId);		
+//			
+//		SimpleDateFormat format1 = new SimpleDateFormat("yyyy");
+//		SimpleDateFormat format2 = new SimpleDateFormat("MM");
+//			
+//		Date time = new Date();
+//			
+//		String year = format1.format(time);
+//		String month = format2.format(time);
+//		System.out.println("year::" + year);
+//		System.out.println("month::" + month);
+//			
+//		String start="";
+//		if(month.equals("02") || month.equals("08") || month.equals("09")) {
+//			if(month=="2") {
+//				start = year + ".1학기" ;	
+//			}else {
+//				start = year + ".2학기" ;				
+//			}
+//			System.out.println("휴학시작학기::"+start);
+//				
+//			StudentInfo basicInfo = ss.basicInfo(userId);
+//			request.setAttribute("basicInfo",basicInfo);
+//			request.setAttribute("start",start);
+//		}	
+//			
+//		so.setStudentNo(userId);
+//			
+//		int result = ss.schoolOffApply(so);
+//			
+//		if(result>0) {
+//			System.out.println("휴학신청 insert 성공");
+//				
+//			ArrayList<SchoolOff> list = ss.selectSchoolOff(userId);
+//			System.out.println("휴학신청 list :: " + list);
+//			request.setAttribute("list", list);
+//					
+//			return "student/info/schoolOff";
+//					
+//		}else {
+//			request.setAttribute("msg","휴학신청 실패.");
+//			return "common/errorAlert";
+//		}
+//			
+//	}
+//		
+	
 	
 	//학생_휴학신청_희망휴학기간 선택
 	@RequestMapping("st_selectOffTerm.si")
@@ -653,7 +725,6 @@ public class StudentInfoController {
 				end = (year+1) + "." + (semester-1) + "학기";
 				returnDay = (year+1) + "." + semester + "학기";
 			}
-			
 			
 		}
 		

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,6 +70,9 @@ table.basicinfo {
 #modified {
 	margin-left: 80%;
 }
+#btn {
+	margin-left: 80%;
+}
 </style>
 
 
@@ -82,11 +86,8 @@ table.basicinfo {
 
 			<jsp:include page="../info/common.jsp" />
 
-			
-
-			
 				<h4 id="basic">휴학 신청</h4>
-				<form action="st_schoolOffApply.si" method="post">
+				<!-- <form action="st_schoolOffApply.si" method="post"> -->
 				<table class="basicinfo">
 				<tr>
 					<td class="tdd">휴학 구분</td>
@@ -104,7 +105,7 @@ table.basicinfo {
 							<option value='선택'>-- 선택 --</option>
 							<option value='개인사정'>개인 사정</option>
 							<option value='경제사정'>경제 사정</option>
-							<option value='경제사정'>군입대</option>
+							<option value='군입대'>군입대</option>
 					</select>
 					</td>
 				</tr>
@@ -160,12 +161,13 @@ table.basicinfo {
 					</td>	
 				</tr>
 			
-			<table id="modified">
-				<button type="submit" id="modified">신청하기</button> 
+			<table id="btn">
+				<button id="btn" onclick="apply();">신청하기</button>
+				<!-- <button type="submit" id="modified">신청하기</button> --> 
 			</table>
 			</table>
 
-			</form>
+			<!-- </form> -->
 				
 			<br>
 			<br>
@@ -232,6 +234,33 @@ table.basicinfo {
 				});
 			});
 			
+			function apply(){
+				
+				console.log("함수는 들어와");
+				
+				var data = {};
+				data["offType"] = $("#offType").val();
+				data["offReason"] = $("#offReason").val();
+				data["offStart"] = $("#offStart").val();
+				data["offTerm"] = $("#offTerm").val();
+				data["offTermT"] = $("#offTermT").val();
+				data["returnDate"] = $("#returnDate").val();
+				data["enlistmentDate"] = $("#enlistmentDate").val();
+				data["demobilizationDate"] = $("#demobilizationDate").val();
+				data["requiredDoc"] = $("#requiredDoc").val();
+				
+				console.log(data);
+				
+				$.ajax({
+					url:"st_insertSchoolOff.si",
+					type:"post",
+					data:{"data":JSON.stringify(data)},
+					dataType:"json",
+					success:function(data){
+						console.log(data);
+					}
+				});
+			}
 			
 			</script>
 			
