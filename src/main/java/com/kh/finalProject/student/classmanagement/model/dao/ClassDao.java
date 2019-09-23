@@ -47,5 +47,7 @@ public interface ClassDao {
 
 	void updateFinishSubjectApply(SqlSessionTemplate sqlSession, SubjectApply sa);
 
+	int selectSubGrade(SqlSessionTemplate sqlSession, SubjectApply sa);
+
 }
  

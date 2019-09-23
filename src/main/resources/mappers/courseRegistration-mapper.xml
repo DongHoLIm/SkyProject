@@ -197,4 +197,8 @@
 		FROM OPEN_SUBJECT
 		WHERE OPENSUB_CODE = #{subCode}
     </select>
+    <select id="selectSubGrade" resultType="_int">
+		SELECT NVL(SUM(SUB_GRADE), 0)
+		FROM (SELECT SUB_GRADE FROM SUBJECT_APPLY JOIN SUBJECT ON(OPENSUB_CODE = SUB_CODE) WHERE STUDENT_NO = #{studentNo})
+    </select>
 </mapper>

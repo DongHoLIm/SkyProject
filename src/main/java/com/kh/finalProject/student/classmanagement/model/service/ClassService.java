@@ -44,4 +44,6 @@ public interface ClassService {
 
 	void updateFinishSubjectApply(SubjectApply sa);
 
+	int selectSubGrade(SubjectApply sa);
+
 }

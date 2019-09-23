@@ -424,6 +424,9 @@ function insertFinishSubjectApply(){
 			}else if(key.check=='max'){
 				alert('신청 인원 초과');
 				location.reload();
+			}else if(key.check='nono'){
+				alert('이수 학점 초과');
+				location.reload();
 			}
 		},
 		error:function(err){
