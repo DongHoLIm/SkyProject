@@ -49,10 +49,6 @@ $(function(){
 						<td><input type="text" value="${memberDetail.memberId}" name="memberId"readonly/></td>
 					</tr>
 					<tr>
-						<td>비밀번호</td>
-						<td><input type="text" value="${memberDetail.memberPwd}" readonly/></td>
-					</tr>
-					<tr>
 						<td>이름(한글)</td>
 						<td><input type="text" value="${memberDetail.memberKName }" name="memberKName"/></td>
 					</tr>

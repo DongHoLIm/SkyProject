@@ -60,8 +60,7 @@
 				<table id="MemberList">					
 					<thead>
 						<tr>							
-							<th>아이디</th>
-							<th>비밀번호</th>
+							<th>아이디</th>							
 							<th>이름</th>
 							<th>이메일</th>						
 							<th>비고</th>
@@ -70,8 +69,7 @@
 					<tbody>
 						<c:forEach var="a" items="${memberList }">
 						<tr>							
-							<td>${a.memberId}</td>
-							<td>${a.memberPwd }</td>
+							<td>${a.memberId}</td>							
 							<td>${a.memberKName }</td>
 							<td>${a.email }</td>
 							<c:if test="${a.memberStatus==3 }">

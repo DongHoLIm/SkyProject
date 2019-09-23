@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.result.model.dao.ProfessorResultDao;
 import com.kh.finalProject.professor.result.model.vo.ProfessorResult;
+import com.kh.finalProject.professor.result.model.vo.StudentResult;
 
 @Service
 public class ProfessorResultServiceImpl implements ProfessorResultService{
@@ -21,6 +22,12 @@ public class ProfessorResultServiceImpl implements ProfessorResultService{
 	public ArrayList<ProfessorResult> subList(Member loginInfo) {
 		// TODO Auto-generated method stub
 		return pd.subList(sqlSession,loginInfo);
+	}
+
+	@Override
+	public ArrayList<StudentResult> studentList(String opensubCode) {
+		// TODO Auto-generated method stub
+		return pd.studentList(sqlSession,opensubCode);
 	}
 
 }

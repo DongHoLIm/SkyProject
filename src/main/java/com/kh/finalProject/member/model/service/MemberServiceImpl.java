@@ -33,11 +33,13 @@ public class MemberServiceImpl implements MemberService{
 	public Member loginCheck(Member m) throws loginException {
 		Member loginUser = null;
 		Member encPassword = md.selectEncPwd(sqlSession,m);
+		String encPasswordInfo = passwordEncoder.encode(encPassword.getMemberPwd());
+		System.out.println("변경된 로그인 비밀번호정보 :"+encPasswordInfo);
 		
-		
-//		if(!passwordEncoder.matches(m.getMemberPwd(), encPassword.getMemberPwd())) {
-//			throw new loginException("비밀번호가 틀렸습니다.");
-//		}else {
+		if(!passwordEncoder.matches(m.getMemberPwd(), encPassword.getMemberPwd())) {
+			
+			throw new loginException("비밀번호가 틀렸습니다.");
+			}else {
 			loginUser = md.loginCheck(sqlSession,m);
 			
 			if(loginUser.getLoginCheck().equals("1")) {
@@ -46,7 +48,7 @@ public class MemberServiceImpl implements MemberService{
 			}else {
 				md.updateLoginCheck(sqlSession,loginUser);
 			}			
-//		}
+		}
 		return loginUser;
 	}
 	//로그아웃 에 대한 로그인 상태 변경 

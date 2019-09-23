@@ -13,21 +13,40 @@
   		<result property="buildingName" column="BUILDING_NAME"/>
   		<result property="dayInfo" column="DAY_INFO"/>
   		<result property="timeInfo" column="TIME_INFO"/>
+  		<result property="openYear" column="OPEN_YEAR"/>
+  		<result property="openSemester" column="OPEN_SEMESTER"/>
+  	</resultMap>
+  	<resultMap type="com.kh.finalProject.professor.result.model.vo.StudentResult" id="StudentListResultSet">
+  		<id property="gradeCode" column="GRADE_CODE"/>
+  		<result property="studentNo" column="STUDENT_NO"/>
+  		<result property="studentName" column="MEMBER_KNAME"/>
+  		<result property="grade" column="GRADE"/>
+  		<result property="middleScore" column="MIDDLE_SCORE"/>
+  		<result property="finalScore" column="FINAL_SCORE"/>
+  		<result property="workScore" column="WORK_SCORE"/>
+  		<result property="attendanceScore" column="ATTENDANCE_SCORE"/>
+  		<result property="score" column="SCORE"/>
   	</resultMap>
   	<select id="subList" resultMap="ProfessorResultResultSet">
-  		SELECT O.OPENSUB_CODE,S.SUB_NAME,S.COMPLETE_TYPE,S.SUB_GRADE,R.ROOM_NAME,B.BUILDING_NAME,
-		O.DAY_INFO,O.TIME_INFO
+  		SELECT O.OPENSUB_CODE,S.SUB_NAME,S.COMPLETE_TYPE,S.SUB_GRADE,R.ROOM_NAME,B.BUILDING_NAME,O.DAY_INFO,O.TIME_INFO,
+		O.OPEN_YEAR,O.OPEN_SEMESTER
 		FROM 
 		OPEN_SUBJECT O
 		JOIN SUBJECT S ON(O.OPENSUB_CODE =S.SUB_CODE)
 		JOIN ROOM R ON(O.ROOM_CODE=R.ROOM_CODE)
 		JOIN BUILDING B ON(R.BUILDING_CODE=B.BUILDING_CODE)
-		JOIN SUBJECT_APPLY SA ON(O.OPENSUB_CODE =SA.OPENSUB_CODE)
-		JOIN SUBAPPLY_DONE SD ON(SA.SUBAPPLY_CODE =SD.SUBAPPLY_CODE)
-		JOIN CLASS_MANAGEMENT CM ON(SD.DONE_CODE=CM.DONE_CODE)
-		JOIN MEMBER M ON(CM.STUDENT_NO=MEMBER_ID)
-		WHERE SA.DONE_TYPE='완료'
-		AND O.PROFESSOR_NO = #{memberId}  	
+		WHERE O.PROFESSOR_NO = #{memberId}  	
+  	</select>
+  	
+  	<select id="stuList" resultMap="StudentListResultSet" parameterType="String">
+  	SELECT G.GRADE_CODE,G.GRADE,G.MIDDLE_SCORE,G.FINAL_SCORE,G.WORK_SCORE,G.ATTENDANCE_SCORE,G.SCORE,M.MEMBER_KNAME,G.STUDENT_NO
+	FROM GRADE G 
+	JOIN MEMBER M ON(G.STUDENT_NO=M.MEMBER_ID)
+	JOIN CLASS_MANAGEMENT CM ON(G.CLASS_CODE=CM.CLASS_CODE)
+	JOIN SUBAPPLY_DONE SD ON(CM.DONE_CODE = SD.DONE_CODE)
+	JOIN SUBJECT_APPLY SA ON(SD.SUBAPPLY_CODE=SA.SUBAPPLY_CODE)
+	JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
+	WHERE SA.OPENSUB_CODE = #{opensubCode}
   	</select>
   </mapper>
  

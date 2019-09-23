@@ -42,7 +42,6 @@ public class ProfessorController {
 	}
 	@RequestMapping("addressStudent.pro")	
 	public String addressList(@ModelAttribute("loginUser") Member loginUser,HttpServletRequest request,HttpServletResponse response){
-			System.out.println("들어오나요??");
 		ArrayList<StudentList> list = null;
 		int currentPage = 1 ;
 		if(request.getParameter("currentPage")!=null) {
@@ -117,7 +116,7 @@ public class ProfessorController {
 	    		 sl.setGrade(message);
 	    		 sl.setMemberId((String)hmap.get("memberId"));
 	    		 sl.setMemberKName(proInfo.getMemberId());	    		 
-	    		 System.out.println("message 왜 널임?"+sl);
+	    		 
 	    		 int result = ps.insertSMS(sl); 
 	    	 }
 	    	 mv.addObject("msg", message);
