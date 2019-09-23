@@ -196,4 +196,14 @@ public class ClassDaoImpl implements ClassDao{
 		System.out.println("result2" + result2);
 		return result2;
 	}
+
+	@Override
+	public ArrayList<OpenSubject> selectEnrolType(SqlSessionTemplate sqlSession) {
+		ArrayList<OpenSubject> list2 = null;
+		
+		list2 = (ArrayList) sqlSession.selectList("courseRegistration.selectEnrolType");
+		
+		
+		return list2;
+	}
 }

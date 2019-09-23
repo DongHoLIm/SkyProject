@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+/*예비수강신청*/
 table {
 	font-family: "돋움", "돋움체";
 	font-size: 12px;

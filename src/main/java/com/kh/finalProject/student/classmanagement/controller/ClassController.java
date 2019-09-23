@@ -69,12 +69,12 @@ public class ClassController {
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
 		ArrayList<OpenSubject> list2 = cs.selectPreliminaryCourseApplyList(sa);
-		
+
 
 		request.setAttribute("sdList", sdList);
 		request.setAttribute("osList", osList);
 		request.setAttribute("list2", list2);
-		
+
 		return "student/class/courseApply"; 
 	}
 
@@ -160,23 +160,38 @@ public class ClassController {
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
 		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
-
+		ArrayList<OpenSubject> list2 = cs.selectEnrolType();
+		//수강신청내역 확인
 		int count = 0;
-		for(int i=0;i<subCode.length;i++) {
-			for(int j=0;j<list.size();j++) {
-				if(list.get(j).getOpenSubCode().equals(subCode[i])) {				
-					count ++;
-				}
+		//enrolType 확인
+		int count2 = 0;
+		String str = "";
+		for(int i=0;i<list2.size();i++) {
+			if(list2.get(i).getEnrolType() == 1) {
+				System.out.println(list2.get(i).getEnrolType());
+				count2 ++;
 			}
 		}
-		if(count < 1) {
-			cs.insertCourseApply(subCode, sa);
-			String ok = "ok";
-			mv.addObject("check", ok);
+		if(count2 < 1) {
+			for(int i=0;i<subCode.length;i++) {
+				for(int j=0;j<list.size();j++) {
+					if(list.get(j).getOpenSubCode().equals(subCode[i])) {				
+						count ++;
+					}
+				}
+			}
+
+			if(count < 1) {
+				cs.insertCourseApply(subCode, sa);
+				str = "ok";
+			}else {
+				str = "no";
+			}
 		}else {
-			String no = "no";
-			mv.addObject("check", no);
+			str = "x";
 		}
+
+		mv.addObject("check", str);
 		mv.setViewName("jsonView");
 
 		return mv;
@@ -248,46 +263,51 @@ public class ClassController {
 		SubjectApply sa = new SubjectApply();
 		sa.setStudentNo(loginUser.getMemberId());
 		ArrayList<SubjectApply> list = cs.selectMySugang(sa);
-		System.out.println("list:::" + list);
+		ArrayList<OpenSubject> list2 = cs.selectEnrolType();
 		int result = cs.selectStudentCount(subCode);
-		System.out.println("?????????");
+
 		int result2 = cs.selectSubGrade(sa);
-		System.out.println(subCode+"!!!");
-		System.out.println(result);
+
+
 		int count = 0;
-		if(result2 <= 18) {
-			if(result <= 30) {
-				for(int j=0;j<list.size();j++) {
-					if(list.get(j).getOpenSubCode().equals(subCode)) {				
-						count ++;
+		int count2 = 0;
+		String str = "";
+		for(int i=0;i<list2.size();i++) {
+			if(list2.get(i).getEnrolType() == 1 || list2.get(i).getEnrolType() == 2) {
+				System.out.println(list2.get(i).getEnrolType());
+				count2 ++;
+			}
+		}
+		if(count2 < 1) {
+			if(result2 <= 18) {
+				if(result <= 30) {
+					for(int j=0;j<list.size();j++) {
+						if(list.get(j).getOpenSubCode().equals(subCode)) {				
+							count ++;
+						}
 					}
-				}
-				System.out.println("count!!:" +count);
-				if(count < 1) {
-					cs.insertFinishSubjectApply(subCode, sa);
-					String ok = "ok";
-					mv.addObject("check", ok);
-					System.out.println("in!!!");
-	
+					System.out.println("count!!:" +count);
+					if(count < 1) {
+						cs.insertFinishSubjectApply(subCode, sa);
+						str = "ok";
+					}else {
+						str = "no";
+					}
 				}else {
-					String no = "no";
-					mv.addObject("check", no);
-					System.out.println("out!!!");
+					str = "max";
 				}
 			}else {
-				String max = "max";
-				mv.addObject("check", max);
+				str = "nono";
 			}
 		}else {
-			String nono = "nono";
-			mv.addObject("check", nono);
-			System.out.println(result2);
+			str = "x";
 		}
+		mv.addObject("check", str);
 		mv.setViewName("jsonView");
 
 		return mv;
 	}
-	
+
 	@RequestMapping(value="updateFinishSubjectApply.st")
 	public ModelAndView updateFinishSubjectApply(String subCode, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
 
@@ -297,18 +317,31 @@ public class ClassController {
 
 
 		int result = cs.selectStudentCount(subCode);
-
-
-		if(result <= 30) {
-			cs.updateFinishSubjectApply(sa);
-			String ok = "ok";
-			mv.addObject("check", ok);
-			System.out.println("in!!!");
-		}else {
-			String max = "no";
-			mv.addObject("check", max);
-			System.out.println("out!!!");
+		int result2 = cs.selectSubGrade(sa);
+		ArrayList<OpenSubject> list2 = cs.selectEnrolType();
+		int count2 = 0;
+		String str = "";
+		for(int i=0;i<list2.size();i++) {
+			if(list2.get(i).getEnrolType() == 1 || list2.get(i).getEnrolType() == 2) {
+				System.out.println(list2.get(i).getEnrolType());
+				count2 ++;
+			}
 		}
+		if(count2 < 1) {
+			if(result2 <= 18) {
+				if(result <= 30) {
+					cs.updateFinishSubjectApply(sa);
+					str = "ok";
+				}else {
+					str = "no";
+				}
+			}else {
+				str = "nono";
+			}
+		}else {
+			str = "x";
+		}
+		mv.addObject("check", str);
 		mv.setViewName("jsonView");
 
 		return mv;

@@ -35,4 +35,15 @@
 		WHERE OPENSUB_CODE = #{openSubCode}
 		AND STUDENT_NO = #{studentNo}
 	</update>
+	<update id="updateDoneType">
+		UPDATE SUBJECT_APPLY SET DONE_TYPE = '완료'
+		WHERE DONE_TYPE = '신청'
+		AND APPLY_TYPE = '정기'
+	</update>
+	<select id="selectUpdateList" resultMap="subjectApplyResultSet">
+		SELECT SUBAPPLY_CODE, APPLY_TYPE, DONE_TYPE
+		FROM SUBJECT_APPLY
+		WHERE APPLY_TYPE = '정기'
+        AND DONE_TYPE ='신청'
+	</select>
 </mapper> 

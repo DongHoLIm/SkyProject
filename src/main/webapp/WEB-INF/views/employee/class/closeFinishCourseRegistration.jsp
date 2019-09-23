@@ -17,10 +17,9 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>수강신청 열기</h2>
-			<hr>
-
-			<form action="updateFinishOpenSubject.em" method="post">
+			<h2>수강신청 닫기</h2>
+			<hr>	
+			<form action="closeFinishOpenSubject.em" method="post">
 				<table style="text-align:center;">
 					<thead>
 						<tr>
@@ -55,7 +54,7 @@
 					</tbody>
 				</table>
 				<br><br>
-				<button style="float:right;">수강열기</button>
+				<button style="float:right;">수강닫기</button>
 			</form>
 		</div>
 		</div>
