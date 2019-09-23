@@ -176,6 +176,8 @@ public interface StudentInfoDao {
 
 	ArrayList<SchoolOff> selectSchoolOff(SqlSessionTemplate sqlSession, String userId);
 
+	int schoolOffApply(SqlSessionTemplate sqlSession, SchoolOff so);
+
 		
 
 

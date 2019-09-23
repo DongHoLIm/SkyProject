@@ -443,5 +443,11 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		return sd.selectSchoolOff(sqlSession,userId);
 	}
 
+	@Override
+	public int schoolOffApply(SchoolOff so) {
+		
+		return sd.schoolOffApply(sqlSession,so);
+	}
+
 }
 

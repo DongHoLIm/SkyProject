@@ -176,28 +176,68 @@ table.basicinfo {
 			<table class="basicinfo">
 				<thead>
 					<tr>
-						<th style="text-align: center" id="t1">순번</th>
+						<th style="text-align: center" id="t1">휴학 시작 학기</th>
 						<th style="text-align: center" id="t1">휴학 구분</th>
 						<th style="text-align: center" id="t1">휴학 사유</th>
-						<th style="text-align: center" id="t1">휴학 기간</th>
 						<th style="text-align: center" id="t1">복학예정</th>
 						<th style="text-align: center" id="t1">신청일</th>
 						<th style="text-align: center" id="t1">상태</th>
 					</tr>
 				<thead>
 				<tbody class="tbody">
+					<c:forEach var="list" items="${list }">
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td><c:out value="${list.offStart }"/></td>
+						<td><c:out value="${list.offType }"/></td>
+						<td><c:out value="${list.offReason }"/></td>
+						<td><c:out value="${list.returnDate }"/></td>
+						<td><c:out value="${list.applyDate }"/></td>
+						<td><c:out value="${list.offStatus }"/></td>
 					</tr>
+				</c:forEach>
 				</tbody>
 			</table>
 			<script>
+			
+			$(function(){
+				$("#offType").change(function(){
+					var change = $(this).val();
+					console.log("change::"+change);
+					
+					var offType = $("#offType").val();
+					console.log("offType::" + offType);
+					
+					$.ajax({
+						url:"st_changeOffType.si",
+						type:"get",
+						data:{offType:offType},
+						success:function(data){
+							console.log("접속성공");
+							
+							var $select = $("#offTerm");
+							
+							$select.children().remove();
+							
+							var $option = $("<option>");
+							$option.text("-- 선택 --");
+							$option.val("선택");
+							$select.append($option);
+							
+							for(var i=0 ; i<data.arr.length ; i++){
+								var $option = $("<option>");
+								
+								$option.text(data.arr[i]);
+								$option.val(data.arr[i]);
+								
+								$select.append($option);
+							}
+						}
+						
+					});
+				});
+			});
+			
+			
 			$(function(){
 				$("#offTerm").change(function(){
 					var change = $(this).val();
@@ -227,37 +267,44 @@ table.basicinfo {
 							$input1.val(data.offTermm);
 							$input2.val(data.returnDay);
 							
-							
 						}
-					})
+					});
 					
 				});
 			});
 			
 			function apply(){
 				
-				console.log("함수는 들어와");
+				var offType = $("#offType").val();
+				var offReason = $("#offReason").val();
+				var offStart = $("#offStart").val();
+				var offTerm = $("#offTerm").val();
+				var offTermT = $("#offTermT").val();
+				var returnDate = $("#returnDate").val();
+				var enlistmentDate = $("#enlistmentDate").val();
+				var demobilizationDate = $("#demobilizationDate").val();
+				var requiredDoc = $("#requiredDoc").val(); 
 				
-				var data = {};
-				data["offType"] = $("#offType").val();
-				data["offReason"] = $("#offReason").val();
-				data["offStart"] = $("#offStart").val();
-				data["offTerm"] = $("#offTerm").val();
-				data["offTermT"] = $("#offTermT").val();
-				data["returnDate"] = $("#returnDate").val();
-				data["enlistmentDate"] = $("#enlistmentDate").val();
-				data["demobilizationDate"] = $("#demobilizationDate").val();
-				data["requiredDoc"] = $("#requiredDoc").val();
 				
-				console.log(data);
 				
 				$.ajax({
 					url:"st_insertSchoolOff.si",
 					type:"post",
-					data:{"data":JSON.stringify(data)},
-					dataType:"json",
+					data:{offType:offType,
+						 offReason:offReason,
+						 offStart:offStart,
+						 offTerm:offTerm,
+						 offTermT:offTermT,
+						 returnDate:returnDate,
+						 enlistmentDate:enlistmentDate,
+						 demobilizationDate:demobilizationDate,
+						 requiredDoc:requiredDoc},
 					success:function(data){
-						console.log(data);
+						console.log("접속성공");
+						
+						alert("휴학 신청 완료");
+						
+						location.reload();
 					}
 				});
 			}
