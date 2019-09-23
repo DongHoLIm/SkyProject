@@ -103,7 +103,8 @@
 												<hr>
 												
 												<h4>인터넷 제증명</h4>
-												<li><a href="showIdCheck.pf">증명서 발급</a></li>
+												<li><a href="showProof.pf">증명서 발급 신청</a></li>
+												<li><a href="showProofPrint.pf">증명서 발급 내역</a></li>
 										
 												<hr>
 												

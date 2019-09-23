@@ -87,7 +87,7 @@
 			//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
 			alert("결제가 완료되었습니다.");
 			console.log(data);	
-			location.href="insertProofPrint.pf?memberId="+memberId+"&certiName="+certiName+"&certiCode="+certiCode+"&printCount="+printCount;
+			window.opener.location.href="insertProofPrint.pf?memberId="+memberId+"&certiName="+certiName+"&certiCode="+certiCode+"&printCount="+printCount;
 		});
 	</script>
 </body>

@@ -7,11 +7,12 @@ public class Proof {
 	private String printDate;
 	private String memberId;
 	private int printCount;
+	private String printStatus;
 	
 	public Proof() {}
-
+	
 	public Proof(String certiCode, String certiName, String printCode, String printDate, String memberId,
-			int printCount) {
+			int printCount, String printStatus) {
 		super();
 		this.certiCode = certiCode;
 		this.certiName = certiName;
@@ -19,7 +20,19 @@ public class Proof {
 		this.printDate = printDate;
 		this.memberId = memberId;
 		this.printCount = printCount;
+		this.printStatus = printStatus;
 	}
+
+
+	public String getPrintStatus() {
+		return printStatus;
+	}
+
+
+	public void setPrintStatus(String printStatus) {
+		this.printStatus = printStatus;
+	}
+
 
 	public String getCertiCode() {
 		return certiCode;

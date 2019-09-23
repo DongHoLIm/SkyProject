@@ -22,31 +22,16 @@ public class ProofController {
 	@Autowired
 	private ProofService ps;
 	
-	@RequestMapping(value="showIdCheck.pf")
+	@RequestMapping(value="showProof.pf")
 	public String showIdCheck(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {		
 		
 		ArrayList<Proof> list = ps.selectProofList();
 		
 		request.setAttribute("list", list);
 		
-		return "proof/accountCheck";
+		return "proof/proofApply";
 	}
 	
-	@RequestMapping(value="checkMemberPwd.pf")
-	public ModelAndView checkMemberPwd(String checkPwd, @ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {		
-		int result = 0;
-		
-		if(checkPwd.equals(loginUser.getMemberPwd())) {
-			result = 1;
-		}else {
-			result = 0;
-		}
-		
-		mv.addObject("result", result);
-		mv.setViewName("jsonView");		
-		
-		return mv;
-	}
 	
 	@RequestMapping(value="Payment.pf")
 	public String Payment(Proof pf, @ModelAttribute("loginUser") Member loginUser, HttpServletRequest request) {				
@@ -58,16 +43,41 @@ public class ProofController {
 	}
 	
 	
-//	@RequestMapping(value="insertProofPrint.pf")
-//	public String insertProofPrint(Proof pf, HttpServletRequest request) {
-//		System.out.println("결제 후 증명서 내역관리 insert 전 pf :::: " + pf);
-//		
-//		ps.insertProofPrint(pf);
-//		
-//		System.out.println("결제 후 증명서 내역관리 insert 후 pf :::: " + pf);
-//		
-//		request.setAttribute("pf", pf);
-//		
-//		return "proof/;
-//	}
+	@RequestMapping(value="insertProofPrint.pf")
+	public String insertProofPrint(Proof pf, HttpServletRequest request) {
+		
+		ps.insertProofPrint(pf);			
+		
+		request.setAttribute("pf", pf);
+		
+		return "redirect:showProofPrint.pf";
+	}
+	
+	@RequestMapping(value="showProofPrint.pf")
+	public String showProofPrint(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {		
+		
+		return "proof/proofManagement";
+	}
+	
+	@RequestMapping(value="selectProofList.pf")
+	public ModelAndView selectProofList(ModelAndView mv, @ModelAttribute("loginUser") Member loginUser) {
+		
+		ArrayList<Proof> list = ps.selectProofPrintList(loginUser);
+		
+		System.out.println("list :::: " + list);
+		
+		mv.addObject("list", list);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="showPrintCerti.pf")
+	public String showPrintCerti(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser, Proof pf) {
+		
+		System.out.println("pf :::: " + pf);
+		System.out.println("loginUser :::: " + loginUser);
+		
+		return "proof/printCerti1";
+	}
 }

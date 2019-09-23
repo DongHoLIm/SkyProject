@@ -30,45 +30,6 @@
 		margin: 0 auto;
 	}
 </style>
-<script>
-	
-	$(function(){
-		$(".applyArea").hide();
-		
-		alert("제증명 발급용 본인 확인을 위해 비밀번호를 입력하세요.");
-		
-		$("#checkPwdBtn").click(function(){
-			var checkPwd = $("#checkPwd").val();
-			
-			console.log("checkPwd :::: " + checkPwd);
-			
-			if(checkPwd == ''){
-				alert("비밀번호를 입력하세요.");
-			}else if(checkPwd != ''){
-				$.ajax({
-					url:"checkMemberPwd.pf",
-					type:"POST",
-					data:{
-						"checkPwd":checkPwd
-					},
-					success:function(data){
-						var result = data.result;
-						
-						if(result == 1){
-							alert("발급할 증명서를 선택하세요.");
-							$("#idCheckArea").hide();
-							$(".applyArea").show();
-						}else if(result != 1){
-							alert("비밀번호가 맞지 않습니다. 다시 입력하세요.");
-							$("#checkPwd").val("");
-						}
-					}
-				});				
-			}			
-		}); // checkPwdBtn click function end			
-	});
-	
-</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -79,16 +40,7 @@
 			<input type="hidden" name="memberId" id="memberId" value="${loginUser.memberId}">
 			<h4 style="padding: 10px 0px 0px 100px;">제증명 신청</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
-			<br>			
-			<table style="width: 88.5%; text-align: center; margin: 0 auto;" id="idCheckArea">
-				<tr>
-					<th>아이디 : </th>
-					<td>${loginUser.memberId}</td>
-					<th>비밀번호 : </th>
-					<td><input type="password" name="checkPwd" id="checkPwd"></td>
-					<td><button id="checkPwdBtn">비밀번호 확인</button></td>
-				</tr>			
-			</table>
+				
 			<br><br>
 			<div class="applyArea">
 				<table style="width: 88.5%; text-align: center; margin: 0 auto;">
