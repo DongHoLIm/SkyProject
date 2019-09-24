@@ -73,23 +73,42 @@
 					$span2.addClass("printSpan");
 					
 					$td5.html($span1);
-					$td6.html($span2);
 					
 					$tr.append($td1);
 					$tr.append($td2);
 					$tr.append($td3);
 					$tr.append($td4);
 					$tr.append($td5);
-					$tr.append($td6);
+					
+					if(data.list[i].printStatus == 'N'){
+						$td6.html($span2);
+						$tr.append($td6);						
+					}else if(data.list[i].printStatus == 'Y'){
+						$td6.text("발급완료");
+						$tr.append($td6);
+					}
 					
 					$tbody.append($tr);
 				}
 				
 				$(".showSpan").click(function(){
-					var certiName = $(this).parent().parent().children().eq(1).text();					
-					var location ="showPrintCerti.pf?certiName=" + certiName;
+					var certiName = $(this).parent().parent().children().eq(1).text();	
+					var printCode = $(this).parent().parent().children().eq(0).text();	
+					var location ="showPrintCerti.pf?certiName=" + certiName + "&printCode=" + printCode;
 					
 					window.open(location, "_blank", "width=700, height=800");
+				});
+				
+				$(".printSpan").click(function(){
+					var certiName = $(this).parent().parent().children().eq(1).text();	
+					var printCode = $(this).parent().parent().children().eq(0).text();	
+					var location ="printProof.pf?certiName=" + certiName + "&printCode=" + printCode;
+					
+					window.open(location, "_blank", "width=700, height=800");
+					
+					$(this).html("");
+					$(this).removeClass();
+					$(this).text("발급완료");
 				});
 			}
 		});
@@ -128,6 +147,6 @@
 				<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
 			</div>
 		</div>
-	</div>	
+	</div>		
 </body>
 </html>

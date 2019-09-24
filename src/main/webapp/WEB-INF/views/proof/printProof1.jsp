@@ -57,7 +57,7 @@
 		<h1>K H 대 학 교 총 무 처 장</h1>
 	</div>
 	<script>
-		
+		window.print();
 	</script>
 </body>
 </html>

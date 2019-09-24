@@ -75,9 +75,46 @@ public class ProofController {
 	@RequestMapping(value="showPrintCerti.pf")
 	public String showPrintCerti(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser, Proof pf) {
 		
-		System.out.println("pf :::: " + pf);
-		System.out.println("loginUser :::: " + loginUser);
+		pf.setMemberId(loginUser.getMemberId());
 		
-		return "proof/printCerti1";
+		System.out.println("pf :::: " + pf);
+		
+		Proof proofInfo = ps.selectProofInfo(pf);
+		
+		System.out.println("proofInfo :::: " + proofInfo);
+		
+		request.setAttribute("proofInfo", proofInfo);
+		
+		if(pf.getCertiName().equals("재학증명서")) {
+			return "proof/printCerti1";			
+		}else if(pf.getCertiName().equals("졸업증명서")) {
+			return "proof/printCerti3";
+		}
+		
+		return "";
+	}
+	
+	@RequestMapping(value="printProof.pf")
+	public String printProof(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser, Proof pf) {
+		
+		pf.setMemberId(loginUser.getMemberId());
+		
+		System.out.println("pf :::: " + pf);
+		
+		int result = ps.updatePrintStatus(pf);
+		
+		Proof proofInfo = ps.selectProofInfo(pf);
+		
+		System.out.println("proofInfo :::: " + proofInfo);
+		
+		request.setAttribute("proofInfo", proofInfo);
+		
+		if(pf.getCertiName().equals("재학증명서")) {
+			return "proof/printProof1";			
+		}else if(pf.getCertiName().equals("졸업증명서")) {
+			return "proof/printProof3";
+		}
+		
+		return "";
 	}
 }

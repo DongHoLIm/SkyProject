@@ -21,8 +21,8 @@
 </style>
 </head>
 <body>
-	<div align="center" style="border:1px solid black; width:600px; height:800px; padding:1em 1em 1em 1em;">
-		<h1 id="h1">재학 증명서</h1>
+	<div align="center" style="border:1px solid black; width:600px; height:1000px; padding:1em 1em 1em 1em;">
+		<h1 id="h1">졸업 증명서</h1>
 		<table align="center" style="text-align:center; border-spacing: 0 50px;">
 			<tr>
 				<td style="text-align:left">이름 : </td>
@@ -37,14 +37,26 @@
 				<td style="text-align:left">${proofInfo.memberNo}******</td> 
 			</tr>
 			<tr>
-				<td style="text-align:left">입학년월일 : </td>
+				<td style="text-align:left">학위번호 : </td>
+				<td style="text-align:left">${proofInfo.degreeNo}</td> 
+			</tr>
+			<tr>
+				<td style="text-align:left">학위명 : </td>
+				<td style="text-align:left">${proofInfo.degreeName}</td> 
+			</tr>
+			<tr>
+				<td style="text-align:left">졸업년월일 : </td>
 				<td style="text-align:left">
-					<fmt:parseDate value="${proofInfo.enrollDate}" var="enrollDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-					<fmt:formatDate value="${enrollDate}" pattern="yyyy/MM/dd"/>
+					<fmt:parseDate value="${proofInfo.graduatedDate}" var="graduatedDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${graduatedDate}" pattern="yyyy/MM/dd"/>
 				</td> 
 			</tr>
 			<tr>
-				<td colspan="2">위 사람이 본교에 재학하고 있음을 증명합니다.</td>
+				<td style="text-align:left">졸업증서번호 : </td>
+				<td style="text-align:left">${proofInfo.graduatedNo}</td> 
+			</tr>
+			<tr>
+				<td colspan="2">위의 사실을 증명합니다.</td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -57,7 +69,7 @@
 		<h1>K H 대 학 교 총 무 처 장</h1>
 	</div>
 	<script>
-		
+		window.print();
 	</script>
 </body>
 </html>

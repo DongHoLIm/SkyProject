@@ -13,4 +13,8 @@ public interface ProofService {
 
 	ArrayList<Proof> selectProofPrintList(Member loginUser);
 
+	Proof selectProofInfo(Proof pf);
+
+	int updatePrintStatus(Proof pf);
+
 }

@@ -8,11 +8,19 @@ public class Proof {
 	private String memberId;
 	private int printCount;
 	private String printStatus;
+	private String memberKName;
+	private String memberNo;
+	private String enrollDate;
+	private String graduatedDate;
+	private String degreeNo;
+	private String degreeName;
+	private String graduatedNo;
 	
-	public Proof() {}
+	public Proof() {}	
 	
 	public Proof(String certiCode, String certiName, String printCode, String printDate, String memberId,
-			int printCount, String printStatus) {
+			int printCount, String printStatus, String memberKName, String memberNo, String enrollDate,
+			String graduatedDate, String degreeNo, String degreeName, String graduatedNo) {
 		super();
 		this.certiCode = certiCode;
 		this.certiName = certiName;
@@ -21,7 +29,90 @@ public class Proof {
 		this.memberId = memberId;
 		this.printCount = printCount;
 		this.printStatus = printStatus;
+		this.memberKName = memberKName;
+		this.memberNo = memberNo;
+		this.enrollDate = enrollDate;
+		this.graduatedDate = graduatedDate;
+		this.degreeNo = degreeNo;
+		this.degreeName = degreeName;
+		this.graduatedNo = graduatedNo;
 	}
+
+
+	public String getGraduatedDate() {
+		return graduatedDate;
+	}
+
+
+	public void setGraduatedDate(String graduatedDate) {
+		this.graduatedDate = graduatedDate;
+	}
+
+
+	public String getDegreeNo() {
+		return degreeNo;
+	}
+
+
+	public void setDegreeNo(String degreeNo) {
+		this.degreeNo = degreeNo;
+	}
+
+
+	public String getDegreeName() {
+		return degreeName;
+	}
+
+
+	public void setDegreeName(String degreeName) {
+		this.degreeName = degreeName;
+	}
+
+
+	public String getGraduatedNo() {
+		return graduatedNo;
+	}
+
+
+	public void setGraduatedNo(String graduatedNo) {
+		this.graduatedNo = graduatedNo;
+	}
+
+
+	public String getMemberKName() {
+		return memberKName;
+	}
+
+
+
+	public void setMemberKName(String memberKName) {
+		this.memberKName = memberKName;
+	}
+
+
+
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
+	}
+
+
+
+	public String getEnrollDate() {
+		return enrollDate;
+	}
+
+
+
+	public void setEnrollDate(String enrollDate) {
+		this.enrollDate = enrollDate;
+	}
+
 
 
 	public String getPrintStatus() {
@@ -82,10 +173,14 @@ public class Proof {
 		this.printCount = printCount;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Proof [certiCode=" + certiCode + ", certiName=" + certiName + ", printCode=" + printCode
-				+ ", printDate=" + printDate + ", memberId=" + memberId + ", printCount=" + printCount + "]";
+				+ ", printDate=" + printDate + ", memberId=" + memberId + ", printCount=" + printCount
+				+ ", printStatus=" + printStatus + ", memberKName=" + memberKName + ", memberNo=" + memberNo
+				+ ", enrollDate=" + enrollDate + "]";
 	}
 	
 	

@@ -26,5 +26,15 @@ public class ProofDaoImpl implements ProofDao{
 		return (ArrayList) sqlSession.selectList("Proof.selectProofPrintList", loginUser);
 	
 	}
+
+	@Override
+	public Proof selectProofInfo(SqlSessionTemplate sqlSession, Proof pf) {
+		return sqlSession.selectOne("Proof.selectProofInfo", pf);
+	}
+
+	@Override
+	public int updatePrintStatus(SqlSessionTemplate sqlSession, Proof pf) {
+		return sqlSession.update("Proof.updatePrintStatus", pf);
+	}
 	
 }
