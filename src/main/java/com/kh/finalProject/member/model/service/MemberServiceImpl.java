@@ -159,6 +159,11 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return md.searchMember(sqlSession,searchValue,pi);
 	}
+	@Override
+	public Member memberInfo(Member loginUser) {
+		// TODO Auto-generated method stub
+		return md.memberInfo(sqlSession,loginUser);
+	}
 
 	
 }

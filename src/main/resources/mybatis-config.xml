@@ -39,6 +39,7 @@
 		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.LessonPlan" alias="LessonPlan"/>
 		<typeAlias type="com.kh.finalProject.professor.result.model.vo.ProfessorResult" alias="ProfessorResult"/>
 		<typeAlias type="com.kh.finalProject.professor.result.model.vo.StudentResult" alias="StudentResult"/>
+		<typeAlias type="com.kh.finalProject.professor.result.model.vo.SubjectScheduler" alias="SubjectScheduler"/>	
 	</typeAliases>
 	
 	<mappers>

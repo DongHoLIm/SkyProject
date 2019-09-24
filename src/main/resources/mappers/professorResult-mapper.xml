@@ -27,6 +27,13 @@
   		<result property="attendanceScore" column="ATTENDANCE_SCORE"/>
   		<result property="score" column="SCORE"/>
   	</resultMap>
+  	<resultMap type="com.kh.finalProject.professor.result.model.vo.SubjectScheduler" id="subjectSchedulerResultSet">
+  		<id property="opensubCode" column="OPENSUB_CODE"/>
+  		<result property="middleExam" column="MIDDLE_EXAM"/>
+  		<result property="finalExam" column="FINAL_EXAM"/>
+  		<result property="homeWork" column="HOMEWORK"/>
+  		<result property="attendance" column="ATTENDANCE"/>
+  	</resultMap>
   	<select id="subList" resultMap="ProfessorResultResultSet">
   		SELECT O.OPENSUB_CODE,S.SUB_NAME,S.COMPLETE_TYPE,S.SUB_GRADE,R.ROOM_NAME,B.BUILDING_NAME,O.DAY_INFO,O.TIME_INFO,
 		O.OPEN_YEAR,O.OPEN_SEMESTER
@@ -37,7 +44,6 @@
 		JOIN BUILDING B ON(R.BUILDING_CODE=B.BUILDING_CODE)
 		WHERE O.PROFESSOR_NO = #{memberId}  	
   	</select>
-  	
   	<select id="stuList" resultMap="StudentListResultSet" parameterType="String">
   	SELECT G.GRADE_CODE,G.GRADE,G.MIDDLE_SCORE,G.FINAL_SCORE,G.WORK_SCORE,G.ATTENDANCE_SCORE,G.SCORE,M.MEMBER_KNAME,G.STUDENT_NO
 	FROM GRADE G 
@@ -47,6 +53,11 @@
 	JOIN SUBJECT_APPLY SA ON(SD.SUBAPPLY_CODE=SA.SUBAPPLY_CODE)
 	JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
 	WHERE SA.OPENSUB_CODE = #{opensubCode}
+  	</select>
+  	<select id="subScheduler" resultType="SubjectScheduler" parameterType="String">
+  	SELECT OPENSUB_CODE,MIDDLE_EXAM,FINAL_EXAM,HOMEWORK,ATTENDANCE
+  	FROM LESSON_PLAN
+  	WHERE OPENSUB_CODE =#{opensubCode}
   	</select>
   </mapper>
  

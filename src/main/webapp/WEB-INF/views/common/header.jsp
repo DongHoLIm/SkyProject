@@ -15,7 +15,9 @@ function messageOpen(){
 	window.open("/finalProject/inbox.pro", "쪽지함", width="700px", height="500px");
 };
 
-
+function goCheckPwd(){
+	
+}
 </script>
 <title>header</title>
 </head>
@@ -25,7 +27,7 @@ function messageOpen(){
 		<a href="viewChangToMain.me" class="logo"><img
 			src="resources/images/logo.png" width="150px;" height="30px;"></a>
 		<ul class="icons">
-			<li><a href="#">${loginUser.memberKName}</a></li>
+			<li><a href="checkPwd.me">${loginUser.memberKName}</a></li>
 			<li><a href="#" onclick="messageOpen();" class="icon solid fa-paper-plane" id="message"></a><span class="label"></span></li>
 			<li><a href="logOut.me" class="button primary small">LogOut</a></li>		
 		</ul>

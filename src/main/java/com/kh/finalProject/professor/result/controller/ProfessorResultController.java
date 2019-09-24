@@ -17,6 +17,7 @@ import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.result.model.service.ProfessorResultService;
 import com.kh.finalProject.professor.result.model.vo.ProfessorResult;
 import com.kh.finalProject.professor.result.model.vo.StudentResult;
+import com.kh.finalProject.professor.result.model.vo.SubjectScheduler;
 
 @Controller
 public class ProfessorResultController {
@@ -68,7 +69,13 @@ public class ProfessorResultController {
 			 subjectInfo.setDayInfo(dayInfo);
 			 subjectInfo.setOpenYear(year);
 			 subjectInfo.setOpenSemester(semester);
-			 ArrayList<StudentResult> stuList = ps.studentList(opensubCode);			 
+			 ArrayList<StudentResult> stuList = ps.studentList(opensubCode);
+			 SubjectScheduler subSch = ps.subSch(opensubCode);
+			 if(subSch==null) {
+				 request.setAttribute("msg", "강의계획서를 입력해주세요");
+				 return "common/errorAlert";
+			 }		 
+			 request.setAttribute("subSch",subSch);
 			 request.setAttribute("stuList",stuList);
 			 request.setAttribute("subjectInfo",subjectInfo);
 		 }catch(Exception e) {

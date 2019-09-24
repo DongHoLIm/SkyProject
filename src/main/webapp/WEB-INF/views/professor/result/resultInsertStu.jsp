@@ -20,6 +20,13 @@
 	#stuT tr th{
 		text-align: center;
 	}
+	#lectureScore {
+		text-align:  center;
+	}
+	#lectureScore tr th{
+		text-align:center;
+	}
+	
 </style>
 </head>
 <body>
@@ -47,7 +54,20 @@
 					</tr>
 				</table>
 				<br />
-				
+				<table id="lectureScore">
+					<tr>
+						<th>중간고사</th>
+						<th>기말고사</th>
+						<th>출석점수</th>
+						<th>과제점수</th>
+					</tr>
+					<tr>
+						<td><c:out value="${subSch.middleExam } %"/></td>
+						<td><c:out value="${subSch.finalExam } %"/></td>
+						<td><c:out value="${subSch.attendance } %"/></td>
+						<td><c:out value="${subSch.homeWork } %"/></td>
+					</tr>
+				</table>
 				<br />
 				<table id="stuT">
 					<thead>

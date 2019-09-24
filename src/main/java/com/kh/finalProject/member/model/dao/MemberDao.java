@@ -59,4 +59,6 @@ public interface MemberDao {
 
 	ArrayList<Member> searchMember(SqlSessionTemplate sqlSession, String searchValue, PageInfo pi);
 
+	Member memberInfo(SqlSessionTemplate sqlSession, Member loginUser);
+
 }
