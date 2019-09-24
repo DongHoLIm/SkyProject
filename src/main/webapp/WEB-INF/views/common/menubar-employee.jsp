@@ -41,7 +41,7 @@
 												<li><a href="#">개설/폐지 조회</a></li>
 												<li><a href="#">수강인워관리</a></li>
 												<li><a href="#">시간표조정</a></li>
-												<li><a href="#">강의계획서조회</a></li>
+												<li><a href="lessionPlan.em">강의계획서조회</a></li>
 												<li><a href="#">강의평가서작성</a></li>
 												<li><a href="#">강의평가 조회</a></li>
 												<li><a href="#">휴강 및 보강 관리</a></li>
