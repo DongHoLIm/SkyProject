@@ -22,6 +22,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.LessonPlan;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete;
 import com.kh.finalProject.professor.openSubject.model.service.OpenSubjectService;
 import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
@@ -46,7 +47,6 @@ public class ClassManagementController {
 		}
 
 		int listCount;
-
 
 		try {
 			listCount = cms.getListCount();
@@ -224,11 +224,74 @@ public class ClassManagementController {
 				System.out.println("code:::" + code[i]);
 			}
 			cms.insertSubApplyDone(code);
+			cms.deleteCloseSubjectApply();
 			
 			
 			return "employee/class/closeFinishCourseRegistration";
 		}
+	@RequestMapping("subjectAbolition.em")
+	public String selectsubjectAbolitionList(HttpServletRequest request) {
+
+		int currentPage = 1;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		int listCount;
+
+		try {
+			listCount = cms.getListCount();
+
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<LectureOpen> subjectList = cms.selectsubjectAbolitionList(pi);
+
+			request.setAttribute("subjectList", subjectList);
+			request.setAttribute("pi", pi);
+			return "employee/class/subjectAbolition";
+		} catch (ClassManagementSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	@RequestMapping(value="goLectureAbolitionRegistration.em")
+	public String goLectureAbolitionRegistration(HttpServletRequest request,@RequestParam(name="subCode", required=false) String subCode) {
+
+		OpenSubject os = new OpenSubject();
+		LectureOpen lo = new LectureOpen();
+
+		System.out.println("시작합니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		System.out.println("subCode :::::" + subCode);
+		os = cms.selectOneOpenSubject(subCode);
+		
+		if(os != null) {
+			System.out.println("os :::" + os);
+			request.setAttribute("os", os);
+		}else {
+			lo = cms.selectOneSubject(subCode);
+			OpenSubject os2 = new OpenSubject();
+			 
+			os2.setOpenSubCode(lo.getSubCode());
+			os2.setSubName(lo.getSubName());
+			os2.setSdeptName(lo.getSdeptName());
+			
+			request.setAttribute("os", os2);
+		}
+			return "employee/class/lectureAbolitionRegistration";
+		}
 	
-	
+	@RequestMapping(value="insertSubjectDelete.em")
+	public String insertSubjectDelete(SubjectDelete sd) {
+		OpenSubject os = new OpenSubject();
+		String subCode = sd.getSubCode();
+		os = cms.selectOneOpenSubject(subCode);
+		
+		
+			cms.insertSubjectDelete(sd, os);
+		
+		
+			return "employee/class/lectureAbolitionRegistration";
+		}
 }
  

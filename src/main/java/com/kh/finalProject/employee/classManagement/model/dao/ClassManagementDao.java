@@ -11,6 +11,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete;
 import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
 public interface ClassManagementDao {
@@ -46,5 +47,13 @@ public interface ClassManagementDao {
 	ArrayList<SubjectApply> selectUpdateList(SqlSessionTemplate sqlSession);
 
 	void insertSubApplyDone(SqlSessionTemplate sqlSession, String[] code);
+
+	void deleteCloseSubjectApply(SqlSessionTemplate sqlSession);
+
+	ArrayList<LectureOpen> selectsubjectAbolitionList(SqlSessionTemplate sqlSession, PageInfo pi) throws ClassManagementSelectListException;
+
+	OpenSubject selectOneOpenSubject(SqlSessionTemplate sqlSession, String subCode);
+
+	void insertSubjectDelete(SqlSessionTemplate sqlSession, SubjectDelete sd, OpenSubject os);
 
 }

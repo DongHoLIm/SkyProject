@@ -13,6 +13,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete;
 import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
 @Repository
@@ -176,6 +177,67 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 			sqlSession.insert("SubApplyDone.insertSubApplyDone", sa);
 		}
 		
+	}
+
+	@Override
+	public void deleteCloseSubjectApply(SqlSessionTemplate sqlSession) {
+		
+		sqlSession.delete("subjectApply.deleteCloseSubjectApply");
+	}
+
+	@Override
+	public ArrayList<LectureOpen> selectsubjectAbolitionList(SqlSessionTemplate sqlSession, PageInfo pi) throws ClassManagementSelectListException {
+		ArrayList<LectureOpen> list = null;
+
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+
+		list = (ArrayList) sqlSession.selectList("LectureOpen.selectsubjectAbolitionList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+			throw new ClassManagementSelectListException("실패!");
+		}
+		
+		return list;
+	}
+
+	@Override
+	public OpenSubject selectOneOpenSubject(SqlSessionTemplate sqlSession, String subCode) {
+		
+		
+		return sqlSession.selectOne("courseRegistration.selectOneOpenSubject", subCode);
+	}
+
+	@Override
+	public void insertSubjectDelete(SqlSessionTemplate sqlSession, SubjectDelete sd, OpenSubject os) {
+		LectureOpen lo = new LectureOpen();
+		SubjectApply sa = new SubjectApply();
+		ArrayList<SubjectApply> list = null;
+		
+		if(os != null) {
+			sqlSession.insert("SubjectDelete.insertSubjectDelete", sd);
+			System.out.println("!!!!!!!");
+			lo.setSubCode(sd.getSubCode());
+			sqlSession.update("LectureOpen.updateSubjectDelete", lo);
+			System.out.println("??????");
+			os.setCloseReason(sd.getReason());
+			System.out.println("os:::" + os);
+			sqlSession.update("courseRegistration.updateSubjectDelete", os);
+			System.out.println("AAAAAAAA");
+			sa.setOpenSubCode(os.getOpenSubCode());
+			list = (ArrayList) sqlSession.selectList("subjectApply.selectList", sa);
+			System.out.println("list:::" + list);
+			if(list.size() >= 1) {
+				System.out.println("in!!!>>>>");
+				sqlSession.delete("subjectApply.updateSubjectDelete", sa);				
+			}
+		}else {
+			lo.setSubCode(sd.getSubCode());
+			sqlSession.insert("SubjectDelete.insertSubjectDelete", sd);
+			sqlSession.update("LectureOpen.updateSubjectDelete", lo);			
+		}
 	}
 
 	

@@ -22,6 +22,8 @@
 		<result property="studentNo" column="STUDENT_NO" />
 		<result property="studentCount" column="STUDENT_COUNT" />
 		<result property="applyType" column="APPLY_TYPE" />
+		<result property="closeCheck" column="CLOSE_CHECK" />
+		<result property="closeReason" column="CLOSE_REASON" />
 	</resultMap>
 
 
@@ -65,6 +67,7 @@
 		FROM OPEN_SUBJECT OS
 		JOIN SUBJECT S ON (S.SUB_CODE = OS.OPENSUB_CODE)
 		WHERE SDEPT_CODE = 'SD100'
+		AND CLOSE_CHECK = 'N'
 	</select>
 	
 	<select id="selectSubject1" resultMap="courseRegistrationResultSet">
@@ -72,6 +75,7 @@
 		FROM OPEN_SUBJECT OS
 		JOIN SUBJECT S ON (S.SUB_CODE = OS.OPENSUB_CODE)
 		WHERE SDEPT_CODE = #{sdeptName}
+		AND CLOSE_CHECK = 'N'
 	</select>
 	<select id="selectSubject2" resultMap="courseRegistrationResultSet">
 		SELECT S.SUB_NAME, OPENSUB_CODE
@@ -79,6 +83,7 @@
 		JOIN SUBJECT S ON (S.SUB_CODE = OS.OPENSUB_CODE)
 		WHERE SDEPT_CODE = #{sdeptName}
 		AND COMPLETE_TYPE = #{completeType}
+		AND CLOSE_CHECK = 'N'
 	</select>
 	<select id="studentSelectOpenSubject" resultMap="courseRegistrationResultSet">
 		SELECT OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
@@ -91,6 +96,7 @@
 		JOIN ROOM R ON(OS.ROOM_CODE = R.ROOM_CODE)
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
         WHERE OPENSUB_CODE = #{openSubCode}
+        AND CLOSE_CHECK = 'N'
 	</select>
 	<select id="selectSearchGwamok" resultMap="courseRegistrationResultSet">
 		SELECT OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
@@ -104,6 +110,7 @@
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
         WHERE SUB_NAME LIKE '%' ||  #{gwamok} || '%'
         OR OPENSUB_CODE LIKE '%' || #{gwamok} || '%'
+        AND CLOSE_CHECK = 'N'
 	</select>
 	<select id="selectSearchProfessor" resultMap="courseRegistrationResultSet">
 		SELECT MEMBER_KNAME, PROFESSOR_NO
@@ -111,12 +118,14 @@
 		JOIN PROFESSOR P ON (M.MEMBER_ID = P.PROFESSOR_NO)
 		WHERE MEMBER_KNAME LIKE '%' ||  #{professor} || '%'
 		OR PROFESSOR_NO LIKE '%' ||  #{professor} || '%'
+		AND CLOSE_CHECK = 'N'
     </select>
 	<select id="selectProGwamok" resultMap="courseRegistrationResultSet">
 		SELECT OPENSUB_CODE, SUB_NAME
 		FROM OPEN_SUBJECT
 		JOIN SUBJECT ON(OPENSUB_CODE = SUB_CODE)
 		WHERE PROFESSOR_NO = #{professorNo}
+		AND CLOSE_CHECK = 'N'
     </select>
     <select id="selectPreliminaryCourseApplyList" resultMap="courseRegistrationResultSet">
 		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
@@ -131,6 +140,7 @@
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
         WHERE STUDENT_NO = #{studentNo}
         AND APPLY_TYPE = '예비'
+        AND CLOSE_CHECK = 'N'
     </select>
     <select id="prliminaryGwamokSelect" resultMap="courseRegistrationResultSet">
 		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
@@ -146,6 +156,7 @@
         WHERE STUDENT_NO = #{studentNo}
         AND SUB_NAME LIKE '%' ||  #{subName} || '%'
         AND APPLY_TYPE = '예비'
+        AND CLOSE_CHECK = 'N'
     </select>
     <select id="prliminaryProfessorSelect" resultMap="courseRegistrationResultSet">
 		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
@@ -162,6 +173,7 @@
         AND MEMBER_KNAME LIKE '%' ||  #{professorName} || '%'
         AND OS.ENROL_TYPE = 2
         AND APPLY_TYPE = '예비'
+        AND CLOSE_CHECK = 'N'
     </select>
     <select id="prliminarySdeptSelect" resultMap="courseRegistrationResultSet">
 		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
@@ -177,6 +189,7 @@
         WHERE STUDENT_NO = #{studentNo}
         AND COMPLETE_TYPE LIKE '%' ||  #{completeType} || '%'
         AND APPLY_TYPE = '예비'
+        AND CLOSE_CHECK = 'N'
     </select>
     <select id="selectFinishSubjectApplyList" resultMap="courseRegistrationResultSet">
 		SELECT SA.OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME,
@@ -191,6 +204,7 @@
 		JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
         WHERE STUDENT_NO = #{studentNo}
         AND APPLY_TYPE = '정기'
+        AND CLOSE_CHECK = 'N'
     </select>
     <select id="selectStudentCount" resultType="_int">
 		SELECT STUDENT_COUNT
@@ -219,6 +233,20 @@
 	</select>
 	<update id="updateCloseFinishOpenSubject">
 		UPDATE OPEN_SUBJECT SET ENROL_TYPE = 0
+		WHERE OPENSUB_CODE = #{openSubCode}
+	</update>
+	<select id="selectOneOpenSubject" resultMap="courseRegistrationResultSet">
+		SELECT OPENSUB_CODE, SUB_NAME, SDEPT_NAME, MEMBER_KNAME, ROOM_NAME, BUILDING_NAME
+        FROM OPEN_SUBJECT OS
+        JOIN SUBJECT S ON (OPENSUB_CODE = SUB_CODE)
+        JOIN SDEPARTMENT SD ON (S.SDEPT_CODE = SD.SDEPT_CODE)
+        JOIN MEMBER ON (PROFESSOR_NO = MEMBER_ID)
+        JOIN ROOM R ON (OS.ROOM_CODE = R.ROOM_CODE)
+        JOIN BUILDING B ON(R.BUILDING_CODE = B.BUILDING_CODE)
+        WHERE SUB_CODE = #{subCode}
+	</select>
+	<update id="updateSubjectDelete">
+		UPDATE OPEN_SUBJECT SET ENROL_TYPE = 4, CLOSE_CHECK = 'Y', CLOSE_REASON = #{closeReason}, STUDENT_COUNT = 0
 		WHERE OPENSUB_CODE = #{openSubCode}
 	</update>
 </mapper>

@@ -46,4 +46,18 @@
 		WHERE APPLY_TYPE = '정기'
         AND DONE_TYPE ='신청'
 	</select>
+	<delete id="deleteCloseSubjectApply">
+	    DELETE FROM SUBJECT_APPLY 
+		WHERE APPLY_TYPE = '예비'
+    </delete>
+    <delete id="updateSubjectDelete">
+	    DELETE FROM SUBJECT_APPLY 
+		WHERE OPENSUB_CODE = #{openSubCode}
+		AND DONE_TYPE = '신청'
+    </delete>
+    <select id="selectList" resultMap="subjectApplyResultSet">
+		SELECT * FROM SUBJECT_APPLY 
+		WHERE OPENSUB_CODE = #{openSubCode}
+	</select>
+    
 </mapper> 
