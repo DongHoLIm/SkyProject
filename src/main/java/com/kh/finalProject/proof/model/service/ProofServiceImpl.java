@@ -33,4 +33,14 @@ public class ProofServiceImpl implements ProofService{
 	public ArrayList<Proof> selectProofPrintList(Member loginUser) {
 		return pd.selectProofPrintList(sqlSession, loginUser);
 	}
+
+	@Override
+	public Proof selectProofInfo(Proof pf) {
+		return pd.selectProofInfo(sqlSession, pf);
+	}
+
+	@Override
+	public int updatePrintStatus(Proof pf) {
+		return pd.updatePrintStatus(sqlSession, pf);
+	}
 }

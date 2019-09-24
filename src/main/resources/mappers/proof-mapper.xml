@@ -12,6 +12,13 @@
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="printCount" column="PRINT_COUNT"/>
 		<result property="printStatus" column="PRINT_STATUS"/>
+		<result property="memberKName" column="MEMBER_KNAME"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="enrollDate" column="ENROL_DATE"/>
+		<result property="graduatedDate" column="GRADUATED_DATE"/>
+		<result property="degreeNo" column="DEGREE_NO"/>
+		<result property="degreeName" column="DEGREE_NAME"/>
+		<result property="graduatedNo" column="GRADUATED_NO"/>
 	</resultMap>
 	
 	<select id="selectProofList" resultMap="proofResultSet">
@@ -30,4 +37,18 @@
 		JOIN CERTIFICATE_PRINT P ON(C.CERTI_CODE = P.CERTI_CODE)
 		WHERE MEMBER_ID = #{memberId}
 	</select>
+	
+	<select id="selectProofInfo" resultMap="proofResultSet">
+		SELECT *
+		FROM MEMBER M
+		JOIN STUDENT_INFO S ON(S.STUDENT_NO = M.MEMBER_ID)
+		JOIN CERTIFICATE_PRINT C ON(S.STUDENT_NO = C.MEMBER_ID)
+		WHERE M.MEMBER_ID = #{memberId} AND PRINT_CODE = #{printCode}
+	</select>
+	
+	<update id="updatePrintStatus">
+		UPDATE CERTIFICATE_PRINT
+		SET PRINT_STATUS = 'Y'
+		WHERE PRINT_CODE = #{printCode}
+	</update>
 </mapper>

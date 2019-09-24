@@ -15,4 +15,8 @@ public interface ProofDao {
 
 	ArrayList<Proof> selectProofPrintList(SqlSessionTemplate sqlSession, Member loginUser);
 
+	Proof selectProofInfo(SqlSessionTemplate sqlSession, Proof pf);
+
+	int updatePrintStatus(SqlSessionTemplate sqlSession, Proof pf);
+
 }

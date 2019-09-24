@@ -5,6 +5,8 @@
 <html>
 <head>
 <title>Login</title>
+<link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <style>
 @charset "UTF-8";
 
