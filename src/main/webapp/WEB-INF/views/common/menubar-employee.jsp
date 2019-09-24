@@ -48,6 +48,7 @@
 												<li><h4>수강신청관리</h4></li>
 												<li><a href="openPreliminaryCourseRegistration.em">예비수강신청열기</a></li>
 												<li><a href="openFinishCourseRegistration.em">수강신청열기</a></li>
+												<li><a href="closeFinishCourseRegistration.em">수강신청닫기</a></li>
 											</ul>
 										</li>
 										</c:if>
