@@ -1,5 +1,7 @@
 package com.kh.finalProject.employee.classManagement.model.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,11 @@ public class LessonPlanServiceImple  implements LessonPlanService{
 	@Override
 	public void insertLessonPlan(LessonPlan lp) {
 		lpd.insertLessonPlan(sqlSession, lp);	
+	}
+
+	@Override
+	public List<LessonPlan> selectLessonPlanServiceList() {
+		return lpd.selectLessonPlanServiceList(sqlSession);	
 	}
 	
 

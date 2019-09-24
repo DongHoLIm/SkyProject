@@ -46,4 +46,6 @@ public interface ClassService {
 
 	int selectSubGrade(SubjectApply sa);
 
+	ArrayList<OpenSubject> selectEnrolType();
+
 }

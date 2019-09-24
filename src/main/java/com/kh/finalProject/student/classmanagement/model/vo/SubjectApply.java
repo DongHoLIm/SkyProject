@@ -21,7 +21,7 @@ public class SubjectApply implements java.io.Serializable{
 		this.doneType = doneType;
 	}
 
-	public String getOpenSubCode() { 
+	public String getOpenSubCode() {
 		return openSubCode;
 	}
 
@@ -75,4 +75,5 @@ public class SubjectApply implements java.io.Serializable{
 				+ studentNo + ", applyType=" + applyType + ", applyDate=" + applyDate + ", doneType=" + doneType + "]";
 	}
 
+	
 }

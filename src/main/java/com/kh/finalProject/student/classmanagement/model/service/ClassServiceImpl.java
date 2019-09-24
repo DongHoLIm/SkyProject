@@ -162,4 +162,12 @@ public class ClassServiceImpl implements ClassService{
 		return cd.selectSubGrade(sqlSession, sa);
 	}
 
+
+
+	@Override
+	public ArrayList<OpenSubject> selectEnrolType() {
+
+		return cd.selectEnrolType(sqlSession);
+	}
+
 }

@@ -90,17 +90,24 @@ body {
 		<div class="col-md-9">
 			<div class="contact-form">
 				<div class="form-group">
-				 	<select id="memberList" >
-				 		<c:forEach var="member" items="${memberList }">
-				 			<option onclick="memberList();">${ member.memberKName }(${ member.memberId })</option>
-				 		</c:forEach>
-				 	</select>
-				 		<input type="button" class="btn btn-secondary" value="검색" id="Serach" >
+				 	<div style="overflow:auto; width: 500px; height: 150px; border: 1px solid #00000042;">
+						<table>
+							<c:forEach var="member" items="${memberList }">
+								<tr>
+									<td>${ member.memberKName }(${ member.memberId })</td>
+									<td><input name="memberIdCheck" class="memberIdCheck" type="checkbox" value=${ member.memberId }></td>
+								</tr>
+							</c:forEach>
+						</table>
+				 		
+				 			
+				 		
+				 	</div>
 				</div>
 				<div class="form-group">
-				  <label class="control-label col-sm-2" for="lname">받는사람</label>
+				  <label class="control-label col-sm-2" for="people">받는사람</label>
 				  <div class="col-sm-10">          
-					<input type="text" class="form-control" id="lname" placeholder="받는사람의 아이디를 입력하세요" name="lname">
+					<input type="text" class="form-control" id="people" placeholder="받는사람의 아이디를 입력하세요" name="people" readonly>
 				  </div>
 				</div>
 				<div class="form-group">
@@ -117,7 +124,7 @@ body {
 				</div>
 				<div class="form-group">        
 				  <div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-default">보내기</button>
+					<button type="button" class="btn btn-default" onclick="sendMessage()">보내기</button>
 				  </div>
 				</div>
 			</div>
@@ -126,20 +133,45 @@ body {
 </div>
 </body>
 <script type="text/javascript">
-/* function memberList(){
-	alert($("#memberList").val());
-} */
+	$(document).ready(function() {
+		$(".memberIdCheck").change(function() {
+			var items = [];
+			$('input:checkbox[name=memberIdCheck]:checked').each(function() {
+				items.push($(this).val());
+			});
+			var tmp = items.join(',');
+			$("#people").val(tmp);
+			var title = $("#lname").val()
+			var content = $("#comment").val()
+			console.log($("#comment").val());
+			
 
- $(function(){
-	$('#Serach').click(function(){
-		$("#memberList option:checked").text();
-		alert($("#memberList").val());
+		});
+
 	});
-}); 
+	
+	function sendMessage() {
+		var tmp = $("#people").val();
+		var title = $("#lname").val();
+		var comment = $("#comment").val();
+		$.ajax({
+			url : '/finalProject/sendMessage',
+			type : 'post',
+			data : {
+				'tmp' : tmp,
+				'title' : title,
+				'comment' : comment
+			},
+			dataType : 'json',
+			success : function(result) {
+				alert("쪽지를 보내었습니다.")
+				window.close();
+			},
+			error : function(err) {
+				alert('쪽지 보내기에 실패하였습니다..');
 
-
-/* $("#memberList option:checked").text(); */
-
-
+			}
+		});
+	}
 </script>
 </html>

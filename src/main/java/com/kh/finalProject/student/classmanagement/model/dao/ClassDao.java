@@ -49,5 +49,7 @@ public interface ClassDao {
 
 	int selectSubGrade(SqlSessionTemplate sqlSession, SubjectApply sa);
 
+	ArrayList<OpenSubject> selectEnrolType(SqlSessionTemplate sqlSession);
+
 }
  

@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+/*수강신청*/
 	table {
 	font-family: "돋움", "돋움체";
 	font-size: 12px;
@@ -416,18 +417,16 @@ function insertFinishSubjectApply(){
 		data:{subCode:subCode},
 		success:function(data){
 			var key = data.modelAndView.modelMap;
-			if(key.check == 'no'){
-				alert('이미 신청한 과목이 있습니다.');
-			}else if(key.check=='ok'){
-				alert('최종 수강 신청이 완료되었습니다.');
-				location.reload();
-			}else if(key.check=='max'){
-				alert('신청 인원 초과');
-				location.reload();
-			}else if(key.check='nono'){
-				alert('이수 학점 초과');
-				location.reload();
+			
+			var val = key.check;
+			switch(val){
+				case "x" : alert('수강 신청 기간에 신청해주세요.'); break;
+				case "ok" : alert('최종 수강 신청이 완료되었습니다.'); break;
+				case "no" : alert('이미 신청한 과목이 있습니다.'); break;
+				case "nono" : alert('이수 학점을 초과하였습니다.'); break;
+				case "max" : alert('신청 인원을 초과하였습니다.'); break;
 			}
+			
 		},
 		error:function(err){
 			console.log("실패!");
@@ -563,12 +562,12 @@ function updateFinishSubjectApply(){
 		data:{subCode:subCode},
 		success:function(data){
 			var key = data.modelAndView.modelMap;
-			if(key.check=='ok'){
-				alert('최종 수강 신청이 완료되었습니다.');
-				location.reload();
-			}else if(key.check=='max'){
-				alert('신청 인원 초과');
-				location.reload();
+			var val = key.check;
+			switch(val){
+				case "x" : alert('수강 신청 기간에 신청해주세요.'); break;
+				case "ok" : alert('최종 수강 신청이 완료되었습니다.'); break;
+				case "no" : alert('이미 신청한 과목이 있습니다.'); break;
+				case "nono" : alert('이수 학점을 초과하였습니다.'); break;
 			}
 		},
 		error:function(err){

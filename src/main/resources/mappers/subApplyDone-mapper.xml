@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SubApplyDone">
+	<resultMap
+		type="com.kh.finalProject.employee.classManagement.model.vo.SubApplyDone"
+		id="SubApplyDoneResultSet">
+		<id property="doneCode" column="DONE_CODE" />
+		<result property="subApplyCode" column="SUBAPPLY_CODE" />
+	</resultMap>
+	 <insert id="insertSubApplyDone" parameterType="SubApplyDone">
+		INSERT INTO SUBAPPLY_DONE VALUES('SUBD' || SEQ_SUBDONE.NEXTVAL, #{subApplyCode})
+	</insert>
+</mapper> 

@@ -40,6 +40,7 @@
 		<typeAlias type="com.kh.finalProject.professor.result.model.vo.ProfessorResult" alias="ProfessorResult"/>
 		<typeAlias type="com.kh.finalProject.professor.result.model.vo.StudentResult" alias="StudentResult"/>
 		<typeAlias type="com.kh.finalProject.professor.result.model.vo.SubjectScheduler" alias="SubjectScheduler"/>	
+		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.SubApplyDone" alias="SubApplyDone"/>
 	</typeAliases>
 	
 	<mappers>
@@ -74,6 +75,7 @@
 		<mapper resource="mappers/print-mapper.xml"/>
 		<mapper resource="mappers/lessonPlan/lessonPlan-mapper.xml"/>
 		<mapper resource="mappers/professorResult-mapper.xml"/>
+		<mapper resource="mappers/subApplyDone-mapper.xml"/>
 	</mappers>
 	
 </configuration>
