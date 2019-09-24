@@ -591,5 +591,22 @@ public class MemberController {
 		mv.setViewName("jsonView");
 		return mv;
 	}
-	
+	@RequestMapping("checkPwd.me")
+	public String checkPwd(HttpServletRequest request,HttpSession session) {
+		String chekPwd = request.getParameter("password");		
+		Member loginUser =(Member) session.getAttribute("loginUser"); 		
+		if(chekPwd == null) {
+			return "main/checkPwd";			
+		}else {			
+			
+			if(passwordEncoder.matches(chekPwd,loginUser.getMemberPwd())) {
+				Member user =ms.memberInfo(loginUser);
+				request.setAttribute("user",user);
+				return "main/updateMemberInfo";
+			}else {
+				request.setAttribute("msg", "비밀번호가 틀렸습니다.");
+				return "common/errorAlert";
+			}
+		}	
+	}
 }

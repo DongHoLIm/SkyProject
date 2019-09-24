@@ -55,4 +55,6 @@ public interface MemberService {
 	int searchMemberCount(String searchValue);
 
 	ArrayList<Member> searchMember(String searchValue, PageInfo pi);
+
+	Member memberInfo(Member loginUser);
 }

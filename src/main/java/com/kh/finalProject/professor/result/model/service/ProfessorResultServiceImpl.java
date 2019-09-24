@@ -10,6 +10,7 @@ import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.result.model.dao.ProfessorResultDao;
 import com.kh.finalProject.professor.result.model.vo.ProfessorResult;
 import com.kh.finalProject.professor.result.model.vo.StudentResult;
+import com.kh.finalProject.professor.result.model.vo.SubjectScheduler;
 
 @Service
 public class ProfessorResultServiceImpl implements ProfessorResultService{
@@ -28,6 +29,12 @@ public class ProfessorResultServiceImpl implements ProfessorResultService{
 	public ArrayList<StudentResult> studentList(String opensubCode) {
 		// TODO Auto-generated method stub
 		return pd.studentList(sqlSession,opensubCode);
+	}
+
+	@Override
+	public SubjectScheduler subSch(String opensubCode) {
+		
+		return pd.subSch(sqlSession,opensubCode);
 	}
 
 }

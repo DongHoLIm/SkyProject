@@ -225,5 +225,9 @@
 	 	WHERE MEMBER_ID !='emp'	 
 	 	AND MEMBER_CHECK=#{searchValue}	 
 	 </select>
-	 
+	 <select id="memberInfo" resultMap="memberResultSet" parameterType="Member">
+	 SELECT *
+	 FROM MEMBER
+	 WHERE MEMBER_ID=#{memberId} 
+	 </select>
 </mapper>

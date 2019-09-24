@@ -176,5 +176,10 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println(list);
 		return list;
 	}
+	@Override
+	public Member memberInfo(SqlSessionTemplate sqlSession, Member loginUser) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.memberInfo",loginUser);
+	}
 	
 }
