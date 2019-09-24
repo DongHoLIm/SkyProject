@@ -29,69 +29,66 @@
 						
 					<h4>검색</h4>
 						<form>
-							<!-- <table text-align="left" style="border:0px solid black">
-								<tr>
-									<td>학번<input type="text" name="userId"></td>
-									<td>학과<input type="text" name="affiliation"></td>
-									<td>이름<input type="text" name="userName"></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><button>조회하기</button></td>
-									<td></td>
-								</tr>
-							</table> -->
-							
-							<div>
-							<div id="searchInfo">학번<input type="text" name="userId"></div>
-							<div id="searchInfo">학과<input type="text" name="affiliation"></div>
-							<div id="searchInfo">이름<input type="text" name="affiliation"></div>
-							</div>
+							<table class="sample11" style="border:2px solid lightgray">
+						<thead>
+							<tr  style="text-align:center">
+								<th width="6%"><p class="sipal">년도</p></th>
+								<th width="39%"><input type="text"/></th>
+								<th width="6%"><p>학기</p></th>
+								<th width="39%"><input type="text"/></th>
+								<th><td><button align="right">검색</button></td></th>
+							</tr>
+					</table>
 						</form>
-						
-						<br><br>
 						
 						<hr>
 						
+					<c:if test="${ !empty memberEnrollment }">
 					<div class="container">         
-	  					<table class="table" text-align="center">
-	  					  <thead>
+	  					<table class="table" text-align="center" style="border:2px solid lightgray">
+	  					  <thead style="background-color:#eff1f2">
 	  					  	<tr>
-	  					      <th style="text-align:center;">학번</th>
-	  					      <th style="text-align:center;">학과</th>
-	  					      <th style="text-align:center;">이름</th>
-	  					      <th style="text-align:center;">년도학기</th>
-	  					      <th style="text-align:center;">등록금</th>
-	  					      <th style="text-align:center;">감면액</th>
-	  					      <th style="text-align:center;">납부한 금액</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">년도학기</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">등록금</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">감면액</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">납부한 금액</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">등록금 확인증 출력</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">납부하기</th>
+	  					      <th style="text-align:center; border:1px solid lightgray; vertical-align: middle; padding: 0em 0em 0em 0em;">비고</th>
 	 					    </tr>
-	 					   </thead>
+	 					   </thead> 
 	 					   <tbody>
-	     					 <tr>
-	    					   <td>20191234</td>
-	     					   <td>소프트웨어 응용</td>
-	     					   <td>홍길동</td>
-	     					   <td>2019년도 2학기</td>
-	     					   <td>540,000 원</td>
-	     					   <td>[장학] 540,000 원<br>
-	     					   	   [이월] 0 원
-	     					   </td>
-	     					   <td>0 원</td>
+	 					   <c:forEach var="enrollment" items="${ memberEnrollment }">
+	     					 <tr style="background-color:white">
+	    					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ enrollment.enrollYear }"/>학년도 <c:out value="${ enrollment.enrollSemester }"/>학기</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><fmt:formatNumber value="${ enrollment.tuition }" pattern="#,###"/> 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br><fmt:formatNumber value="${ enrollment.schoAmount }" pattern="#,###"/> 원</td>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><fmt:formatNumber value="${ enrollment.payAmount }" pattern="#,###"/> 원</td>
+	     					   <c:if test="${ enrollment.payStatus == 'Y'}">
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="print.pr" style="border-bottom: dotted 0px;">출력하기</a></td>
+	     					   </c:if>
+	     					   <c:if test="${ enrollment.payStatus == 'N'}">
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">해당없음</td>
+	     					   </c:if>
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"></td>
 	  					    </tr>
-	   					    <tr>
-	    					  <td>20191234</td>
-	    					  <td>소프트웨어 응용</td>
-	      					  <td>홍길동</td>
-	      					  <td>2019년도 1학기</td>
-	      					  <td>540,000 원</td>
-	      					  <td>[장학] 1,440,000 원<br>
-	     					      [이월] 0 원
-	     					  </td>
-	      					  <td>0 원</td>
-	      	   			    </tr>
+	  					    </c:forEach>
+	   					    <!-- <tr style="background-color:white">
+	    					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">2019년도 1학기</td>
+	    					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">1,440,000 원</td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">[장학]<br> 1,440,000 원<br>[이월]<br>0 원 </td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;">0 원</td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="#" style="border-bottom: dotted 0px;">출력하기</a></td>
+	      					  <td style="border:1px solid lightgray; color:black; vertical-align: middle;"></td>
+	      	   			    </tr> -->
 	  					  </tbody>
 					  </table>
 				</div>
+				</c:if>
+				<c:if test="${ empty memberEnrollment }">
+					<h4 align="center">조회결과가 없습니다.</h4>
+				</c:if>
 			</div>
 		</div>
 		<div>

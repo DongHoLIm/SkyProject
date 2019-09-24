@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +20,8 @@ import com.kh.finalProject.enrollment.model.exception.EnrollmentException;
 import com.kh.finalProject.enrollment.model.service.EnrollmentService;
 import com.kh.finalProject.enrollment.model.vo.Enrollment;
 import com.kh.finalProject.member.model.vo.Member;
+import com.kh.finalProject.scholarship.model.exception.ScholarshipException;
+import com.kh.finalProject.scholarship.model.vo.Scholarship;
 
 @Controller
 @SessionAttributes("memberEnrollment")
@@ -48,13 +51,56 @@ public class EnrollmentController {
 		}
 	}
 	
-//	@RequestMapping("enrollment.en")
-//	public ModelAndView enrollmentList(ModelAndView mav) {
-//		List<Enrollment> enrollmentList = enrollmentService.getList();
-//		
-//		mav.addObject("enrollmentList", enrollmentList);
-//		mav.setViewName("register/registerInfo");
-//		
-//		return mav;
-//	}
+	@RequestMapping(value="stEnrollment.en")
+	public String stEnrollmentCheck(@RequestParam("schoYear") String schoYear, @RequestParam("schoSemester") String schoSemester,  Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
+System.out.println("장학금 조회 컨트롤러 들어옴");
+		
+		if(schoYear == "" || schoSemester == "") {
+			String studentNo = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
+			System.out.println("studentNo :::" + studentNo);
+			
+			System.out.println("schoYear :::" + schoYear);
+			System.out.println("schoSemester :::" + schoSemester);
+			
+			List<Enrollment> beforeEnrollment;
+			
+			try {
+				beforeEnrollment = es.beforeEnrollData(studentNo);
+				System.out.println("beforeEnrollment ::: " + beforeEnrollment);
+				
+				request.setAttribute("beforeEnrollment", beforeEnrollment);
+				
+				return "employee/register/registerInfo";
+				
+			} catch (EnrollmentException e) {
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorAlert";
+			}
+		}
+		
+		String studentNo = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
+		System.out.println("studentNo :::" + studentNo);
+		
+		System.out.println("schoYear :::" + schoYear);
+		System.out.println("schoSemester :::" + schoSemester);
+		
+		List<Enrollment> beforeEnrollment;
+		
+		Enrollment enrollment = new Enrollment();
+		enrollment.setStudentNo(studentNo);
+		
+		try {
+			beforeEnrollment = es.beforeEnrollmentData(enrollment);
+			System.out.println("beforeEnrollment ::: " + beforeEnrollment);
+			
+			request.setAttribute("beforeEnrollment", beforeEnrollment);
+			
+			return "employee/register/registerInfo";
+			
+		} catch (EnrollmentException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorAlert";
+		}
+	}
+
 }

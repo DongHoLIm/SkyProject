@@ -78,7 +78,7 @@
 											<li>
 											<span class="opener">등록관리</span>
 											<ul>
-												<li><a href="#">학생 별 등록금 관리</a></li>
+												<li><a href="stEnrollment.en">학생 별 등록금 관리</a></li>
 											</ul>
 										</li>
 										</c:if>
