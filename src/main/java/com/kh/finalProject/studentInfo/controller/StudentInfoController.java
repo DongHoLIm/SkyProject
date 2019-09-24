@@ -1,5 +1,6 @@
 package com.kh.finalProject.studentInfo.controller;
 
+import java.awt.List;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -576,7 +577,7 @@ public class StudentInfoController {
 
 	//학생_휴학신청 관리
 	@RequestMapping("st_schoolOff.si")
-	public String schoolOnOff(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
+	public String schoolOnOffApply(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
 
 		String userId = loginUser.getMemberId();
 		System.out.println(userId);
@@ -620,71 +621,49 @@ public class StudentInfoController {
 	}
 	
 	//휴학신청 insert (ajax)
-//	@RequestMapping(value="st_insertSchoolOff.si")
-//	public ModelAndView st_insertSchoolOff( ModelAndView mv, HttpServletRequest request, @ModelAttribute SchoolOff so, @ModelAttribute("loginUser") Member loginUser) {
-//		
-//		
-//		
-//		System.out.println(so);
-//			
-//		return mv;
-//	}
+	@RequestMapping(value="st_insertSchoolOff.si")
+	public ModelAndView insertSchoolOff( ModelAndView mv, HttpServletRequest request, @ModelAttribute SchoolOff so, @ModelAttribute("loginUser") Member loginUser) {
 		
+		System.out.println(so);
 		
-	//학생_휴학신청후 뷰
-//	@RequestMapping(value="st_schoolOffApply.si")
-//	public String schoolOffApply (HttpServletRequest request, SchoolOff so, @ModelAttribute("loginUser") Member loginUser) {
-//			
-//		System.out.println("SchoolOff so ::::" + so);
-//			
-//		String userId = loginUser.getMemberId();
-//		System.out.println(userId);		
-//			
-//		SimpleDateFormat format1 = new SimpleDateFormat("yyyy");
-//		SimpleDateFormat format2 = new SimpleDateFormat("MM");
-//			
-//		Date time = new Date();
-//			
-//		String year = format1.format(time);
-//		String month = format2.format(time);
-//		System.out.println("year::" + year);
-//		System.out.println("month::" + month);
-//			
-//		String start="";
-//		if(month.equals("02") || month.equals("08") || month.equals("09")) {
-//			if(month=="2") {
-//				start = year + ".1학기" ;	
-//			}else {
-//				start = year + ".2학기" ;				
-//			}
-//			System.out.println("휴학시작학기::"+start);
-//				
-//			StudentInfo basicInfo = ss.basicInfo(userId);
-//			request.setAttribute("basicInfo",basicInfo);
-//			request.setAttribute("start",start);
-//		}	
-//			
-//		so.setStudentNo(userId);
-//			
-//		int result = ss.schoolOffApply(so);
-//			
-//		if(result>0) {
-//			System.out.println("휴학신청 insert 성공");
-//				
-//			ArrayList<SchoolOff> list = ss.selectSchoolOff(userId);
-//			System.out.println("휴학신청 list :: " + list);
-//			request.setAttribute("list", list);
-//					
-//			return "student/info/schoolOff";
-//					
-//		}else {
-//			request.setAttribute("msg","휴학신청 실패.");
-//			return "common/errorAlert";
-//		}
-//			
-//	}
-//		
+		String userId = loginUser.getMemberId();
+		so.setStudentNo(userId);
+		
+		int result = ss.schoolOffApply(so);
+		
+		if(result>0) {
+			System.out.println("휴학신청 insert 성공");
+		}
+		
+		mv.setViewName("jsonView");
+		return mv;
+	}
 	
+	//학생_휴학신청_휴학구분선택
+	@RequestMapping("st_changeOffType.si")
+	public ModelAndView changeOffType(ModelAndView mv, HttpServletRequest request) {
+		
+		String offType = request.getParameter("offType");
+		System.out.println(offType);
+		
+		int[] arr = new int[2];
+		if(offType.equals("군휴학")) {
+			arr[0] = 3;
+			arr[1] = 4;
+		}else {
+			arr[0] = 1;
+			arr[1] = 2;
+		}
+		
+		System.out.println(arr[0]);
+		System.out.println(arr[1]);
+		
+		mv.addObject("arr", arr);
+		mv.setViewName("jsonView");
+		return mv;
+	}
+		
+
 	
 	//학생_휴학신청_희망휴학기간 선택
 	@RequestMapping("st_selectOffTerm.si")
@@ -740,17 +719,11 @@ public class StudentInfoController {
 		
 	}
 	
-	@RequestMapping(value="st_schoolOffApply.si")
-	public String schoolOffApply (HttpServletRequest request, SchoolOff so, @ModelAttribute("loginUser") Member loginUser) {
+	//교직원_휴학처리
+	@RequestMapping("em_schoolOff.si")
+	public String schooloff(HttpServletRequest request) {
 		
-		String userId = loginUser.getMemberId();
-		System.out.println(userId);
-		
-		System.out.println(so);
-		
-		
-		
-		return "student/info/schoolOff";
+		return "employee/studentInfo/schoolOffProcess";
 	}
 	
 

@@ -161,5 +161,7 @@ public interface StudentInfoService {
 	DropOut dpoInfo(String studentNo);
 
 	ArrayList<SchoolOff> selectSchoolOff(String userId);
+
+	int schoolOffApply(SchoolOff so);
   
 }

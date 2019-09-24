@@ -648,5 +648,11 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		return (ArrayList)sqlSession.selectList("SchoolOff.selectSchoolOff", userId);
 	}
 
+	@Override
+	public int schoolOffApply(SqlSessionTemplate sqlSession, SchoolOff so) {
+
+		return sqlSession.insert("SchoolOff.schoolOffApply", so);
+	}
+
 
 }
