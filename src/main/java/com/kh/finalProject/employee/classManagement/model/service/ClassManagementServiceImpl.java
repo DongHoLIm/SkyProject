@@ -14,6 +14,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
 @Service
 public class ClassManagementServiceImpl implements ClassManagementService{
@@ -86,4 +87,33 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 		
 	}
 
+	@Override
+	public ArrayList<OpenSubject> selectFinishOpenSubjectList() {
+		
+		return cmd.selectFinishOpenSubjectList(sqlSession);
+	}
+
+	@Override
+	public void closeFinishOpenSubject(String[] subCode) {
+		cmd.updateCloseFinishOpenSubject(sqlSession, subCode);
+		
+	}
+
+	@Override
+	public void updateSubjectApply() {
+		cmd.updateSubjectApply(sqlSession);
+		
+	}
+
+	@Override
+	public ArrayList<SubjectApply> selectUpdateList() {
+
+		return cmd.selectUpdateList(sqlSession);
+	}
+
+	@Override
+	public void insertSubApplyDone(String[] code) {
+		
+		cmd.insertSubApplyDone(sqlSession, code);
+	}
 }

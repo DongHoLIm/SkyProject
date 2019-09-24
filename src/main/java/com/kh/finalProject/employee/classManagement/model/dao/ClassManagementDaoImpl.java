@@ -13,6 +13,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
 @Repository
 public class ClassManagementDaoImpl implements ClassManagementDao{
@@ -130,6 +131,51 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 			sqlSession.update("courseRegistration.updateFinishOpenSubject", os);
 			
 		}
+	}
+
+	@Override
+	public ArrayList<OpenSubject> selectFinishOpenSubjectList(SqlSessionTemplate sqlSession) {
+		ArrayList<OpenSubject> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("courseRegistration.selectFinishOpenSubjectList");
+		
+		return list;
+	}
+
+	@Override
+	public void updateCloseFinishOpenSubject(SqlSessionTemplate sqlSession, String[] subCode) {
+		for(int i=0;i<subCode.length;i++) {
+			OpenSubject os = new OpenSubject();
+			os.setOpenSubCode(subCode[i]);
+			sqlSession.update("courseRegistration.updateCloseFinishOpenSubject", os);
+		}
+		
+	}
+
+	@Override
+	public void updateSubjectApply(SqlSessionTemplate sqlSession) {
+		
+		sqlSession.update("subjectApply.updateDoneType");
+		
+	}
+
+	@Override
+	public ArrayList<SubjectApply> selectUpdateList(SqlSessionTemplate sqlSession) {
+		ArrayList<SubjectApply> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("subjectApply.selectUpdateList");
+		return list;
+	}
+
+	@Override
+	public void insertSubApplyDone(SqlSessionTemplate sqlSession, String[] code) {
+		for(int i=0;i<code.length;i++) {
+			SubjectApply sa = new SubjectApply();
+			sa.setSubApplyCode(code[i]);
+			
+			sqlSession.insert("SubApplyDone.insertSubApplyDone", sa);
+		}
+		
 	}
 
 	

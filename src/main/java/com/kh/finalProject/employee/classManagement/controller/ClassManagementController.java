@@ -1,7 +1,6 @@
 package com.kh.finalProject.employee.classManagement.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +21,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.LessonPlan;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
 @Controller
 public class ClassManagementController {
@@ -173,7 +173,38 @@ public class ClassManagementController {
 		
 		return "employee/class/openFinishCourseRegistration";
 	}
-	
+	@RequestMapping(value="closeFinishCourseRegistration.em")
+	public String selectFinishCoursesOffered(HttpServletRequest request) {
+		
+		ArrayList<OpenSubject> list = cms.selectFinishOpenSubjectList();
+		request.setAttribute("list", list);
+		return "employee/class/closeFinishCourseRegistration";
+	}
+	@RequestMapping(value="closeFinishOpenSubject.em")
+	public String closeFinishOpenSubject(HttpServletRequest request,
+			@RequestParam(name="openSubCode", required=false)String openSubCode){
+				
+			System.out.println(openSubCode);
+			String subCode[] = openSubCode.split(",");
+			
+			cms.closeFinishOpenSubject(subCode);
+			ArrayList<SubjectApply> list = cms.selectUpdateList();
+			System.out.println("list :::" + list);
+			cms.updateSubjectApply();
+			int result = list.size();
+			String[] code = new String[result];
+			System.out.println("code.length::: " + code.length);
+			for(int i=0;i<list.size();i++) {
+				System.out.println("???");
+				code[i] = list.get(i).getSubApplyCode();
+				System.out.println("code:::" + code[i]);
+			}
+			cms.insertSubApplyDone(code);
+			
+			
+			return "employee/class/closeFinishCourseRegistration";
+		}
 	
 	
 }
+ 
