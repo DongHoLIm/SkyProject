@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LectureEvaluation">
+	<resultMap type="com.kh.finalProject.lectureEvaluation.model.vo.LectureEvaluation" id="lectureEvaluationResultSet">
+		<id property="evalCode" column="EVAL_CODE"/>
+		<result property="questionNo" column="QUESTION_NO"/>
+		<result property="answer" column="ANSWER"/>
+		<result property="studentNo" column="STUDENT_NO"/>
+		<result property="classCode" column="CLASS_CODE"/>
+		<result property="subCode" column="SUB_CODE"/>
+		<result property="subName" column="SUB_NAME"/>
+		<result property="openYear" column="OPEN_YEAR"/>
+		<result property="openSemester" column="OPEN_SEMESTER"/>
+		<result property="studentCount" column="STUDENT_COUNT"/>
+		<result property="professorNo" column="PROFESSOR_NO"/>
+		<result property="memberKName" column="MEMBER_KNAME"/>
+		<result property="pdeptName" column="PDEPT_NAME"/>
+	</resultMap>
+	
+	<select id="selectLectureEvalOpenListCount" resultType="_int">
+		SELECT COUNT(DISTINCT O.OPENSUB_CODE)
+		FROM CLASS_MANAGEMENT C
+		JOIN SUBAPPLY_DONE D ON(C.DONE_CODE = D.DONE_CODE)
+		JOIN SUBJECT_APPLY A ON(A.SUBAPPLY_CODE = D.SUBAPPLY_CODE)
+		JOIN OPEN_SUBJECT O ON(A.OPENSUB_CODE = O.OPENSUB_CODE)
+		JOIN SUBJECT J ON(O.OPENSUB_CODE = J.SUB_CODE)
+		JOIN PROFESSOR P ON(O.PROFESSOR_NO = P.PROFESSOR_NO)
+		JOIN SDEPARTMENT E ON(P.PDEPT_CODE = E.SDEPT_CODE)
+		JOIN GRADE G ON(G.CLASS_CODE = C.CLASS_CODE)
+		JOIN MEMBER M ON(P.PROFESSOR_NO = M.MEMBER_ID)
+		WHERE G.MIDDLE_SCORE IS NOT NULL
+		AND G.FINAL_SCORE IS NOT NULL
+		AND G.WORK_SCORE IS NOT NULL
+		AND G.ATTENDANCE_SCORE IS NOT NULL
+	</select>
+	
+	<select id="selectLectureEvalOpenList" resultMap="lectureEvaluationResultSet">
+		SELECT O.OPENSUB_CODE, J.SUB_CODE, J.SUB_NAME, O.OPEN_YEAR, O.OPEN_SEMESTER, O.STUDENT_COUNT, O.PROFESSOR_NO,
+		       M.MEMBER_KNAME, E.SDEPT_NAME AS PDEPT_NAME
+		FROM CLASS_MANAGEMENT C
+		JOIN SUBAPPLY_DONE D ON(C.DONE_CODE = D.DONE_CODE)
+		JOIN SUBJECT_APPLY A ON(A.SUBAPPLY_CODE = D.SUBAPPLY_CODE)
+		JOIN OPEN_SUBJECT O ON(A.OPENSUB_CODE = O.OPENSUB_CODE)
+		JOIN SUBJECT J ON(O.OPENSUB_CODE = J.SUB_CODE)
+		JOIN PROFESSOR P ON(O.PROFESSOR_NO = P.PROFESSOR_NO)
+		JOIN SDEPARTMENT E ON(P.PDEPT_CODE = E.SDEPT_CODE)
+		JOIN GRADE G ON(G.CLASS_CODE = C.CLASS_CODE)
+		JOIN MEMBER M ON(P.PROFESSOR_NO = M.MEMBER_ID)
+		WHERE G.MIDDLE_SCORE IS NOT NULL
+		AND G.FINAL_SCORE IS NOT NULL
+		AND G.WORK_SCORE IS NOT NULL
+		AND G.ATTENDANCE_SCORE IS NOT NULL
+		GROUP BY O.OPENSUB_CODE, J.SUB_CODE, J.SUB_NAME, O.OPEN_YEAR, O.OPEN_SEMESTER, O.STUDENT_COUNT, O.PROFESSOR_NO,
+		         M.MEMBER_KNAME, E.SDEPT_NAME
+		ORDER BY O.OPENSUB_CODE ASC
+	</select>
+
+</mapper>
