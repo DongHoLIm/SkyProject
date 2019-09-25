@@ -141,4 +141,34 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 		cmd.insertSubjectDelete(sqlSession, sd, os);
 		
 	}
+
+	@Override
+	public ArrayList<OpenSubject> selectOpenSubjectList2(PageInfo pi) throws ClassManagementSelectListException {
+
+		return cmd.selectOpenSubjectList2(sqlSession, pi);
+	}
+
+	@Override
+	public int getListCount2() {
+	
+		return cmd.getListCount2(sqlSession);
+	}
+
+	@Override
+	public int getListCount3() {
+		
+		return cmd.getListCount3(sqlSession);
+	}
+
+	@Override
+	public int getListCount4() {
+
+		return cmd.getListCount4(sqlSession);
+	}
+
+	@Override
+	public ArrayList<LectureOpen> selectAbolitiontList(PageInfo pi) throws ClassManagementSelectListException {
+		
+		return cmd.selectAbolitiontList(sqlSession, pi);
+	}
 }

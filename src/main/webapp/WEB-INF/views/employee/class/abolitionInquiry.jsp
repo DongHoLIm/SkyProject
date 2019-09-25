@@ -12,7 +12,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
-	
+	function abolitionSelect(){
+		
+	}
 </script>
 </head>
 <body>
@@ -37,23 +39,22 @@
 						<th width="10%" style="text-align:center;">과목번호</th>
 						<th width="20%" style="text-align:center;">과목명</th>
 						<th width="10%" style="text-align:center;">학과</th>
-						<th width="15%" style="text-align:center;">담당교수</th>
-						<th width="20%" style="text-align:center;">강의실</th>
-						<th width="30%" style="text-align:center;">개강년도/학기</th>
+						<th width="15%" style="text-align:center;">폐지날짜</th>
+						<th width="35%" style="text-align:center;">폐지사유</th>
+						
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="OpenSubject" items="${ list }">
+					<c:forEach var="lectureOpen" items="${ list }">
 						<tr>
 							<td>
-								<input type="hidden" name="openSubCode" value="<c:out value="${OpenSubject.openSubCode}" />">
-								<c:out value="${OpenSubject.openSubCode}" />
+								<input type="hidden" name="SubCode" value="<c:out value="${lectureOpen.subCode}" />">
+								<c:out value="${lectureOpen.subCode}" />
 							</td>
-							<td><c:out value="${OpenSubject.subName}" /></td>
-							<td><c:out value="${OpenSubject.sdeptName}" /></td>
-							<td><c:out value="${OpenSubject.professorName}" /></td>
-							<td><c:out value="${OpenSubject.buildingName}/${OpenSubject.roomName}" /></td>
-							<td><c:out value="${OpenSubject.openYear}년도${OpenSubject.openSemester}학기" /></td>
+							<td><c:out value="${lectureOpen.subName}" /></td>
+							<td><c:out value="${lectureOpen.sdeptName}" /></td>
+							<td><c:out value="${lectureOpen.deleteDate}" /></td>
+							<td><c:out value="${lectureOpen.reason}" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -66,7 +67,7 @@
 			   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
 				</c:if>
 				<c:if test="${pi.currentPage > 1}">
-					<c:url var="blistBack" value="abolitionSelect.em">
+					<c:url var="blistBack" value="lectureAbolitionSelect.em">
 						<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 					</c:url>
 					<li class="page-item"><a class="page-link" href="${blistBack}">이전</a></li>	
@@ -76,14 +77,14 @@
 					    <li class="page-item"><a class="page-link">${p}</a></li>					
 					</c:if>
 					<c:if test="${p ne pi.currentPage}">
-						<c:url var="blistCheck" value="abolitionSelect.em">
+						<c:url var="blistCheck" value="lectureAbolitionSelect.em">
 							<c:param name="currentPage" value="${p}"/>
 						</c:url>
 						 <li class="page-item"><a class="page-link" href="${blistCheck}">${p}</a></li>
 					</c:if>
 				</c:forEach>
 				<c:if test="${pi.currentPage < pi.maxPage }">
-					<c:url var="blistEnd" value="abolitionSelect.em">
+					<c:url var="blistEnd" value="lectureAbolitionSelect.em">
 						<c:param name="currentPage" value="${pi.currentPage + 1}"/>
 					</c:url>
 			    	<li class="page-item"><a class="page-link" href="${blistEnd}">다음</a></li>				

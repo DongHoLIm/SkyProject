@@ -19,13 +19,15 @@ public class OpenSubject implements java.io.Serializable{
 	private String applyType;
 	private String closeCheck;
 	private String closeReason;
-
+	private int openSemester;
+	private int openYear;
+	
 	public OpenSubject() {}
-
+	
 	public OpenSubject(String openSubCode, String subName, String sdeptName, String professorName, String professorNo,
 			int subGrade, String completeType, int studentMax, String roomName, String buildingName, String dayInfo,
 			String timeInfo, int enrolType, String studentNo, int studentCount, String applyType, String closeCheck,
-			String closeReason) {
+			String closeReason, int openSemester, int openYear) {
 		super();
 		this.openSubCode = openSubCode;
 		this.subName = subName;
@@ -45,6 +47,8 @@ public class OpenSubject implements java.io.Serializable{
 		this.applyType = applyType;
 		this.closeCheck = closeCheck;
 		this.closeReason = closeReason;
+		this.openSemester = openSemester;
+		this.openYear = openYear;
 	}
 
 	public String getOpenSubCode() {
@@ -191,6 +195,22 @@ public class OpenSubject implements java.io.Serializable{
 		this.closeReason = closeReason;
 	}
 
+	public int getOpenSemester() {
+		return openSemester;
+	}
+
+	public void setOpenSemester(int openSemester) {
+		this.openSemester = openSemester;
+	}
+
+	public int getOpenYear() {
+		return openYear;
+	}
+
+	public void setOpenYear(int openYear) {
+		this.openYear = openYear;
+	}
+
 	@Override
 	public String toString() {
 		return "OpenSubject [openSubCode=" + openSubCode + ", subName=" + subName + ", sdeptName=" + sdeptName
@@ -198,7 +218,9 @@ public class OpenSubject implements java.io.Serializable{
 				+ ", completeType=" + completeType + ", studentMax=" + studentMax + ", roomName=" + roomName
 				+ ", buildingName=" + buildingName + ", dayInfo=" + dayInfo + ", timeInfo=" + timeInfo + ", enrolType="
 				+ enrolType + ", studentNo=" + studentNo + ", studentCount=" + studentCount + ", applyType=" + applyType
-				+ ", closeCheck=" + closeCheck + ", closeReason=" + closeReason + "]";
+				+ ", closeCheck=" + closeCheck + ", closeReason=" + closeReason + ", openSemester=" + openSemester
+				+ ", openYear=" + openYear + "]";
 	}
+	
 	
 }

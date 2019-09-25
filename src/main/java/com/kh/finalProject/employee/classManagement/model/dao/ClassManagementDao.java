@@ -56,4 +56,14 @@ public interface ClassManagementDao {
 
 	void insertSubjectDelete(SqlSessionTemplate sqlSession, SubjectDelete sd, OpenSubject os);
 
+	ArrayList<OpenSubject> selectOpenSubjectList2(SqlSessionTemplate sqlSession, PageInfo pi) throws ClassManagementSelectListException;
+
+	int getListCount2(SqlSessionTemplate sqlSession);
+
+	int getListCount3(SqlSessionTemplate sqlSession);
+
+	int getListCount4(SqlSessionTemplate sqlSession);
+
+	ArrayList<LectureOpen> selectAbolitiontList(SqlSessionTemplate sqlSession, PageInfo pi) throws ClassManagementSelectListException;
+
 }
