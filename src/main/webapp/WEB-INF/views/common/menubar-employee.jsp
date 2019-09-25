@@ -42,8 +42,7 @@
 												<li><a href="#">수강인워관리</a></li>
 												<li><a href="#">시간표조정</a></li>
 												<li><a href="lessionPlan.em">강의계획서조회</a></li>
-												<li><a href="#">강의평가서작성</a></li>
-												<li><a href="#">강의평가 관리</a></li>
+												<li><a href="em_showLectureEvaluationOpen.le">강의평가 관리</a></li>
 												<li><a href="#">휴강 및 보강 관리</a></li>
 												<li><h4>수강신청관리</h4></li>
 												<li><a href="openPreliminaryCourseRegistration.em">예비수강신청열기</a></li>
