@@ -77,5 +77,82 @@ System.out.println("장학금 조회 dao 들어옴12112112");
 		return beforeScholarship;
 	}
 
+	@Override
+	public ArrayList<Scholarship> stScholarship(SqlSessionTemplate sqlSession) throws ScholarshipException {
+		ArrayList<Scholarship> memberScholarship = null;
+		System.out.println("직원 장학금 조회 dao 들어옴");
+
+		memberScholarship = (ArrayList) sqlSession.selectList("Scholarship.stScholarshipCheck");
+		
+		if(memberScholarship == null) {
+			throw new ScholarshipException("정보가 존재하지 않습니다.");
+		}
+		
+		return memberScholarship;
+	}
+
+	@Override
+	public List<Scholarship> stSearchScholarData(SqlSessionTemplate sqlSession) throws ScholarshipException {
+		List<Scholarship> beforeScholarship = null;
+		System.out.println("12345");
+		beforeScholarship = (List) sqlSession.selectList("Scholarship.stScholarshipCheck");
+		
+		if(beforeScholarship == null) {
+			throw new ScholarshipException("정보가 존재하지 않습니다.");
+		}
+		
+		return beforeScholarship;
+	}
+
+	@Override
+	public List<Scholarship> stSearchScholarshipData(SqlSessionTemplate sqlSession, Scholarship scholarship) throws ScholarshipException {
+		System.out.println("직원 장학금 조회 dao 들어옴");
+		
+		List<Scholarship> beforeScholarship = null;
+		System.out.println("12345" + scholarship);
+		beforeScholarship = (List) sqlSession.selectList("Scholarship.stSearchScholarshipInfo", scholarship);
+		
+		if(beforeScholarship == null) {
+			throw new ScholarshipException("정보가 존재하지 않습니다.");
+		}
+		
+		return beforeScholarship;
+	}
+
+	@Override
+	public void updateScholarship(SqlSessionTemplate sqlSession) {
+		System.out.println("승인 dao 들어옴");
+		
+		sqlSession.insert("Scholarship.rev");
+	}
+
+	@Override
+	public ArrayList<Scholarship> stRecieveScholarship(SqlSessionTemplate sqlSession) throws ScholarshipException {
+		ArrayList<Scholarship> memberScholarship = null;
+		
+		memberScholarship = (ArrayList) sqlSession.selectList("Scholarship.stBeforeScholarshipCheck");
+		
+		if(memberScholarship == null) {
+			throw new ScholarshipException("정보가 존재하지 않습니다.");
+		}
+		
+		return memberScholarship;
+	}
+
+	@Override
+	public List<Scholarship> stSearchScholarshipInfo(SqlSessionTemplate sqlSession) throws ScholarshipException {
+		ArrayList<Scholarship> beforeScholarship = null;
+		System.out.println("직원 장학금 조회 dao 들어옴");
+
+		beforeScholarship = (ArrayList) sqlSession.selectList("Scholarship.stScholarshipInfoCheck");
+		
+		if(beforeScholarship == null) {
+			throw new ScholarshipException("정보가 존재하지 않습니다.");
+		}
+		
+		return beforeScholarship;
+	}
+
+	
 
 }

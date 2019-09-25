@@ -77,7 +77,7 @@
 											<li>
 											<span class="opener">등록관리</span>
 											<ul>
-												<li><a href="stEnrollment.en">학생 별 등록금 관리</a></li>
+												<li><a href="stStartEnrollment.en">학생 별 등록금 관리</a></li>
 											</ul>
 										</li>
 										</c:if>
@@ -85,8 +85,8 @@
 										<li>
 											<span class="opener">장학관리</span>
 											<ul>
-												<li><a href="#">학생 별 장학금 내역관리</a></li>
-												<li><a href="#">학생 별 장학금 신청관리</a></li>
+												<li><a href="stscholar.sc">학생 별 장학금 신청관리</a></li>
+												<li><a href="stScholarshipInfo.sc">학생 별 장학금 수혜내역관리</a></li>
 											
 											</ul>
 										</li>
@@ -95,8 +95,8 @@
 											<li>
 											<span class="opener">기숙사관리</span>
 											<ul>
-												<li><a href="#">기숙사 신청 관리</a></li>
-												<li><a href="#">기숙사 시설 관리</a></li>
+												<li><a href="stDormApply.dor">기숙사 신청 관리</a></li>
+												<li><a href="stDorm.dor">기숙사 시설 관리</a></li>
 											
 											</ul>
 										</li>
