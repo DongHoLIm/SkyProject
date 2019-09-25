@@ -10,9 +10,11 @@ public interface EnrollmentService {
 
 	ArrayList<Enrollment> userEnrollment(String studentNo) throws EnrollmentException;
 
-	List<Enrollment> beforeEnrollData(String studentNo) throws EnrollmentException;
+	List<Enrollment> beforeEnrollData() throws EnrollmentException;
 
 	List<Enrollment> beforeEnrollmentData(Enrollment enrollment) throws EnrollmentException;
+
+	ArrayList<Enrollment> stEnrollment() throws EnrollmentException;
 	
 	//public List<Enrollment> getList();
 }

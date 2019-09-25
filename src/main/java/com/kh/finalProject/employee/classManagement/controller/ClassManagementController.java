@@ -30,9 +30,9 @@ import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 @Controller
 public class ClassManagementController {
 	@Autowired
-	private ClassManagementService cms;
+	ClassManagementService cms;
 	@Autowired
-	private LessonPlanService lps;
+	LessonPlanService lps;
 	@Autowired
 	OpenSubjectService openSubjectService;
 	
@@ -162,14 +162,7 @@ public class ClassManagementController {
 	
 	
 	
-	
-	@RequestMapping("lessonPlan.pro")
-	public String LessonPlan (LessonPlan lp, ModelAndView mav) {
-		lps.insertLessonPlan(lp);
-		System.out.println("123:::: "+lp);
-		return "professor/class/syllabus";
-	
-	}
+
 	
 	@RequestMapping("lessionPlan.em")
 	public ModelAndView LessonPlan (ModelAndView mav) {
@@ -183,7 +176,7 @@ public class ClassManagementController {
 	}
 	
 	
-	
+
 	
 	
 	@RequestMapping(value="updateFinishOpenSubject.em")

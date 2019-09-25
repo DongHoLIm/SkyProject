@@ -85,4 +85,14 @@ public class DormitoryController {
 		
 		return "common/successAlert";
 	}
+	
+	@RequestMapping(value="stDormApply.dor")
+	public String stDormApplyInfo() {
+		return "employee/dormitory/dormitoryApproval";
+	}
+	
+	@RequestMapping(value="stDorm.dor")
+	public String stDormInfo() {
+		return "employee/dormitory/dormitoryInfo";
+	}
 }

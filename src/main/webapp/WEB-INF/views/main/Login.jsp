@@ -7,6 +7,7 @@
 <title>Login</title>
 <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 @charset "UTF-8";
 
@@ -303,9 +304,8 @@ address {
 <c:if test="${!empty member}">
 	<jsp:forward page="WEB-INF/views/common/main/main.jsp"/>
 </c:if>
-<c:set var="message" value="${scopeRequest.msg}"/>
-<c:if test="${!empty message}">
-	<input type="hidden" id="errorMessage" value="${message }"/>
+<c:if test="${!empty requestScope.msg}">
+	<input type="hidden" id="errorMessage" value="${requestScope.msg }"/>
 	<script>
 	$(function(){
 		var errorMessage = $("#errorMessage").val();

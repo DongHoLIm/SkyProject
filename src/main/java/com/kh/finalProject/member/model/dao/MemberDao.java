@@ -61,4 +61,6 @@ public interface MemberDao {
 
 	Member memberInfo(SqlSessionTemplate sqlSession, Member loginUser);
 
+	int updateMemberInfo(SqlSessionTemplate sqlSession, Member m);
+
 }

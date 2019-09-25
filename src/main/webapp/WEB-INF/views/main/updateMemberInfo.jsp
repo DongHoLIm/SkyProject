@@ -16,6 +16,22 @@
 		margin: 0 auto;
 	}
 </style>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+function searchAddress(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+            console.log(data);
+            var postCode = data.postcode;
+            var jibun = data.roadAddress;
+            console.log(jibun);
+            $("input[name='address1']").val(postCode);
+            $("input[name='address2']").val(jibun);
+        }
+    }).open();
+	
+}
+</script>
 </head>
 <body>
 <c:set var="member" value="${loginUser.memberStatus}" />
@@ -26,6 +42,7 @@
 				<br />
 				<h4>회원 정보 변경</h4>				
 				<hr />	
+				<form action="updateMemberInfo.me" method="post">
 				<div id="memberInfoDiv" >			
 				<table id="memberInfo">
 					<tr>
@@ -49,9 +66,16 @@
 						<td colspan="2"><input type="password" style="color:black;"/></td>
 					</tr>
 					<tr>
-						<td>주소 :</td>
-						<td><input type="text" style="color:black;" value="${user.address }" name="address"/></td>
-						<td><button>검색</button></td>	
+						<td rowspan="3">주소 :</td>
+						<td><input type="text" value="${address[0]}" name="address1"/></td>
+						<td><a onclick="searchAddress();">검색</a></td>							
+					</tr>
+					<tr>						
+						<td colspan="2"><input type="text" style="color:black;" value="${address[1]}" name="address2"/></td>
+						
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" style="color:black;" value="${address[2]}"name="address3" placeholder="상세주소입력"/></td>
 					</tr>
 					<tr>
 						<td>이메일 :</td>
@@ -66,15 +90,16 @@
 					</tr>
 					<tr>
 						<td>비상 연락망 :</td>
-						<td colspan="2"><input type="tel" style="color:black;"/></td>
+						<td colspan="2"><input type="tel" value="${user.phone2}"name="phone2"style="color:black;"/></td>
 					</tr>
 				</table>				
 				<div align="center">
-				<button>수정</button>
+				<button type="submit">수정</button>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button>취소</button>
+				<button type="reset">취소</button>
 				</div>
 				</div>
+				</form>
 			</div>
 		</div>
 		<div>

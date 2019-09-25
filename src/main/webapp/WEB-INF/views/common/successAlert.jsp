@@ -10,7 +10,7 @@
 <title>신청성공</title>
 </head>
 <body>
-<input type="hidden" value="신청완료" id="successMessage"/>
+<input type="hidden" value="완료" id="successMessage"/>
 <script>
 $(function(){
 	var successMessage = $("#successMessage").val();

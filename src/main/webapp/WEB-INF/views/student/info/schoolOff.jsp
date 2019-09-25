@@ -87,7 +87,7 @@ table.basicinfo {
 			<jsp:include page="../info/common.jsp" />
 
 				<h4 id="basic">휴학 신청</h4>
-				<!-- <form action="st_schoolOffApply.si" method="post"> -->
+				<form id="ApplyForm" action="st_schoolOffApply.si" method="post">
 				<table class="basicinfo">
 				<tr>
 					<td class="tdd">휴학 구분</td>
@@ -157,7 +157,7 @@ table.basicinfo {
 				<tr>
 					<td class="tdd">제출 서류</td>
 					<td colspan="3" style="border: solid 1px; color: #dde1e3;">
-						<input type="text" id="requiredDoc" name="requiredDoc" value="">
+						<input type="file" id="requiredDoc" name="requiredDoc" value="">
 					</td>	
 				</tr>
 			
@@ -167,7 +167,7 @@ table.basicinfo {
 			</table>
 			</table>
 
-			<!-- </form> -->
+			</form>
 				
 			<br>
 			<br>
@@ -275,6 +275,8 @@ table.basicinfo {
 			
 			function apply(){
 				
+				//var formData = new FormData($("#ApplyForm")[0]);
+				
 				var offType = $("#offType").val();
 				var offReason = $("#offReason").val();
 				var offStart = $("#offStart").val();
@@ -283,8 +285,7 @@ table.basicinfo {
 				var returnDate = $("#returnDate").val();
 				var enlistmentDate = $("#enlistmentDate").val();
 				var demobilizationDate = $("#demobilizationDate").val();
-				var requiredDoc = $("#requiredDoc").val(); 
-				
+				var requiredDoc = $("#requiredDoc").val();
 				
 				
 				$.ajax({

@@ -98,7 +98,7 @@ table.basicinfo {
 		})
 		</script>
 		<div>
-			<jsp:include page="../../common/menubar-student.jsp" />
+			<jsp:include page="../../common/menubar-professor.jsp" />
 		</div>
 	</div>
 

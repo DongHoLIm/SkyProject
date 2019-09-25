@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DocFile">
+	<resultMap type="DocFile" id="DocFileResultSet">
+		<id property="fileCode" column="FILE_CODE"/>
+		<result property="docNo" column="DOC_NO"/>
+		<result property="oldName" column="OLD_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="path" column="PATH"/>
+		<result property="type" column="TYPE"/>
+		<result property="offApplyNo" column="APPLY_NO"/>
+		<result property="diseaseCode" column="DISEASE_CODE"/>
+		<result property="recoCode" column="RECO_CODE"/>
+	</resultMap>
+
+
+
+
+
+</mapper>

@@ -156,6 +156,143 @@ public class ScholarshipController {
 		return "common/successAlert";
 	}
 	
+	@RequestMapping(value="stscholar.sc")
+	public String stScholarshipCheck(Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("직원 장학금 조회 컨트롤러 들어옴");
+		ArrayList<Scholarship> memberScholarship;
+		try {
+			memberScholarship = ss.stScholarship();
+			System.out.println("memberScholarship ::: " + memberScholarship);
+			
+			request.setAttribute("memberScholarship", memberScholarship);
+			
+			return "employee/scholarship/scholarshipApproval";
+		} catch (ScholarshipException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorAlert";
+		}
+	}
 	
+	@RequestMapping(value="stScholarship.sc")
+	public String stSearchScholarship(@RequestParam("studentNo") String studentNo, @RequestParam("schoYear") String schoYear,  Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response){
+		System.out.println("직원 장학금 조회 컨트롤러 들어옴");
+		
+		if(studentNo == "" || schoYear == "") {
+			System.out.println("schoYear :::" + schoYear);
+			System.out.println("studentNo :::" + studentNo);
+			
+			List<Scholarship> beforeScholarship;
+			
+			try {
+				beforeScholarship = ss.stSearchScholarData();
+				System.out.println("beforeScholarship ::: " + beforeScholarship);
+				
+				request.setAttribute("beforeScholarship", beforeScholarship);
+				
+				return "employee/scholarship/searchScholarshipInfo";
+				
+			} catch (ScholarshipException e) {
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorAlert";
+			}
+		}
+		
+		System.out.println("schoYear :::" + schoYear);
+		System.out.println("studentNo :::" + studentNo);
+		
+		List<Scholarship> beforeScholarship;
+		
+		Scholarship scholarship = new Scholarship();
+		scholarship.setStudentNo(studentNo);
+		scholarship.setSchoYear(schoYear);
+		
+		try {
+			beforeScholarship = ss.stSearchScholarshipData(scholarship);
+			System.out.println("beforeScholarship ::: " + beforeScholarship);
+			
+			request.setAttribute("beforeScholarship", beforeScholarship);
+			
+			return "employee/scholarship/searchScholarshipInfo";
+			
+		} catch (ScholarshipException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorAlert";
+		}
+		
+	}
 	
+	@RequestMapping(value="scholarshipAggrement.sc")
+	public String update() {
+		System.out.println("들어옴");
+		
+		ss.updateScholarship();
+		
+		return "common/successAlert";
+	}
+	
+	@RequestMapping(value="stScholarshipInfo.sc")
+	public String stScholarshipInfoView(Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("직원 장학금 수혜내역  :::");
+		
+		ArrayList<Scholarship> memberScholarship;
+		try {
+			memberScholarship = ss.stRecieveScholarship();
+			System.out.println("memberScholarship ::: " + memberScholarship);
+			
+			request.setAttribute("memberScholarship", memberScholarship);
+			
+			return "employee/scholarship/scholarshipInfo";
+		} catch (ScholarshipException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorAlert";
+		}
+		
+	}
+	
+	@RequestMapping(value="stSearchScholarship.sc")
+	public String stRecieveScholarshipSearch(@RequestParam("studentNo") String studentNo, @RequestParam("schoYear") String schoYear,  Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("직원 장학금 조회 컨트롤러 들어옴");
+		
+		if(studentNo == "" || schoYear == "") {
+			System.out.println("schoYear :::" + schoYear);
+			System.out.println("studentNo :::" + studentNo);
+			
+			List<Scholarship> beforeScholarship;
+			
+			try {
+				beforeScholarship = ss.stSearchScholarshipInfo();
+				System.out.println("beforeScholarship ::: " + beforeScholarship);
+				
+				request.setAttribute("beforeScholarship", beforeScholarship);
+				
+				return "employee/scholarship/searchBeforeScholarship";
+				
+			} catch (ScholarshipException e) {
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorAlert";
+			}
+		}
+		
+		System.out.println("schoYear :::" + schoYear);
+		System.out.println("studentNo :::" + studentNo);
+		
+		List<Scholarship> beforeScholarship;
+		
+		Scholarship scholarship = new Scholarship();
+		scholarship.setStudentNo(studentNo);
+		scholarship.setSchoYear(schoYear);
+		
+		try {
+			beforeScholarship = ss.stSearchScholarshipData(scholarship);
+			System.out.println("beforeScholarship ::: " + beforeScholarship);
+			
+			request.setAttribute("beforeScholarship", beforeScholarship);
+			
+			return "employee/scholarship/searchBeforeScholarship";
+			
+		} catch (ScholarshipException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorAlert";
+		}
+	}
 }

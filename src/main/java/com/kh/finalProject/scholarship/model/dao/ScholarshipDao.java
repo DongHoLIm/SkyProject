@@ -21,5 +21,18 @@ public interface ScholarshipDao {
 
 	List<Scholarship> beforeScholarData(SqlSessionTemplate sqlSession, String studentNo) throws ScholarshipException;
 
+	ArrayList<Scholarship> stScholarship(SqlSessionTemplate sqlSession) throws ScholarshipException;
+
+	List<Scholarship> stSearchScholarData(SqlSessionTemplate sqlSession) throws ScholarshipException;
+
+	List<Scholarship> stSearchScholarshipData(SqlSessionTemplate sqlSession, Scholarship scholarship) throws ScholarshipException;
+
+	public void updateScholarship(SqlSessionTemplate sqlSession);
+
+	ArrayList<Scholarship> stRecieveScholarship(SqlSessionTemplate sqlSession) throws ScholarshipException;
+
+	List<Scholarship> stSearchScholarshipInfo(SqlSessionTemplate sqlSession) throws ScholarshipException;
+
+
 
 }

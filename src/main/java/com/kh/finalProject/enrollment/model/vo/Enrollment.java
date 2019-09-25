@@ -2,18 +2,18 @@ package com.kh.finalProject.enrollment.model.vo;
 
 public class Enrollment implements java.io.Serializable{
 	private String studentNo;
-	private int enrollYear;
-	private int enrollSemester;
-	private int tuition;
+	private String enrollYear;
+	private String enrollSemester;
+	private String tuition;
 	private String payStatus;
-	private int payAmount;
+	private String payAmount;
 	
-	private int schoAmount;
+	private String schoAmount;
 	
 	public Enrollment() {}
 
-	public Enrollment(String studentNo, int enrollYear, int enrollSemester, int tuition, String payStatus,
-			int payAmount, int schoAmount) {
+	public Enrollment(String studentNo, String enrollYear, String enrollSemester, String tuition, String payStatus,
+			String payAmount, String schoAmount) {
 		super();
 		this.studentNo = studentNo;
 		this.enrollYear = enrollYear;
@@ -32,27 +32,27 @@ public class Enrollment implements java.io.Serializable{
 		this.studentNo = studentNo;
 	}
 
-	public int getEnrollYear() {
+	public String getEnrollYear() {
 		return enrollYear;
 	}
 
-	public void setEnrollYear(int enrollYear) {
+	public void setEnrollYear(String enrollYear) {
 		this.enrollYear = enrollYear;
 	}
 
-	public int getEnrollSemester() {
+	public String getEnrollSemester() {
 		return enrollSemester;
 	}
 
-	public void setEnrollSemester(int enrollSemester) {
+	public void setEnrollSemester(String enrollSemester) {
 		this.enrollSemester = enrollSemester;
 	}
 
-	public int getTuition() {
+	public String getTuition() {
 		return tuition;
 	}
 
-	public void setTuition(int tuition) {
+	public void setTuition(String tuition) {
 		this.tuition = tuition;
 	}
 
@@ -64,19 +64,19 @@ public class Enrollment implements java.io.Serializable{
 		this.payStatus = payStatus;
 	}
 
-	public int getPayAmount() {
+	public String getPayAmount() {
 		return payAmount;
 	}
 
-	public void setPayAmount(int payAmount) {
+	public void setPayAmount(String payAmount) {
 		this.payAmount = payAmount;
 	}
 
-	public int getSchoAmount() {
+	public String getSchoAmount() {
 		return schoAmount;
 	}
 
-	public void setSchoAmount(int schoAmount) {
+	public void setSchoAmount(String schoAmount) {
 		this.schoAmount = schoAmount;
 	}
 

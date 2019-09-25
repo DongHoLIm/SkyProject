@@ -14,10 +14,6 @@ function messageOpen(){
 	console.log("123");
 	window.open("/finalProject/inbox.pro", "쪽지함", width="700px", height="500px");
 };
-
-function goCheckPwd(){
-	
-}
 </script>
 <title>header</title>
 </head>

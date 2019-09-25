@@ -3,19 +3,12 @@ package com.kh.finalProject.member.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Random;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -28,7 +21,6 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +32,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.common.CommonUtils;
@@ -105,10 +96,14 @@ public class MemberController {
 
 	//로그 아웃  
 	@RequestMapping("logOut.me" )
-	public String logOut(SessionStatus status,@ModelAttribute("loginUser") Member loginUser,HttpSession session) {		
+	public String logOut(SessionStatus status,@ModelAttribute("loginUser") Member loginUser,HttpSession session,HttpServletRequest request) {		
 		ms.logOutLoginCheck(loginUser);
 		status.isComplete();
 		session.invalidate();
+		String msg = request.getParameter("result");
+		if(msg != null) {			
+			request.setAttribute("msg", "수정이 완료 되었습니다. 재 로그인 하세요");
+		}
 		return "main/Login";
 	}
 
@@ -601,12 +596,31 @@ public class MemberController {
 			
 			if(passwordEncoder.matches(chekPwd,loginUser.getMemberPwd())) {
 				Member user =ms.memberInfo(loginUser);
+				String[] address = user.getAddress().split("/");				
 				request.setAttribute("user",user);
+				request.setAttribute("address",address);
 				return "main/updateMemberInfo";
 			}else {
 				request.setAttribute("msg", "비밀번호가 틀렸습니다.");
 				return "common/errorAlert";
 			}
 		}	
+	}
+	@RequestMapping("updateMemberInfo.me")
+	public String updateMemberInfo(HttpServletRequest request,Member m,SessionStatus status,HttpSession session) {
+		String address = request.getParameter("address1");
+		String address1 = request.getParameter("address2");
+		String address2 = request.getParameter("address3");
+		String addressFullName = address+"/"+address1+"/"+address2;
+		m.setAddress(addressFullName);
+		try {
+			int result = ms.updateMemberInfo(m);			
+			return "redirect:logOut.me?result="+result;
+		}catch(Exception e) {
+			e.printStackTrace();
+			request.setAttribute("msg","모든내용 작성시 수정가능합니다.");
+			return "common/errorAlert";
+		}	
+		
 	}
 }

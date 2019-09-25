@@ -43,6 +43,7 @@
 		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.SubApplyDone" alias="SubApplyDone"/>
 		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete" alias="SubjectDelete"/>
 		<typeAlias type="com.kh.finalProject.lectureEvaluation.model.vo.LectureEvaluation" alias="LectureEvaluation"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.DocFile" alias="DocFile"/>
 	</typeAliases>
 	
 	<mappers>
@@ -80,6 +81,7 @@
 		<mapper resource="mappers/subApplyDone-mapper.xml"/>
 		<mapper resource="mappers/subjectDelete-mapper.xml"/>
 		<mapper resource="mappers/lectureEvaluation-mapper.xml"/>
+		<mapper resource="mappers/DocFile-mapper.xml"/>
 	</mappers>
 	
 </configuration>
