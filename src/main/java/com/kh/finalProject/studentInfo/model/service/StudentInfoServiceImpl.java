@@ -449,5 +449,11 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		return sd.schoolOffApply(sqlSession,so);
 	}
 
+	@Override
+	public int getOffApplyListCount() {
+		
+		return sd.getOffApplyListCount(sqlSession);
+	}
+
 }
 

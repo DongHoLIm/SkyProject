@@ -6,7 +6,7 @@ import java.sql.Date;
 public class SchoolOff implements Serializable{
 	private String studentNo;			//학번
 	private String applyNo;				//휴학신청번호
-	private String applyDate;				//휴학신청날짜
+	private String applyDate;			//휴학신청날짜
 	private String offStart;			//휴학시작학기
 	private String offType;				//휴학구분
 	private String offReason;			//휴학사유
@@ -15,7 +15,6 @@ public class SchoolOff implements Serializable{
 	private String returnDate;			//복학예정학기
 	private String enlistmentDate;		//입대일자
 	private String demobilizationDate;	//전역예정
-	private String requiredDoc;			//제출서류경로
 	private String offStatus;			//처리상태
 	private String phone;				//연락처
 	
@@ -23,7 +22,7 @@ public class SchoolOff implements Serializable{
 
 	public SchoolOff(String studentNo, String applyNo, String applyDate, String offStart, String offType,
 			String offReason, String offTerm, String offTermT, String returnDate, String enlistmentDate,
-			String demobilizationDate, String requiredDoc, String offStatus, String phone) {
+			String demobilizationDate, String offStatus, String phone) {
 		super();
 		this.studentNo = studentNo;
 		this.applyNo = applyNo;
@@ -36,7 +35,6 @@ public class SchoolOff implements Serializable{
 		this.returnDate = returnDate;
 		this.enlistmentDate = enlistmentDate;
 		this.demobilizationDate = demobilizationDate;
-		this.requiredDoc = requiredDoc;
 		this.offStatus = offStatus;
 		this.phone = phone;
 	}
@@ -129,14 +127,6 @@ public class SchoolOff implements Serializable{
 		this.demobilizationDate = demobilizationDate;
 	}
 
-	public String getRequiredDoc() {
-		return requiredDoc;
-	}
-
-	public void setRequiredDoc(String requiredDoc) {
-		this.requiredDoc = requiredDoc;
-	}
-
 	public String getOffStatus() {
 		return offStatus;
 	}
@@ -158,11 +148,9 @@ public class SchoolOff implements Serializable{
 		return "SchoolOff [studentNo=" + studentNo + ", applyNo=" + applyNo + ", applyDate=" + applyDate + ", offStart="
 				+ offStart + ", offType=" + offType + ", offReason=" + offReason + ", offTerm=" + offTerm
 				+ ", offTermT=" + offTermT + ", returnDate=" + returnDate + ", enlistmentDate=" + enlistmentDate
-				+ ", demobilizationDate=" + demobilizationDate + ", requiredDoc=" + requiredDoc + ", offStatus="
-				+ offStatus + ", phone=" + phone + "]";
+				+ ", demobilizationDate=" + demobilizationDate + ", offStatus=" + offStatus + ", phone=" + phone + "]";
 	}
 
-	
 	
 
 }

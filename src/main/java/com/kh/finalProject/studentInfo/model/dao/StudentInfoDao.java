@@ -178,6 +178,8 @@ public interface StudentInfoDao {
 
 	int schoolOffApply(SqlSessionTemplate sqlSession, SchoolOff so);
 
+	int getOffApplyListCount(SqlSessionTemplate sqlSession);
+
 		
 
 
