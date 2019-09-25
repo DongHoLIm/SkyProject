@@ -7,11 +7,8 @@
 		<id property="schoSemester" column="SCHO_SEMESTER"/>
 		<id property="studentNo" column="STUDENT_NO"/>
 		<id property="schoApplyCode" column="SCHO_APPLY_CODE"/>
-		
 		<result property="schoAmount" column="SCHO_AMOUNT"/>
 		<result property="schoType" column="SCHO_TYPE"/>
-		
-		
 		<result property="schoStatus" column="SCHO_STATUS"/>
 		<result property="schoYear" column="SCHO_YEAR"/>
 		<result property="memberKname" column="MEMBER_KNAME"/>
@@ -23,7 +20,7 @@
 		<result property="schoAggrementDate" column="SCHO_AGGREMENT_DATE"/>
 		<result property="schoAggrementStatus" column="SCHO_AGGREMENT_STATUS"/>
 		<result property="postNum" column="POST_NUM"/>
-		<result property="adress" column="ADDRESS"/>
+		<result property="address" column="ADDRESS"/>
 		<result property="addressDetail" column="ADDRESS_DETAIL"/>
 	</resultMap>
 	
@@ -41,23 +38,6 @@
 		WHERE STUDENT_NO = #{studentNo}
 	</select>
 	
-	<!-- <resultMap type="com.kh.finalProject.scholarship.model.vo.ScholarshipApply" id="scholarshipApplyResultSet">
-		<id property="schoApplyCode" column="SCHO_APPLY_CODE"/>
-		
-		<result property="schoStatus" column="SCHO_STATUS"/>
-		<result property="schoYear" column="SCHO_YEAR"/>
-		<result property="schoSemester" column="SCHO_SEMESTER"/>
-		<result property="studentId" column="MEMBER_ID"/>
-		<result property="memberKname" column="MEMBER_KNAME"/>
-		<result property="sdeptCode" column="SDEPT_CODE"/>
-		<result property="sdeptName" column="SDEPT_NAME"/>
-		<result property="memberGender" column="MEMBER_GENDER"/>
-		<result property="schoApplyName" column="SCHO_APPLY_NAME"/>
-		<result property="schoApplyYn" column="SCHO_APPLY_YN"/>
-		<result property="schoApplyDate" column="SCHO_APPLY_DATE"/>
-		<result property="schoAggrementDate" column="SCHO_AGGREMENT_DATE"/>
-	</resultMap> -->
-	
 	<select id="showScholarshipApplyView" resultMap="scholarshipResultSet" parameterType="String">
 		SELECT *
 		FROM SCHOLARSHIP S JOIN SCHO_APPLY SA ON (S.SCHO_APPLY_CODE = SA.SCHO_APPLY_CODE)
@@ -74,4 +54,31 @@
 		WHERE STUDENT_NO = #{studentNo}
 	</select>
 	
+	<select id="stScholarshipCheck" resultMap="scholarshipResultSet" parameterType="String">
+		SELECT *
+		FROM SCHOLARSHIP S JOIN SCHO_APPLY SA ON (S.SCHO_APPLY_CODE = SA.SCHO_APPLY_CODE)
+	</select>
+
+	<select id="stSearchScholarshipInfo" resultMap="scholarshipResultSet" parameterType="String">
+		SELECT *
+		FROM SCHOLARSHIP S JOIN SCHO_APPLY SA ON (S.SCHO_APPLY_CODE = SA.SCHO_APPLY_CODE)
+		WHERE SA.STUDENT_NO = #{studentNo}
+		AND SA.SCHO_YEAR = #{schoYear}
+	</select>
+	
+	<update id="rev" parameterType="Scholarship">
+		UPDATE SCHO_APPLY SET SCHO_AGGREMENT_STATUS = '승인'
+	</update>
+	
+	<select id="stBeforeScholarshipCheck" resultMap="scholarshipResultSet" parameterType="String">
+		SELECT *
+		FROM SCHOLARSHIP S JOIN SCHO_APPLY SA ON (S.SCHO_APPLY_CODE = SA.SCHO_APPLY_CODE)
+	</select>
+	
+	<select id="stScholarshipInfoCheck" resultMap="scholarshipResultSet" parameterType="String">
+		SELECT *
+		FROM SCHOLARSHIP S JOIN SCHO_APPLY SA ON (S.SCHO_APPLY_CODE = SA.SCHO_APPLY_CODE)
+		WHERE SA.STUDENT_NO = #{studentNo}
+		AND SA.SCHO_YEAR = #{schoYear} 
+	</select>
 </mapper>

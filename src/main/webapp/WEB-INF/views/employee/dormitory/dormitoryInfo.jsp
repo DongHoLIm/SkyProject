@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>장학관리</title>
+<title>기숙사관리</title>
 <style>
 		#searchInfo {
 			float:left;
@@ -35,7 +35,7 @@
 				<jsp:include page="../../common/header.jsp" />
 			<br>
 					        
-	  				<h2>장학금 수혜내역 조회</h2>	
+	  				<h2>기숙사 시설 내역 조회</h2>	
 					       
 	  					<table class="table" style="border:2px solid lightgray;">
 	  						<thead>
@@ -119,7 +119,7 @@
 		</div>
 		
 		<div>
-		<jsp:include page="../../common/menubar-student.jsp" />
+		<jsp:include page="../../common/menubar-employee.jsp" />
 	</div>
 </div>
 </body>

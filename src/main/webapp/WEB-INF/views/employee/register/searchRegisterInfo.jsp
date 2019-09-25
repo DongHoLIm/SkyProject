@@ -37,14 +37,14 @@
 								<th width="39%"><input type="text" name="studentNo"/></th>
 								<th width="6%"><p>년도</p></th>
 								<th width="39%"><input type="text" name="enrollYear"/></th>
-								<th><td><button type="submit">검색</button></td></th>
+								<th><td><button type="submit" onclick="searchEnrollment()">검색</button></td></th>
 							</tr>
 					</table>
 						</form>
 						
 						<hr>
 						
-					<c:if test="${ !empty memberEnrollment }">
+					<c:if test="${ !empty beforeEnrollment }">
 					<div class="container">         
 	  					<table class="table" text-align="center" style="border:2px solid lightgray">
 	  					  <thead style="background-color:#eff1f2">
@@ -58,7 +58,7 @@
 	 					    </tr>
 	 					   </thead> 
 	 					   <tbody>
-	 					   <c:forEach var="enrollment" items="${ memberEnrollment }">
+	 					   <c:forEach var="enrollment" items="${ beforeEnrollment }">
 	     					 <tr style="background-color:white">
 	    					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ enrollment.enrollYear }"/>학년도 <c:out value="${ enrollment.enrollSemester }"/>학기</td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><fmt:formatNumber value="${ enrollment.tuition }" pattern="#,###"/> 원</td>
@@ -87,7 +87,7 @@
 					  </table>
 				</div>
 				</c:if>
-				<c:if test="${ empty memberEnrollment }">
+				<c:if test="${ empty beforeEnrollment }">
 					<h4 align="center">조회결과가 없습니다.</h4>
 				</c:if>
 			</div>

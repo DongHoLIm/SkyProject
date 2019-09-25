@@ -52,4 +52,34 @@ public class ScholarshipServiceImpl implements ScholarshipService{
 		return sd.beforeScholarData(sqlSession, studentNo);
 	}
 
+	@Override
+	public ArrayList<Scholarship> stScholarship() throws ScholarshipException {
+		return sd.stScholarship(sqlSession);
+	}
+
+	@Override
+	public List<Scholarship> stSearchScholarData() throws ScholarshipException {
+		return sd.stSearchScholarData(sqlSession);
+	}
+
+	@Override
+	public List<Scholarship> stSearchScholarshipData(Scholarship scholarship) throws ScholarshipException {
+		return sd.stSearchScholarshipData(sqlSession, scholarship);
+	}
+
+	@Override
+	public void updateScholarship() {
+		sd.updateScholarship(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Scholarship> stRecieveScholarship() throws ScholarshipException {
+		return sd.stRecieveScholarship(sqlSession);
+	}
+
+	@Override
+	public List<Scholarship> stSearchScholarshipInfo() throws ScholarshipException {
+		return sd.stSearchScholarshipInfo(sqlSession);
+	}
+
 }

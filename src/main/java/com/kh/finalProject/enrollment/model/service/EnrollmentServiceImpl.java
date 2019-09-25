@@ -30,13 +30,18 @@ public class EnrollmentServiceImpl implements EnrollmentService{
 	}
 
 	@Override
-	public List<Enrollment> beforeEnrollData(String studentNo) throws EnrollmentException {
-		return ed.beforeEnrollData(sqlSession, studentNo);
+	public List<Enrollment> beforeEnrollData() throws EnrollmentException {
+		return ed.beforeEnrollData(sqlSession);
 	}
 
 	@Override
 	public List<Enrollment> beforeEnrollmentData(Enrollment enrollment) throws EnrollmentException {
 		return ed.beforeEnrollmentData(sqlSession, enrollment);
+	}
+
+	@Override
+	public ArrayList<Enrollment> stEnrollment() throws EnrollmentException {
+		return ed.stEnrollment(sqlSession);
 	}
 	
 //	@Override

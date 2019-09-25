@@ -18,6 +18,18 @@ public interface ScholarshipService {
 	public void insertScholarship(Scholarship scholarship);
 
 	List<Scholarship> beforeScholarData(String studentNo) throws ScholarshipException;
+
+	ArrayList<Scholarship> stScholarship() throws ScholarshipException;
+
+	List<Scholarship> stSearchScholarData() throws ScholarshipException;
+
+	List<Scholarship> stSearchScholarshipData(Scholarship scholarship) throws ScholarshipException;
+
+	public void updateScholarship();
+
+	ArrayList<Scholarship> stRecieveScholarship() throws ScholarshipException;
+
+	List<Scholarship> stSearchScholarshipInfo() throws ScholarshipException;
 	
 
 }

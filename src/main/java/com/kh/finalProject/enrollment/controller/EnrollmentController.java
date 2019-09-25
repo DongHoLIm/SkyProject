@@ -51,21 +51,38 @@ public class EnrollmentController {
 		}
 	}
 	
-	@RequestMapping(value="stEnrollment.en")
-	public String stEnrollmentCheck(@RequestParam("schoYear") String schoYear, @RequestParam("schoSemester") String schoSemester,  Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
-System.out.println("장학금 조회 컨트롤러 들어옴");
-		
-		if(schoYear == "" || schoSemester == "") {
-			String studentNo = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
-			System.out.println("studentNo :::" + studentNo);
+	@RequestMapping(value="stStartEnrollment.en")
+	public String stStartEnrollmentCheck(Enrollment e, Model model, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			System.out.println("들어옴 :::");
 			
-			System.out.println("schoYear :::" + schoYear);
-			System.out.println("schoSemester :::" + schoSemester);
+			ArrayList<Enrollment> memberEnrollment = es.stEnrollment();
+			System.out.println("memberEnrollment :  "+ memberEnrollment);
+			//model.addAttribute("memberEnrollment", memberEnrollment);
+			
+			request.setAttribute("memberEnrollment", memberEnrollment);
+			
+			return "employee/register/registerInfo";
+		} catch (EnrollmentException e1) {
+			model.addAttribute("msg", e1.getMessage());
+			return "common/errorAlert";
+		}
+	}
+	
+	
+	@RequestMapping(value="stEnrollment.en")
+	public String stEnrollmentCheck(@RequestParam("studentNo") String studentNo, @RequestParam("enrollYear") String enrollYear,  Scholarship s, Model model, HttpServletRequest request, HttpServletResponse response) {
+System.out.println("등록 조회 컨트롤러 들어옴");
+		
+		if(studentNo == "" || enrollYear == "") {
+			
+			System.out.println("studentNo :::" + studentNo);
+			System.out.println("enrollYear :::" + enrollYear);
 			
 			List<Enrollment> beforeEnrollment;
 			
 			try {
-				beforeEnrollment = es.beforeEnrollData(studentNo);
+				beforeEnrollment = es.beforeEnrollData();
 				System.out.println("beforeEnrollment ::: " + beforeEnrollment);
 				
 				request.setAttribute("beforeEnrollment", beforeEnrollment);
@@ -78,16 +95,15 @@ System.out.println("장학금 조회 컨트롤러 들어옴");
 			}
 		}
 		
-		String studentNo = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
-		System.out.println("studentNo :::" + studentNo);
 		
-		System.out.println("schoYear :::" + schoYear);
-		System.out.println("schoSemester :::" + schoSemester);
+		System.out.println("studentNo :::" + studentNo);
+		System.out.println("enrollYear :::" + enrollYear);
 		
 		List<Enrollment> beforeEnrollment;
 		
 		Enrollment enrollment = new Enrollment();
 		enrollment.setStudentNo(studentNo);
+		enrollment.setEnrollYear(enrollYear);
 		
 		try {
 			beforeEnrollment = es.beforeEnrollmentData(enrollment);
@@ -95,7 +111,7 @@ System.out.println("장학금 조회 컨트롤러 들어옴");
 			
 			request.setAttribute("beforeEnrollment", beforeEnrollment);
 			
-			return "employee/register/registerInfo";
+			return "employee/register/searchRegisterInfo";
 			
 		} catch (EnrollmentException e) {
 			model.addAttribute("msg", e.getMessage());

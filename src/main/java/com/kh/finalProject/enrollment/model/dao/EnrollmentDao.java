@@ -14,7 +14,9 @@ public interface EnrollmentDao {
 	ArrayList<Enrollment> userEnrollment(SqlSessionTemplate sqlSession, String studentNo) throws EnrollmentException;
 	//public List<Enrollment> getList(SqlSessionTemplate sqlSession);
 
-	List<Enrollment> beforeEnrollData(SqlSessionTemplate sqlSession, String studentNo) throws EnrollmentException;
+	List<Enrollment> beforeEnrollData(SqlSessionTemplate sqlSession) throws EnrollmentException;
 
 	List<Enrollment> beforeEnrollmentData(SqlSessionTemplate sqlSession, Enrollment enrollment) throws EnrollmentException;
+
+	ArrayList<Enrollment> stEnrollment(SqlSessionTemplate sqlSession) throws EnrollmentException;
 }

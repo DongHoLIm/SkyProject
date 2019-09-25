@@ -37,10 +37,10 @@ public class EnrollmentDaoImpl implements EnrollmentDao{
 	}
 
 	@Override
-	public List<Enrollment> beforeEnrollData(SqlSessionTemplate sqlSession, String studentNo) throws EnrollmentException {
+	public List<Enrollment> beforeEnrollData(SqlSessionTemplate sqlSession) throws EnrollmentException {
+		System.out.println("검색dao 들어옴 :::");
 		List<Enrollment> beforeEnrollment = null;
-		System.out.println(studentNo);
-		beforeEnrollment = (List) sqlSession.selectList("Enrollment.beforeEnroll", studentNo);
+		beforeEnrollment = (List) sqlSession.selectList("Enrollment.beforeEnroll");
 		
 		if(beforeEnrollment == null) {
 			throw new EnrollmentException("정보가 존재하지 않습니다.");
@@ -60,6 +60,22 @@ public class EnrollmentDaoImpl implements EnrollmentDao{
 		}
 		
 		return beforeEnrollment;
+	}
+
+	@Override
+	public ArrayList<Enrollment> stEnrollment(SqlSessionTemplate sqlSession) throws EnrollmentException {
+		
+		System.out.println("dao 들어옴 :::");
+		ArrayList<Enrollment> memberEnrollment = null;
+		
+		memberEnrollment = (ArrayList) sqlSession.selectList("Enrollment.stStartEnrollment");
+		
+		if(memberEnrollment == null) {
+			
+			throw new EnrollmentException("정보가 존재하지 않습니다.");
+		}
+		
+		return memberEnrollment;
 	}
 
 //	@Override

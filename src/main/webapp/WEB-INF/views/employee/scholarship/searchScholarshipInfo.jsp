@@ -42,7 +42,7 @@
 						</form>
 						
 						<hr>
-					<c:if test="${ !empty memberScholarship }">
+					<c:if test="${ !empty beforeScholarship }">
 					<div class="container">         
 	  					<table class="table" text-align="center" style="border:2px solid lightgray">
 	  					  <thead style="background-color:#eff1f2">
@@ -62,7 +62,7 @@
 	 					    </tr>
 	 					   </thead>
 	 					   <tbody>
-	 					   <c:forEach var="scholarship" items="${ memberScholarship }">
+	 					   <c:forEach var="scholarship" items="${ beforeScholarship }">
 	     					 <tr style="background-color:white">
 	    					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">지급완료</td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ scholarship.schoYear }"/>년도</td>
@@ -87,7 +87,7 @@
 					  </table>
 				</div>
 				</c:if>
-				<c:if test="${ empty memberScholarship }">
+				<c:if test="${ empty beforeScholarship }">
 					<h4 align="center">조회결과가 없습니다.</h4>
 				</c:if>
 			</div>
