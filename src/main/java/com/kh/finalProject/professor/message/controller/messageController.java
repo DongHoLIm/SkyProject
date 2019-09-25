@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.finalProject.employee.classManagement.model.service.LessonPlanService;
+import com.kh.finalProject.employee.classManagement.model.vo.LessonPlan;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.message.model.service.MessageService;
 import com.kh.finalProject.professor.message.model.vo.MessageVO;
@@ -61,6 +63,9 @@ public class messageController {
 		return mav;
 		
 	}
+	
+	
+	
 	
 	@RequestMapping("sendMessage")
 	@ResponseBody
