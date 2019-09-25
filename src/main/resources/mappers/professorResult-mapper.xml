@@ -59,5 +59,10 @@
   	FROM LESSON_PLAN
   	WHERE OPENSUB_CODE =#{opensubCode}
   	</select>
+  	<update id="resultInsertStu" parameterType="StudentResult">
+  	UPDATE GRADE SET MIDDLE_SCORE=#{middleScore},FINAL_SCORE=#{finalScore},WORK_SCORE=#{workScore},ATTENDANCE_SCORE=#{attendanceScore},SCORE=#{score},GRADE=#{grade} 
+  	WHERE GRADE_CODE=#{gradeCode}
+  	
+  	</update>
   </mapper>
  
