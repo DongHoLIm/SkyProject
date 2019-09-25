@@ -64,76 +64,12 @@ table.basicinfo {
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			</div>
+				
+				<jsp:include page="../info/common.jsp" />
 
-			<h4 id="basic">기본 정보</h4>
-			<form class="ba">
-				<table class="basicinfo">
-					<tr>
-						<td class="td">학번</td>
-						<td colspan='5'><input type="text" value="123456789" readonly></td>
-					</tr>
-
-					<tr>
-						<td class="td">한글 성명</td>
-						<td><input type="text" value="홍길동" readonly></td>
-						<td class="td">영문 성명</td>
-						<td><input type="text" value="In Woo Kang" readonly></td>
-						<td class="td">한문 성명</td>
-						<td><input type="text" value="姜因遇" readonly></td>
-					</tr>
-
-					<tr>
-						<td class="td">주민 번호</td>
-						<td><input type="text" value="940205-*******" readonly></td>
-						<td class="td">생년월일</td>
-						<td><input type="text" value="2000.07.26" readonly></td>
-						<td class="td">성별</td>
-						<td><input type="text" value="남" readonly></td>
-					</tr>
-
-					<tr>
-						<td class="td">학부(과)</td>
-						<td><input type="text" value="소프트웨어 응용" readonly></td>
-						<td class="td">전공</td>
-						<td><input type="text" value="컴퓨터 공학" readonly></td>
-						<td class="td">학년</td>
-						<td><input type="text" value="1" readonly></td>
-					</tr>
-
-					<tr>
-						<td class="td">학적 상태</td>
-						<td><input type="text" value="재학" readonly></td>
-						<td class="td">주야</td>
-						<td><input type="text" value="주간" readonly></td>
-						<td class="td">병역 구분</td>
-						<td><input type="text" value="" readonly></td>
-					</tr>
-
-
-
-					<table>
-						<tr>
-							<td
-								style="text-align: center; border: 1px solid #FFF; background: #FFF;">
-								<button type="button" class="btn btn-primary">휴학 신청</button>
-								<button type="button" class="btn btn-primary">복학 신청</button>
-								<button type="button" class="btn btn-primary">휴학 취소</button>
-								<button type="button" class="btn btn-primary">복학 취소</button>
-							</td>
-						</tr>
-					</table>
-
-					<table class="basicinfo">
-						<h4 id="basic">휴학 신청</h4>
-						<tr>
-							<td class="notice">공지사항</td>
-							<td><input type="text" value="" readonly></td>
-						</tr>
-						</table>
-
-						<table class="basicinfo">
+						<h4 id="basic">복학 신청</h4>
 					
-							
+						<table class="basicinfo">
 							<tr>
 								<td class="td">복학구분</td>
 								<td><select name='mulitple'>
@@ -155,13 +91,9 @@ table.basicinfo {
              				     </td>
              				 
 							</tr>
-							
-					
-						             				
+							   				
 					</table>
-							
-             				         <input type="button" value="신청하기" id="modified"
-                  					style="float: right; margin-right: 50px;">
+             			<input type="button" value="신청하기" id="modified" style="float: right; margin-right: 50px;">
 					
 							
 						
@@ -192,11 +124,7 @@ table.basicinfo {
 							</tr>
 							</tbody>
 						</table>
-						
-				</table>
-			</form>
-
-
+					
 		</div>
 		<div>
 			<jsp:include page="../../common/menubar-student.jsp" />
