@@ -9,6 +9,7 @@ public class Member implements java.io.Serializable{
 	private String memberEName;
 	private String memberNo;
 	private String phone;
+	private String phone2;
 	private String email;
 	private String address;
 	private String memberStatus;
@@ -19,11 +20,11 @@ public class Member implements java.io.Serializable{
 	private String bankNumber;
 	private ArrayList<Member> list;
 	
-	public Member() {}	
-	
+	public Member() {}
+
 	public Member(String memberId, String memberPwd, String memberKName, String memberEName, String memberNo,
-			String phone, String email, String address, String memberStatus, String loginCheck, String sdeptCode,
-			String rankCode, String bank, String bankNumber, ArrayList<Member> list) {
+			String phone, String phone2, String email, String address, String memberStatus, String loginCheck,
+			String sdeptCode, String rankCode, String bank, String bankNumber, ArrayList<Member> list) {
 		super();
 		this.memberId = memberId;
 		this.memberPwd = memberPwd;
@@ -31,6 +32,7 @@ public class Member implements java.io.Serializable{
 		this.memberEName = memberEName;
 		this.memberNo = memberNo;
 		this.phone = phone;
+		this.phone2 = phone2;
 		this.email = email;
 		this.address = address;
 		this.memberStatus = memberStatus;
@@ -41,8 +43,6 @@ public class Member implements java.io.Serializable{
 		this.bankNumber = bankNumber;
 		this.list = list;
 	}
-	
-	
 
 	public String getMemberId() {
 		return memberId;
@@ -92,6 +92,14 @@ public class Member implements java.io.Serializable{
 		this.phone = phone;
 	}
 
+	public String getPhone2() {
+		return phone2;
+	}
+
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -123,18 +131,6 @@ public class Member implements java.io.Serializable{
 	public void setLoginCheck(String loginCheck) {
 		this.loginCheck = loginCheck;
 	}
-	
-
-
-	public ArrayList<Member> getList() {
-		return list;
-	}
-
-
-
-	public void setList(ArrayList<Member> list) {
-		this.list = list;
-	}	
 
 	public String getSdeptCode() {
 		return sdeptCode;
@@ -144,7 +140,6 @@ public class Member implements java.io.Serializable{
 		this.sdeptCode = sdeptCode;
 	}
 
-	
 	public String getRankCode() {
 		return rankCode;
 	}
@@ -153,7 +148,6 @@ public class Member implements java.io.Serializable{
 		this.rankCode = rankCode;
 	}
 
-		
 	public String getBank() {
 		return bank;
 	}
@@ -170,13 +164,22 @@ public class Member implements java.io.Serializable{
 		this.bankNumber = bankNumber;
 	}
 
+	public ArrayList<Member> getList() {
+		return list;
+	}
+
+	public void setList(ArrayList<Member> list) {
+		this.list = list;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberKName=" + memberKName
-				+ ", memberEName=" + memberEName + ", memberNo=" + memberNo + ", phone=" + phone + ", email=" + email
-				+ ", address=" + address + ", memberStatus=" + memberStatus + ", loginCheck=" + loginCheck
-				+ ", sdeptCode=" + sdeptCode + ", rankCode=" + rankCode + ", bank=" + bank + ", bankNumber="
-				+ bankNumber + ", list=" + list + "]";
+				+ ", memberEName=" + memberEName + ", memberNo=" + memberNo + ", phone=" + phone + ", phone2=" + phone2
+				+ ", email=" + email + ", address=" + address + ", memberStatus=" + memberStatus + ", loginCheck="
+				+ loginCheck + ", sdeptCode=" + sdeptCode + ", rankCode=" + rankCode + ", bank=" + bank
+				+ ", bankNumber=" + bankNumber + ", list=" + list + "]";
 	}	
+	
 	
 }

@@ -71,10 +71,10 @@ public class ProfessorResultController {
 			 subjectInfo.setOpenSemester(semester);
 			 ArrayList<StudentResult> stuList = ps.studentList(opensubCode);
 			 SubjectScheduler subSch = ps.subSch(opensubCode);
-			 if(subSch==null) {
-				 request.setAttribute("msg", "강의계획서를 입력해주세요");
-				 return "common/errorAlert";
-			 }		 
+//			 if(subSch==null) {
+//				 request.setAttribute("msg", "강의계획서를 입력해주세요");
+//				 return "common/errorAlert";
+//			 }		 
 			 request.setAttribute("subSch",subSch);
 			 request.setAttribute("stuList",stuList);
 			 request.setAttribute("subjectInfo",subjectInfo);

@@ -164,6 +164,12 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return md.memberInfo(sqlSession,loginUser);
 	}
+	@Override
+	public int updateMemberInfo(Member m) {
+		String encodePwd =passwordEncoder.encode( m.getMemberPwd());
+		m.setMemberPwd(encodePwd);
+		return md.updateMemberInfo(sqlSession,m);
+	}
 
 	
 }
