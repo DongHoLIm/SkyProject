@@ -22,8 +22,7 @@
 			
 			<div class="container">
 			
-  				<div class="tab-content">
-    				<div id="menu1" class="tab-pane fade in active">
+  				<br>
     				<h4>휴학 신청 명단</h4>
       					<table class="table table-bordered">
     						<thead>
@@ -34,6 +33,7 @@
         							<th>이름</th>
         							<th>휴학신청학기</th>
         							<th>복학예정학기</th>
+        							<th>신청일자</th>
         							<th>처리상태</th>
       							</tr>
     						</thead>
@@ -45,6 +45,7 @@
         							<td>채지은</td>
         							<td>2019.08.20</td>
         							<td>2020.09.02</td>
+        							<td></td>
         							<td>휴학신청</td>
       							</tr>
       							
@@ -78,9 +79,6 @@
       							
     						</tbody>
   						</table>
-  						
-    				</div>
-  				</div>
   				
 			</div>
 			
@@ -88,7 +86,7 @@
 			
 			
 		<div>
-		<jsp:include page="../../common/menubar-student.jsp" />
+		<jsp:include page="../../common/menubar-employee.jsp" />
 		</div>
 	</div>
 </div>

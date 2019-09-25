@@ -629,6 +629,9 @@ public class StudentInfoController {
 		String userId = loginUser.getMemberId();
 		so.setStudentNo(userId);
 		
+		
+		
+		
 		int result = ss.schoolOffApply(so);
 		
 		if(result>0) {
@@ -724,6 +727,21 @@ public class StudentInfoController {
 	public String schooloff(HttpServletRequest request) {
 		
 		return "employee/studentInfo/schoolOffProcess";
+	}
+	
+	
+	//학생_복학신청
+	@RequestMapping("st_schoolOn.si")
+	public String schoolOnOnApply() {
+		
+		return "student/info/schoolOn";
+	}
+	
+	//교직원_복학처리
+	@RequestMapping("em_schoolOn.si")
+	public String schoolOn() {
+		
+		return "employee/studentInfo/schoolOnProcess";
 	}
 	
 

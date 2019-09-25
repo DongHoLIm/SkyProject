@@ -62,8 +62,7 @@
 												<li><a href="em_showDropOut.si">자퇴 신청 관리</a></li>
 												<li><a href="em_showExplusion.si">제적처리</a></li>
 												<li><a href="em_schoolOff.si">휴학 처리</a></li>
-												<li><a href="#">복학 처리</a></li>
-												<li><a href="#">학적부 정정</a></li>												
+												<li><a href="em_schoolOn.si">복학 처리</a></li>								
 												<li><h4>졸업관리</h4></li>
 												<li><a href="em_graduationSchool.si">교내 졸업 기준 관리</a></li>
 												<li><a href="em_graduationMajor.si">학과별 졸업 기준 관리</a></li>
