@@ -1,27 +1,33 @@
 package com.kh.finalProject.studentInfo.controller;
 
-import java.awt.List;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.board.model.vo.SearchCondition;
+import com.kh.finalProject.common.CommonUtils;
 import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.service.StudentInfoService;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.DocFile;
 import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
@@ -622,15 +628,58 @@ public class StudentInfoController {
 	
 	//휴학신청 insert (ajax)
 	@RequestMapping(value="st_insertSchoolOff.si")
-	public ModelAndView insertSchoolOff( ModelAndView mv, HttpServletRequest request, @ModelAttribute SchoolOff so, @ModelAttribute("loginUser") Member loginUser) {
+	public ModelAndView insertSchoolOff( ModelAndView mv, HttpServletRequest request, @ModelAttribute SchoolOff so, @ModelAttribute("loginUser") Member loginUser,
+			DocFile df,  @RequestParam(name="requiredDoc",required=false) MultipartFile requiredDoc
+						  ) {
 		
-		System.out.println(so);
+		
+		System.out.println("휴학신청::"+so);
+		//requiredDoc = (MultipartFile) mrequest.getFileNames();
+		//System.out.println("첨부파일::"+requiredDoc);
+		
+		//Iterator files = mr.getFileNames();
+		
+		//System.out.println("첨부파일::"+files);
+		
+		System.out.println("첨부파일::"+requiredDoc);
+		
+		String root;
+		String filePath;
+		String originFileName;
+		String ext;
+		String changeName;
+		
+		
+		if(requiredDoc.getOriginalFilename().length() > 0) {
+			root = request.getSession().getServletContext().getRealPath("resources");
+			System.out.println("root::"+root);
+			
+			filePath = root + "\\docFiles";
+			originFileName = requiredDoc.getOriginalFilename();
+			System.out.println("originFileName::"+originFileName);
+			
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+			changeName = CommonUtils.getRandomString();
+			System.out.println("changeName::"+changeName);
+			
+			df.setOldName(originFileName);
+			df.setChangeName(changeName + ext);
+			df.setPath(filePath + "\\"+changeName + ext);
+			
+//			try {
+//				equiredDoc.transferTo(new File(filePath + "\\" + changeName + ext));
+//				
+//			}catch(Exception e) {
+//				new File(filePath + "\\" + changeName + ext).delete();
+//				
+//			}
+			
+			
+			
+		}
 		
 		String userId = loginUser.getMemberId();
 		so.setStudentNo(userId);
-		
-		
-		
 		
 		int result = ss.schoolOffApply(so);
 		
