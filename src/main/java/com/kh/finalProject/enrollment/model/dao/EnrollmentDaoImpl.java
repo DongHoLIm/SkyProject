@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.finalProject.enrollment.model.exception.EnrollmentException;
 import com.kh.finalProject.enrollment.model.vo.Enrollment;
+import com.kh.finalProject.scholarship.model.exception.ScholarshipException;
+import com.kh.finalProject.scholarship.model.vo.Scholarship;
 
 @Repository
 public class EnrollmentDaoImpl implements EnrollmentDao{
@@ -32,6 +34,32 @@ public class EnrollmentDaoImpl implements EnrollmentDao{
 		}
 		
 		return memberEnrollment;
+	}
+
+	@Override
+	public List<Enrollment> beforeEnrollData(SqlSessionTemplate sqlSession, String studentNo) throws EnrollmentException {
+		List<Enrollment> beforeEnrollment = null;
+		System.out.println(studentNo);
+		beforeEnrollment = (List) sqlSession.selectList("Enrollment.beforeEnroll", studentNo);
+		
+		if(beforeEnrollment == null) {
+			throw new EnrollmentException("정보가 존재하지 않습니다.");
+		}
+		
+		return beforeEnrollment;
+	}
+
+	@Override
+	public List<Enrollment> beforeEnrollmentData(SqlSessionTemplate sqlSession, Enrollment enrollment) throws EnrollmentException {
+		List<Enrollment> beforeEnrollment = null;
+		System.out.println("12345" + enrollment);
+		beforeEnrollment = (List) sqlSession.selectList("Enrollment.beforeEnrollment", enrollment);
+		
+		if(beforeEnrollment == null) {
+			throw new EnrollmentException("정보가 존재하지 않습니다.");
+		}
+		
+		return beforeEnrollment;
 	}
 
 //	@Override

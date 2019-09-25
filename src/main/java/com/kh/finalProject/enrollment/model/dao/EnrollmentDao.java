@@ -7,9 +7,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.finalProject.enrollment.model.exception.EnrollmentException;
 import com.kh.finalProject.enrollment.model.vo.Enrollment;
+import com.kh.finalProject.scholarship.model.exception.ScholarshipException;
 
 public interface EnrollmentDao {
 
 	ArrayList<Enrollment> userEnrollment(SqlSessionTemplate sqlSession, String studentNo) throws EnrollmentException;
 	//public List<Enrollment> getList(SqlSessionTemplate sqlSession);
+
+	List<Enrollment> beforeEnrollData(SqlSessionTemplate sqlSession, String studentNo) throws EnrollmentException;
+
+	List<Enrollment> beforeEnrollmentData(SqlSessionTemplate sqlSession, Enrollment enrollment) throws EnrollmentException;
 }
