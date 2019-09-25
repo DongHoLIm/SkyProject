@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SubjectDelete">
+	<resultMap
+		type="com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete"
+		id="SubjectDeleteResultSet">
+		<id property="subCode" column="SUB_CODE" />
+		<result property="deleteDate" column="DELETE_DATE" />
+		<result property="reason" column="REASON" />
+	</resultMap>
+	
+	<insert id="insertSubjectDelete" parameterType="SubjectDelete">
+		INSERT INTO SUBLECT_DELETE VALUES(#{subCode}, SYSDATE, #{reason})
+	</insert> 	
+
+</mapper>

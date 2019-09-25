@@ -14,6 +14,7 @@ import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete;
 import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
 @Service
@@ -115,5 +116,29 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 	public void insertSubApplyDone(String[] code) {
 		
 		cmd.insertSubApplyDone(sqlSession, code);
+	}
+
+	@Override
+	public void deleteCloseSubjectApply() {
+		
+		cmd.deleteCloseSubjectApply(sqlSession);
+	}
+
+	@Override
+	public ArrayList<LectureOpen> selectsubjectAbolitionList(PageInfo pi) throws ClassManagementSelectListException {
+		
+		return cmd.selectsubjectAbolitionList(sqlSession, pi);
+	}
+
+	@Override
+	public OpenSubject selectOneOpenSubject(String subCode) {
+		
+		return cmd.selectOneOpenSubject(sqlSession, subCode);
+	}
+
+	@Override
+	public void insertSubjectDelete(SubjectDelete sd, OpenSubject os) {
+		cmd.insertSubjectDelete(sqlSession, sd, os);
+		
 	}
 }

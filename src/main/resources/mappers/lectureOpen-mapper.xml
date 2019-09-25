@@ -40,4 +40,15 @@
 		UPDATE SUBJECT SET ENROL_TYPE = 1
 		WHERE SUB_CODE = #{subCode}
 	</update>
+	<select id="selectsubjectAbolitionList" resultMap="LectureOpenResultSet">
+		SELECT SUB_CODE, SUB_NAME, SDEPT_NAME, COMPLETE_TYPE, SUB_GRADE, MADE_DATE
+		FROM SUBJECT S
+		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
+		WHERE ENROL_TYPE = 1
+		OR ENROL_TYPE=0
+	</select>
+	<update id="updateSubjectDelete">
+		UPDATE SUBJECT SET ENROL_TYPE = 2
+		WHERE SUB_CODE = #{subCode}
+	</update>
 </mapper>

@@ -17,12 +17,15 @@ public class OpenSubject implements java.io.Serializable{
 	private String studentNo;
 	private int studentCount;
 	private String applyType;
+	private String closeCheck;
+	private String closeReason;
 
 	public OpenSubject() {}
 
 	public OpenSubject(String openSubCode, String subName, String sdeptName, String professorName, String professorNo,
 			int subGrade, String completeType, int studentMax, String roomName, String buildingName, String dayInfo,
-			String timeInfo, int enrolType, String studentNo, int studentCount, String applyType) {
+			String timeInfo, int enrolType, String studentNo, int studentCount, String applyType, String closeCheck,
+			String closeReason) {
 		super();
 		this.openSubCode = openSubCode;
 		this.subName = subName;
@@ -40,6 +43,8 @@ public class OpenSubject implements java.io.Serializable{
 		this.studentNo = studentNo;
 		this.studentCount = studentCount;
 		this.applyType = applyType;
+		this.closeCheck = closeCheck;
+		this.closeReason = closeReason;
 	}
 
 	public String getOpenSubCode() {
@@ -170,6 +175,22 @@ public class OpenSubject implements java.io.Serializable{
 		this.applyType = applyType;
 	}
 
+	public String getCloseCheck() {
+		return closeCheck;
+	}
+
+	public void setCloseCheck(String closeCheck) {
+		this.closeCheck = closeCheck;
+	}
+
+	public String getCloseReason() {
+		return closeReason;
+	}
+
+	public void setCloseReason(String closeReason) {
+		this.closeReason = closeReason;
+	}
+
 	@Override
 	public String toString() {
 		return "OpenSubject [openSubCode=" + openSubCode + ", subName=" + subName + ", sdeptName=" + sdeptName
@@ -177,7 +198,7 @@ public class OpenSubject implements java.io.Serializable{
 				+ ", completeType=" + completeType + ", studentMax=" + studentMax + ", roomName=" + roomName
 				+ ", buildingName=" + buildingName + ", dayInfo=" + dayInfo + ", timeInfo=" + timeInfo + ", enrolType="
 				+ enrolType + ", studentNo=" + studentNo + ", studentCount=" + studentCount + ", applyType=" + applyType
-				+ "]";
+				+ ", closeCheck=" + closeCheck + ", closeReason=" + closeReason + "]";
 	}
- 
+	
 }
