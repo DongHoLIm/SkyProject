@@ -30,4 +30,19 @@ public class LectureEvaluationServiceImpl implements LectureEvaluationService{
 		return ld.selectLectureEvalOpenList(sqlSession, pi);
 	}
 
+	@Override
+	public int stGetListCount(String studentNo) throws LectureEvaluationSelectListException {
+		return ld.stSelectLectureEvalOpenListCount(sqlSession, studentNo);
+	}
+
+	@Override
+	public ArrayList<LectureEvaluation> stSelectLectureEvalOpenList(String studentNo) throws LectureEvaluationSelectListException {
+		return ld.stSelectLectureEvalOpenList(sqlSession, studentNo);
+	}
+
+	@Override
+	public ArrayList<LectureEvaluation> questionList() {
+		return ld.questionList(sqlSession);
+	}
+
 }

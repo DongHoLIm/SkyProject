@@ -1,6 +1,6 @@
 package com.kh.finalProject.lectureEvaluation.model.vo;
 
-public class LectureEvaluation {
+public class LectureEvaluation implements java.io.Serializable{
 	private String evalCode;
 	private String questionNo;
 	private String answer;
@@ -14,13 +14,16 @@ public class LectureEvaluation {
 	private String professorNo;
 	private String memberKName;
 	private String pdeptName;
+	private String questionCode;
+	private String questionNo2;
+	private String questionContent;
 	
 	public LectureEvaluation() {}
 
-	
 	public LectureEvaluation(String evalCode, String questionNo, String answer, String studentNo, String classCode,
 			String subCode, String subName, String openYear, String openSemester, String studentCount,
-			String professorNo, String memberKName, String pdeptName) {
+			String professorNo, String memberKName, String pdeptName, String questionCode, String questionNo2,
+			String questionContent) {
 		super();
 		this.evalCode = evalCode;
 		this.questionNo = questionNo;
@@ -35,48 +38,42 @@ public class LectureEvaluation {
 		this.professorNo = professorNo;
 		this.memberKName = memberKName;
 		this.pdeptName = pdeptName;
+		this.questionCode = questionCode;
+		this.questionNo2 = questionNo2;
+		this.questionContent = questionContent;
 	}
-	
 
 	public String getEvalCode() {
 		return evalCode;
 	}
 
-
 	public void setEvalCode(String evalCode) {
 		this.evalCode = evalCode;
 	}
-
 
 	public String getQuestionNo() {
 		return questionNo;
 	}
 
-
 	public void setQuestionNo(String questionNo) {
 		this.questionNo = questionNo;
 	}
-
 
 	public String getAnswer() {
 		return answer;
 	}
 
-
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
 
 	public String getStudentNo() {
 		return studentNo;
 	}
 
-
 	public void setStudentNo(String studentNo) {
 		this.studentNo = studentNo;
 	}
-
 
 	public String getClassCode() {
 		return classCode;
@@ -150,6 +147,29 @@ public class LectureEvaluation {
 		this.pdeptName = pdeptName;
 	}
 
+	public String getQuestionCode() {
+		return questionCode;
+	}
+
+	public void setQuestionCode(String questionCode) {
+		this.questionCode = questionCode;
+	}
+
+	public String getQuestionNo2() {
+		return questionNo2;
+	}
+
+	public void setQuestionNo2(String questionNo2) {
+		this.questionNo2 = questionNo2;
+	}
+
+	public String getQuestionContent() {
+		return questionContent;
+	}
+
+	public void setQuestionContent(String questionContent) {
+		this.questionContent = questionContent;
+	}
 
 	@Override
 	public String toString() {
@@ -157,9 +177,9 @@ public class LectureEvaluation {
 				+ ", studentNo=" + studentNo + ", classCode=" + classCode + ", subCode=" + subCode + ", subName="
 				+ subName + ", openYear=" + openYear + ", openSemester=" + openSemester + ", studentCount="
 				+ studentCount + ", professorNo=" + professorNo + ", memberKName=" + memberKName + ", pdeptName="
-				+ pdeptName + "]";
-	}
-
+				+ pdeptName + ", questionCode=" + questionCode + ", questionNo2=" + questionNo2 + ", questionContent="
+				+ questionContent + "]";
+	}		
 	
 	
 }
