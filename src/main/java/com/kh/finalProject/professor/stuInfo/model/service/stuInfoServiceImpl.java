@@ -26,5 +26,15 @@ public class stuInfoServiceImpl implements stuInfoService{
 		// TODO Auto-generated method stub
 		return sd.stuInfoList(sqlSession, professorId,pi);
 	}
+	@Override
+	public int ajaxSearchStuList(stuInfoVo sv) {
+		// TODO Auto-generated method stub
+		return sd.ajaxSearchStuList(sqlSession,sv);
+	}
+	@Override
+	public ArrayList<stuInfoVo> searchStu(PageInfo pi, stuInfoVo sv) {
+		// TODO Auto-generated method stub
+		return sd.searchStu(sqlSession,sv,pi);
+	}
 
 }

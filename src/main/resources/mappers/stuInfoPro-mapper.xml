@@ -36,4 +36,41 @@
 	JOIN PROFESSOR P ON(M.MEMBER_ID = P.PROFESSOR_NO)
 	WHERE MEMBER_ID = #{professorId})
   	</select>
+  	<select id="searchStuListCount" resultType="_int" parameterType="stuInfoPro">
+  	  	SELECT COUNT(M.MEMBER_ID)
+	FROM MEMBER M
+	JOIN STUDENT_INFO SI ON(M.MEMBER_ID=SI.STUDENT_NO)
+	JOIN SDEPARTMENT S ON(SI.SDEPT_CODE =S.SDEPT_CODE)
+	WHERE MEMBER_CHECK = '1'
+	AND SI.SDEPT_CODE = (
+						SELECT P.PDEPT_CODE 
+						FROM MEMBER M
+						JOIN PROFESSOR P ON(M.MEMBER_ID = P.PROFESSOR_NO)
+						WHERE MEMBER_ID = #{memberNo})
+		<if test="memberKName.equals('name')">
+		AND M.MEMBER_KNAME=#{memberId}		
+		</if>
+		<if test="memberKName.equals('etc')">	
+		AND SI.STUDENT_STATUS=#{memberId}
+		</if> 	
+  	</select>
+  	
+  	<select id="searchStuList" resultMap="stuInfoResultSet" parameterType="stuInfoPro">
+  	  	SELECT M.MEMBER_ID,M.MEMBER_KNAME,M.MEMBER_ENAME,M.MEMBER_NO,M.PHONE_ONE,M.PHONE_TWO,SI.STUDENT_STATUS,SI.GRADE,SI.ENROL_DATE
+	FROM MEMBER M
+	JOIN STUDENT_INFO SI ON(M.MEMBER_ID=SI.STUDENT_NO)
+	JOIN SDEPARTMENT S ON(SI.SDEPT_CODE =S.SDEPT_CODE)
+	WHERE MEMBER_CHECK = '1'
+	AND SI.SDEPT_CODE = (
+	SELECT P.PDEPT_CODE 
+	FROM MEMBER M
+	JOIN PROFESSOR P ON(M.MEMBER_ID = P.PROFESSOR_NO)
+	WHERE MEMBER_ID = #{memberNo})
+  		<if test="memberKName.equals('name')">
+		AND M.MEMBER_KNAME=#{memberId}		
+		</if>
+		<if test="memberKName.equals('etc')">	
+		AND SI.STUDENT_STATUS=#{memberId}
+		</if> 	
+  	</select>
   </mapper>

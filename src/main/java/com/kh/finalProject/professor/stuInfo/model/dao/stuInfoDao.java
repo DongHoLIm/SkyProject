@@ -13,4 +13,8 @@ public interface stuInfoDao {
 
 	ArrayList<stuInfoVo> stuInfoList(SqlSessionTemplate sqlSession, String professorId, PageInfo pi);
 
+	int ajaxSearchStuList(SqlSessionTemplate sqlSession, stuInfoVo sv);
+
+	ArrayList<stuInfoVo> searchStu(SqlSessionTemplate sqlSession, stuInfoVo sv, PageInfo pi);
+
 }

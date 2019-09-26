@@ -11,4 +11,8 @@ public interface stuInfoService {
 
 	ArrayList<stuInfoVo> stuInfoList(String professorId, PageInfo pi);
 
+	int ajaxSearchStuList(stuInfoVo sv);
+
+	ArrayList<stuInfoVo> searchStu(PageInfo pi, stuInfoVo sv);
+
 }
