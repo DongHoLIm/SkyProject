@@ -7,16 +7,18 @@ import com.kh.finalProject.lectureEvaluation.model.exception.LectureEvaluationSe
 import com.kh.finalProject.lectureEvaluation.model.vo.LectureEvaluation;
 
 public interface LectureEvaluationService {
+
+	int em_LectureEvalOpenListCount();
+
+	ArrayList<LectureEvaluation> em_LectureEvalOpenList(PageInfo pi);
+
+	int em_LectureEvaluationInsert(LectureEvaluation lev);
+
+	int em_LectureEvalOpenListCount2();
+
+	ArrayList<LectureEvaluation> em_LectureEvalOpenList2(PageInfo pi);
+
 	
-	int getListCount() throws LectureEvaluationSelectListException;
-
-	ArrayList<LectureEvaluation> selectLectureEvalOpenList(PageInfo pi) throws LectureEvaluationSelectListException;
-
-	int stGetListCount(String studentNo) throws LectureEvaluationSelectListException;
-
-	ArrayList<LectureEvaluation> stSelectLectureEvalOpenList(String studentNo) throws LectureEvaluationSelectListException;
-
-	ArrayList<LectureEvaluation> questionList();
 
 
 }

@@ -27,14 +27,14 @@
 <body>
 	<div align="center">
 		<h1 id="h1">강의 평가 입력</h1>
-		<form>
+		<form action="st_InsertLectureEvaluation.le">
 			<table align="center" style="text-align:center;">
 				<c:forEach var="ql" items="${list}">
 					<tr>
 						<td style="text-align: center; width: 50px">${ql.questionNo2}</td>
 						<td style="text-align: left; width: 600px">${ql.questionContent}</td>
 						<td style="text-align: center; width: 50px">
-							<select>
+							<select class="answer" name="answer">
 								<option value="5">5</option>
 								<option value="4">4</option>
 								<option value="3">3</option>
