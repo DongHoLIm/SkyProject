@@ -167,7 +167,7 @@ public class ClassController {
 		int count2 = 0;
 		String str = "";
 		for(int i=0;i<list2.size();i++) {
-			if(list2.get(i).getEnrolType() == 1) {
+			if(list2.get(i).getEnrolType() != 2) {
 				System.out.println(list2.get(i).getEnrolType());
 				count2 ++;
 			}
@@ -273,7 +273,7 @@ public class ClassController {
 		int count2 = 0;
 		String str = "";
 		for(int i=0;i<list2.size();i++) {
-			if(list2.get(i).getEnrolType() == 1 || list2.get(i).getEnrolType() == 2) {
+			if(list2.get(i).getEnrolType() != 3) {
 				System.out.println(list2.get(i).getEnrolType());
 				count2 ++;
 			}
@@ -322,7 +322,7 @@ public class ClassController {
 		int count2 = 0;
 		String str = "";
 		for(int i=0;i<list2.size();i++) {
-			if(list2.get(i).getEnrolType() == 1 || list2.get(i).getEnrolType() == 2) {
+			if(list2.get(i).getEnrolType() !=3) {
 				System.out.println(list2.get(i).getEnrolType());
 				count2 ++;
 			}
@@ -355,6 +355,33 @@ public class ClassController {
 		ArrayList<OpenSubject> list = cs.selectFinishSubjectApplyList(sa);
 
 		mv.addObject("list", list);
+		mv.setViewName("jsonView");
+
+		return mv;
+	}
+	@RequestMapping(value="goTimeTableInquiry.st")
+	public String goTimeTableInquiry(@ModelAttribute("loginUser") Member loginUser, HttpServletRequest request) {
+
+		return "student/class/timeTableInquiry";
+	}
+	@RequestMapping(value="timeTableInquiry.st")
+	public ModelAndView timeTableInquiry(@ModelAttribute("loginUser") Member loginUser, ModelAndView mv) {			
+
+		SubjectApply sa = new SubjectApply();
+		sa.setStudentNo(loginUser.getMemberId());
+		ArrayList<SubjectApply> list = cs.selectMySugang2(sa);
+		System.out.println("list:::" + list);
+		if(list != null) {
+			int result = list.size();
+			String[] subCode = new String[result];
+			for(int i=0;i<list.size();i++) {
+				subCode[i] = list.get(i).getOpenSubCode();
+			}
+			ArrayList<OpenSubject> list3 = cs.selectTime(subCode);
+			System.out.println("list3" + list3);
+			mv.addObject("list", list3);			
+		}
+
 		mv.setViewName("jsonView");
 
 		return mv;
