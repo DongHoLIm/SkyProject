@@ -21,28 +21,30 @@ public class LectureEvaluationServiceImpl implements LectureEvaluationService{
 	private LectureEvaluationDao ld;
 
 	@Override
-	public int getListCount() throws LectureEvaluationSelectListException {
-		return ld.selectLectureEvalOpenListCount(sqlSession);
-	}
-	
-	@Override
-	public ArrayList<LectureEvaluation> selectLectureEvalOpenList(PageInfo pi) throws LectureEvaluationSelectListException{
-		return ld.selectLectureEvalOpenList(sqlSession, pi);
+	public int em_LectureEvalOpenListCount() {
+		return ld.em_LectureEvalOpenListCount(sqlSession);
 	}
 
 	@Override
-	public int stGetListCount(String studentNo) throws LectureEvaluationSelectListException {
-		return ld.stSelectLectureEvalOpenListCount(sqlSession, studentNo);
+	public ArrayList<LectureEvaluation> em_LectureEvalOpenList(PageInfo pi) {
+		return ld.em_LectureEvalOpenList(sqlSession, pi);
 	}
 
 	@Override
-	public ArrayList<LectureEvaluation> stSelectLectureEvalOpenList(String studentNo) throws LectureEvaluationSelectListException {
-		return ld.stSelectLectureEvalOpenList(sqlSession, studentNo);
+	public int em_LectureEvaluationInsert(LectureEvaluation lev) {
+		return ld.em_LectureEvaluationInsert(sqlSession, lev);
 	}
 
 	@Override
-	public ArrayList<LectureEvaluation> questionList() {
-		return ld.questionList(sqlSession);
+	public int em_LectureEvalOpenListCount2() {
+		return ld.em_LectureEvalOpenListCount2(sqlSession);
 	}
+
+	@Override
+	public ArrayList<LectureEvaluation> em_LectureEvalOpenList2(PageInfo pi) {
+		return ld.em_LectureEvalOpenList2(sqlSession, pi);
+	}
+
+
 
 }

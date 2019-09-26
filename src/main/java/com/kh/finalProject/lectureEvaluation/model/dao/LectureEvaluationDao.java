@@ -10,15 +10,17 @@ import com.kh.finalProject.lectureEvaluation.model.vo.LectureEvaluation;
 
 public interface LectureEvaluationDao {
 
-	int selectLectureEvalOpenListCount(SqlSessionTemplate sqlSession);
-	
-	ArrayList<LectureEvaluation> selectLectureEvalOpenList(SqlSessionTemplate sqlSession, PageInfo pi) throws LectureEvaluationSelectListException;
+	int em_LectureEvalOpenListCount(SqlSessionTemplate sqlSession);
 
-	int stSelectLectureEvalOpenListCount(SqlSessionTemplate sqlSession, String studentNo);
+	ArrayList<LectureEvaluation> em_LectureEvalOpenList(SqlSessionTemplate sqlSession, PageInfo pi);
 
-	ArrayList<LectureEvaluation> stSelectLectureEvalOpenList(SqlSessionTemplate sqlSession, String studentNo);
+	int em_LectureEvaluationInsert(SqlSessionTemplate sqlSession, LectureEvaluation lev);
 
-	ArrayList<LectureEvaluation> questionList(SqlSessionTemplate sqlSession);
+	int em_LectureEvalOpenListCount2(SqlSessionTemplate sqlSession);
+
+	ArrayList<LectureEvaluation> em_LectureEvalOpenList2(SqlSessionTemplate sqlSession, PageInfo pi);
+
+
 
 	
 }
