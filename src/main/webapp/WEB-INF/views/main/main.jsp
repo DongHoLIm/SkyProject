@@ -79,8 +79,7 @@
 		<div id="main">
 			<div class="inner">
 				<jsp:include page="../common/header.jsp" />
-				<br>
-				<br>
+				<br> <br>
 				<h2 align="center">공지 사항</h2>
 				<hr />
 				<br>
@@ -92,40 +91,38 @@
 							<th width="45%" style="text-align: center;">제목</th>
 							<th width="9%" style="text-align: center;">작성자</th>
 							<th width="12%" style="text-align: center;">작성부서</th>
-							<th width="7%" style="text-align: center;">조회수</th>						
+							<th width="7%" style="text-align: center;">조회수</th>
 						</tr>
 					</thead>
 					<tbody>
-						
+
 					</tbody>
 				</table>
-				<br />
-				<br />
+				<br /> <br />
 				<h2 align="center">학사 일정</h2>
 				<hr>
-				
-					<div id="calendar" style="margin-left: 20%">
-						<div id="calendar_header" class="second-floor">
-							<i class="icon-chevron-left"></i>
-							<h1></h1>
-							<i class="icon-chevron-right"></i>
-						</div>
-						<div id="calendar_weekdays"></div>
-						<div id="calendar_content"></div>
+				<div id="calendar" style="margin-left: 20%">
+					<div id="calendar_header" class="second-floor">
+						<i class="icon-chevron-left"></i>
+						<h1></h1>
+						<i class="icon-chevron-right"></i>
 					</div>
-					<div class="second-floor">
-						<table id="dateDetail" style="border-radius: 40px;">
-							<thead>
-								<tr>
-									<th>날짜</th>
-									<th>해당일정</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-					</div>
-				
+					<div id="calendar_weekdays"></div>
+					<div id="calendar_content"></div>
+				</div>
+				<div class="second-floor">
+					<table id="dateDetail" style="border-radius: 40px;">
+						<thead>
+							<tr>
+								<th>날짜</th>
+								<th>해당일정</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+
 			</div>
 		</div>
 		<div>
