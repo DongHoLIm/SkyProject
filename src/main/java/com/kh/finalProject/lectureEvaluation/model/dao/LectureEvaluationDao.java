@@ -14,5 +14,11 @@ public interface LectureEvaluationDao {
 	
 	ArrayList<LectureEvaluation> selectLectureEvalOpenList(SqlSessionTemplate sqlSession, PageInfo pi) throws LectureEvaluationSelectListException;
 
+	int stSelectLectureEvalOpenListCount(SqlSessionTemplate sqlSession, String studentNo);
+
+	ArrayList<LectureEvaluation> stSelectLectureEvalOpenList(SqlSessionTemplate sqlSession, String studentNo);
+
+	ArrayList<LectureEvaluation> questionList(SqlSessionTemplate sqlSession);
+
 	
 }
