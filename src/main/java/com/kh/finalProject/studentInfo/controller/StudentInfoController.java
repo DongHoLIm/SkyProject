@@ -1,12 +1,13 @@
 package com.kh.finalProject.studentInfo.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -581,7 +582,7 @@ public class StudentInfoController {
 		return mv;
 	}
 
-	//학생_휴학신청 관리
+	//학생_휴학신청 
 	@RequestMapping("st_schoolOff.si")
 	public String schoolOnOffApply(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
 
@@ -626,70 +627,78 @@ public class StudentInfoController {
 
 	}
 	
+	//휴학신청 insert
+//	@RequestMapping("st_insertSchoolOff.si")
+//	public String insertSchoolOff(HttpServletRequest request, @ModelAttribute SchoolOff so,DocFile df, 
+//											@ModelAttribute("loginUser") Member loginUser) {
+//		
+//		System.out.println("휴학신청::"+so);
+//		
+//		
+//		
+//		return "";
+//	}
+	
 	//휴학신청 insert (ajax)
 	@RequestMapping(value="st_insertSchoolOff.si")
 	public ModelAndView insertSchoolOff( ModelAndView mv, HttpServletRequest request, @ModelAttribute SchoolOff so, @ModelAttribute("loginUser") Member loginUser,
-			DocFile df,  @RequestParam(name="requiredDoc",required=false) MultipartFile requiredDoc
-						  ) {
+			DocFile df, MultipartHttpServletRequest req) {
 		
+		System.out.println("휴학신청 객체::"+so);
+		MultipartFile mf = req.getFile("requiredDoc");
 		
-		System.out.println("휴학신청::"+so);
-		//requiredDoc = (MultipartFile) mrequest.getFileNames();
-		//System.out.println("첨부파일::"+requiredDoc);
-		
-		//Iterator files = mr.getFileNames();
-		
-		//System.out.println("첨부파일::"+files);
-		
-		System.out.println("첨부파일::"+requiredDoc);
-		
-		String root;
-		String filePath;
-		String originFileName;
-		String ext;
-		String changeName;
-		
-		
-		if(requiredDoc.getOriginalFilename().length() > 0) {
-			root = request.getSession().getServletContext().getRealPath("resources");
-			System.out.println("root::"+root);
+		if(mf == null) {
 			
-			filePath = root + "\\docFiles";
-			originFileName = requiredDoc.getOriginalFilename();
-			System.out.println("originFileName::"+originFileName);
+		}else {
+			String originFileName = mf.getOriginalFilename();
+			System.out.println("originalfileName : " + originFileName);
 			
-			ext = originFileName.substring(originFileName.lastIndexOf("."));
-			changeName = CommonUtils.getRandomString();
+			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+			String changeName = CommonUtils.getRandomString() + ext;
 			System.out.println("changeName::"+changeName);
 			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			System.out.println("root::"+root);
+			
+			String filePath = root + "\\docFiles";
+			
 			df.setOldName(originFileName);
-			df.setChangeName(changeName + ext);
-			df.setPath(filePath + "\\"+changeName + ext);
+			df.setChangeName(changeName);
+			df.setPath(filePath + "\\" + changeName);
+			System.out.println(df);
 			
-//			try {
-//				equiredDoc.transferTo(new File(filePath + "\\" + changeName + ext));
-//				
-//			}catch(Exception e) {
-//				new File(filePath + "\\" + changeName + ext).delete();
-//				
-//			}
-			
-			
-			
+			try {
+					mf.transferTo(new File(filePath+"\\"+changeName));
+					
+	            } catch (IllegalStateException e1) {
+	               e1.printStackTrace();
+	            } catch(IOException e2) {
+	            	 e2.printStackTrace();
+	            }
+
 		}
 		
-		String userId = loginUser.getMemberId();
-		so.setStudentNo(userId);
-		
-		int result = ss.schoolOffApply(so);
-		
-		if(result>0) {
-			System.out.println("휴학신청 insert 성공");
-		}
+//		String userId = loginUser.getMemberId();
+//		so.setStudentNo(userId);
+//		
+//		if(df==null) {
+//			int result = ss.schoolOffApply(so);
+//		}else {
+//			int result = ss.schoolOffApplyFile(so,df);
+//		}
+//		
+//		
+//		if(result>0) {
+//			System.out.println("휴학신청 insert 성공");
+//		}
 		
 		mv.setViewName("jsonView");
 		return mv;
+			
 	}
+		
+
+	
 	
 	//학생_휴학신청_휴학구분선택
 	@RequestMapping("st_changeOffType.si")
@@ -746,7 +755,7 @@ public class StudentInfoController {
 				returnDay = (year+1) + "." + (semester-1) + "학기";
 				
 			}
-		}else { //신청휴학학기가 2학기인 경우(1년휴학)
+		}else if(offTerm==2) { //신청휴학학기가 2학기인 경우(1년휴학)
 			if(semester==1) { //휴학시작학기가 __년.1학기인경우
 				end = year + "." + (semester+1) + "학기";
 				returnDay = (year+1) + "." + semester + "학기";
@@ -754,6 +763,26 @@ public class StudentInfoController {
 			}else { //휴학신청학기가  __년.2학기인 경우
 				end = (year+1) + "." + (semester-1) + "학기";
 				returnDay = (year+1) + "." + semester + "학기";
+				
+			}
+		}else if(offTerm==3) { //신청휴학학기가 3학기인 경우(군휴학 1년 반 휴학)
+			if(semester==1) {//휴학시작학기가 __년.1학기인경우
+				end = (year+1) + "." + (semester) + "학기";
+				returnDay = (year+1) + "." + (semester+1) + "학기";
+				
+			}else { //휴학신청학기가  __년.2학기인 경우
+				end = (year+1) + "." + (semester) + "학기";
+				returnDay = (year+2) + "." + (semester-1) + "학기";
+				
+			}
+		}else {	//신청휴학학기가 4학기인경우(군휴학 2년 휴학)
+			if(semester==1) { //휴학시작학기가 __년.1학기인경우
+				end = (year+1) + "." + (semester+1) + "학기";
+				returnDay = (year+2) + "." + semester + "학기";
+				
+			}else { //휴학신청학기가  __년.2학기인 경우
+				end = (year+2) + "." + (semester-1) + "학기";
+				returnDay = (year+2) + "." + (semester) + "학기";
 			}
 			
 		}
@@ -771,12 +800,35 @@ public class StudentInfoController {
 		
 	}
 	
-	//교직원_휴학처리
+	//교직원_휴학처리 뷰출력
 	@RequestMapping("em_schoolOff.si")
 	public String schooloff(HttpServletRequest request) {
 		
 		return "employee/studentInfo/schoolOffProcess";
 	}
+	
+	//교직원_금학기휴학신청자 명단 출력
+	@RequestMapping("em_offApplyList.si")
+	public ModelAndView offApplyList(ModelAndView mv, HttpServletRequest request) {
+		
+		System.out.println("requestCurrentPage::" + request.getParameter("currentPage"));
+
+		int currentPage=1;
+		int listCount=0;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		listCount = ss.getOffApplyListCount();
+		
+		
+		
+		
+		
+		return mv;
+	}
+	
 	
 	
 	//학생_복학신청

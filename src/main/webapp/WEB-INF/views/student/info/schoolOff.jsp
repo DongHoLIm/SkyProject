@@ -87,7 +87,7 @@ table.basicinfo {
 			<jsp:include page="../info/common.jsp" />
 
 				<h4 id="basic">휴학 신청</h4>
-				<form id="ApplyForm" action="st_schoolOffApply.si" method="post">
+				<form id="ApplyForm" action="" method="post" enctype="multipart/form-data">
 				<table class="basicinfo">
 				<tr>
 					<td class="tdd">휴학 구분</td>
@@ -161,13 +161,13 @@ table.basicinfo {
 					</td>	
 				</tr>
 			
-			<table id="btn">
+			</table>
+			
+			<div>
 				<button id="btn" onclick="apply();">신청하기</button>
-				<!-- <button type="submit" id="modified">신청하기</button> --> 
-			</table>
-			</table>
-
+			</div>
 			</form>
+			
 				
 			<br>
 			<br>
@@ -196,7 +196,8 @@ table.basicinfo {
 					</tr>
 				</c:forEach>
 				</tbody>
-			</table>
+			</table> 
+			
 			<script>
 			
 			$(function(){
@@ -273,10 +274,8 @@ table.basicinfo {
 				});
 			});
 			
+			
 			function apply(){
-				
-				//var formData = new FormData($("#ApplyForm")[0]);
-				
 				var offType = $("#offType").val();
 				var offReason = $("#offReason").val();
 				var offStart = $("#offStart").val();
@@ -287,35 +286,42 @@ table.basicinfo {
 				var demobilizationDate = $("#demobilizationDate").val();
 				var requiredDoc = $("#requiredDoc").val();
 				
+				var form = $("#ApplyForm")[0];
+				
+				var data = new FormData(form);
+				
 				
 				$.ajax({
 					url:"st_insertSchoolOff.si",
-					type:"post",
-					data:{offType:offType,
-						 offReason:offReason,
-						 offStart:offStart,
-						 offTerm:offTerm,
-						 offTermT:offTermT,
-						 returnDate:returnDate,
-						 enlistmentDate:enlistmentDate,
-						 demobilizationDate:demobilizationDate,
-						 requiredDoc:requiredDoc},
+					enctype: 'multipart/form-data',
+					type:"POST",
+					data:{data:data},
+					processData: false,
+		            contentType: false,
+		            cache: false,
+		            timeout: 600000,
 					success:function(data){
 						console.log("접속성공");
 						
 						alert("휴학 신청 완료");
 						
-						location.reload();
-					}
+						//location.reload();
+					},
+					error:function(request,status,error){
+				        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				       }
 				});
 			}
+			
+			
 			
 			</script>
 			
 
-		</div>
+		
 		<div>
 			<jsp:include page="../../common/menubar-student.jsp" />
+		</div>
 		</div>
 	</div>
 </body>

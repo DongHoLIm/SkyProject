@@ -654,5 +654,11 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		return sqlSession.insert("SchoolOff.schoolOffApply", so);
 	}
 
+	@Override
+	public int getOffApplyListCount(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("SchoolOff.getOffApplyListCount");
+	}
+
 
 }

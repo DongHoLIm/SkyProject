@@ -15,7 +15,6 @@
   		<result property="returnDate" column="RETURN_DATE"/>
   		<result property="enlistmentDate" column="ENLISTMENT_DATE"/>
   		<result property="demobilizationDate" column="DEMOBILIZATION_DATE"/>
-  		<result property="requiredDoc" column="REQUIRED_DOC"/>
   		<result property="offStatus" column="OFF_STATUS"/>
   	
   	</resultMap>
@@ -34,6 +33,11 @@
 				#{enlistmentDate}, #{demobilizationDate}, #{requiredDoc}, 
 				#{offStart}, DEFAULT, SEQ_OFFSCHOOL.NEXTVAL, #{studentNo})
   	</insert>
+  	
+  	<!-- <select id="getOffApplyListCount">
+  	
+  	
+  	</select> -->
   
   
   

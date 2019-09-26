@@ -163,5 +163,7 @@ public interface StudentInfoService {
 	ArrayList<SchoolOff> selectSchoolOff(String userId);
 
 	int schoolOffApply(SchoolOff so);
+
+	int getOffApplyListCount();
   
 }

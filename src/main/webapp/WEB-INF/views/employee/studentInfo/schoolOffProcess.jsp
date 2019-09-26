@@ -22,9 +22,18 @@
 			
 			<div class="container">
 			
+			<div id="filterArea"style="width:85%; text-align: center; margin: 0 auto;">
+				<div style="float:right">
+					<select id="offType" name="offType">
+						<option value="일반휴학">일반휴학</option>
+						<option value="군휴학">군휴학</option>
+					</select>
+				</div>
+			</div>
+			
   				<br>
     				<h4>휴학 신청 명단</h4>
-      					<table class="table table-bordered">
+      					<table id="applyList" class="table table-bordered">
     						<thead>
       							<tr>
         							<th>단과대학</th>
@@ -51,37 +60,35 @@
       							
     						</tbody>
   						</table>
+  						
+  						<div id="applyPage" align="center">
+  						
+  						</div>
+  						
   						<br><br><br><br>
   						
-  						<h4>휴학 학생 명단</h4>
-  						<table class="table table-bordered">
-    						<thead>
-      							<tr>
-        							<th>단과대학</th>
-        							<th>학과</th>
-        							<th>학번</th>
-        							<th>이름</th>
-        							<th>휴학신청학기</th>
-        							<th>복학예정학기</th>
-        							<th>처리상태</th>
-      							</tr>
-    						</thead>
-    						<tbody>
-      							<tr>
-        							<td>공과대학</td>
-        							<td>컴퓨터공학과</td>
-        							<td>201401303</td>
-        							<td>김은혜</td>
-        							<td>2019.02.20</td>
-        							<td>2020.03.02</td>
-        							<td>승인완료</td>
-      							</tr>
-      							
-    						</tbody>
-  						</table>
+  						
   				
 			</div>
 			
+			
+			<script>
+			$(function(){
+				$.ajax({
+					url:"em_offApplyList.si",
+					type:"get",
+					success:function(data){
+						console.log("접속성공");
+						console.log("data.list.length::" + data.list.length);
+						console.log( data.list[0].offType);
+						
+						
+					}
+				});
+			});
+			
+			
+			</script>
 			
 			
 			
