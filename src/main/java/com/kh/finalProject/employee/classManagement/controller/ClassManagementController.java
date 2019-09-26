@@ -234,7 +234,7 @@ public class ClassManagementController {
 		int listCount;
 
 		try {
-			listCount = cms.getListCount();
+			listCount = cms.getListCount2();
 
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<LectureOpen> subjectList = cms.selectsubjectAbolitionList(pi);
@@ -279,12 +279,63 @@ public class ClassManagementController {
 		OpenSubject os = new OpenSubject();
 		String subCode = sd.getSubCode();
 		os = cms.selectOneOpenSubject(subCode);
-		
-		
-			cms.insertSubjectDelete(sd, os);
-		
-		
+		cms.insertSubjectDelete(sd, os);
+
 			return "employee/class/lectureAbolitionRegistration";
 		}
+	@RequestMapping(value="lectureAbolitionSelect.em")
+	public String selectLectureAbolition(HttpServletRequest request) {
+		int currentPage = 1;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		int listCount;
+
+		try {
+			listCount = cms.getListCount3();
+
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<OpenSubject> list = cms.selectOpenSubjectList2(pi);
+			
+
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			return "employee/class/openAbolitionInquiry";
+		} catch (ClassManagementSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+	}
+	
+	@RequestMapping(value="abolitionSelect.em")
+	public String selectAbolition(HttpServletRequest request) {
+		int currentPage = 1;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		int listCount;
+
+		try {
+			listCount = cms.getListCount4();
+
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<LectureOpen> list = cms.selectAbolitiontList(pi);
+			
+
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			return "employee/class/abolitionInquiry";
+		} catch (ClassManagementSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+
+			return "common/errorAlert";
+		}
+		
+	}
 }
  

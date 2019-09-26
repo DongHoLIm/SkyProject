@@ -54,4 +54,14 @@ public interface ClassManagementService {
 
 	void insertSubjectDelete(SubjectDelete sd, OpenSubject os);
 
+	ArrayList<OpenSubject> selectOpenSubjectList2(PageInfo pi) throws ClassManagementSelectListException;
+
+	int getListCount2();
+
+	int getListCount3();
+
+	int getListCount4();
+
+	ArrayList<LectureOpen> selectAbolitiontList(PageInfo pi) throws ClassManagementSelectListException;
+
 }

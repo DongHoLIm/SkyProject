@@ -38,9 +38,12 @@
 												<li><h4>강의관리</h4></li>
 												<li><a href="lectureOpen.em" >강의 개설</a></li>
 												<li><a href="subjectAbolition.em">강의 폐지</a></li>
+												<li><a href="lectureAbolitionSelect.em">개설/폐지 조회</a></li>
+												<li><a href="#">수강인워관리</a></li>
+												<li><a href="#">시간표조정</a></li>
 												<li><a href="#">개설/폐지 조회</a></li>
-												<li><a href="#">수강인원관리</a></li>												
-												<li><a href="lessionPlan.em">강의계획서조회</a></li>
+												<li><a href="#">수강인원관리</a></li>
+										    <li><a href="lessionPlan.em">강의계획서조회</a></li>
 												<li><a href="em_showLectureEvaluationOpen.le">강의평가 관리</a></li>												
 												<li><h4>수강신청관리</h4></li>
 												<li><a href="openPreliminaryCourseRegistration.em">예비수강신청열기</a></li>
