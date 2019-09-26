@@ -17,6 +17,7 @@ import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
+import com.kh.finalProject.studentInfo.model.vo.OffApplyFilter;
 import com.kh.finalProject.studentInfo.model.vo.SchoolOff;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
@@ -658,6 +659,43 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	public int getOffApplyListCount(SqlSessionTemplate sqlSession) {
 		
 		return sqlSession.selectOne("SchoolOff.getOffApplyListCount");
+	}
+
+	@Override
+	public ArrayList<SchoolOff> selectOffApplyList(SqlSessionTemplate sqlSession, PageInfo pi) throws StudentInfoSelectListException {
+		ArrayList<SchoolOff> list = null;
+		
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset,pi.getLimit());
+		
+		list = (ArrayList)sqlSession.selectList("SchoolOff.selectOffApplyList", null, rowBounds);
+		
+		if(list==null) {
+			sqlSession.close();
+			throw new StudentInfoSelectListException("휴학신청자가 없습니다.");
+		}
+		return list;
+	}
+
+	@Override
+	public int getOffFilterListCount(SqlSessionTemplate sqlSession, OffApplyFilter of) {
+		
+		return sqlSession.selectOne("SchoolOff.getOffFilterListCount", of);
+	}
+
+	@Override
+	public ArrayList<SchoolOff> selectOffFilterStudent(SqlSessionTemplate sqlSession, OffApplyFilter of, PageInfo pi) {
+		
+		ArrayList<SchoolOff> list = null;
+		
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset,pi.getLimit());
+		
+		list = (ArrayList)sqlSession.selectList("SchoolOff.selectOffFilterStudent", of, rowBounds);
+		
+		return list;
 	}
 
 

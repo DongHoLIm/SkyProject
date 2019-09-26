@@ -15,6 +15,7 @@ import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
+import com.kh.finalProject.studentInfo.model.vo.OffApplyFilter;
 import com.kh.finalProject.studentInfo.model.vo.SchoolOff;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
@@ -179,6 +180,12 @@ public interface StudentInfoDao {
 	int schoolOffApply(SqlSessionTemplate sqlSession, SchoolOff so);
 
 	int getOffApplyListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<SchoolOff> selectOffApplyList(SqlSessionTemplate sqlSession, PageInfo pi) throws StudentInfoSelectListException;
+
+	int getOffFilterListCount(SqlSessionTemplate sqlSession, OffApplyFilter of);
+
+	ArrayList<SchoolOff> selectOffFilterStudent(SqlSessionTemplate sqlSession, OffApplyFilter of, PageInfo pi);
 
 		
 

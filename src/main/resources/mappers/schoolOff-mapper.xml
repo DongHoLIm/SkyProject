@@ -16,6 +16,9 @@
   		<result property="enlistmentDate" column="ENLISTMENT_DATE"/>
   		<result property="demobilizationDate" column="DEMOBILIZATION_DATE"/>
   		<result property="offStatus" column="OFF_STATUS"/>
+  		<result property="college" column="COLLEGE_NAME"/>
+  		<result property="major" column="SDEPT_NAME"/>
+  		<result property="kName" column="MEMBER_KNAME"/>
   	
   	</resultMap>
   	
@@ -34,8 +37,34 @@
 				#{offStart}, DEFAULT, SEQ_OFFSCHOOL.NEXTVAL, #{studentNo})
   	</insert>
   	
-  	<!-- <select id="getOffApplyListCount">
+  	<select id="getOffApplyListCount" resultType="_int">
+  		SELECT COUNT(*)
+  		FROM OFF_SCHOOL
+  		WHERE OFF_STATUS='신청완료' OR OFF_STATUS='서류확인'
+  	</select>
   	
+  	<!-- <select id="selectOffApplyList" parameterType="SchoolOff">
+  		SELECT
+  		FROM OFF_SCHOOL
+  	</select> -->
+  	
+  	<select id="getOffFilterListCount" resultType="_int" parameterType="OffApplyFilter">
+  		SELECT COUNT(*)
+  		FROM OFF_SCHOOL
+  		<where>
+  			<if test = "offStatus == '처리상태'">
+				AND (OFF_STATUS='신청완료' OR OFF_STATUS='서류확인')
+			</if>
+			<if test = "offStatus != '처리상태'">
+				AND OFF_STATUS = #{offStatus}
+			</if>
+			<if test = "offType != '휴학구분'">
+				AND OFF_TYPE = #{offType}
+			</if> 
+		</where>
+  	</select>
+  	
+  	<!-- <select id="selectOffFilterStudent" resultMap="schoolOffResultSet" parameterType="OffApplyFilter">
   	
   	</select> -->
   

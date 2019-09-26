@@ -18,6 +18,7 @@ import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
+import com.kh.finalProject.studentInfo.model.vo.OffApplyFilter;
 import com.kh.finalProject.studentInfo.model.vo.SchoolOff;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
 
@@ -453,6 +454,24 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	public int getOffApplyListCount() {
 		
 		return sd.getOffApplyListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<SchoolOff> selectOffApplyList(PageInfo pi) throws StudentInfoSelectListException {
+		
+		return sd.selectOffApplyList(sqlSession,pi);
+	}
+
+	@Override
+	public int getOffFilterListCount(OffApplyFilter of) {
+		
+		return sd.getOffFilterListCount(sqlSession,of);
+	}
+
+	@Override
+	public ArrayList<SchoolOff> selectOffFilterStudent(OffApplyFilter of, PageInfo pi) {
+		
+		return sd.selectOffFilterStudent(sqlSession,of,pi);
 	}
 
 }
