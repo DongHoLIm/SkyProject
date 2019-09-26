@@ -16,13 +16,15 @@ public class SchoolOff implements Serializable{
 	private String enlistmentDate;		//입대일자
 	private String demobilizationDate;	//전역예정
 	private String offStatus;			//처리상태
-	private String phone;				//연락처
+	private String college;				//단과대명
+	private String major;				//학과이름
+	private String kName;				//이름
 	
 	public SchoolOff() {}
 
 	public SchoolOff(String studentNo, String applyNo, String applyDate, String offStart, String offType,
 			String offReason, String offTerm, String offTermT, String returnDate, String enlistmentDate,
-			String demobilizationDate, String offStatus, String phone) {
+			String demobilizationDate, String offStatus, String college, String major, String kName) {
 		super();
 		this.studentNo = studentNo;
 		this.applyNo = applyNo;
@@ -36,7 +38,9 @@ public class SchoolOff implements Serializable{
 		this.enlistmentDate = enlistmentDate;
 		this.demobilizationDate = demobilizationDate;
 		this.offStatus = offStatus;
-		this.phone = phone;
+		this.college = college;
+		this.major = major;
+		this.kName = kName;
 	}
 
 	public String getStudentNo() {
@@ -135,12 +139,28 @@ public class SchoolOff implements Serializable{
 		this.offStatus = offStatus;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getCollege() {
+		return college;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+	public String getkName() {
+		return kName;
+	}
+
+	public void setkName(String kName) {
+		this.kName = kName;
 	}
 
 	@Override
@@ -148,9 +168,11 @@ public class SchoolOff implements Serializable{
 		return "SchoolOff [studentNo=" + studentNo + ", applyNo=" + applyNo + ", applyDate=" + applyDate + ", offStart="
 				+ offStart + ", offType=" + offType + ", offReason=" + offReason + ", offTerm=" + offTerm
 				+ ", offTermT=" + offTermT + ", returnDate=" + returnDate + ", enlistmentDate=" + enlistmentDate
-				+ ", demobilizationDate=" + demobilizationDate + ", offStatus=" + offStatus + ", phone=" + phone + "]";
+				+ ", demobilizationDate=" + demobilizationDate + ", offStatus=" + offStatus + ", college=" + college
+				+ ", major=" + major + ", kName=" + kName + "]";
 	}
 
+	
 	
 
 }

@@ -111,7 +111,15 @@ table.basicinfo {
 							</tr>
 							<tr>
 								<td class="td">강의요일</td>
-								<td><input type="text" name="dayWeek"></td>
+								<td>
+									<select name="dayWeek">
+										<option>월요일</option>
+										<option>화요일</option>
+										<option>수요일</option>
+										<option>목요일</option>
+										<option>금요일</option>
+									</select>
+								</td>
 								<td class="td">강의교시</td>
 								<td><input type="text" name="period"></td>
 								<td class="td">강의인원</td>

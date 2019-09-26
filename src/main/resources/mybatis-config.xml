@@ -45,6 +45,7 @@
 		<typeAlias type="com.kh.finalProject.lectureEvaluation.model.vo.LectureEvaluation" alias="LectureEvaluation"/>
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.DocFile" alias="DocFile"/>
 		<typeAlias type="com.kh.finalProject.professor.stuInfo.model.vo.stuInfoVo" alias="stuInfoPro"/>
+		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.OffApplyFilter" alias="OffApplyFilter"/>
 	</typeAliases>
 	
 	<mappers>

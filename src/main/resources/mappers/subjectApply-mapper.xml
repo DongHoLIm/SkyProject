@@ -59,5 +59,10 @@
 		SELECT * FROM SUBJECT_APPLY 
 		WHERE OPENSUB_CODE = #{openSubCode}
 	</select>
-    
+    <select id="selectMySugang2" resultMap="subjectApplyResultSet">
+		SELECT STUDENT_NO, OPENSUB_CODE
+		FROM SUBJECT_APPLY
+		WHERE STUDENT_NO = #{studentNo}
+		AND DONE_TYPE ='완료'
+	</select>
 </mapper> 

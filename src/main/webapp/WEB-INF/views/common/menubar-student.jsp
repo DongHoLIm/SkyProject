@@ -52,6 +52,7 @@
 												<li><a href="#" onclick="window.open('goSugang.st', 'SKY 수강신청'); return false">과목조회, 수강신청</a></li>
 												<li><a href="#">병결신청</a></li>
 												<li><a href="st_showLectureEvaluationOpen.le">강의평가</a></li>
+												<li><a href="goTimeTableInquiry.st">시간표조회</a></li>
 											</ul>
 										</li>
 											<li>

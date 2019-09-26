@@ -33,6 +33,7 @@ import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
 import com.kh.finalProject.studentInfo.model.vo.Graduation;
+import com.kh.finalProject.studentInfo.model.vo.OffApplyFilter;
 import com.kh.finalProject.studentInfo.model.vo.SchoolOff;
 import com.kh.finalProject.studentInfo.model.vo.SecondMajor;
 import com.kh.finalProject.studentInfo.model.vo.StudentInfo;
@@ -821,10 +822,64 @@ public class StudentInfoController {
 		}
 		
 		listCount = ss.getOffApplyListCount();
+		System.out.println("offApplyCount::"+listCount);
 		
+		PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+
+		ArrayList<SchoolOff> list;
+		try {
+			list = ss.selectOffApplyList(pi);
+			
+			System.out.println("list ::" + list);
+			System.out.println("pi ::" + pi);
+
+			mv.addObject("list",list);
+			mv.addObject("pi",pi);
+
+			mv.setViewName("jsonView");
+
+			System.out.println(mv.getViewName());
+			System.out.println(mv.getModel());
+
+			return mv;
+			
+		} catch (StudentInfoSelectListException e) {
+			mv.addObject("msg",e.getMessage());
+			
+			mv.setViewName("common/errorAlert");			
+
+			return mv;
+		}
+
+	}
+	//교직원_휴학신청자명단 필터링후 페이징
+	@RequestMapping("em_offApplyFilter.si")
+	public ModelAndView em_offApplyFilter(OffApplyFilter of, ModelAndView mv, HttpServletRequest request) {
 		
+		int currentPage = 1;
 		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
 		
+		System.out.println("OffApplyFilter::" + of);
+		
+		int listCount;
+		
+		listCount = ss.getOffFilterListCount(of);
+		System.out.println("필터링후 listCount::" + listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+		
+		ArrayList<SchoolOff> list = ss.selectOffFilterStudent(of,pi);
+		
+		System.out.println("list ::" + list);
+		System.out.println("pi ::" + pi);
+
+		mv.addObject("list",list);
+		mv.addObject("pi",pi);
+
+		mv.setViewName("jsonView");
 		
 		return mv;
 	}
