@@ -36,5 +36,20 @@ public class LectureEvaluationDaoImpl implements LectureEvaluationDao{
 		return list;
 	}
 
+	@Override
+	public int stSelectLectureEvalOpenListCount(SqlSessionTemplate sqlSession, String studentNo) {
+		return sqlSession.selectOne("LectureEvaluation.stSelectLectureEvalOpenListCount", studentNo);
+	}
+
+	@Override
+	public ArrayList<LectureEvaluation> stSelectLectureEvalOpenList(SqlSessionTemplate sqlSession, String studentNo) {
+		return (ArrayList) sqlSession.selectList("LectureEvaluation.stSelectLectureEvalOpenList", studentNo);
+	}
+
+	@Override
+	public ArrayList<LectureEvaluation> questionList(SqlSessionTemplate sqlSession) {
+		return  (ArrayList) sqlSession.selectList("LectureEvaluation.questionList");
+	}
+
 
 }
