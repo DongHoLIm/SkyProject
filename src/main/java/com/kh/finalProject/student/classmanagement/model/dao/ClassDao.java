@@ -51,5 +51,9 @@ public interface ClassDao {
 
 	ArrayList<OpenSubject> selectEnrolType(SqlSessionTemplate sqlSession);
 
+	ArrayList<OpenSubject> selectTime(SqlSessionTemplate sqlSession, String[] subCode);
+
+	ArrayList<SubjectApply> selectMySugang2(SqlSessionTemplate sqlSession, SubjectApply sa);
+
 }
  

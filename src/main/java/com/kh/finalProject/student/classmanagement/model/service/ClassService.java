@@ -48,4 +48,8 @@ public interface ClassService {
 
 	ArrayList<OpenSubject> selectEnrolType();
 
+	ArrayList<OpenSubject> selectTime(String[] subCode);
+
+	ArrayList<SubjectApply> selectMySugang2(SubjectApply sa);
+
 }

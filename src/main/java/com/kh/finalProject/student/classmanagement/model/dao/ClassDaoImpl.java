@@ -206,4 +206,28 @@ public class ClassDaoImpl implements ClassDao{
 		
 		return list2;
 	}
+
+	@Override
+	public ArrayList<OpenSubject> selectTime(SqlSessionTemplate sqlSession, String[] subCode) {
+		
+		OpenSubject os = new OpenSubject();
+		ArrayList<OpenSubject> list3 = new ArrayList<OpenSubject>();
+		for(int i=0;i<subCode.length;i++) {
+			os.setOpenSubCode(subCode[i]);
+			os = sqlSession.selectOne("courseRegistration.selectTime", os);
+			System.out.println("os::::" + subCode[i]);
+			list3.add(os);
+			System.out.println("list3:::" + list3);
+		}
+		return list3;
+	}
+
+	@Override
+	public ArrayList<SubjectApply> selectMySugang2(SqlSessionTemplate sqlSession, SubjectApply sa) {
+		ArrayList<SubjectApply> list = null;
+
+		list = (ArrayList) sqlSession.selectList("subjectApply.selectMySugang2", sa);
+
+		return list;
+	}
 }

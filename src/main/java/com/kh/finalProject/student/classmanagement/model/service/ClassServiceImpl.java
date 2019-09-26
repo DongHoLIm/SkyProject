@@ -170,4 +170,19 @@ public class ClassServiceImpl implements ClassService{
 		return cd.selectEnrolType(sqlSession);
 	}
 
+
+
+	@Override
+	public ArrayList<OpenSubject> selectTime(String[] subCode) {
+		
+		return cd.selectTime(sqlSession, subCode);
+	}
+
+
+
+	@Override
+	public ArrayList<SubjectApply> selectMySugang2(SubjectApply sa) {
+		return cd.selectMySugang2(sqlSession, sa);
+	}
+
 }
