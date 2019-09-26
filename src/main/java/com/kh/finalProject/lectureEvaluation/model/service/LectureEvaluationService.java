@@ -12,5 +12,11 @@ public interface LectureEvaluationService {
 
 	ArrayList<LectureEvaluation> selectLectureEvalOpenList(PageInfo pi) throws LectureEvaluationSelectListException;
 
+	int stGetListCount(String studentNo) throws LectureEvaluationSelectListException;
+
+	ArrayList<LectureEvaluation> stSelectLectureEvalOpenList(String studentNo) throws LectureEvaluationSelectListException;
+
+	ArrayList<LectureEvaluation> questionList();
+
 
 }

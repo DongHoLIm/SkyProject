@@ -30,4 +30,10 @@ public class ProfessorResultDaoImpl implements ProfessorResultDao{
 		return sqlSession.selectOne("professorResult.subScheduler", opensubCode);
 	}
 
+	@Override
+	public int resultInsertStu(SqlSessionTemplate sqlSession, StudentResult sr) {
+		System.out.println(sr);
+		return sqlSession.update("professorResult.resultInsertStu",sr);
+	}
+
 }

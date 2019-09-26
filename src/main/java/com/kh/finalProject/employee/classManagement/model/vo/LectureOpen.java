@@ -10,13 +10,15 @@ public class LectureOpen {
 	private int subGrade;
 	private String madeDate;
 	private int enrolType;
+	private String deleteDate;
+	private String reason;
 
 
 	public LectureOpen() {}
 
 
 	public LectureOpen(String subCode, String subName, String sdeptName, String completeType, int subGrade,
-			String madeDate, int enrolType) {
+			String madeDate, int enrolType, String deleteDate, String reason) {
 		super();
 		this.subCode = subCode;
 		this.subName = subName;
@@ -25,6 +27,8 @@ public class LectureOpen {
 		this.subGrade = subGrade;
 		this.madeDate = madeDate;
 		this.enrolType = enrolType;
+		this.deleteDate = deleteDate;
+		this.reason = reason;
 	}
 
 
@@ -98,13 +102,33 @@ public class LectureOpen {
 	}
 
 
+	public String getDeleteDate() {
+		return deleteDate;
+	}
+
+
+	public void setDeleteDate(String deleteDate) {
+		this.deleteDate = deleteDate;
+	}
+
+
+	public String getReason() {
+		return reason;
+	}
+
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+
 	@Override
 	public String toString() {
 		return "LectureOpen [subCode=" + subCode + ", subName=" + subName + ", sdeptName=" + sdeptName
 				+ ", completeType=" + completeType + ", subGrade=" + subGrade + ", madeDate=" + madeDate
-				+ ", enrolType=" + enrolType + "]";
+				+ ", enrolType=" + enrolType + ", deleteDate=" + deleteDate + ", reason=" + reason + "]";
 	}
 
 
-		
+	
 }

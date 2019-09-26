@@ -12,7 +12,9 @@
 		<result property="completeType" column="COMPLETE_TYPE" />
 		<result property="subGrade" column="SUB_GRADE" />
 		<result property="madeDate" column="MADE_DATE" />
-		<result property="enrolType" column="ENROL_TYPE"/> 
+		<result property="enrolType" column="ENROL_TYPE"/>
+		<result property="deleteDate" column="DELETE_DATE"/> 
+		<result property="reason" column="REASON"/>  
 	</resultMap>
 	<!-- 교과목 수 조회 -->
 	<select id="selectListCount" resultType="_int">
@@ -51,4 +53,27 @@
 		UPDATE SUBJECT SET ENROL_TYPE = 2
 		WHERE SUB_CODE = #{subCode}
 	</update>
+	<select id="selectListCount2" resultType="_int">
+		SELECT COUNT(*)
+		FROM SUBJECT
+		WHERE ENROL_TYPE=1
+	</select>
+	<select id="selectListCount3" resultType="_int">
+		SELECT COUNT(*)
+		FROM SUBJECT
+		WHERE ENROL_TYPE = 2
+		OR ENROL_TYPE = 1
+	</select>
+	<select id="selectListCount4" resultType="_int">
+		SELECT COUNT(*)
+		FROM SUBJECT
+		WHERE ENROL_TYPE = 2
+	</select>
+	<select id="selectAbolitiontList" resultMap="LectureOpenResultSet">
+		SELECT S.SUB_CODE, SUB_NAME, SDEPT_NAME, DELETE_DATE, REASON
+		FROM SUBJECT S
+		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
+        JOIN SUBLECT_DELETE DE ON(S.SUB_CODE = DE.SUB_CODE)
+		WHERE ENROL_TYPE=2
+	</select>
 </mapper>

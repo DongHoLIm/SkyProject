@@ -35,12 +35,12 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 
 		list = (ArrayList) sqlSession.selectList("LectureOpen.selectSubjectList", null, rowBounds);
-		
+
 		if(list == null) {
 			sqlSession.close();
 			throw new ClassManagementSelectListException("실패!");
 		}
-		
+
 		return list;
 	}
 
@@ -53,46 +53,46 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 
 	@Override
 	public ArrayList<DepartmentProfessor> selectProfessorList(SqlSessionTemplate sqlSession, String sdeptName) throws ClassManagementSelectListException {
-		
+
 		ArrayList<DepartmentProfessor> list = null;
 		System.out.println("proDao !!!!");
-		
+
 		System.out.println(sdeptName);
 		list = (ArrayList) sqlSession.selectList("lectureprofessor.selectProfessorList", sdeptName);
-		
+
 		if(list == null) {
 			sqlSession.close();
 			throw new ClassManagementSelectListException("실패!");
 		}
-		
+
 		System.out.println(list);
-		
+
 		return list;
 	}
 
 	@Override
 	public ArrayList<ClassRoomInformation> selectClassRoomList(SqlSessionTemplate sqlSession) {
 		ArrayList<ClassRoomInformation> list = null;
-		
-		
+
+
 		list = (ArrayList) sqlSession.selectList("classroominformation.selectroomList");
-		
+
 		System.out.println("list::!!!" + list);
 		return list;
 	}
 
-	
+
 
 	@Override
 	public int insertCourseOffered(SqlSessionTemplate sqlSession, LectureRegistration lr) {
-	
+
 		return sqlSession.insert("LectureRegistration.insertCouserOffered", lr);
 	}
 
 	@Override
 	public int updateSubject(SqlSessionTemplate sqlSession, String subCode) {
-		
-		
+
+
 		System.out.println("subCode");
 		return sqlSession.update("LectureOpen.updateSubject", subCode);
 	}
@@ -100,26 +100,26 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 	@Override
 	public ArrayList<OpenSubject> selectOpenSubjectList(SqlSessionTemplate sqlSession) {
 		ArrayList<OpenSubject> list = null;
-		
+
 		list = (ArrayList) sqlSession.selectList("courseRegistration.selectOpenSubjectList");
 		return list;
 	}
 
 	@Override
 	public void updateOpenSubject(SqlSessionTemplate sqlSession, String[] subCode) {
-		
+
 		for(int i=0; i<subCode.length;i++) {
 			OpenSubject os = new OpenSubject();
 			os.setOpenSubCode(subCode[i]);
 			sqlSession.update("courseRegistration.updateOpenSubject", os);
-			
+
 		}
 	}
 
 	@Override
 	public ArrayList<OpenSubject> selectPreliminaryOpenSubjectList(SqlSessionTemplate sqlSession) {
 		ArrayList<OpenSubject> list = null;
-		
+
 		list = (ArrayList) sqlSession.selectList("courseRegistration.selectPreliminaryOpenSubjectList");
 		return list;
 	}
@@ -130,16 +130,16 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 			OpenSubject os = new OpenSubject();
 			os.setOpenSubCode(subCode[i]);
 			sqlSession.update("courseRegistration.updateFinishOpenSubject", os);
-			
+
 		}
 	}
 
 	@Override
 	public ArrayList<OpenSubject> selectFinishOpenSubjectList(SqlSessionTemplate sqlSession) {
 		ArrayList<OpenSubject> list = null;
-		
+
 		list = (ArrayList) sqlSession.selectList("courseRegistration.selectFinishOpenSubjectList");
-		
+
 		return list;
 	}
 
@@ -150,20 +150,20 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 			os.setOpenSubCode(subCode[i]);
 			sqlSession.update("courseRegistration.updateCloseFinishOpenSubject", os);
 		}
-		
+
 	}
 
 	@Override
 	public void updateSubjectApply(SqlSessionTemplate sqlSession) {
-		
+
 		sqlSession.update("subjectApply.updateDoneType");
-		
+
 	}
 
 	@Override
 	public ArrayList<SubjectApply> selectUpdateList(SqlSessionTemplate sqlSession) {
 		ArrayList<SubjectApply> list = null;
-		
+
 		list = (ArrayList) sqlSession.selectList("subjectApply.selectUpdateList");
 		return list;
 	}
@@ -173,15 +173,15 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 		for(int i=0;i<code.length;i++) {
 			SubjectApply sa = new SubjectApply();
 			sa.setSubApplyCode(code[i]);
-			
+
 			sqlSession.insert("SubApplyDone.insertSubApplyDone", sa);
 		}
-		
+
 	}
 
 	@Override
 	public void deleteCloseSubjectApply(SqlSessionTemplate sqlSession) {
-		
+
 		sqlSession.delete("subjectApply.deleteCloseSubjectApply");
 	}
 
@@ -194,19 +194,19 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 
 		list = (ArrayList) sqlSession.selectList("LectureOpen.selectsubjectAbolitionList", null, rowBounds);
-		
+
 		if(list == null) {
 			sqlSession.close();
 			throw new ClassManagementSelectListException("실패!");
 		}
-		
+
 		return list;
 	}
 
 	@Override
 	public OpenSubject selectOneOpenSubject(SqlSessionTemplate sqlSession, String subCode) {
-		
-		
+
+
 		return sqlSession.selectOne("courseRegistration.selectOneOpenSubject", subCode);
 	}
 
@@ -215,7 +215,7 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 		LectureOpen lo = new LectureOpen();
 		SubjectApply sa = new SubjectApply();
 		ArrayList<SubjectApply> list = null;
-		
+
 		if(os != null) {
 			sqlSession.insert("SubjectDelete.insertSubjectDelete", sd);
 			System.out.println("!!!!!!!");
@@ -240,6 +240,57 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 		}
 	}
 
+	@Override
+	public ArrayList<OpenSubject> selectOpenSubjectList2(SqlSessionTemplate sqlSession, PageInfo pi) throws ClassManagementSelectListException {
+		ArrayList<OpenSubject> list = null;
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+
+		list = (ArrayList) sqlSession.selectList("courseRegistration.selectOpenSubjectList2", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+			throw new ClassManagementSelectListException("실패!");
+		}
+
+		return list;
+	}
 	
+
+	@Override
+	public int getListCount2(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("LectureOpen.selectListCount2");
+	}
+
+	@Override
+	public int getListCount3(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("LectureOpen.selectListCount3");
+	}
+
+	@Override
+	public int getListCount4(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("LectureOpen.selectListCount4");
+	}
+
+	@Override
+	public ArrayList<LectureOpen> selectAbolitiontList(SqlSessionTemplate sqlSession, PageInfo pi) throws ClassManagementSelectListException {
+		ArrayList<LectureOpen> list = null;
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+
+		list = (ArrayList) sqlSession.selectList("LectureOpen.selectAbolitiontList", null, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+			throw new ClassManagementSelectListException("실패!");
+		}
+
+		return list;
+	}
+
+
 
 }

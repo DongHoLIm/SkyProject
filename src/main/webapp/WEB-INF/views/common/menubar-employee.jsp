@@ -38,12 +38,13 @@
 												<li><h4>강의관리</h4></li>
 												<li><a href="lectureOpen.em" >강의 개설</a></li>
 												<li><a href="subjectAbolition.em">강의 폐지</a></li>
-												<li><a href="#">개설/폐지 조회</a></li>
+												<li><a href="lectureAbolitionSelect.em">개설/폐지 조회</a></li>
 												<li><a href="#">수강인워관리</a></li>
 												<li><a href="#">시간표조정</a></li>
-												<li><a href="lessionPlan.em">강의계획서조회</a></li>
-												<li><a href="em_showLectureEvaluationOpen.le">강의평가 관리</a></li>
-												<li><a href="#">휴강 및 보강 관리</a></li>
+												<li><a href="#">개설/폐지 조회</a></li>
+												<li><a href="#">수강인원관리</a></li>
+										    <li><a href="lessionPlan.em">강의계획서조회</a></li>
+												<li><a href="em_showLectureEvaluationOpen.le">강의평가 관리</a></li>												
 												<li><h4>수강신청관리</h4></li>
 												<li><a href="openPreliminaryCourseRegistration.em">예비수강신청열기</a></li>
 												<li><a href="openFinishCourseRegistration.em">수강신청열기</a></li>
@@ -60,7 +61,6 @@
 												<li><a href="#">학사경고 관리</a></li>
 												<li><a href="em_showDropOut.si">자퇴 신청 관리</a></li>
 												<li><a href="em_showExplusion.si">제적처리</a></li>
-												<li><h4>휴복학관리</h4></li>
 												<li><a href="em_schoolOff.si">휴학 처리</a></li>
 												<li><a href="em_schoolOn.si">복학 처리</a></li>								
 												<li><h4>졸업관리</h4></li>
@@ -120,14 +120,9 @@
 												<li><a href="em_freeBoardList.bo">자유게시판</a></li>
 												<li><a href="em_searchMyBoardList.bo?memberId=${sessionScope.loginUser.memberId}">내 게시물 조회</a></li>
 												
-												<li><hr></li>
+												<li><hr></li>												
 												
-												<li><h4>메일함</h4></li>
-												<li><a href="#">웹 메일</a></li>							
-											
-												<li><hr></li>
-												
-												<h4>시스템 문의</h4>
+												<li><h4>시스템 문의</h4></li>
 												<li><a href="em_systemQuestionList.bo?memberId=${sessionScope.loginUser.memberId}">시스템 문의</a></li>
 												
 												
