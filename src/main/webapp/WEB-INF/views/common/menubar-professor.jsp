@@ -44,7 +44,7 @@
 											<span class="opener">학적관리</span>
 											<ul>
 												<li><h4>학적정보조회</h4></li>
-												<li><a href="#">정보조회하기</a></li>
+												<li><a href="stuInfo.pro">정보조회하기</a></li>
 												<li><h4>자퇴관리</h4></li>												
 												<li><a href="pro_showDropOut.si">자퇴 신청 관리</a></li>
 											</ul>

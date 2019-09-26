@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="stuInfoPro">
+  	<resultMap type="com.kh.finalProject.professor.stuInfo.model.vo.stuInfoVo" id="stuInfoResultSet">
+  		<id property="memberId" column="MEMBER_ID"/>
+  		<result property="memberKName" column="MEMBER_KNAME"/>
+  		<result property="memberEName" column="MEMBER_ENAME"/>
+  		<result property="memberNo" column="MEMBER_NO"/>
+  		<result property="stuStatus" column="STUDENT_STATUS"/>
+  		<result property="grade" column="GRADE"/>
+  		<result property="enroldate" column="ENROL_DATE"/>
+  	</resultMap>
+  	<select id="stuInfoListCount" resultType="_int" parameterType="String">
+	  	SELECT COUNT(M.MEMBER_ID)
+	FROM MEMBER M
+	JOIN STUDENT_INFO SI ON(M.MEMBER_ID=SI.STUDENT_NO)
+	JOIN SDEPARTMENT S ON(SI.SDEPT_CODE =S.SDEPT_CODE)
+	WHERE MEMBER_CHECK = '1'
+	AND SI.SDEPT_CODE = (
+	SELECT P.PDEPT_CODE 
+	FROM MEMBER M
+	JOIN PROFESSOR P ON(M.MEMBER_ID = P.PROFESSOR_NO)
+	WHERE MEMBER_ID = #{professorId})
+  	</select>
+  	<select id="stuInfoList" resultMap="stuInfoResultSet" parameterType="String">
+	  	SELECT M.MEMBER_ID,M.MEMBER_KNAME,M.MEMBER_ENAME,M.MEMBER_NO,M.PHONE_ONE,M.PHONE_TWO,SI.STUDENT_STATUS,SI.GRADE,SI.ENROL_DATE
+	FROM MEMBER M
+	JOIN STUDENT_INFO SI ON(M.MEMBER_ID=SI.STUDENT_NO)
+	JOIN SDEPARTMENT S ON(SI.SDEPT_CODE =S.SDEPT_CODE)
+	WHERE MEMBER_CHECK = '1'
+	AND SI.SDEPT_CODE = (
+	SELECT P.PDEPT_CODE 
+	FROM MEMBER M
+	JOIN PROFESSOR P ON(M.MEMBER_ID = P.PROFESSOR_NO)
+	WHERE MEMBER_ID = #{professorId})
+  	</select>
+  </mapper>
