@@ -10,10 +10,10 @@
 <link rel="stylesheet" href="resources/css/main.css" />
 <title>메인 페이지</title>
 <style>
-	#subjectT{
+	#lectureScore{
 		text-align: center;
 	}
-	#subjectT tr th {
+	#lectureScore tr th {
 		text-align: center;
 	}
 	#stuT{
@@ -34,40 +34,54 @@
 				<hr />
 				<br />
 				<br />
-				<table id="subjectT">
+				<table id="lectureScore">
 					<tr>
-						<th>강의명</th>
-						<th>강의장</th>
-						<th>강의시간</th>
+						<th>중간고사</th>
+						<th>기말고사</th>
+						<th>출석점수</th>
+						<th>과제점수</th>
 					</tr>
-					<tr>
-						<td>새천년</td>
-						<td>인문관</td>
-						<td>월,수/13:00~15:00</td>
-					</tr>
+					 <tr>
+						<%-- <td><c:out value="${subSch.middleExam } %"/></td>
+						<td><c:out value="${subSch.finalExam } %"/></td>
+						<td><c:out value="${subSch.attendance } %"/></td>
+						<td><c:out value="${subSch.homeWork } %"/></td> --%>
+						<td>20%</td>
+						<td>20%</td>
+						<td>20%</td>
+						<td>20%</td>
+					</tr> 
 				</table>
 				<br />
 				
 				<br />
 				<table id="stuT">
 					<tr>
+						<th>점수코드</th>
 						<th>학생이름</th>
 						<th>학번</th>
 						<th>중간고사</th>
 						<th>기말고사</th>
 						<th>출석점수</th>
 						<th>과제점수</th>
-						<th>평점</th>
+						<th style="width: 15%">점수</th>
+						<th style="width: 20%">성적</th>
 					</tr>
-					<tr>
-						<td>임동호</td>
-						<td>201281065</td>
-						<td><input type="text" /></td>
-						<td><input type="text" /></td>
-						<td><input type="text" /></td>
-						<td><input type="text" /></td>
-						<td>4.5</td>
-					</tr>					
+					<tbody>
+						<c:forEach var="insertResultlist" items="${stuList }">
+						<tr>
+							<td><c:out value="${insertResultlist.gradeCode}"/></td>
+							<td><c:out value="${insertResultlist.studentName }"/></td>
+							<td><c:out value="${insertResultlist.studentNo }"/></td>
+							<td><c:out value='${insertResultlist. middleScore}'/></td>
+							<td><c:out value='${insertResultlist. finalScore}'/></td>
+							<td><c:out value='${insertResultlist. workScore}'/></td>
+							<td><c:out value='${insertResultlist. attendanceScore}'/></td>
+							<td><c:out value='${insertResultlist. score}'/></td>
+							<td><c:out value='${insertResultlist.grade}'/></td>
+						</tr>
+						</c:forEach>
+					</tbody>					
 				</table>
 				
 				

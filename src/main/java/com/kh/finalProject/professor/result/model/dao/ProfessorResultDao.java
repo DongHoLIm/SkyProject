@@ -17,4 +17,6 @@ public interface ProfessorResultDao {
 
 	SubjectScheduler subSch(SqlSessionTemplate sqlSession, String opensubCode);
 
+	int resultInsertStu(SqlSessionTemplate sqlSession, StudentResult sr);
+
 }

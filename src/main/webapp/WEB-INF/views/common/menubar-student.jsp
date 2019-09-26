@@ -96,12 +96,7 @@
 												<li><a href="st_freeBoardList.bo">자유게시판</a></li>
 												<li><a href="st_searchMyBoardList.bo?memberId=${sessionScope.loginUser.memberId}">내 게시물 조회</a></li>
 												
-												<hr>
-												
-												<h4>메일함</h4>
-												<li><a href="#">웹 메일</a></li>
-												
-												<hr>
+												<hr>												
 												
 												<h4>인터넷 제증명</h4>
 												<li><a href="showProof.pf">증명서 발급 신청</a></li>

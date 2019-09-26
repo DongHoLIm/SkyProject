@@ -28,7 +28,7 @@
 		text-align:center;
 	}
 	input[type='number']{
-		width: 40%;
+		width: 50%;
 		
 	}
 </style>
@@ -78,6 +78,7 @@
 					</tr> 
 				</table>
 				<br />
+				
 				<table id="stuT">
 					<thead>
 						<tr>
@@ -88,7 +89,8 @@
 							<th>기말고사</th>
 							<th>출석점수</th>
 							<th>과제점수</th>
-							<th>점수</th>
+							<th style="width:15%">점수</th>
+							<th style="width:20%">성적</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -101,17 +103,19 @@
 							<td><input type="number" value="<c:out value='${insertResultlist. finalScore}'/>" max="100" min="0" name="finalScore"/></td>
 							<td><input type="number" value="<c:out value='${insertResultlist. workScore}'/>" max="100"  min="0" name="attendanceScore"/></td>
 							<td><input type="number" value="<c:out value='${insertResultlist. attendanceScore}'/>" max="100" min="0" name="workScore"/></td>
-							<td></td>
+							<td><input type="text" value="<c:out value='${insertResultlist. score}'/>" name="score" style="width: 40%;margin: 0 auto"readonly/></td>
+							<td><input type="text" value="<c:out value='${insertResultlist.grade}'/>" name="grade" style="width: 40%;margin: 0 auto"readonly /></td>
 						</tr>
 						</c:forEach>
 					</tbody>
+					<tfoot>
 					<tr>
-						<td colspan="4"><button type="submit" style="float:right;">입력</button></td>
-						<td colspan="4"><button style="float:left;">취소</button></td>
+						<td colspan="4"><button type="button" onclick="insertStu();"style="float:right;">입력</button></td>
+						<td colspan="5"><button style="float:left;">취소</button></td>
 					</tr>
+					</tfoot>
 				</table>
-				
-				
+						
 			</div>
 		</div>
 		<div>			
@@ -126,9 +130,9 @@
  	var result1 = 0;
  	var result2 = 0;
  	var result3 = 0;
+ 	var grade = null;
 	$("input[type='number']").on("propertychange change keyup paste input", function() {
-	  
-	   	
+	  	   	
 		var middlePercent = $("#lectureScore tr td").eq(0).text();
 	    var finalPercent = $("#lectureScore tr td").eq(1).text();
 	    var attendancePercent = $("#lectureScore tr td").eq(2).text();
@@ -139,11 +143,9 @@
 	   	var ap = Number(attendancePercent.slice(0,-1));
 	   	var hp = Number( homeWorkPercent.slice(0,-1));
 	    
-	   	console.log(mp);
 		var currentVal = $(this).val();
 	    var name = $(this).attr('name');
-	    
-	    console.log(currentVal);
+	    	
 	   	 if(name == "middleScore"){
 	   		result = currentVal *(mp/100);	   		
 	   	} else if(name=="finalScore"){
@@ -153,10 +155,88 @@
 	   	}else{
 	   		result3 = currentVal *(hp/100);
 	   	}
-	   	var total = result+result1+result2+result3;	   	
-	   	$(this).parents().children().eq(8).append($input); 
-	   	$(this).parents().children().eq(8).text(total);
+	   	var total = result+result1+result2+result3;   	
+	   	var inputScore = $(this).parents().children().eq(8).children();
+	   	var input = $(this).parents().children().eq(9).children();
+	   if(total>=90){
+		   if(total>95){
+			   grade="A+";
+		   }else{
+			   grade="A0";
+		   }		  
+	   }else if(total>=80){
+		   if(total>85){
+			   grade="B+"
+		   }else{
+			   grade="B0";
+		   }		   
+	   }else if(total>=70){
+		   if(total>75){
+			   grade="C+"
+		   }else{
+			   grade="C0";
+		   }		   
+	   }else if(total>=60){
+		   if(total>65){
+			   grade="D+";
+		   }else{
+			   grade="D0";
+		   }		  
+	   }else if(total>=50){
+		   if(total>55){
+			   grade="E+"
+		   }else{
+			   grade="E0"
+		   }		   
+	   }else{
+		   if(total>45){
+			   grade="F";
+		   }else{
+			   grade="재수강";
+		   }  
+	   }
+	   	console.log(grade);
+	   	input.val(grade);
+	   	inputScore.val(total); 	   	
 	});
+	function insertStu(){
+		var index = 0;
+		var list = $("#stuT tbody tr");
+		var array = new Array();
+		var trvalue = new Object();
+		list.each(function(index){
+			var gradeCode = list.eq(index).children().eq(0).text();
+			var middleScore = list.eq(index).children().eq(3).children().val();
+			var finalScore = list.eq(index).children().eq(4).children().val();
+			var attendanceScore = list.eq(index).children().eq(5).children().val();
+			var workScore= list.eq(index).children().eq(6).children().val();
+			var score= list.eq(index).children().eq(7).children().val();
+			var grade= list.eq(index).children().eq(8).children().val();
+			console.log(grade);
+			trvalue = {
+					gradeCode:gradeCode,
+					middleScore:middleScore,
+					finalScore:finalScore,
+					attendanceScore:attendanceScore,
+					workScore:workScore,
+					score:score,
+					grade:grade
+			};
+			array.push(trvalue);		
+		});
+		var str = JSON.stringify(array);
+		$.ajax({
+			url:"resultInsertStu.pror",
+			data:{str:str},
+			type:"post",
+			dataType:"json",
+			success: function(data){
+				alert(data.msg);
+			}			
+		});
+		
+		
+	}
 	</script>
 </body>
 </html>
