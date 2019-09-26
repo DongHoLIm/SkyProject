@@ -37,4 +37,10 @@ public class ProfessorResultServiceImpl implements ProfessorResultService{
 		return pd.subSch(sqlSession,opensubCode);
 	}
 
+	@Override
+	public int resultInsertStu(StudentResult sr) {
+		// TODO Auto-generated method stub
+		return pd.resultInsertStu(sqlSession,sr);
+	}
+
 }

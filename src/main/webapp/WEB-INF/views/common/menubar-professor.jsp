@@ -37,9 +37,7 @@
 											<ul>
 												<li><h4>문자보내기</h4></li>
 												<li><a href="sendSMS.pro">SMS 보내기</a></li>
-												<li><a href="SMSList.pro">SMS 전송내역 조회</a></li>
-												<li><h4>학사 일정 신청</h4></li>
-												<li><a href="#">학사 일정 신청</a></li>
+												<li><a href="SMSList.pro">SMS 전송내역 조회</a></li>												
 											</ul>
 										</li>
 											<li>
@@ -47,19 +45,15 @@
 											<ul>
 												<li><h4>학적정보조회</h4></li>
 												<li><a href="#">정보조회하기</a></li>
-												<li><h4>자퇴관리</h4></li>
-												<li><a href="#">상담내역</a></li>
+												<li><h4>자퇴관리</h4></li>												
 												<li><a href="pro_showDropOut.si">자퇴 신청 관리</a></li>
 											</ul>
 										</li>
 											<li>
 											<span class="opener">수업관리</span>
 											<ul>
-												<li><a href="opensubject.pro">강의 계획서 입력,수정</a></li>
-												<li><a href="#">학생 출결 관리</a></li>
-												<li><a href="#">강의 평가 조회</a></li>
-												<li><a href="#">과목별 학생 조회</a></li>
-												<li><a href="#">휴/보강 관리</a></li>
+												<li><a href="opensubject.pro">강의 계획서 입력,수정</a></li>												
+												<li><a href="#">강의 평가 조회</a></li>																							
 											</ul>
 										</li>
 										<li>
@@ -87,12 +81,7 @@
 												<li><a href="pro_freeBoardList.bo">자유게시판</a></li>
 												<li><a href="pro_searchMyBoardList.bo?memberId=${sessionScope.loginUser.memberId}">내 게시물 조회</a></li>
 												
-												<li><hr></li>
-												
-												<li><h4>메일함</h4></li>
-												<li><a href="#">웹 메일</a></li>							
-											
-												<li><hr></li>
+												<li><hr></li>									
 												
 												<li><h4>시스템 문의</h4></li>
 												<li><a href="pro_systemQuestionList.bo?memberId=${sessionScope.loginUser.memberId}">시스템 문의 하기</a></li>

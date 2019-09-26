@@ -31,6 +31,7 @@
 				<br />
 				<table id="classList">
 					<tr>
+						<th>년도/ 학기</th>
 						<th>과목번호</th>
 						<th>이수구분</th>
 						<th>강의명</th>
@@ -39,18 +40,20 @@
 						<th>학점</th>
 						<th>상세 확인</th>
 					</tr>
-					<tr>
-					
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>
-							<button type="button" id="insertResultView">상세확인</button>
-						</td>
-					</tr>
+					<c:forEach var="listSub" items="${list}">
+						<tr>
+							<td><c:out value="${listSub.openYear }년도/${listSub.openSemester }학기"/></td>
+							<td><c:out value="${listSub.opensubCode }"/></td>
+							<td><c:out value="${listSub.completeType }"/></td>
+							<td><c:out value="${listSub.subName }"/></td>
+							<td><c:out value="${listSub.buildingName }/${listSub.roomName }"/></td>
+							<td><c:out value="${listSub.dayInfo }/${listSub.timeInfo }"/></td>
+							<td><c:out value="${listSub.subGrade }학점"/></td>
+							<td>
+								<button type="button" class="insertResultView">확인</button>
+							</td>
+						</tr>
+					</c:forEach>
 				</table>	
 			</div>
 		</div>
@@ -63,8 +66,18 @@
 	</c:if>
 	<script>
 	$(function(){
-		$("#insertResultView").click(function(){
-			window.open("checkResultDetail.pror","성적조회","width:100px;");			
+			$(".insertResultView").click(function(){				
+				var subject = $(this).parents().eq(1).children();
+				
+				var yearSemester = subject.eq(0).text();
+				var opensubCode = subject.eq(1).text();
+				var completeType = subject.eq(2).text();
+				var subName = subject.eq(3).text();
+				var buildingRoom = subject.eq(4).text();
+				var dayInfoTimeInfo = subject.eq(5).text();
+				var subGrade = subject.eq(6).text();			
+				
+			window.open("checkResultDetail.pror?opensubCode="+opensubCode,"성적조회","width:100px;");			
 		});
 	});
 	</script>

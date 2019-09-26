@@ -15,4 +15,6 @@ public interface ProfessorResultService {
 
 	SubjectScheduler subSch(String opensubCode);
 
+	int resultInsertStu(StudentResult sr);
+
 }
