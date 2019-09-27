@@ -23,7 +23,7 @@ td.td	{
 
 
 table.basicinfo {
-	width:85%;
+	
 	border: 1px solid #dde1e3;
 	margin-left: auto;
 	margin-right: auto;
@@ -75,7 +75,7 @@ table.basicinfo {
 
 							<tr>
 								<td class="td">이수구분</td>
-								<td>
+								<td >
 									<input type="text" name="completeType" value="<c:out value="${ lo.completeType }"/>" readonly>
 								</td>
 								<td class="td">개설일자</td>
@@ -84,7 +84,7 @@ table.basicinfo {
 									<input type="text" name="madeDate" value="<fmt:formatDate value="${madeDate}" pattern="yyyy/MM/dd"/>" readonly>
 								</td>
 								<td class="td">교수</td>
-								<td><select name="proList">
+								<td colspan="2"><select name="proList">
 										<c:forEach var="proList" items="${ proList }">
 											<option>
 												<c:out value="${ proList.professorName }/${ proList.professorNo }" />
@@ -96,8 +96,8 @@ table.basicinfo {
 							<tr>
 								<td class="td">개강년도</td>
 								<td><input type="text" name="year" value="2019" readonly></td>
-								<td class="td">개강학기</td>
-								<td><input type="text" name="semester" value="2" readonly></td>
+								<td class="td">강의인원</td>
+								<td ><input type="text" name="personnel"></td>
 								<td class="td">강의실정보</td>
 								<td>
 									<select name="room">
@@ -120,11 +120,34 @@ table.basicinfo {
 										<option>금요일</option>
 									</select>
 								</td>
-								<td class="td">강의교시</td>
-								<td><input type="text" name="period"></td>
-								<td class="td">강의인원</td>
-								<td><input type="text" name="personnel"></td>
+								<td class="td">시작교시</td>
+								<td>
+									<select name="period1">
+										<option value="1">09:00 ~ 09:50</option>
+										<option value="2">10:00 ~ 10:50</option>
+										<option value="3">11:00 ~ 11:50</option>
+										<option value="4">12:00 ~ 12:50</option>
+										<option value="5">13:00 ~ 13:50</option>
+										<option value="6">14:00 ~ 14:50</option>
+										<option value="7">15:00 ~ 15:50</option>
+										<option value="8">16:00 ~ 16:50</option>
+									</select>
+								</td>
+								<td class="td">끝교시</td>
+								<td>
+									<select name="period2">
+										<option value="1">09:00 ~ 09:50</option>
+										<option value="2">10:00 ~ 10:50</option>
+										<option value="3">11:00 ~ 11:50</option>
+										<option value="4">12:00 ~ 12:50</option>
+										<option value="5">13:00 ~ 13:50</option>
+										<option value="6">14:00 ~ 14:50</option>
+										<option value="7">15:00 ~ 15:50</option>
+										<option value="8">16:00 ~ 16:50</option>
+									</select>
+								</td> 
 							</tr>
+							<input type="hidden" name="semester" value="2" readonly>
 						</table>
 						<br><br><br>
 						<div style="margin:0 0 0 38%;">					

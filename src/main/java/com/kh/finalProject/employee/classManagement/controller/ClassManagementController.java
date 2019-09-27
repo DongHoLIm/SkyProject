@@ -103,16 +103,24 @@ public class ClassManagementController {
 			@RequestParam(name="dayWeek", required=false)String dayWeek,
 			@RequestParam(name="year", required=false)int year,
 			@RequestParam(name="semester", required=false)int semester,
-			@RequestParam(name="period", required=false)String period,
+			@RequestParam(name="period1", required=false)String period1,
+			@RequestParam(name="period2", required=false)String period2,
 			@RequestParam(name="room", required=false)String room,
 			@RequestParam(name="personnel", required=false)int personnel)	{
 		
+		LectureRegistration lr = new LectureRegistration();
+		String period = "";
+		if(period1.equals(period2)) {
+			lr.setTimeInfo(period1);
+		}else {
+			period = period1+","+period2;
+			lr.setTimeInfo(period);
+		}
+		System.out.println("period:::" + period);
 		String pCode[] = proList.split("/");
 		String rCode[] = room.split("/");
 		
 		
-		System.out.println(pCode);
-		LectureRegistration lr = new LectureRegistration();
 		lr.setOpenSubCode(lo.getSubCode());
 		lr.setStudentMax(personnel);
 		lr.setOpenYear(year);
@@ -121,7 +129,6 @@ public class ClassManagementController {
 		lr.setBuildingName(rCode[0]);
 		lr.setRoomName(rCode[1]);
 		lr.setDayInfo(dayWeek);
-		lr.setTimeInfo(period);
 		
 		System.out.println("lr::::" + lr);
 		

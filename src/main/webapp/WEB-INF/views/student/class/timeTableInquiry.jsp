@@ -17,24 +17,38 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function(){
+	var day = new Array('월요일', '화요일', '수요일', '목요일', '금요일');
+	var time = new Array('1', '2', '3', '4', '5', '6', '7', '8');
 	$.ajax({
 		url:"timeTableInquiry.st",
 		type:"post",
 		success:function(data){
 			var list = new Array();
+	console.log(day);
+	console.log(time);
 			for(var i=0;i<data.list.length;i++){
 				list[i] = data.list[i];
 			}
 			for(var i=0;i<list.length;i++){
 				console.log(list[i].dayInfo);
+				var day2 = list[i].dayInfo;
 				console.log(list[i].timeInfo);
-				
-			}
-			var tr = $('#tr').text();
-			var td1 = $('#td1').text();
-			console.log(td1);
-			console.log(tr);
-			
+				var time2 = data.list[i].timeInfo.split(',');
+				console.log(time2);
+				for(var j=0;j<day.length;j++){
+					if(day[j] == day2){
+						console.log("")
+						for(var c=0;c<time.length;c++){
+							console.log("???!!!!!");
+							for(var a=0;a<time2.length;a++){
+								if(time == time[a]){
+									console.log("???");
+								}
+							}
+						}
+					}
+				}
+			}	
 		},
 		error:function(err){
 			console.log("실패!");
@@ -66,7 +80,7 @@ $(document).ready(function(){
 					</tr>
 					<tr align="center">
 						<td bgcolor="#5CD1E5" id="td1">1</td>
-						<td ></td>
+						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
