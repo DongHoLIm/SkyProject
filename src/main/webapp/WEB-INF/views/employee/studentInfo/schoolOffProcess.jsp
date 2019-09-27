@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -24,7 +25,7 @@
 			<br>
 			<h4>휴학 신청 명단</h4>
 			<br>
-			<div id="filterArea"style="width:85%; text-align: center; margin: 0 auto;">
+			<div id="filterArea" style="width:85%; text-align: center; margin: 0 auto;">
 				<table>
 					<tr>
 						<td>
@@ -54,17 +55,18 @@
 			
   				<br>
     				
-      					<table id="applyList" class="table table-bordered">
+      					<table id="applyList" class="table table-bordered" >
     						<thead>
       							<tr>
-        							<th>단과대학</th>
-        							<th>학과</th>
-        							<th>학번</th>
-        							<th>이름</th>
-        							<th>휴학신청학기</th>
-        							<th>복학예정학기</th>
-        							<th>신청일자</th>
-        							<th>처리상태</th>
+        							<th style='text-align:center;'>단과대학</th>
+        							<th style='text-align:center;'>학과</th>
+        							<th style='text-align:center;'>학번</th>
+        							<th style='text-align:center;'>이름</th>
+        							<th style='text-align:center;'>휴학신청학기</th>
+        							<th style='text-align:center;'>복학예정학기</th>
+        							<th style='text-align:center;'>신청일자</th>
+        							<th style='text-align:center;'>휴학구분</th>
+        							<th style='text-align:center;'>처리상태</th>
       							</tr>
     						</thead>
     						<tbody id="tbody">
@@ -90,9 +92,8 @@
 					success:function(data){
 						console.log("접속성공");
 						console.log("data.list.length::" + data.list.length);
-						console.log( data.list[0].offType);
 						
-						var $body = $("#tbody");
+						var $tbody = $("#tbody");
 						
 						$tbody.children().remove();
 						
@@ -106,6 +107,19 @@
 							var $td6 = $("<td style='text-align:center;'>");
 							var $td7 = $("<td style='text-align:center;'>");
 							var $td8 = $("<td style='text-align:center;'>");
+							var $td9 = $("<td style='text-align:center;'>");
+							
+							var applyDate=data.list[i].applyDate;
+							console.log(applyDate);
+							
+							/* var $fmt1 = $('<fmt:parseDate value="${applyDate}" var="applyDate" pattern="yyyy-MM-dd HH:mm:ss">');
+							var $fmt2 = $('<fmt:formatDate value="${applyDate}" var="applyDate" pattern="yyyy/MM/dd">');
+							 */
+							/* <fmt:parseDate value="${applyDate}" var="applyDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${applyDate}" pattern="yyyy/MM/dd"/> */
+							
+								
+								/* console.log("${applyDate}"); */
 							
 							$td1.text(data.list[i].college);
 							$td2.text(data.list[i].sdeptName);
@@ -113,8 +127,10 @@
 							$td4.text(data.list[i].kName);
 							$td5.text(data.list[i].offStart);
 							$td6.text(data.list[i].returnDate);
-							$td7.text(data.list[i].applyDate);
-							$td8.text(data.list[i].offStatus);
+							$td7.addend(fmt1);
+							$td7.addend(fmt2);
+							$td8.text(data.list[i].offType);
+							$td9.text(data.list[i].offStatus);
 							
 							$tr.append($td1);
 							$tr.append($td2);
@@ -124,6 +140,7 @@
 							$tr.append($td6);
 							$tr.append($td7);
 							$tr.append($td8);
+							$tr.append($td9);
 							
 							$tbody.append($tr);
 							
@@ -230,6 +247,7 @@
 							var $td6 = $("<td style='text-align:center;'>");
 							var $td7 = $("<td style='text-align:center;'>");
 							var $td8 = $("<td style='text-align:center;'>");
+							var $td9 = $("<td style='text-align:center;'>");
 							
 							$td1.text(data.list[i].college);
 							$td2.text(data.list[i].sdeptName);
@@ -238,7 +256,8 @@
 							$td5.text(data.list[i].offStart);
 							$td6.text(data.list[i].returnDate);
 							$td7.text(data.list[i].applyDate);
-							$td8.text(data.list[i].offStatus);
+							$td8.text(data.list[i].offType);
+							$td9.text(data.list[i].offStatus);
 							
 							$tr.append($td1);
 							$tr.append($td2);
@@ -248,6 +267,7 @@
 							$tr.append($td6);
 							$tr.append($td7);
 							$tr.append($td8);
+							$tr.append($td9);
 							
 							$tbody.append($tr);
 							
@@ -359,6 +379,7 @@
 							var $td6 = $("<td style='text-align:center;'>");
 							var $td7 = $("<td style='text-align:center;'>");
 							var $td8 = $("<td style='text-align:center;'>");
+							var $td9 = $("<td style='text-align:center;'>");
 							
 							$td1.text(data.list[i].college);
 							$td2.text(data.list[i].sdeptName);
@@ -367,7 +388,8 @@
 							$td5.text(data.list[i].offStart);
 							$td6.text(data.list[i].returnDate);
 							$td7.text(data.list[i].applyDate);
-							$td8.text(data.list[i].offStatus);
+							$td8.text(data.list[i].offType);
+							$td9.text(data.list[i].offStatus);
 							
 							$tr.append($td1);
 							$tr.append($td2);
@@ -377,6 +399,7 @@
 							$tr.append($td6);
 							$tr.append($td7);
 							$tr.append($td8);
+							$tr.append($td9);
 							
 							$tbody.append($tr);
 						}
@@ -483,6 +506,7 @@
 							var $td6 = $("<td style='text-align:center;'>");
 							var $td7 = $("<td style='text-align:center;'>");
 							var $td8 = $("<td style='text-align:center;'>");
+							var $td9 = $("<td style='text-align:center;'>");
 							
 							$td1.text(data.list[i].college);
 							$td2.text(data.list[i].sdeptName);
@@ -491,7 +515,8 @@
 							$td5.text(data.list[i].offStart);
 							$td6.text(data.list[i].returnDate);
 							$td7.text(data.list[i].applyDate);
-							$td8.text(data.list[i].offStatus);
+							$td8.text(data.list[i].offType);
+							$td9.text(data.list[i].offStatus);
 							
 							$tr.append($td1);
 							$tr.append($td2);
@@ -501,6 +526,7 @@
 							$tr.append($td6);
 							$tr.append($td7);
 							$tr.append($td8);
+							$tr.append($td9);
 							
 							$tbody.append($tr);
 							
@@ -591,5 +617,6 @@
 		</div>
 	</div>
 </div>
+
 </body>
 </html>
