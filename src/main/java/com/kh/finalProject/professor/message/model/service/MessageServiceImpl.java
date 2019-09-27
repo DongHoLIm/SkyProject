@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.message.model.dao.MessageDao;
 import com.kh.finalProject.professor.message.model.vo.MessageVO;
@@ -20,8 +22,8 @@ public class MessageServiceImpl implements MessageService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<MessageVO> selectmessageList(String memberId) {
-		return messageDao.selectmessageList(sqlSession, memberId);
+	public List<MessageVO> selectmessageList(String memberId, PageInfo pi) throws ClassManagementSelectListException {
+		return messageDao.selectmessageList(sqlSession, memberId, pi);
 	}
 
 	@Override
@@ -33,6 +35,12 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public List<Member> selectMemberList() {
 		return messageDao.selectMemberList(sqlSession);
+	}
+
+	@Override
+	public int getListCount(String memberId) {
+		
+		return messageDao.getListCount(sqlSession, memberId);
 	}
 
 }
