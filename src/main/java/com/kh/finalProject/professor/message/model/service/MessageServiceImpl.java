@@ -43,4 +43,10 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.getListCount(sqlSession, memberId);
 	}
 
+	@Override
+	public void sendMessage(MessageVO messageVO) {
+		messageDao.sendMessage(sqlSession, messageVO);
+		
+	}
+
 }

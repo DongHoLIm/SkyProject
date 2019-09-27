@@ -94,19 +94,21 @@ public class messageController {
 	@RequestMapping("sendMessage")
 	@ResponseBody
 	   public String sendMessage(HttpSession session, String tmp, String title ,String content) throws JsonProcessingException {
-			System.out.println("들어왔니");
+		
 			Member member = (Member) session.getAttribute("loginUser");
 			String memberId = member.getMemberId();
 	      String[] list = tmp.split(",");
-
+	      MessageVO messageVO = new MessageVO();
+	     
 	      for (int i = 0; i < list.length; i++) {
 	         System.out.println(list[i]);
-	       //  messageService.sendMessage(VO)
 	         
-	         System.out.println(list[i]);
-	         System.out.println(title);
-	         System.out.println(content);
-	         System.out.println(memberId);
+	          messageVO.setMessageTitle(title);
+		      messageVO.setMessageContent(content);
+		      messageVO.setReceMember(list[i]);
+		      messageVO.setMemberId(memberId);
+		      System.out.println(messageVO);
+	         messageService.sendMessage(messageVO);
 	      }
 
 	      Map<String, Object> result = new HashMap<String, Object>();

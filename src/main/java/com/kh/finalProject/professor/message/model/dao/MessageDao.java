@@ -19,4 +19,6 @@ public interface MessageDao {
 
 	public int getListCount(SqlSessionTemplate sqlSession, String memberId);
 
+	public void sendMessage(SqlSessionTemplate sqlSession, MessageVO messageVO);
+
 }

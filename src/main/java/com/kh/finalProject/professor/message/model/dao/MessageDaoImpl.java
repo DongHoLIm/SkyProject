@@ -49,6 +49,12 @@ public class MessageDaoImpl implements MessageDao{
 		
 		return sqlSession.selectOne("Message.selectListCount", memberId);
 	}
+
+	@Override
+	public void sendMessage(SqlSessionTemplate sqlSession, MessageVO messageVO) {
+		sqlSession.selectOne("Message.sendMessage", messageVO);
+		
+	}
 	
 
 }
