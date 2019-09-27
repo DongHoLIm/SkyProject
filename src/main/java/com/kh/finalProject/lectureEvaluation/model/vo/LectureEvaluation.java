@@ -19,14 +19,14 @@ public class LectureEvaluation implements java.io.Serializable{
 	private double totalCount;
 	private double avgCount;	
 	private String openSubCode;
+	private String studentNo;
 	
 	public LectureEvaluation() {}
 
-	
 	public LectureEvaluation(String lectureNo, String doneCode, int allCount, int memberCount, String doneStatus,
 			String openStatus, String evalCode, String subName, String pdeptName, String professorName, String answer1,
 			String answer2, String answer3, String answer4, String answer5, double totalCount, double avgCount,
-			String openSubCode) {
+			String openSubCode, String studentNo) {
 		super();
 		this.lectureNo = lectureNo;
 		this.doneCode = doneCode;
@@ -46,9 +46,20 @@ public class LectureEvaluation implements java.io.Serializable{
 		this.totalCount = totalCount;
 		this.avgCount = avgCount;
 		this.openSubCode = openSubCode;
+		this.studentNo = studentNo;
 	}
+
+
 	
-	
+
+
+	public String getStudentNo() {
+		return studentNo;
+	}
+
+	public void setStudentNo(String studentNo) {
+		this.studentNo = studentNo;
+	}
 
 	public String getOpenSubCode() {
 		return openSubCode;
@@ -196,7 +207,6 @@ public class LectureEvaluation implements java.io.Serializable{
 		this.avgCount = avgCount;
 	}
 
-
 	@Override
 	public String toString() {
 		return "LectureEvaluation [lectureNo=" + lectureNo + ", doneCode=" + doneCode + ", allCount=" + allCount
@@ -204,9 +214,11 @@ public class LectureEvaluation implements java.io.Serializable{
 				+ ", evalCode=" + evalCode + ", subName=" + subName + ", pdeptName=" + pdeptName + ", professorName="
 				+ professorName + ", answer1=" + answer1 + ", answer2=" + answer2 + ", answer3=" + answer3
 				+ ", answer4=" + answer4 + ", answer5=" + answer5 + ", totalCount=" + totalCount + ", avgCount="
-				+ avgCount + ", openSubCode=" + openSubCode + "]";
+				+ avgCount + ", openSubCode=" + openSubCode + ", studentNo=" + studentNo + "]";
 	}
 
+
+	
 	
 	
 }

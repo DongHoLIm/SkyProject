@@ -26,6 +26,14 @@ public interface LectureEvaluationDao {
 
 	ArrayList<LectureEvaluation> st_LectureEvaluationList(SqlSessionTemplate sqlSession, PageInfo pi, String studentNo);
 
+	int st_LectureEvaluationInsert(SqlSessionTemplate sqlSession, LectureEvaluation lev);
+
+	int st_LectureEvaluationCountUpdate(SqlSessionTemplate sqlSession, LectureEvaluation lev);
+
+	int pro_LectureEvaluationListCount(SqlSessionTemplate sqlSession, String professorNo);
+
+	ArrayList<LectureEvaluation> pro_LectureEvaluationList(SqlSessionTemplate sqlSession, PageInfo pi, String professorNo);
+
 
 
 

@@ -24,6 +24,12 @@ public interface LectureEvaluationService {
 
 	ArrayList<LectureEvaluation> st_LectureEvaluationList(PageInfo pi, String studentNo);
 
+	int st_LectureEvaluationInsert(LectureEvaluation lev);
+
+	int pro_LectureEvaluationListCount(String professorNo);
+
+	ArrayList<LectureEvaluation> pro_LectureEvaluationList(PageInfo pi, String professorNo);
+
 
 	
 
