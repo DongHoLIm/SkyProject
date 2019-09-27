@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.finalProject.board.model.vo.PageInfo;
+import com.kh.finalProject.common.Pagination;
+import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.employee.classManagement.model.service.LessonPlanService;
 import com.kh.finalProject.employee.classManagement.model.vo.LessonPlan;
 import com.kh.finalProject.member.model.vo.Member;
@@ -27,16 +31,36 @@ public class messageController {
 	MessageService messageService;
 	
 	@RequestMapping("inbox.pro")
-	public ModelAndView Inbox (ModelAndView mav, HttpSession session) {
+	
+	public ModelAndView Inbox (ModelAndView mav, HttpSession session, HttpServletRequest request) {
 		//현재 로그인하고 있는 멤버 객체 담아와 아이디를 뽑아옴
 		Member member = (Member) session.getAttribute("loginUser");
 		String memberId = member.getMemberId();
-		//현재 로그인 하고 있는 유저가 받은 메세지 리스트만 받아오기
-		List<MessageVO> messageList = messageService.selectmessageList(memberId);
-		mav.addObject("messageList", messageList);
-		mav.setViewName("professor/class/inbox");
+	    int currentPage = 1;
+
+	      if(request.getParameter("currentPage") != null) {
+	         currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	      }
+
+	      int listCount;
+
+	      try {
+	         listCount = messageService.getListCount(memberId);
+	         PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+	         //현재 로그인 하고 있는 유저가 받은 메세지 리스트만 받아오기
+	         List<MessageVO> messageList = messageService.selectmessageList(memberId, pi);
+	         mav.addObject("messageList", messageList);
+	         mav.setViewName("professor/class/inbox");
+
+	         return mav;
+
+	      }catch (ClassManagementSelectListException e) {
+	          mav.addObject("msg", e.getMessage());
+	          mav.setViewName("common/errorAlert");
+	          return mav;
+	       }
+	      
 		
-		return mav;
 		
 	}
 	
@@ -90,4 +114,5 @@ public class messageController {
 	      return new ObjectMapper().writeValueAsString(result);
 
 	   }
+	
 }

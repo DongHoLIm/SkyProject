@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -121,6 +122,40 @@ h4 {
 				</c:forEach>
 				</tbody>
 			</table>
+			<input type="hidden" id="currentPage" value="${pi.currentPage}">
+			<div class="pagingArea">
+			  <ul class="pagination" style="justify-content: center; cursor: pointer;">
+				<c:if test="${pi.currentPage <= 1}">
+			   		<li class="page-item disabled"><a class="page-link">이전</a></li>				
+				</c:if>
+				<c:if test="${pi.currentPage > 1}">
+					<c:url var="blistBack" value="inbox.pro">
+						<c:param name="currentPage" value="${pi.currentPage - 1}"/>
+					</c:url>
+					<li class="page-item"><a class="page-link" href="${blistBack}">이전</a></li>	
+				</c:if>
+				<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+					<c:if test="${p eq pi.currentPage}">
+					    <li class="page-item"><a class="page-link">${p}</a></li>					
+					</c:if>
+					<c:if test="${p ne pi.currentPage}">
+						<c:url var="blistCheck" value="inbox.pro">
+							<c:param name="currentPage" value="${p}"/>
+						</c:url>
+						 <li class="page-item"><a class="page-link" href="${blistCheck}">${p}</a></li>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pi.currentPage < pi.maxPage }">
+					<c:url var="blistEnd" value="inbox.pro">
+						<c:param name="currentPage" value="${pi.currentPage + 1}"/>
+					</c:url>
+			    	<li class="page-item"><a class="page-link" href="${blistEnd}">다음</a></li>				
+				</c:if>
+				<c:if test="${pi.currentPage >= pi.maxPage}">
+					<li class="page-item"><a class="page-link">다음</a></li>	
+				</c:if>
+			 </ul>
+				</div>
 			<table class="outbox">
 				<tr>
 					<td><input type="button" value="선택삭제" class="btn btn-secondary"></td>

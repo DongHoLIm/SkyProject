@@ -49,7 +49,12 @@
 		SELECT *
 		FROM MEMBER
 	</select>
-
+	<select id="selectListCount" resultType="_int">
+      SELECT COUNT(*)
+      FROM MESSAGE
+      WHERE RECE_MEMBER = #{memberId}
+   </select>
 
 
 </mapper>
+
