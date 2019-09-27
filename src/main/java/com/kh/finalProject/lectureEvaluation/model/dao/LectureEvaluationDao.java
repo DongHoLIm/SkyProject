@@ -14,11 +14,18 @@ public interface LectureEvaluationDao {
 
 	ArrayList<LectureEvaluation> em_LectureEvalOpenList(SqlSessionTemplate sqlSession, PageInfo pi);
 
-	int em_LectureEvaluationInsert(SqlSessionTemplate sqlSession, LectureEvaluation lev);
+	int em_LectureEvaluationOpen(SqlSessionTemplate sqlSession, LectureEvaluation lev);
 
 	int em_LectureEvalOpenListCount2(SqlSessionTemplate sqlSession);
 
 	ArrayList<LectureEvaluation> em_LectureEvalOpenList2(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int em_LectureEvaluationClose(SqlSessionTemplate sqlSession, LectureEvaluation lev);
+
+	int st_LectureEvaluationListCount(SqlSessionTemplate sqlSession, String studentNo);
+
+	ArrayList<LectureEvaluation> st_LectureEvaluationList(SqlSessionTemplate sqlSession, PageInfo pi, String studentNo);
+
 
 
 

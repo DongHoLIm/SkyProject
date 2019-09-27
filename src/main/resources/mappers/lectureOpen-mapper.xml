@@ -79,6 +79,6 @@
 	
 	<insert id="insertLectureEvaluation">
 		INSERT INTO EVAL_MANAGEMENT
-		VALUES('EV'||SEQ_EVALMANAGEMENT.NEXTVAL, #{openSubCode}, 0, 0, DEFAULT, DEFAULT)
+		VALUES('EV'||SEQ_EVALMANAGEMENT.NEXTVAL, #{openSubCode}, 0, 0, DEFAULT, DEFAULT, NULL, NULL)
 	</insert>
 </mapper>
