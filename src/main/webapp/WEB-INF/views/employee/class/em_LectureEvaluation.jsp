@@ -154,20 +154,18 @@
 					
 					$(".openSpan").click(function(){
 						var openSubCode = $(this).parent().parent().children().eq(0).text();
-						var allCount = $(this).parent().parent().children().eq(2).text();					
 						
 						$.ajax({
-							url:"em_LectureEvaluationInsert.le",
+							url:"em_LectureEvaluationOpen.le",
 							type:"POST",
 							data:{
-								"openSubCode":openSubCode,
-								"allCount":allCount
+								"openSubCode":openSubCode
 							},
 							success:function(data){					
 								successList();
 								successList2();								
 							}
-						});
+						});						
 					}); // openSpan click 끝
 				}// if문 끝
 			} // success function 끝

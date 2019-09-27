@@ -76,4 +76,9 @@
         JOIN SUBLECT_DELETE DE ON(S.SUB_CODE = DE.SUB_CODE)
 		WHERE ENROL_TYPE=2
 	</select>
+	
+	<insert id="insertLectureEvaluation">
+		INSERT INTO EVAL_MANAGEMENT
+		VALUES('EV'||SEQ_EVALMANAGEMENT.NEXTVAL, #{openSubCode}, 0, 0, DEFAULT, DEFAULT)
+	</insert>
 </mapper>

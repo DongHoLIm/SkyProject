@@ -28,26 +28,7 @@ public class LectureEvaluationController {
 	private LectureEvaluationService ls;
 	
 	@RequestMapping(value="em_showLectureEvaluationOpen.le")
-	public String em_showLectureEvaluationOpen(HttpServletRequest request) {
-		
-		int currentPage = 1;
-		
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}	
-		
-		int listCount = ls.em_LectureEvalOpenListCount();
-		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		ArrayList<LectureEvaluation> list = ls.em_LectureEvalOpenList(pi);
-		
-		System.out.println("currentPage :::: " + currentPage);
-		System.out.println("pi :::: " + pi);
-		System.out.println("list :::: " + list);
-		
-		request.setAttribute("list", list);
-		request.setAttribute("pi", pi);
+	public String em_showLectureEvaluationOpen(HttpServletRequest request) {		
 		
 		return "employee/class/em_LectureEvaluation";
 	}
@@ -79,10 +60,8 @@ public class LectureEvaluationController {
 	}
 	
 	
-	@RequestMapping(value="em_LectureEvaluationInsert.le")
-	public ModelAndView em_LectureEvaluationInsert(ModelAndView mv, LectureEvaluation lev) {
-		
-		ls.em_LectureEvaluationInsert(lev);
+	@RequestMapping(value="em_LectureEvaluationOpen.le")
+	public ModelAndView em_LectureEvaluationOpen(ModelAndView mv, LectureEvaluation lev) {		
 		
 		mv.setViewName("jsonView");
 		
