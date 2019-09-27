@@ -19,5 +19,7 @@ public interface MessageService {
 
 	int getListCount(String memberId);
 
+	void sendMessage(MessageVO messageVO);
+
 	
 }

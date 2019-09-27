@@ -54,6 +54,11 @@
       FROM MESSAGE
       WHERE RECE_MEMBER = #{memberId}
    </select>
+   	<insert id="sendMessage" parameterType="MessageVO">
+	INSERT INTO MESSAGE VALUES(MESSAGE_CODE.NEXTVAL, SYSDATE, #{receMember}, #{messageTitle},
+								#{messageContent},SYSDATE,#{memberId} )
+	
+	</insert>
 
 
 </mapper>
