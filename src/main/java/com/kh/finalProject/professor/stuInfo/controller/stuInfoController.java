@@ -75,16 +75,28 @@ public class stuInfoController {
 		String standard  = request.getParameter("standard");
 		Member professorInfo = (Member) session.getAttribute("loginUser");
 		String professorId = professorInfo.getMemberId();
+		stuInfoVo sv = new stuInfoVo();
+		sv.setMemberId(value);
+		sv.setMemberKName(standard);
+		sv.setMemberNo(professorId);
 		int currentPage=1;
 		if(request.getParameter("currentPage")!=null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		if(standard.equals("name")) {
+		int listCount ;
+		try {
+			listCount=si.ajaxSearchStuList(sv);
 			
-		}else if(standard.equals("etc")) {
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
-		};
+			ArrayList <stuInfoVo> list =si.searchStu(pi,sv);
+			
+			mv.addObject("list" ,list);
+			mv.addObject("pi",pi);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		mv.setViewName("jsonView");
 		return mv;
-	}
+	}	
 }

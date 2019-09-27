@@ -29,4 +29,19 @@ public class stuInfoDaoImpl implements stuInfoDao{
 		return list;
 	}
 
+	@Override
+	public int ajaxSearchStuList(SqlSessionTemplate sqlSession, stuInfoVo sv) {
+		
+		return sqlSession.selectOne("stuInfoPro.searchStuListCount",sv);
+	}
+
+	@Override
+	public ArrayList<stuInfoVo> searchStu(SqlSessionTemplate sqlSession, stuInfoVo sv, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		ArrayList<stuInfoVo> list = (ArrayList) sqlSession.selectList("stuInfoPro.searchStuList", sv, rowBounds);
+		return list;
+	}
+
 }

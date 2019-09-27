@@ -202,6 +202,10 @@
 				}
 				$td6.append($ul);
 				$("#stuList > tfoot tr").eq(0).append($td6);
+				$("#stuList tbody tr").click(function(){
+					var memberId = $(this).children().eq(1).text();	
+					window.open("em_selectStudent.si?id="+memberId,"학적상세조회","width='120px'")
+				});
 				}
 
 			});
@@ -279,6 +283,10 @@
 					}
 					$td6.append($ul);
 					$("#stuList > tfoot tr").eq(0).append($td6);
+					$("#stuList tbody tr").click(function(){
+						var memberId = $(this).children().eq(1).text();	
+						window.open("em_selectStudent.si?id="+memberId,"학적상세조회","width='120px'")
+					});
 					}
 
 				});
@@ -304,10 +312,176 @@
 			type:"post",
 			data:{"value":value,"standard":standard},
 			success:function(data){
+				$("#stuList >tbody ").empty();	
+				for(var i =0;i<data.list.length;i++){				
+					var $tr = $("<tr>");
+					var $td = $("<td>");
+					var $td1 = $("<td>");
+					var $td2 = $("<td>");
+					var $td3 = $("<td>");
+					var $td4 = $("<td>");
+					var $td5 = $("<td>")
+						$td.text(i+1);
+						$td1.text(data.list[i].memberId);
+						$td2.text(data.list[i].memberKName);
+						$td3.text(data.list[i].memberEName);
+						$td4.text(data.list[i].grade);
+						$td5.text(data.list[i].stuStatus);
+						$tr.append($td);
+	 					$tr.append($td1);
+	 					$tr.append($td2);
+	 					$tr.append($td3);
+	 					$tr.append($td4);
+	 					$tr.append($td5);
+	 					$("#stuList>tbody").append($tr); 	
+						}
 				
+				$("#stuList > tfoot tr").eq(0).empty();
+					var $td6 = $("<td colspan='6'>");
+					var $ul  =$("<ul class='pagination' align='center'>");
+					var $li =$("<li>");
+					var $li1 =$("<li>");
+					var $li2=$("<li>");	 					 					
+					var $li3 =$("<li>");
+					var $disabledPrevspan = $("<span class='button disabled' >").text('Prev');
+					var $abledPrevSpan = $("<span class='button' id='prevBtn' onclick='goPre1()'>").text("Prev");
+					var $disabledNextSpan=$("<span class='button disabled'>").text("Next");
+					var $abledNextSpan= $("<span class='button' id='nextBtn' onclick='goNext1()'>").text("Next");
+					
+					if(data.pi.currentPage<=1){
+						$li.append($disabledPrevspan);
+						$ul.append($li);
+					}else {
+						$li1.append($abledPrevSpan);
+						$ul.append($li1);
+					}
+					for(var i= data.pi.startPage;i<=data.pi.endPage;i++){
+						var $a =$("<a class='page' onclick='reajax1("+i+")'>").text(i);
+						var $p =$("<p class='page active'>").text(i);
+						var $li4 =$("<li class='pageNumber'>");	
+						if(i==data.pi.currentPage){
+							$li4.append($p);
+							$ul.append($li4);
+						}else{	 							
+							$li4.append($a);
+							$ul.append($li4);
+						}
+					}
+					if(data.pi.currentPage<data.pi.maxPage){
+						$li2.append($abledNextSpan);
+						$ul.append($li2);
+					}else{
+						$li3.append($disabledNextSpan);
+						$ul.append($li3);
+					}
+					$td6.append($ul);
+					$("#stuList > tfoot tr").eq(0).append($td6);
+					$("#stuList tbody tr").click(function(){
+						var memberId = $(this).children().eq(1).text();	
+						window.open("em_selectStudent.si?id="+memberId,"학적상세조회","width='120px'")
+					});
 			}
 		});
 	}
+	function goNext1(){			
+		var currentPage = $("p[class='page active']").text();
+		var nextPage = Number(currentPage);
+		console.log(nextPage+1);
+		reajax1(nextPage+1);	
+	}
+	function goPre1(){		
+			var currentPage = $("p[class='page active']").text();
+			var prePage = Number(currentPage);
+			console.log(prePage-1);
+			reajax1(prePage-1);	
+	}
+	function reajax1(index){
+		 var currentPage = index;
+		 var standard =$("#searchConditionController").val();
+			var value = $("#searchBar").val();
+		 $.ajax({
+				url:"searchStuList.pro",
+				type:"post",
+				data:{"currentPage":currentPage,"value":value,"standard":standard},
+				success:function(data){
+				
+					$("#stuList >tbody ").empty();	
+				for(var i =0;i<data.list.length;i++){				
+					var $tr = $("<tr>");
+					var $td = $("<td>");
+					var $td1 = $("<td>");
+					var $td2 = $("<td>");
+					var $td3 = $("<td>");
+					var $td4 = $("<td>");
+					var $td5 = $("<td>")
+						$td.text(i+1);
+						$td1.text(data.list[i].memberId);
+						$td2.text(data.list[i].memberKName);
+						$td3.text(data.list[i].memberEName);
+						$td4.text(data.list[i].grade);
+						$td5.text(data.list[i].stuStatus);
+						$tr.append($td);
+	 					$tr.append($td1);
+	 					$tr.append($td2);
+	 					$tr.append($td3);
+	 					$tr.append($td4);
+	 					$tr.append($td5);
+	 					$("#stuList>tbody").append($tr); 	
+						}
+				
+				$("#stuList > tfoot tr").eq(0).empty();
+					var $td6 = $("<td colspan='6'>");
+					var $ul  =$("<ul class='pagination' align='center'>");
+					var $li =$("<li>");
+					var $li1 =$("<li>");
+					var $li2=$("<li>");	 					 					
+					var $li3 =$("<li>");
+					var $disabledPrevspan = $("<span class='button disabled' >").text('Prev');
+					var $abledPrevSpan = $("<span class='button' id='prevBtn' onclick='goPre1()'>").text("Prev");
+					var $disabledNextSpan=$("<span class='button disabled'>").text("Next");
+					var $abledNextSpan= $("<span class='button' id='nextBtn' onclick='goNext1()'>").text("Next");
+					
+					if(data.pi.currentPage<=1){
+						$li.append($disabledPrevspan);
+						$ul.append($li);
+					}else {
+						$li1.append($abledPrevSpan);
+						$ul.append($li1);
+					}
+					for(var i= data.pi.startPage;i<=data.pi.endPage;i++){
+						var $a =$("<a class='page' onclick='reajax1("+i+")'>").text(i);
+						var $p =$("<p class='page active'>").text(i);
+						var $li4 =$("<li class='pageNumber'>");	
+						if(i==data.pi.currentPage){
+							$li4.append($p);
+							$ul.append($li4);
+						}else{	 							
+							$li4.append($a);
+							$ul.append($li4);
+						}
+					}
+					if(data.pi.currentPage<data.pi.maxPage){
+						$li2.append($abledNextSpan);
+						$ul.append($li2);
+					}else{
+						$li3.append($disabledNextSpan);
+						$ul.append($li3);
+					}
+					$td6.append($ul);
+					$("#stuList > tfoot tr").eq(0).append($td6);
+					$("#stuList tbody tr").click(function(){
+						var memberId = $(this).children().eq(1).text();	
+						window.open("em_selectStudent.si?id="+memberId,"학적상세조회","width='120px'")
+					});
+					}
+
+				});
+		
+	}
+	$("#stuList tbody tr").click(function(){
+		var memberId = $(this).children().eq(1).text();	
+		window.open("em_selectStudent.si?id="+memberId,"학적상세조회","width='120px'")
+	});
 	</script>
 </body>
 </html>
