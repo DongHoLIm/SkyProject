@@ -15,6 +15,12 @@
 		<result property="diseaseCode" column="DISEASE_CODE"/>
 		<result property="recoCode" column="RECO_CODE"/>
 	</resultMap>
+	
+	<!-- <insert id="insertSchoolOffFile" parameterType="DocFile">
+		INSERT INTO DOC_FILE(FILE_CODE,OLD_NAME,CHANGE_NAMER,DOC_NO,)
+	
+	
+	</insert> -->
 
 
 

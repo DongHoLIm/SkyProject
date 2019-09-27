@@ -83,7 +83,7 @@
 		<mapper resource="mappers/subApplyDone-mapper.xml"/>
 		<mapper resource="mappers/subjectDelete-mapper.xml"/>
 		<mapper resource="mappers/lectureEvaluation-mapper.xml"/>
-		<mapper resource="mappers/DocFile-mapper.xml"/>
+		<mapper resource="mappers/docFile-mapper.xml"/>
 		<mapper resource="mappers/stuInfoPro-mapper.xml"/>
 	</mappers>
 	

@@ -157,7 +157,7 @@ table.basicinfo {
 				<tr>
 					<td class="tdd">제출 서류</td>
 					<td colspan="3" style="border: solid 1px; color: #dde1e3;">
-						<input type="file" id="requiredDoc" name="requiredDoc" value="">
+						<input type="file" id="docFile" name="docFile" value="">
 					</td>	
 				</tr>
 			
@@ -284,7 +284,7 @@ table.basicinfo {
 				var returnDate = $("#returnDate").val();
 				var enlistmentDate = $("#enlistmentDate").val();
 				var demobilizationDate = $("#demobilizationDate").val();
-				var requiredDoc = $("#requiredDoc").val();
+				var docFile = $("#docFile").val();
 				
 				var form = $("#ApplyForm")[0];
 				
@@ -295,7 +295,7 @@ table.basicinfo {
 					url:"st_insertSchoolOff.si",
 					enctype: 'multipart/form-data',
 					type:"POST",
-					data:{data:data},
+					data:data,
 					processData: false,
 		            contentType: false,
 		            cache: false,
@@ -305,7 +305,7 @@ table.basicinfo {
 						
 						alert("휴학 신청 완료");
 						
-						//location.reload();
+						location.reload();
 					},
 					error:function(request,status,error){
 				        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

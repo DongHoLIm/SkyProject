@@ -646,9 +646,16 @@ public class StudentInfoController {
 			DocFile df, MultipartHttpServletRequest req) {
 		
 		System.out.println("휴학신청 객체::"+so);
-		MultipartFile mf = req.getFile("requiredDoc");
+		String userId = loginUser.getMemberId();
+		so.setStudentNo(userId);
+		
+		MultipartFile mf = req.getFile("docFile");
 		
 		if(mf == null) {
+			ss.schoolOffApply(so);
+			
+			mv.setViewName("jsonView");
+			return mv;
 			
 		}else {
 			String originFileName = mf.getOriginalFilename();
@@ -669,29 +676,24 @@ public class StudentInfoController {
 			System.out.println(df);
 			
 			try {
-					mf.transferTo(new File(filePath+"\\"+changeName));
-					
-	            } catch (IllegalStateException e1) {
-	               e1.printStackTrace();
-	            } catch(IOException e2) {
-	            	 e2.printStackTrace();
-	            }
+				mf.transferTo(new File(filePath+"\\"+changeName));
+				
+				ss.schoolOffApplyWithFile(so,df);
+				
+				
+				
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 
 		}
 		
-//		String userId = loginUser.getMemberId();
-//		so.setStudentNo(userId);
-//		
-//		if(df==null) {
-//			int result = ss.schoolOffApply(so);
-//		}else {
-//			int result = ss.schoolOffApplyFile(so,df);
-//		}
-//		
-//		
-//		if(result>0) {
-//			System.out.println("휴학신청 insert 성공");
-//		}
 		
 		mv.setViewName("jsonView");
 		return mv;

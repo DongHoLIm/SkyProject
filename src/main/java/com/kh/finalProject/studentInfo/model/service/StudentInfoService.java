@@ -8,6 +8,7 @@ import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.DocFile;
 import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
@@ -172,5 +173,7 @@ public interface StudentInfoService {
 	int getOffFilterListCount(OffApplyFilter of);
 
 	ArrayList<SchoolOff> selectOffFilterStudent(OffApplyFilter of, PageInfo pi);
+
+	void schoolOffApplyWithFile(SchoolOff so, DocFile df);
   
 }
