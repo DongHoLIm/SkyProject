@@ -118,5 +118,31 @@ System.out.println("등록 조회 컨트롤러 들어옴");
 			return "common/errorAlert";
 		}
 	}
+	
+	@RequestMapping(value="updateEnrollment.en")
+	public String update() {
+		System.out.println("결제했으니까 수정하자");
+		
+		es.updateEnrollment();
+		
+		return "student/register/registerInfo";
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

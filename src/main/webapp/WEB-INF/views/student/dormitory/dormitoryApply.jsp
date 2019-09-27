@@ -49,8 +49,7 @@ $(function(){
 	        }
 	    }).open();
 	});
-});
-    
+})
 </script>
 <style>
 		#searchInfo {

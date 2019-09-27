@@ -43,6 +43,12 @@ public class EnrollmentServiceImpl implements EnrollmentService{
 	public ArrayList<Enrollment> stEnrollment() throws EnrollmentException {
 		return ed.stEnrollment(sqlSession);
 	}
+
+	@Override
+	public void updateEnrollment() {
+		ed.updateEnrollment(sqlSession);
+		
+	}
 	
 //	@Override
 //	public List<Enrollment> getList() {

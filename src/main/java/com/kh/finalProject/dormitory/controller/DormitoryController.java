@@ -2,6 +2,7 @@ package com.kh.finalProject.dormitory.controller;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,7 +76,7 @@ public class DormitoryController {
 		
 		System.out.println("loginUser ::: " + loginUser);
 		
-		dormitory.setMemberId(loginUser.getMemberId());
+		dormitory.setStudentNo(loginUser.getMemberId());
 		dormitory.setPostNum(postNum);
 		dormitory.setAddress(address);
 		dormitory.setAddressDetail(addressDetail);
@@ -95,4 +96,69 @@ public class DormitoryController {
 	public String stDormInfo() {
 		return "employee/dormitory/dormitoryInfo";
 	}
+	
+	@RequestMapping(value="stDormSearch.dor")
+	public String stDormSearchApply(@RequestParam("applyCode") String applyCode, @RequestParam("studentNo") String studentNo, Dormitory dormitory, Model model, HttpServletRequest request, HttpServletResponse response) {
+		if(applyCode == "" || studentNo == "") {
+			System.out.println("applyCode :::" + applyCode);
+			System.out.println("studentNo :::" + studentNo);
+			
+			List<Dormitory> beforeDormitory;
+			
+			try {
+				beforeDormitory = ds.beforeDormitoryData();
+				System.out.println("beforeDormitory ::: " + beforeDormitory);
+				
+				request.setAttribute("beforeDormitory", beforeDormitory);
+				
+				return "employee/dormitory/searchDormitory";
+				
+			} catch (DormitoryException e) {
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorAlert";
+			}
+			
+		}
+		
+		System.out.println("applyCode :::" + applyCode);
+		System.out.println("studentNo :::" + studentNo);
+		
+		List<Dormitory> beforeDormitory;
+		
+		Dormitory dor = new Dormitory();
+		dor.setApplyCode(applyCode);
+		dor.setStudentNo(studentNo);
+		
+		try {
+			beforeDormitory = ds.beforeDormData(dor);
+			System.out.println("beforeDormitory :::" + beforeDormitory);
+			
+			request.setAttribute("beforeDormitory", beforeDormitory);
+			
+			return "employee/dormitory/searchDormitory";
+		} catch (DormitoryException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorAlert";
+		}
+		
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

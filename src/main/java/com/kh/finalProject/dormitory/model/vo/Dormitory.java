@@ -3,13 +3,10 @@ package com.kh.finalProject.dormitory.model.vo;
 import java.sql.Date;
 
 public class Dormitory implements java.io.Serializable{
-	private String dormitoryApplyNo;
-	private String sdeptName;
-	private String memberId;
 	private String dorApplyYear;
 	private String dorApplySemester;
-	private String memberKname;
-	private String memberNo;
+	private String applyCode;
+	private String studentNo;
 	private String postNum;
 	private String address;
 	private String addressDetail;
@@ -25,22 +22,21 @@ public class Dormitory implements java.io.Serializable{
 	private String dormitoryName;
 	private String dorApplyDate;
 	private String aggrementStatus;
+	private String sdeptName;
+	private String memberKname;
+	private String memberNo;
 	
 	public Dormitory() {}
 
-	public Dormitory(String dormitoryApplyNo, String sdeptName, String memberId, String dorApplyYear,
-			String dorApplySemester, String memberKname, String memberNo, String postNum, String address,
-			String addressDetail, String emerPhone, String email, String parentPhone, String parentTel, String bank,
-			String accountNo, String dormCondition, String smoking, String basicLife, String dormitoryName,
-			String dorApplyDate, String aggrementStatus) {
+	public Dormitory(String dorApplyYear, String dorApplySemester, String applyCode, String studentNo, String postNum,
+			String address, String addressDetail, String emerPhone, String email, String parentPhone, String parentTel,
+			String bank, String accountNo, String dormCondition, String smoking, String basicLife, String dormitoryName,
+			String dorApplyDate, String aggrementStatus, String sdeptName, String memberKname, String memberNo) {
 		super();
-		this.dormitoryApplyNo = dormitoryApplyNo;
-		this.sdeptName = sdeptName;
-		this.memberId = memberId;
 		this.dorApplyYear = dorApplyYear;
 		this.dorApplySemester = dorApplySemester;
-		this.memberKname = memberKname;
-		this.memberNo = memberNo;
+		this.applyCode = applyCode;
+		this.studentNo = studentNo;
 		this.postNum = postNum;
 		this.address = address;
 		this.addressDetail = addressDetail;
@@ -56,30 +52,9 @@ public class Dormitory implements java.io.Serializable{
 		this.dormitoryName = dormitoryName;
 		this.dorApplyDate = dorApplyDate;
 		this.aggrementStatus = aggrementStatus;
-	}
-
-	public String getDormitoryApplyNo() {
-		return dormitoryApplyNo;
-	}
-
-	public void setDormitoryApplyNo(String dormitoryApplyNo) {
-		this.dormitoryApplyNo = dormitoryApplyNo;
-	}
-
-	public String getSdeptName() {
-		return sdeptName;
-	}
-
-	public void setSdeptName(String sdeptName) {
 		this.sdeptName = sdeptName;
-	}
-
-	public String getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+		this.memberKname = memberKname;
+		this.memberNo = memberNo;
 	}
 
 	public String getDorApplyYear() {
@@ -98,20 +73,20 @@ public class Dormitory implements java.io.Serializable{
 		this.dorApplySemester = dorApplySemester;
 	}
 
-	public String getMemberKname() {
-		return memberKname;
+	public String getApplyCode() {
+		return applyCode;
 	}
 
-	public void setMemberKname(String memberKname) {
-		this.memberKname = memberKname;
+	public void setApplyCode(String applyCode) {
+		this.applyCode = applyCode;
 	}
 
-	public String getMemberNo() {
-		return memberNo;
+	public String getStudentNo() {
+		return studentNo;
 	}
 
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
+	public void setStudentNo(String studentNo) {
+		this.studentNo = studentNo;
 	}
 
 	public String getPostNum() {
@@ -234,18 +209,41 @@ public class Dormitory implements java.io.Serializable{
 		this.aggrementStatus = aggrementStatus;
 	}
 
+	public String getSdeptName() {
+		return sdeptName;
+	}
+
+	public void setSdeptName(String sdeptName) {
+		this.sdeptName = sdeptName;
+	}
+
+	public String getMemberKname() {
+		return memberKname;
+	}
+
+	public void setMemberKname(String memberKname) {
+		this.memberKname = memberKname;
+	}
+
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	@Override
 	public String toString() {
-		return "Dormitory [dormitoryApplyNo=" + dormitoryApplyNo + ", sdeptName=" + sdeptName + ", memberId=" + memberId
-				+ ", dorApplyYear=" + dorApplyYear + ", dorApplySemester=" + dorApplySemester + ", memberKname="
-				+ memberKname + ", memberNo=" + memberNo + ", postNum=" + postNum + ", address=" + address
+		return "Dormitory [dorApplyYear=" + dorApplyYear + ", dorApplySemester=" + dorApplySemester + ", applyCode="
+				+ applyCode + ", studentNo=" + studentNo + ", postNum=" + postNum + ", address=" + address
 				+ ", addressDetail=" + addressDetail + ", emerPhone=" + emerPhone + ", email=" + email
 				+ ", parentPhone=" + parentPhone + ", parentTel=" + parentTel + ", bank=" + bank + ", accountNo="
 				+ accountNo + ", dormCondition=" + dormCondition + ", smoking=" + smoking + ", basicLife=" + basicLife
 				+ ", dormitoryName=" + dormitoryName + ", dorApplyDate=" + dorApplyDate + ", aggrementStatus="
-				+ aggrementStatus + "]";
+				+ aggrementStatus + ", sdeptName=" + sdeptName + ", memberKname=" + memberKname + ", memberNo="
+				+ memberNo + "]";
 	}
 
-	
 	
 }

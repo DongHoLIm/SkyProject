@@ -78,6 +78,15 @@ public class EnrollmentDaoImpl implements EnrollmentDao{
 		return memberEnrollment;
 	}
 
+	@Override
+	public void updateEnrollment(SqlSessionTemplate sqlSession) {
+		
+		System.out.println("결제 dao 들어옴");
+		
+		sqlSession.update("Enrollment.up");
+		
+	}
+
 //	@Override
 //	public List<Enrollment> getList(SqlSessionTemplate sqlSession) {
 //		
