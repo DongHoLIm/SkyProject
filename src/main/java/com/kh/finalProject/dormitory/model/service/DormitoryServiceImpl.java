@@ -1,6 +1,7 @@
 package com.kh.finalProject.dormitory.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,16 @@ public class DormitoryServiceImpl implements DormitoryService {
 	@Override
 	public void insertDormitory(Dormitory dormitory) {
 		dd.insertDormitory(sqlSession, dormitory);
+	}
+
+	@Override
+	public List<Dormitory> beforeDormitoryData() throws DormitoryException {
+		return dd.beforeDormitoryData(sqlSession);
+	}
+
+	@Override
+	public List<Dormitory> beforeDormData(Dormitory dor) throws DormitoryException {
+		return dd.beforeDormData(sqlSession, dor);
 	}
 
 }

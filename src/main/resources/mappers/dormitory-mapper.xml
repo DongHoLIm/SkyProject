@@ -4,14 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Dormitory">
 	<resultMap type="com.kh.finalProject.dormitory.model.vo.Dormitory" id="dormitoryResultSet">
-		<id property="dormitoryApplyNo" column="DORMITORY_APPLY_NO"/>
+		<id property="applyCode" column="APPLY_CODE"/>
 		
-		<result property="sdeptName" column="SDEPT_NAME"/>
-		<result property="memberId" column="MEMBER_ID"/>
 		<result property="dorApplyYear" column="DOR_APPLY_YEAR"/>
 		<result property="dorApplySemester" column="DOR_APPLY_SEMESTER"/>
-		<result property="memberKname" column="MEMBER_KNAME"/>
-		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="studentNo" column="STUDENT_NO"/>
 		<result property="postNum" column="POST_NUM"/>
 		<result property="address" column="ADDRESS"/>
 		<result property="addressDetail" column="ADDRESS_DETAIL"/>
@@ -27,19 +24,35 @@
 		<result property="dormitoryName" column="DORMITORY_NAME"/>
 		<result property="dorApplyDate" column="DOR_APPLY_DATE"/>
 		<result property="aggrementStatus" column="AGGREMENT_STATUS"/>
+		<result property="sdeptName" column="SDEPT_NAME"/>
+		<result property="memberKname" column="MEMBER_KNAME"/>
+		<result property="memberNo" column="MEMBER_NO"/>
 	</resultMap>
 	
 	<select id="DormitoryCheck" resultMap="dormitoryResultSet" parameterType="String">
-		SELECT D.MEMBER_ID, D.DOR_APPLY_SEMESTER, 20||SUBSTR(D.DOR_APPLY_YEAR,1,2) AS DOR_APPLY_YEAR, SUBSTR(D.DOR_APPLY_DATE,1,10) AS DOR_APPLY_DATE, D.AGGREMENT_STATUS, M.MEMBER_KNAME
-		FROM DORMITORY_APPLY D JOIN MEMBER M ON (D.MEMBER_ID = M.MEMBER_ID) 
-		WHERE D.MEMBER_ID = #{studentNo}
+		SELECT D.STUDENT_NO, D.DOR_APPLY_SEMESTER, 20||SUBSTR(D.DOR_APPLY_YEAR,1,2) AS DOR_APPLY_YEAR, SUBSTR(D.DOR_APPLY_DATE,1,10) AS DOR_APPLY_DATE, D.AGGREMENT_STATUS, M.MEMBER_KNAME
+		FROM DORM_APPLY D JOIN MEMBER M ON (D.STUDENT_NO = M.MEMBER_ID) 
+		WHERE D.STUDENT_NO = #{studentNo}
 	</select>
 	
 	<insert id="add" parameterType="Dormitory">
-		INSERT INTO DORMITORY_APPLY	VALUES('dor1234', #{sdeptName}, #{memberId}, SYSDATE, #{dorApplySemester}, #{memberKname}, #{memberNo}, #{postNum}
+		INSERT INTO DORM_APPLY	VALUES( SYSDATE, #{dorApplySemester}, 'dor1234', #{studentNo}, #{postNum}
 										, #{address}, #{addressDetail}, #{emerPhone}, #{email}, #{parentPhone}
 										, null, #{bank}, #{accountNo}, #{dormCondition}
 										, #{smoking}, #{basicLife}, #{dormitoryName}, SYSDATE
-										, '신청')
+										, '신청', #{sdeptName}, #{memberKname}, #{memberNo})
 	</insert>
+	
+	<select id="beforeDormitory" resultMap="dormitoryResultSet" parameterType="String">
+		SELECT D.STUDENT_NO, D.DOR_APPLY_SEMESTER, 20||SUBSTR(D.DOR_APPLY_YEAR,1,2) AS DOR_APPLY_YEAR, SUBSTR(D.DOR_APPLY_DATE,1,10) AS DOR_APPLY_DATE, D.AGGREMENT_STATUS, M.MEMBER_KNAME
+		FROM DORM_APPLY D JOIN MEMBER M ON (D.STUDENT_NO = M.MEMBER_ID)
+	</select>
+	
+	<select id="searchDorm" resultMap="dormitoryResultSet" parameterType="String">
+		SELECT D.STUDENT_NO, D.DOR_APPLY_SEMESTER, 20||SUBSTR(D.DOR_APPLY_YEAR,1,2) AS DOR_APPLY_YEAR, SUBSTR(D.DOR_APPLY_DATE,1,10) AS DOR_APPLY_DATE, D.AGGREMENT_STATUS, M.MEMBER_KNAME
+		FROM DORM_APPLY D JOIN MEMBER M ON (D.STUDENT_NO = M.MEMBER_ID) 
+		WHERE D.STUDENT_NO = #{studentNo}
+		AND D.APPLY_CODE = #{applyCode}
+	</select>
+	
 </mapper>

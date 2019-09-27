@@ -1,6 +1,7 @@
 package com.kh.finalProject.dormitory.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -12,5 +13,9 @@ public interface DormitoryDao {
 	ArrayList<Dormitory> userDormitory(SqlSessionTemplate sqlSession, String studentNo) throws DormitoryException;
 
 	public void insertDormitory(SqlSessionTemplate sqlSession, Dormitory dormitory);
+
+	List<Dormitory> beforeDormitoryData(SqlSessionTemplate sqlSession) throws DormitoryException;
+
+	List<Dormitory> beforeDormData(SqlSessionTemplate sqlSession, Dormitory dor) throws DormitoryException;
 
 }

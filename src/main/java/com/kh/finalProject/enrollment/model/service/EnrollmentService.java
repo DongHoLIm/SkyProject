@@ -15,6 +15,8 @@ public interface EnrollmentService {
 	List<Enrollment> beforeEnrollmentData(Enrollment enrollment) throws EnrollmentException;
 
 	ArrayList<Enrollment> stEnrollment() throws EnrollmentException;
+
+	public void updateEnrollment();
 	
 	//public List<Enrollment> getList();
 }

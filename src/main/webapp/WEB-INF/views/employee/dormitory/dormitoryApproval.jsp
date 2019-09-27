@@ -24,28 +24,19 @@
 			<br>
 					        
 	  				<h2>기숙사 신청</h2>	
-					<form>
-							<!-- <table text-align="left" style="border:0px solid black">
-								<tr>
-									<td>학번<input type="text" name="userId"></td>
-									<td>학과<input type="text" name="affiliation"></td>
-									<td>이름<input type="text" name="userName"></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><button>조회하기</button></td>
-									<td></td>
-								</tr>
-							</table> -->
-							
-							<div>
-							<div id="searchInfo">학번<input type="text" name="userId"></div>
-							<div id="searchInfo">학과<input type="text" name="affiliation"></div>
-							<div id="searchInfo">이름<input type="text" name="affiliation"></div>
-							</div>
+					<h4>검색</h4>
+						<form action="stDormSearch.dor" method="post">
+							<table class="sample11" style="border:2px solid lightgray">
+						<thead>
+							<tr  style="text-align:center">
+								<th width="6%"><p class="sipal">기숙사 신청번호</p></th>
+								<th width="39%"><input type="text" name="applyCode"/></th>
+								<th width="6%"><p>학번</p></th>
+								<th width="39%"><input type="text" name="studentNo"/></th>
+								<th><td><button type="submit">검색</button></td></th>
+							</tr>
+					</table>
 						</form>
-						
-						<br><br>
 						
 						<hr>
 						
