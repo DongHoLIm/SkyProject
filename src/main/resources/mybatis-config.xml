@@ -46,6 +46,7 @@
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.DocFile" alias="DocFile"/>
 		<typeAlias type="com.kh.finalProject.professor.stuInfo.model.vo.stuInfoVo" alias="stuInfoPro"/>
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.OffApplyFilter" alias="OffApplyFilter"/>
+		<typeAlias type="com.kh.finalProject.professor.sendSMS.model.vo.professorSubjectList" alias="professorSubjectList"/>
 	</typeAliases>
 	
 	<mappers>

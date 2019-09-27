@@ -10,7 +10,7 @@
 		<result property="memberKName" column="MEMBER_KNAME" />
 		<result property="phone" column="PHONE_ONE" />
 		<result property="sdeptName" column="SDEPT_NAME" />
-		<result property="grade" column="GRADE" />
+		<result property="grade" column="GRADE" />		
 	</resultMap>
 	<resultMap type="com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList" id="SendSMSListResult">
 		<id property="memberId" column="MEMBER_KNAME_1"/>
@@ -19,7 +19,10 @@
 		<result property="sendDate" column="SEND_TIME"/>
 		<result property="memberCount" column="COUNTSTUDENT"/>
 	</resultMap>
-	
+	<resultMap type="com.kh.finalProject.professor.sendSMS.model.vo.professorSubjectList" id="professorSubjectListResult">
+		<id property="subCode" column="SUB_CODE"/>
+		<result property="subName" column="SUB_NAME"/>	
+	</resultMap>
 	<select id="studentListCount" resultType="_int">
 		SELECT COUNT(MEMBER_ID)
 		FROM (SELECT
@@ -70,5 +73,40 @@
 		JOIN MEMBER M1 ON(M1.MEMBER_ID = S.STUDENT_NO)
 		WHERE S.SENDER =#{memberId} 
 		GROUP BY S.SEND_DATE,S.RECE_CONTENT,M.MEMBER_KNAME)	
+	</select>
+	<select id="professorSubList" resultMap="professorSubjectListResult" parameterType="Member">
+		SELECT SJ.SUB_CODE,SJ.SUB_NAME
+		FROM 
+		MEMBER M
+		JOIN PROFESSOR P ON(M.MEMBER_ID=P.PROFESSOR_NO)
+		JOIN OPEN_SUBJECT OS ON(P.PROFESSOR_NO=OS.PROFESSOR_NO)
+		JOIN SDEPARTMENT S ON(P.PDEPT_CODE = S.SDEPT_CODE)
+		JOIN SUBJECT SJ ON(OS.OPENSUB_CODE = SJ.SUB_CODE)
+		WHERE M.MEMBER_CHECK ='2'
+		AND OS.PROFESSOR_NO=#{memberId}
+	</select>
+	<select id="searchStuListSMSCount" resultType="_int" parameterType="professorSubjectList">
+		SELECT COUNT(M.MEMBER_ID)
+		FROM
+		MEMBER M
+		JOIN STUDENT_INFO SI ON(M.MEMBER_ID = SI.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(SI.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN SUBJECT_APPLY SA ON(SI.STUDENT_NO = SA.STUDENT_NO)
+		JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
+		WHERE SA.OPENSUB_CODE=#{subCode}
+		AND OS.PROFESSOR_NO = #{professorNo}
+		AND SA.DONE_TYPE='완료'
+	</select>
+	<select id="searchStuListSMS" resultMap="StudentListResult" parameterType="professorSubjectList">
+		SELECT M.MEMBER_ID,M.MEMBER_KNAME,M.PHONE_ONE,S.SDEPT_NAME,SI.GRADE
+		FROM
+		MEMBER M
+		JOIN STUDENT_INFO SI ON(M.MEMBER_ID = SI.STUDENT_NO)
+		JOIN SDEPARTMENT S ON(SI.SDEPT_CODE = S.SDEPT_CODE)
+		JOIN SUBJECT_APPLY SA ON(SI.STUDENT_NO = SA.STUDENT_NO)
+		JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
+		WHERE SA.OPENSUB_CODE=#{subCode}
+		AND OS.PROFESSOR_NO = #{professorNo}
+		AND SA.DONE_TYPE='완료'
 	</select>
 </mapper>
