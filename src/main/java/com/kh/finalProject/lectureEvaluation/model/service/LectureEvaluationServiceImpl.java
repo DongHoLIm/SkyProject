@@ -31,10 +31,10 @@ public class LectureEvaluationServiceImpl implements LectureEvaluationService{
 	}
 
 	@Override
-	public int em_LectureEvaluationInsert(LectureEvaluation lev) {
-		return ld.em_LectureEvaluationInsert(sqlSession, lev);
+	public int em_LectureEvaluationOpen(LectureEvaluation lev) {
+		return ld.em_LectureEvaluationOpen(sqlSession, lev);
 	}
-
+	
 	@Override
 	public int em_LectureEvalOpenListCount2() {
 		return ld.em_LectureEvalOpenListCount2(sqlSession);
@@ -44,6 +44,22 @@ public class LectureEvaluationServiceImpl implements LectureEvaluationService{
 	public ArrayList<LectureEvaluation> em_LectureEvalOpenList2(PageInfo pi) {
 		return ld.em_LectureEvalOpenList2(sqlSession, pi);
 	}
+
+	@Override
+	public int em_LectureEvaluationClose(LectureEvaluation lev) {
+		return ld.em_LectureEvaluationClose(sqlSession, lev);
+	}
+
+	@Override
+	public int st_LectureEvaluationListCount(String studentNo) {
+		return ld.st_LectureEvaluationListCount(sqlSession, studentNo);
+	}
+
+	@Override
+	public ArrayList<LectureEvaluation> st_LectureEvaluationList(PageInfo pi, String studentNo) {
+		return ld.st_LectureEvaluationList(sqlSession, pi, studentNo);
+	}
+
 
 
 

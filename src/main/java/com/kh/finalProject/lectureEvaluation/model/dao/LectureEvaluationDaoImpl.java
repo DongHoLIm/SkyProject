@@ -38,8 +38,8 @@ public class LectureEvaluationDaoImpl implements LectureEvaluationDao{
 	}
 
 	@Override
-	public int em_LectureEvaluationInsert(SqlSessionTemplate sqlSession, LectureEvaluation lev) {
-		return sqlSession.insert("LectureEvaluation.em_LectureEvaluationInsert", lev);
+	public int em_LectureEvaluationOpen(SqlSessionTemplate sqlSession, LectureEvaluation lev) {
+		return sqlSession.update("LectureEvaluation.LectureEvaluationOpen", lev);
 	}
 
 	@Override
@@ -63,6 +63,36 @@ public class LectureEvaluationDaoImpl implements LectureEvaluationDao{
 		
 		return list;
 	}
+
+	@Override
+	public int em_LectureEvaluationClose(SqlSessionTemplate sqlSession, LectureEvaluation lev) {
+		return sqlSession.update("LectureEvaluation.LectureEvaluationClose", lev);
+	}
+
+	@Override
+	public int st_LectureEvaluationListCount(SqlSessionTemplate sqlSession, String studentNo) {
+		return sqlSession.selectOne("LectureEvaluation.st_LectureEvaluationListCount", studentNo);
+	}
+
+	@Override
+	public ArrayList<LectureEvaluation> st_LectureEvaluationList(SqlSessionTemplate sqlSession, PageInfo pi, String studentNo) {
+		ArrayList<LectureEvaluation> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("LectureEvaluation.st_LectureEvaluationList", studentNo, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		
+		return list;
+	}
+
+
+	
 
 
 

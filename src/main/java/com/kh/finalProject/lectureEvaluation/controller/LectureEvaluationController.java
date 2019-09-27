@@ -63,6 +63,10 @@ public class LectureEvaluationController {
 	@RequestMapping(value="em_LectureEvaluationOpen.le")
 	public ModelAndView em_LectureEvaluationOpen(ModelAndView mv, LectureEvaluation lev) {		
 		
+		System.out.println("lev :::: " + lev);
+		
+		ls.em_LectureEvaluationOpen(lev);
+		
 		mv.setViewName("jsonView");
 		
 		return mv;
@@ -92,6 +96,75 @@ public class LectureEvaluationController {
 		mv.setViewName("jsonView");
 		
 		return mv;
+	}
+	
+	@RequestMapping(value="em_LectureEvaluationClose.le")
+	public ModelAndView em_LectureEvaluationClose(ModelAndView mv, LectureEvaluation lev) {			
+		
+		ls.em_LectureEvaluationClose(lev);
+		
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	
+	// 학생 강의평가 입력
+	@RequestMapping(value="st_showLectureEvaluation.le")
+	public String st_showLectureEvaluation(HttpServletRequest request) {		
+		
+		return "student/class/st_LectureEvaluation";
+	}
+	
+	@RequestMapping(value="st_LectureEvaluationList.le")
+	public ModelAndView st_LectureEvaluationList(ModelAndView mv, HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
+		
+		String studentNo = loginUser.getMemberId();
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}	
+		
+		int listCount = ls.st_LectureEvaluationListCount(studentNo);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<LectureEvaluation> list = ls.st_LectureEvaluationList(pi, studentNo);
+		
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("pi :::: " + pi);
+		System.out.println("list :::: " + list);
+		
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="st_showLectureEvaluationInsert.le")
+	public String st_showLectureEvaluationInsert(LectureEvaluation lev, HttpServletRequest request) {
+		
+		request.setAttribute("lev", lev);
+		
+		return "student/class/st_LectureEvaluationInsert";
+	}
+	
+	@RequestMapping(value="st_LectureEvaluationInsert.le")
+	public String st_LectureEvaluationInsert(LectureEvaluation lev, String[] answer, HttpServletRequest request) {
+		
+		lev.setAnswer1(answer[0]);
+		lev.setAnswer2(answer[1]);
+		lev.setAnswer3(answer[2]);
+		lev.setAnswer4(answer[3]);
+		lev.setAnswer5(answer[4]);
+		
+		System.out.println("lev :::: " + lev);
+		
+		return "";
 	}
 	
 }
