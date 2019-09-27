@@ -10,6 +10,7 @@ import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.DocFile;
 import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
@@ -186,6 +187,10 @@ public interface StudentInfoDao {
 	int getOffFilterListCount(SqlSessionTemplate sqlSession, OffApplyFilter of);
 
 	ArrayList<SchoolOff> selectOffFilterStudent(SqlSessionTemplate sqlSession, OffApplyFilter of, PageInfo pi);
+
+	int insertSchoolOff(SqlSessionTemplate sqlSession, SchoolOff so);
+
+	int insertSchoolOffFile(SqlSessionTemplate sqlSession, DocFile df);
 
 		
 

@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +7,6 @@
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
@@ -85,6 +82,12 @@
 			
 			
 			<script>
+			function changeDate(str){
+				var date = str.substr(0,10);
+				return date;
+				
+			}
+			
 			$(function(){
 				$.ajax({
 					url:"em_offApplyList.si",
@@ -109,17 +112,8 @@
 							var $td8 = $("<td style='text-align:center;'>");
 							var $td9 = $("<td style='text-align:center;'>");
 							
-							var applyDate=data.list[i].applyDate;
-							console.log(applyDate);
-							
-							/* var $fmt1 = $('<fmt:parseDate value="${applyDate}" var="applyDate" pattern="yyyy-MM-dd HH:mm:ss">');
-							var $fmt2 = $('<fmt:formatDate value="${applyDate}" var="applyDate" pattern="yyyy/MM/dd">');
-							 */
-							/* <fmt:parseDate value="${applyDate}" var="applyDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<fmt:formatDate value="${applyDate}" pattern="yyyy/MM/dd"/> */
-							
-								
-								/* console.log("${applyDate}"); */
+							var beforeDate = data.list[i].applyDate;
+							var newDate = changeDate(beforeDate);
 							
 							$td1.text(data.list[i].college);
 							$td2.text(data.list[i].sdeptName);
@@ -127,8 +121,7 @@
 							$td4.text(data.list[i].kName);
 							$td5.text(data.list[i].offStart);
 							$td6.text(data.list[i].returnDate);
-							$td7.addend(fmt1);
-							$td7.addend(fmt2);
+							$td7.text(newDate);
 							$td8.text(data.list[i].offType);
 							$td9.text(data.list[i].offStatus);
 							
@@ -249,13 +242,16 @@
 							var $td8 = $("<td style='text-align:center;'>");
 							var $td9 = $("<td style='text-align:center;'>");
 							
+							var beforeDate = data.list[i].applyDate;
+							var newDate = changeDate(beforeDate);
+							
 							$td1.text(data.list[i].college);
 							$td2.text(data.list[i].sdeptName);
 							$td3.text(data.list[i].studentNo);
 							$td4.text(data.list[i].kName);
 							$td5.text(data.list[i].offStart);
 							$td6.text(data.list[i].returnDate);
-							$td7.text(data.list[i].applyDate);
+							$td7.text(newDate);
 							$td8.text(data.list[i].offType);
 							$td9.text(data.list[i].offStatus);
 							
@@ -381,13 +377,16 @@
 							var $td8 = $("<td style='text-align:center;'>");
 							var $td9 = $("<td style='text-align:center;'>");
 							
+							var beforeDate = data.list[i].applyDate;
+							var newDate = changeDate(beforeDate);
+							
 							$td1.text(data.list[i].college);
 							$td2.text(data.list[i].sdeptName);
 							$td3.text(data.list[i].studentNo);
 							$td4.text(data.list[i].kName);
 							$td5.text(data.list[i].offStart);
 							$td6.text(data.list[i].returnDate);
-							$td7.text(data.list[i].applyDate);
+							$td7.text(newDate);
 							$td8.text(data.list[i].offType);
 							$td9.text(data.list[i].offStatus);
 							
@@ -508,13 +507,16 @@
 							var $td8 = $("<td style='text-align:center;'>");
 							var $td9 = $("<td style='text-align:center;'>");
 							
+							var beforeDate = data.list[i].applyDate;
+							var newDate = changeDate(beforeDate);
+							
 							$td1.text(data.list[i].college);
 							$td2.text(data.list[i].sdeptName);
 							$td3.text(data.list[i].studentNo);
 							$td4.text(data.list[i].kName);
 							$td5.text(data.list[i].offStart);
 							$td6.text(data.list[i].returnDate);
-							$td7.text(data.list[i].applyDate);
+							$td7.text(newDate);
 							$td8.text(data.list[i].offType);
 							$td9.text(data.list[i].offStatus);
 							

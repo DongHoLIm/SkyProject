@@ -12,6 +12,7 @@ import com.kh.finalProject.board.model.vo.SearchCondition;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.DocFile;
 import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
@@ -696,6 +697,18 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		list = (ArrayList)sqlSession.selectList("SchoolOff.selectOffFilterStudent", of, rowBounds);
 		
 		return list;
+	}
+
+	@Override
+	public int insertSchoolOff(SqlSessionTemplate sqlSession, SchoolOff so) {
+		
+		return sqlSession.insert("SchoolOff.insertSchoolOff",so);
+	}
+
+	@Override
+	public int insertSchoolOffFile(SqlSessionTemplate sqlSession, DocFile df) {
+		
+		return sqlSession.insert("SchoolOff.insertSchoolOffFile",df);
 	}
 
 

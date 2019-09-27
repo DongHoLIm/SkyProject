@@ -40,6 +40,9 @@ table.basicinfo {
 #modified {
 	margin-left: 80%;
 }
+#btn {
+	margin-left: 80%;
+}
 </style>
 </head>
 <body>
@@ -163,12 +166,11 @@ table.basicinfo {
 						
 						</td>
 					</tr>
-
-					<table id="modified">
-						<button type="submit" id="modified">신상정보 수정</button> 
-						<!-- <input type="button" id="modified" onclick="changeInfo();" value="신상정보 수정" > -->
-					</table>
 				</table>
+
+					<div>
+						<button type="submit" id="btn">신상정보 수정</button> 
+					</div>
 			</form>
 		</div>
 

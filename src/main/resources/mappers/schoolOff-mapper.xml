@@ -30,12 +30,23 @@
   	
   	<insert id="schoolOffApply" parameterType="SchoolOff">
   		INSERT INTO OFF_SCHOOL (APPLY_DATE,OFF_TYPE,OFF_REASON,OFF_TERM,RETURN_DATE,
-								ENLISTMENT_DATE,DEMOBILIZATION_DATE,REQUIRED_DOC,
+								ENLISTMENT_DATE,DEMOBILIZATION_DATE,
 								OFF_START,OFF_STATUS,APPLY_NO,STUDENT_NO) 
 		VALUES(SYSDATE, #{offType}, #{offReason}, #{offTerm}, #{returnDate}, 
-				#{enlistmentDate}, #{demobilizationDate}, #{requiredDoc}, 
+				#{enlistmentDate}, #{demobilizationDate}, 
 				#{offStart}, DEFAULT, SEQ_OFFSCHOOL.NEXTVAL, #{studentNo})
   	</insert>
+  	
+  	<insert id="insertSchoolOff" parameterType="SchoolOff">
+  		INSERT INTO OFF_SCHOOL (APPLY_DATE,OFF_TYPE,OFF_REASON,OFF_TERM,RETURN_DATE,
+								ENLISTMENT_DATE,DEMOBILIZATION_DATE,
+								OFF_START,OFF_STATUS,APPLY_NO,STUDENT_NO) 
+		VALUES(SYSDATE, #{offType}, #{offReason}, #{offTerm}, #{returnDate}, 
+				#{enlistmentDate}, #{demobilizationDate}, 
+				#{offStart}, DEFAULT, SEQ_OFFSCHOOL.NEXTVAL, #{studentNo})
+  	</insert>
+  	
+  	
   	
   	<select id="getOffApplyListCount" resultType="_int">
   		SELECT COUNT(*)
@@ -69,9 +80,29 @@
 		</where>
   	</select>
   	
-  	<!-- <select id="selectOffFilterStudent" resultMap="schoolOffResultSet" parameterType="OffApplyFilter">
+  	<select id="selectOffFilterStudent" resultMap="schoolOffResultSet" parameterType="OffApplyFilter">
+  		SELECT C.COLLEGE_NAME, D.SDEPT_NAME, O.STUDENT_NO, M.MEMBER_KNAME, 
+        		O.OFF_START, O.RETURN_DATE, O.APPLY_DATE, O.OFF_TYPE, O.OFF_STATUS
+		FROM OFF_SCHOOL O
+		LEFT JOIN MEMBER M ON(O.STUDENT_NO=M.MEMBER_ID)
+		LEFT JOIN STUDENT_INFO S ON(O.STUDENT_NO=S.STUDENT_NO)
+		LEFT JOIN SDEPARTMENT D ON(S.SDEPT_CODE=D.SDEPT_CODE)
+		LEFT JOIN COLLEGE C ON(D.COLLEGE_CODE=C.COLLEGE_CODE)
+  		<where>
+  			<if test = "offStatus == '처리상태'">
+				AND (OFF_STATUS='신청완료' OR OFF_STATUS='서류확인')
+			</if>
+			<if test = "offStatus != '처리상태'">
+				AND OFF_STATUS = #{offStatus}
+			</if>
+			<if test = "offType != '휴학구분'">
+				AND OFF_TYPE = #{offType}
+			</if> 
+		</where>
   	
-  	</select> -->
+  	
+  	
+  	</select>
   
   
   

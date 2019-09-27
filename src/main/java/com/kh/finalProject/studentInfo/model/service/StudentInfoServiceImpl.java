@@ -13,6 +13,7 @@ import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.studentInfo.model.dao.StudentInfoDao;
 import com.kh.finalProject.studentInfo.model.exception.StudentInfoSelectListException;
 import com.kh.finalProject.studentInfo.model.vo.ChangeMajor;
+import com.kh.finalProject.studentInfo.model.vo.DocFile;
 import com.kh.finalProject.studentInfo.model.vo.DropOut;
 import com.kh.finalProject.studentInfo.model.vo.Explusion;
 import com.kh.finalProject.studentInfo.model.vo.FilterCondition;
@@ -472,6 +473,23 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	public ArrayList<SchoolOff> selectOffFilterStudent(OffApplyFilter of, PageInfo pi) {
 		
 		return sd.selectOffFilterStudent(sqlSession,of,pi);
+	}
+
+	@Override
+	public void schoolOffApplyWithFile(SchoolOff so, DocFile df) {
+		
+		int result=0;
+		
+		int result1 = sd.insertSchoolOff(sqlSession,so);
+		
+		int result2 = sd.insertSchoolOffFile(sqlSession,df);
+		
+		if(result1>0 && result2>0) {
+			result = 1;
+		}else {
+			result = -1;
+		}
+		
 	}
 
 }
