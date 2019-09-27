@@ -821,6 +821,8 @@ public class StudentInfoController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
+		System.out.println("currentPage::"+currentPage);
+		
 		listCount = ss.getOffApplyListCount();
 		System.out.println("offApplyCount::"+listCount);
 		

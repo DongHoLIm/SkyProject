@@ -17,7 +17,7 @@
   		<result property="demobilizationDate" column="DEMOBILIZATION_DATE"/>
   		<result property="offStatus" column="OFF_STATUS"/>
   		<result property="college" column="COLLEGE_NAME"/>
-  		<result property="major" column="SDEPT_NAME"/>
+  		<result property="sdeptName" column="SDEPT_NAME"/>
   		<result property="kName" column="MEMBER_KNAME"/>
   	
   	</resultMap>
@@ -43,10 +43,15 @@
   		WHERE OFF_STATUS='신청완료' OR OFF_STATUS='서류확인'
   	</select>
   	
-  	<!-- <select id="selectOffApplyList" parameterType="SchoolOff">
-  		SELECT
-  		FROM OFF_SCHOOL
-  	</select> -->
+  	<select id="selectOffApplyList" resultMap="schoolOffResultSet">
+  		SELECT C.COLLEGE_NAME, D.SDEPT_NAME, O.STUDENT_NO, M.MEMBER_KNAME, 
+        		O.OFF_START, O.RETURN_DATE, O.APPLY_DATE, O.OFF_TYPE, O.OFF_STATUS
+		FROM OFF_SCHOOL O
+		LEFT JOIN MEMBER M ON(O.STUDENT_NO=M.MEMBER_ID)
+		LEFT JOIN STUDENT_INFO S ON(O.STUDENT_NO=S.STUDENT_NO)
+		LEFT JOIN SDEPARTMENT D ON(S.SDEPT_CODE=D.SDEPT_CODE)
+		LEFT JOIN COLLEGE C ON(D.COLLEGE_CODE=C.COLLEGE_CODE)
+  	</select> 
   	
   	<select id="getOffFilterListCount" resultType="_int" parameterType="OffApplyFilter">
   		SELECT COUNT(*)

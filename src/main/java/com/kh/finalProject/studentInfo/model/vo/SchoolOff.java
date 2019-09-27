@@ -17,14 +17,14 @@ public class SchoolOff implements Serializable{
 	private String demobilizationDate;	//전역예정
 	private String offStatus;			//처리상태
 	private String college;				//단과대명
-	private String major;				//학과이름
+	private String sdeptName;			//학과이름
 	private String kName;				//이름
 	
 	public SchoolOff() {}
 
 	public SchoolOff(String studentNo, String applyNo, String applyDate, String offStart, String offType,
 			String offReason, String offTerm, String offTermT, String returnDate, String enlistmentDate,
-			String demobilizationDate, String offStatus, String college, String major, String kName) {
+			String demobilizationDate, String offStatus, String college, String sdeptName, String kName) {
 		super();
 		this.studentNo = studentNo;
 		this.applyNo = applyNo;
@@ -39,7 +39,7 @@ public class SchoolOff implements Serializable{
 		this.demobilizationDate = demobilizationDate;
 		this.offStatus = offStatus;
 		this.college = college;
-		this.major = major;
+		this.sdeptName = sdeptName;
 		this.kName = kName;
 	}
 
@@ -147,12 +147,12 @@ public class SchoolOff implements Serializable{
 		this.college = college;
 	}
 
-	public String getMajor() {
-		return major;
+	public String getSdeptName() {
+		return sdeptName;
 	}
 
-	public void setMajor(String major) {
-		this.major = major;
+	public void setSdeptName(String sdeptName) {
+		this.sdeptName = sdeptName;
 	}
 
 	public String getkName() {
@@ -169,10 +169,9 @@ public class SchoolOff implements Serializable{
 				+ offStart + ", offType=" + offType + ", offReason=" + offReason + ", offTerm=" + offTerm
 				+ ", offTermT=" + offTermT + ", returnDate=" + returnDate + ", enlistmentDate=" + enlistmentDate
 				+ ", demobilizationDate=" + demobilizationDate + ", offStatus=" + offStatus + ", college=" + college
-				+ ", major=" + major + ", kName=" + kName + "]";
+				+ ", sdeptName=" + sdeptName + ", kName=" + kName + "]";
 	}
 
-	
 	
 
 }
