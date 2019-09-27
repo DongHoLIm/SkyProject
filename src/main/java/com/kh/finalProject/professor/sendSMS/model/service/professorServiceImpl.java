@@ -11,6 +11,7 @@ import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.sendSMS.model.dao.professorDao;
 import com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList;
 import com.kh.finalProject.professor.sendSMS.model.vo.StudentList;
+import com.kh.finalProject.professor.sendSMS.model.vo.professorSubjectList;
 
 @Service
 public class professorServiceImpl implements professorService{
@@ -47,6 +48,21 @@ public class professorServiceImpl implements professorService{
 	public int sendSMSListCount(SendSMSList list) {
 		// TODO Auto-generated method stub
 		return pd.sendSMSListCount(sqlSession,list);
+	}
+	@Override
+	public ArrayList<professorSubjectList> professorSubList(Member loginUser) {
+		// TODO Auto-generated method stub
+		return pd.professorSubList(sqlSession,loginUser);
+	}
+	@Override
+	public int searchStuListSMSCount(professorSubjectList psl) {
+		// TODO Auto-generated method stub
+		return pd.searchStuListSMSCount(sqlSession,psl);
+	}
+	@Override
+	public ArrayList<StudentList> searchStuListSMS(PageInfo pi, professorSubjectList psl) {
+		// TODO Auto-generated method stub
+		return pd.searchStuListSMS(sqlSession,pi,psl);
 	}
 	
 }

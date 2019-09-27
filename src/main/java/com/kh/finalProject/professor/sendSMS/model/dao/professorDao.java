@@ -8,6 +8,7 @@ import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList;
 import com.kh.finalProject.professor.sendSMS.model.vo.StudentList;
+import com.kh.finalProject.professor.sendSMS.model.vo.professorSubjectList;
 
 public interface professorDao {
 
@@ -22,5 +23,11 @@ public interface professorDao {
 	ArrayList<StudentList> SendSMSDetail(SqlSessionTemplate sqlSession, SendSMSList sl);
 
 	int sendSMSListCount(SqlSessionTemplate sqlSession, SendSMSList list);
+
+	ArrayList<professorSubjectList> professorSubList(SqlSessionTemplate sqlSession, Member loginUser);
+
+	int searchStuListSMSCount(SqlSessionTemplate sqlSession, professorSubjectList psl);
+
+	ArrayList<StudentList> searchStuListSMS(SqlSessionTemplate sqlSession, PageInfo pi, professorSubjectList psl);
 
 }

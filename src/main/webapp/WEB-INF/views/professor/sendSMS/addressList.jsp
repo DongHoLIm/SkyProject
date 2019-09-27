@@ -37,9 +37,11 @@
 			<tr>
 				<td align="center">강의장명 :</td>
 				<td><select name="demo-category" id="subject" style="width:120%;">
-					<option value="">-강의명</option>
+					<c:forEach var ="sub" items="${subList }">
+					<option value="<c:out value="${sub.subCode }"/>"><c:out value="${sub.subName}"/></option>
+					</c:forEach>
 				</select></td>
-				<td align="center"><button class="button small">Search</button></td>
+				<td align="center"><button class="button small" onclick="searchBtn();">Search</button></td>
 			</tr>
 		</table>
 		 <table id="original" align="center">
@@ -329,9 +331,179 @@
 	 			});
 	 		});
 	 		
+	 		function searchBtn(){
+	 			var value = $("#subject").val();
+	 			console.log(value);
+	 			$.ajax({
+	 				url:"searchStuListSMS.pro",
+	 				data:{"subCode":value},
+	 				type:"post",
+	 				success: function(data){
+	 					$("#original >tbody ").empty();	
+	 					for(var i =0;i<data.list.length;i++){
+	 					var $tr =$("<tr>");
+	 					var $td = $("<td>");
+	 					var $td1 = $("<td>");
+	 					var $td2 = $("<td>");
+	 					var $td3 =$("<td>");
+	 					var $td4 =$("<td>");
+	 					
+	 					$td.text(data.list[i].memberId);
+	 					$td1.text(data.list[i].memberKName);
+	 					$td2.text(data.list[i].phone);
+	 					$td3.text(data.list[i].sdeptName);
+	 					$td4.text(data.list[i].grade);
+	 					$tr.append($td);
+	 					$tr.append($td1);
+	 					$tr.append($td2);
+	 					$tr.append($td3);
+	 					$tr.append($td4);
+	 					$("#original>tbody").append($tr); 						
+	 					}
+	 					
+	 					$("#original > tfoot tr").eq(0).empty();
+	 					var $td6 = $("<td colspan='4'>");
+	 					var $ul  =$("<ul class='pagination' align='center'>");
+	 					var $li =$("<li>");
+	 					var $li1 =$("<li>");
+	 					var $li2=$("<li>");	 					 					
+	 					var $li3 =$("<li>");
+	 					var $disabledPrevspan = $("<span class='button disabled' >").text('Prev');
+	 					var $abledPrevSpan = $("<span class='button' id='prevBtn' onclick='goPre1()'>").text("Prev");
+	 					var $disabledNextSpan=$("<span class='button disabled'>").text("Next");
+	 					var $abledNextSpan= $("<span class='button' id='nextBtn' onclick='goNext1()'>").text("Next");
+	 					
+	 					if(data.pi.currentPage<=1){
+	 						$li.append($disabledPrevspan);
+	 						$ul.append($li);
+	 					}else {
+	 						$li1.append($abledPrevSpan);
+	 						$ul.append($li1);
+	 					}
+	 					for(var i= data.pi.startPage;i<=data.pi.endPage;i++){
+	 						var $a =$("<a class='page' onclick='reajax1("+i+")'>").text(i);
+	 						var $p =$("<p class='page active'>").text(i);
+	 						var $li4 =$("<li class='pageNumber'>");	
+	 						if(i==data.pi.currentPage){
+	 							$li4.append($p);
+	 							$ul.append($li4);
+	 						}else{	 							
+	 							$li4.append($a);
+	 							$ul.append($li4);
+	 						}
+	 					}
+	 					if(data.pi.currentPage<data.pi.maxPage){
+	 						$li2.append($abledNextSpan);
+	 						$ul.append($li2);
+	 					}else{
+	 						$li3.append($disabledNextSpan);
+	 						$ul.append($li3);
+	 					}
+	 					$td6.append($ul);
+	 					$("#original > tfoot tr").eq(0).append($td6);
+	 					
+	 					$("#original tbody tr").click(function(){
+	 			 			console.log(this);
+	 			 			$("#sendMemberList > tbody").append(this);
+	 			 		});
+	 					
+	 				}
+	 			});
+	 		}	
+	 	function reajax1(index){
+	 		var value = $("#subject").val();
+ 			console.log(value);
+ 			$.ajax({
+ 				url:"searchStuListSMS.pro",
+ 				data:{"subCode":value,"currentPage":index},
+ 				type:"post",
+ 				success: function(data){
+ 					$("#original >tbody ").empty();	
+ 					for(var i =0;i<data.list.length;i++){
+ 					var $tr =$("<tr>");
+ 					var $td = $("<td>");
+ 					var $td1 = $("<td>");
+ 					var $td2 = $("<td>");
+ 					var $td3 =$("<td>");
+ 					var $td4 =$("<td>");
+ 					
+ 					$td.text(data.list[i].memberId);
+ 					$td1.text(data.list[i].memberKName);
+ 					$td2.text(data.list[i].phone);
+ 					$td3.text(data.list[i].sdeptName);
+ 					$td4.text(data.list[i].grade);
+ 					$tr.append($td);
+ 					$tr.append($td1);
+ 					$tr.append($td2);
+ 					$tr.append($td3);
+ 					$tr.append($td4);
+ 					$("#original>tbody").append($tr); 						
+ 					}
+ 					
+ 					$("#original > tfoot tr").eq(0).empty();
+ 					var $td6 = $("<td colspan='4'>");
+ 					var $ul  =$("<ul class='pagination' align='center'>");
+ 					var $li =$("<li>");
+ 					var $li1 =$("<li>");
+ 					var $li2=$("<li>");	 					 					
+ 					var $li3 =$("<li>");
+ 					var $disabledPrevspan = $("<span class='button disabled' >").text('Prev');
+ 					var $abledPrevSpan = $("<span class='button' id='prevBtn' onclick='goPre1()'>").text("Prev");
+ 					var $disabledNextSpan=$("<span class='button disabled'>").text("Next");
+ 					var $abledNextSpan= $("<span class='button' id='nextBtn' onclick='goNext1()'>").text("Next");
+ 					
+ 					if(data.pi.currentPage<=1){
+ 						$li.append($disabledPrevspan);
+ 						$ul.append($li);
+ 					}else {
+ 						$li1.append($abledPrevSpan);
+ 						$ul.append($li1);
+ 					}
+ 					for(var i= data.pi.startPage;i<=data.pi.endPage;i++){
+ 						var $a =$("<a class='page' onclick='reajax1("+i+")'>").text(i);
+ 						var $p =$("<p class='page active'>").text(i);
+ 						var $li4 =$("<li class='pageNumber'>");	
+ 						if(i==data.pi.currentPage){
+ 							$li4.append($p);
+ 							$ul.append($li4);
+ 						}else{	 							
+ 							$li4.append($a);
+ 							$ul.append($li4);
+ 						}
+ 					}
+ 					if(data.pi.currentPage<data.pi.maxPage){
+ 						$li2.append($abledNextSpan);
+ 						$ul.append($li2);
+ 					}else{
+ 						$li3.append($disabledNextSpan);
+ 						$ul.append($li3);
+ 					}
+ 					$td6.append($ul);
+ 					$("#original > tfoot tr").eq(0).append($td6);
+ 					
+ 					$("#original tbody tr").click(function(){
+ 			 			console.log(this);
+ 			 			$("#sendMemberList > tbody").append(this);
+ 			 		});
+ 				}
+	 	});
+	 	}
+ 			function goNext1(){
 	 			
+	 			var currentPage = $("p[class='page active']").text();
+	 			var nextPage = Number(currentPage);
+	 			console.log(nextPage+1);
+	 			reajax1(nextPage+1);
 	 	
-	 		
+ 		}
+ 		function goPre1(){
+ 			
+	 			var currentPage = $("p[class='page active']").text();
+	 			var prePage = Number(currentPage);
+	 			console.log(prePage-1);
+	 			reajax1(prePage-1);
+	 	
+ 		}
 	 		</script>
 </body>
 </html>

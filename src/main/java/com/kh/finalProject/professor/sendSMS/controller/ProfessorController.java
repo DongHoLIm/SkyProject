@@ -27,6 +27,7 @@ import com.kh.finalProject.member.model.vo.Member;
 import com.kh.finalProject.professor.sendSMS.model.service.professorService;
 import com.kh.finalProject.professor.sendSMS.model.vo.SendSMSList;
 import com.kh.finalProject.professor.sendSMS.model.vo.StudentList;
+import com.kh.finalProject.professor.sendSMS.model.vo.professorSubjectList;
 
 
 
@@ -41,8 +42,10 @@ public class ProfessorController {
 		return "professor/sendSMS/sendSMS";
 	}
 	@RequestMapping("addressStudent.pro")	
-	public String addressList(@ModelAttribute("loginUser") Member loginUser,HttpServletRequest request,HttpServletResponse response){
+	public String addressList(HttpSession session,HttpServletRequest request,HttpServletResponse response){
 		ArrayList<StudentList> list = null;
+		ArrayList<professorSubjectList> subList =null;
+		Member loginUser  = (Member)session.getAttribute("loginUser");
 		int currentPage = 1 ;
 		if(request.getParameter("currentPage")!=null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -53,7 +56,9 @@ public class ProfessorController {
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
 			list = ps.studentPageList(pi);			
+			subList = ps.professorSubList(loginUser);
 			
+			request.setAttribute("subList",subList);
 			request.setAttribute("list", list);
 			request.setAttribute("pi",pi);
 
@@ -201,5 +206,33 @@ public class ProfessorController {
 		}	
 		return mv;
 	}
-	
+	@RequestMapping("searchStuListSMS.pro")
+	public ModelAndView searchStuListSMS(ModelAndView mv,HttpSession session,HttpServletRequest request) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String subCode = request.getParameter("subCode");
+		professorSubjectList psl = new professorSubjectList();
+		psl.setProfessorNo(loginUser.getMemberId());
+		psl.setSubCode(subCode);
+		int currentPage=1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}		
+		int listCount;
+		try {
+			listCount = ps.searchStuListSMSCount(psl);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<StudentList> searchList = ps.searchStuListSMS(pi,psl);
+			mv.addObject("list", searchList);
+			mv.addObject("pi",pi);
+			
+		}catch (Exception e) {
+			mv.addObject("msg","List 출력에 실패 했습니다.");
+			mv.setViewName("common/errorAlert");
+		}
+		
+		mv.setViewName("jsonView");
+		return mv;
+	}
 }
