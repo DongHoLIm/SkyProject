@@ -291,6 +291,11 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 		return list;
 	}
 
+	@Override
+	public int insertLectureEvaluation(SqlSessionTemplate sqlSession, LectureRegistration lr) {
+		return sqlSession.insert("LectureOpen.insertLectureEvaluation", lr);
+	}
+
 
 
 }

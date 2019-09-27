@@ -54,8 +54,12 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 
 	@Override
 	public int insertCourseOffered(LectureRegistration lr) {
+		int result = cmd.insertCourseOffered(sqlSession, lr);
 		
-		return cmd.insertCourseOffered(sqlSession, lr);
+		if(result > 0) {
+			cmd.insertLectureEvaluation(sqlSession, lr);
+		}
+		return result;
 	}
 
 	@Override

@@ -66,4 +66,6 @@ public interface ClassManagementDao {
 
 	ArrayList<LectureOpen> selectAbolitiontList(SqlSessionTemplate sqlSession, PageInfo pi) throws ClassManagementSelectListException;
 
+	int insertLectureEvaluation(SqlSessionTemplate sqlSession, LectureRegistration lr);
+
 }
