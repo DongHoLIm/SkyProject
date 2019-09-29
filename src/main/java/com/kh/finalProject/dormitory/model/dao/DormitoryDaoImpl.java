@@ -62,7 +62,7 @@ public class DormitoryDaoImpl implements DormitoryDao{
 
 	@Override
 	public ArrayList<Dormitory> empDormitory(SqlSessionTemplate sqlSession) throws DormitoryException {
-ArrayList<Dormitory> memberDormitory = null;
+		ArrayList<Dormitory> memberDormitory = null;
 		
 		memberDormitory = (ArrayList) sqlSession.selectList("Dormitory.empDormitoryCheck");
 		
@@ -71,6 +71,25 @@ ArrayList<Dormitory> memberDormitory = null;
 		}
 		
 		return memberDormitory;
+	}
+
+	@Override
+	public ArrayList<Dormitory> empApplyDormitory(SqlSessionTemplate sqlSession) throws DormitoryException {
+	ArrayList<Dormitory> memberDormitory = null;
+		
+		memberDormitory = (ArrayList) sqlSession.selectList("Dormitory.empApplyDormitoryCheck");
+		
+		if(memberDormitory == null) {
+			throw new DormitoryException("정보가 존재하지 않습니다.");
+		}
+		
+		return memberDormitory;
+	}
+
+	@Override
+	public void updateDormitory(SqlSessionTemplate sqlSession) {
+		sqlSession.update("Dormitory.rev");
+		
 	}
 
 }

@@ -77,10 +77,10 @@
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ dormitory.email }"/></td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ dormitory.dormitoryName }"/></td>
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><c:out value="${ dormitory.dorApplyDate }"/></td>
-	     					   <c:if test="${ memberDormitory.aggrementStatus != '승인'}">
-	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="stDormApply.dor">승인</a></td>
+	     					   <c:if test="${ dormitory.aggrementStatus == '미승인'}">
+	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;"><a href="stDormApply.dor">승인하기</a></td>
 	     					   </c:if>
-	     					   <c:if test="${ memberDormitory.aggrementStatus == '승인'}">
+	     					   <c:if test="${ dormitory.aggrementStatus == '승인'}">
 	     					   <td style="border:1px solid lightgray; color:black; vertical-align: middle;">승인완료</td>
 	     					   </c:if>
 	  					    </tr>
@@ -105,7 +105,7 @@
 		</div>
 		
 		<div>
-		<jsp:include page="../../common/menubar-student.jsp" />
+		<jsp:include page="../../common/menubar-employee.jsp" />
 	</div>
 </div>
 </body>
