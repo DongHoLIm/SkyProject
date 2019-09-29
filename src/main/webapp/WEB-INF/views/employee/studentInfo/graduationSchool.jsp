@@ -33,8 +33,8 @@
 			<thead>
 				<tr>
 					<th width="10%" style="text-align:center">구분</th>
-					<th width="10%" style="text-align:center">졸업인증 코드</th>
-					<th width="25%" style="text-align:center">졸업인증 명칭</th>
+					<th width="15%" style="text-align:center">졸업인증 코드</th>
+					<th width="20%" style="text-align:center">졸업인증 명칭</th>
 					<th width="40%" style="text-align:center">졸업인증 내용</th>
 					<th width="15%" style="text-align:center">내용 수정</th>
 				</tr>

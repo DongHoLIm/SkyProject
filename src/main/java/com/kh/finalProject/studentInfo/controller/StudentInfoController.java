@@ -740,12 +740,6 @@ public class StudentInfoController {
 		so.setStudentNo(userId);
 		System.out.println("휴학신청 객체::"+so);
 		
-		/*
-		 * int count = ss.countCheck(so); if(count >0) {
-		 * request.setAttribute("msg","해당학기 휴학신청 내역이 존재 합니다.");
-		 * mv.setViewName("common/errorAlert"); return mv; }
-		 */
-		
 		
 		MultipartFile mf = req.getFile("docFile");
 		
@@ -776,9 +770,6 @@ public class StudentInfoController {
 				mf.transferTo(new File(filePath+"\\"+changeName));
 				
 				int result2 = ss.schoolOffApplyWithFile(so,df);
-				
-				mv.setViewName("jsonView");
-				return mv;
 				
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
@@ -1044,6 +1035,52 @@ public class StudentInfoController {
 		mv.setViewName("jsonView");
 		
 		return mv;
+	}
+	
+	//교직원_휴학처리_학생 상세보기
+	@RequestMapping("em_selectoffApplyStu.si")
+	public String selectoffApplyStu(HttpServletRequest request) {
+
+		String id = request.getParameter("id");
+		System.out.println(id);
+		String da = request.getParameter("da");
+		System.out.println(da);
+		
+		//StudentInfo basicInfo = ss.basicInfo(id);
+		//request.setAttribute("basicInfo",basicInfo);
+		
+		SchoolOff soInfo = new SchoolOff();
+		soInfo.setOffStart(da);
+		soInfo.setStudentNo(id);
+		
+		SchoolOff soSelect = ss.OffApplyDetail(soInfo);
+		//request.setAttribute("soSelect",soSelect);
+		
+		String offType = soSelect.getOffType();
+		System.out.println("offType::"+offType);
+		
+		if(offType.equals("일반휴학")) {
+			//return "employee/studentInfo/offApplyDetail";
+			request.setAttribute("msg","제출서류가 없습니다.");
+			return "common/errorAlert";
+			
+			
+		}else {
+			String applyNo = soSelect.getApplyNo();
+			System.out.println("applyNo::"+applyNo);
+			
+			DocFile dfSelect = ss.selectDocFile(applyNo);
+			//String path = dfSelect.getPath();
+			//System.out.println(path);
+			
+			String img = dfSelect.getChangeName();
+			System.out.println(img);
+			
+			request.setAttribute("img",img);
+			
+			return "employee/studentInfo/offApplyDetailFile";
+		}
+
 	}
 	
 	
