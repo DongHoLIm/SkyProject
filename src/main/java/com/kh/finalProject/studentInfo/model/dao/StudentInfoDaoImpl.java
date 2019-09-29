@@ -708,7 +708,51 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 	@Override
 	public int insertSchoolOffFile(SqlSessionTemplate sqlSession, DocFile df) {
 		
-		return sqlSession.insert("SchoolOff.insertSchoolOffFile",df);
+		return sqlSession.insert("DocFile.insertSchoolOffFile",df);
+	}
+
+	@Override
+	public int graduationListCount(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("Graduation.graduationListCount");
+	}
+
+	@Override
+	public ArrayList<Graduation> selectGraduationMa(SqlSessionTemplate sqlSession,PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset,pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("Graduation.selectGraduationMa", null, rowBounds);
+	}
+
+	@Override
+	public int graduationFilterListCount(SqlSessionTemplate sqlSession, FilterCondition fc) {
+		
+		return sqlSession.selectOne("Graduation.graduationFilterListCount", fc);
+	}
+
+	@Override
+	public ArrayList<Graduation> selectGraduationMaFilter(SqlSessionTemplate sqlSession, PageInfo pi,
+			FilterCondition fc) {
+		
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset,pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("Graduation.selectGraduationMaFilter", fc, rowBounds);
+	}
+
+	@Override
+	public StudentInfo statusCheck(SqlSessionTemplate sqlSession, String userId) {
+		
+		return sqlSession.selectOne("StudentInfo.statusCheck", userId);
+	}
+
+	@Override
+	public int countCheck(SqlSessionTemplate sqlSession, SchoolOff so) {
+		
+		return sqlSession.selectOne("SchoolOff.countCheck", so);
 	}
 
 

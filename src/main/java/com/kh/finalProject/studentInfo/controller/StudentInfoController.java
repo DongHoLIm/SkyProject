@@ -232,9 +232,6 @@ public class StudentInfoController {
 
 			mv.setViewName("jsonView");
 
-			System.out.println(mv.getViewName());
-			System.out.println(mv.getModel());
-
 			return mv;
 
 		} catch (StudentInfoSelectListException e) {
@@ -292,9 +289,6 @@ public class StudentInfoController {
 			mv.addObject("pi",pi);
 
 			mv.setViewName("jsonView");
-
-			System.out.println(mv.getViewName());
-			System.out.println(mv.getModel());
 
 			return mv;
 
@@ -354,8 +348,6 @@ public class StudentInfoController {
 					mv.addObject("collegeList", collegeList);
 					mv.addObject("sdeptList", sdeptList);
 					mv.setViewName("jsonView");
-					
-					System.out.println("mv.getModel::" + mv.getModel());
 					
 					return mv;
 					
@@ -531,6 +523,102 @@ public class StudentInfoController {
 		return "employee/studentInfo/graduationMajor";
 
 	}
+	
+	
+	//교직원 졸업관리페이징 ajax
+	@RequestMapping("em_graduationMaPage.si")
+	public ModelAndView graduationMaPage(ModelAndView mv, HttpServletRequest request) {
+		
+		System.out.println("requestCurrentPage::" + request.getParameter("currentPage"));
+
+		int currentPage=1;
+		int listCount=0;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		listCount = ss.graduationListCount();
+		
+		System.out.println("listCount::" + listCount);
+
+		PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+
+		ArrayList<Graduation> list = ss.selectGraduationMa(pi);
+		
+		String division="";
+		for(int i=0 ; i<list.size() ; i++) {
+			division = list.get(i).getsDeptCode();
+			if(division.equals("SD100")) {
+				list.get(i).setDivision("교내 인증");
+			}else {
+				list.get(i).setDivision("학과 인증");
+			}
+		}
+		
+		System.out.println("list ::" + list);
+		System.out.println("pi ::" + pi);
+
+		mv.addObject("list",list);
+		mv.addObject("pi",pi);
+
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	//교직원 졸업관리 학과인증 필터링
+	@RequestMapping("em_graduationMajorFilter.si")
+	public ModelAndView graduationMaFilter(ModelAndView mv, HttpServletRequest request) {
+		
+		int currentPage = 1;
+
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		String college = request.getParameter("collegeCondition");
+		String sdept = request.getParameter("sdeptCondition");
+		
+		System.out.println("college::" + college);
+		System.out.println("sdept::" + sdept);
+		
+		FilterCondition fc = new FilterCondition();
+
+		fc.setCollege(college);
+		fc.setSdeptName(sdept);
+		
+		int listCount;
+		
+		listCount = ss.graduationFilterListCount(fc);
+		
+		System.out.println("필터링후 listCount::" + listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+		
+		ArrayList<Graduation> list = ss.selectGraduationMaFilter(pi,fc);
+		
+		String division="";
+		for(int i=0 ; i<list.size() ; i++) {
+			division = list.get(i).getsDeptCode();
+			if(division.equals("SD100")) {
+				list.get(i).setDivision("교내 인증");
+			}else {
+				list.get(i).setDivision("학과 인증");
+			}
+		}
+		
+		System.out.println("list ::" + list);
+		System.out.println("pi ::" + pi);
+
+		mv.addObject("list",list);
+		mv.addObject("pi",pi);
+
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
 
 	//교직원_졸업관리_학과인증 상세보기
 	@RequestMapping(value="em_selectGraduationMa.si")
@@ -553,6 +641,8 @@ public class StudentInfoController {
 
 		return "employee/studentInfo/changeGraduationMa";
 	}
+	
+	
 
 	//교직원_졸업관리_학과인증 수정하기
 	@RequestMapping(value="em_changeGraduationMa.si")
@@ -583,7 +673,7 @@ public class StudentInfoController {
 		return mv;
 	}
 
-	//학생_휴학신청 
+	//학생_휴학신청 뷰
 	@RequestMapping("st_schoolOff.si")
 	public String schoolOnOffApply(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
 
@@ -602,6 +692,18 @@ public class StudentInfoController {
 		
 		String start="";
 		if(month.equals("02") || month.equals("08") || month.equals("09")) {
+			
+			StudentInfo student = ss.statusCheck(userId);
+			
+			String status = student.getStudentStatus();
+			System.out.println(status);
+			
+			if(status.equals("휴학생") || status.equals("졸업생")) {
+				request.setAttribute("msg","휴학 신청 대상자가 아닙니다.");
+				return "common/errorAlert";
+			}
+			
+			
 			if(month=="2") {
 				start = year + ".1학기" ;	
 			}else {
@@ -627,35 +729,30 @@ public class StudentInfoController {
 		}	
 
 	}
-	
-	//휴학신청 insert
-//	@RequestMapping("st_insertSchoolOff.si")
-//	public String insertSchoolOff(HttpServletRequest request, @ModelAttribute SchoolOff so,DocFile df, 
-//											@ModelAttribute("loginUser") Member loginUser) {
-//		
-//		System.out.println("휴학신청::"+so);
-//		
-//		
-//		
-//		return "";
-//	}
+
 	
 	//휴학신청 insert (ajax)
 	@RequestMapping(value="st_insertSchoolOff.si")
 	public ModelAndView insertSchoolOff( ModelAndView mv, HttpServletRequest request, @ModelAttribute SchoolOff so, @ModelAttribute("loginUser") Member loginUser,
 			DocFile df, MultipartHttpServletRequest req) {
 		
-		System.out.println("휴학신청 객체::"+so);
 		String userId = loginUser.getMemberId();
 		so.setStudentNo(userId);
+		System.out.println("휴학신청 객체::"+so);
+		
+		/*
+		 * int count = ss.countCheck(so); if(count >0) {
+		 * request.setAttribute("msg","해당학기 휴학신청 내역이 존재 합니다.");
+		 * mv.setViewName("common/errorAlert"); return mv; }
+		 */
+		
 		
 		MultipartFile mf = req.getFile("docFile");
 		
-		if(mf == null) {
-			ss.schoolOffApply(so);
+		if(mf.getOriginalFilename().length() <= 0) {
 			
-			mv.setViewName("jsonView");
-			return mv;
+			int result = ss.schoolOffApply(so);
+			
 			
 		}else {
 			String originFileName = mf.getOriginalFilename();
@@ -678,9 +775,10 @@ public class StudentInfoController {
 			try {
 				mf.transferTo(new File(filePath+"\\"+changeName));
 				
-				ss.schoolOffApplyWithFile(so,df);
+				int result2 = ss.schoolOffApplyWithFile(so,df);
 				
-				
+				mv.setViewName("jsonView");
+				return mv;
 				
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
@@ -690,14 +788,11 @@ public class StudentInfoController {
 				e.printStackTrace();
 			}
 			
-			
-
 		}
-		
 		
 		mv.setViewName("jsonView");
 		return mv;
-			
+		
 	}
 		
 
@@ -803,6 +898,69 @@ public class StudentInfoController {
 		
 	}
 	
+	//학생_복학신청 뷰
+	@RequestMapping("st_schoolOn.si")
+	public String schoolOnOnApply(HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
+
+		String userId = loginUser.getMemberId();
+		System.out.println(userId);
+    
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat("MM");
+		
+		Date time = new Date();
+		
+		String year = format1.format(time);
+		String month = format2.format(time);
+		System.out.println("year::" + year);
+		System.out.println("month::" + month);
+		
+		
+		
+		String returnD="";
+		if(month.equals("02") || month.equals("08") || month.equals("09")) {
+			
+			StudentInfo student = ss.statusCheck(userId);
+			
+			String status = student.getStudentStatus();
+			System.out.println(status);
+			
+			if(status.equals("재학생") || status.equals("졸업생")) {
+				request.setAttribute("msg","복학 신청 대상자가 아닙니다.");
+				return "common/errorAlert";
+			}
+			
+			
+			
+			if(month=="2") {
+				returnD = year + ".1학기" ;	
+			}else {
+				returnD = year + ".2학기" ;				
+			}
+			System.out.println("복학학기::"+returnD);
+			
+			StudentInfo basicInfo = ss.basicInfo(userId);
+			request.setAttribute("basicInfo",basicInfo);
+			request.setAttribute("returnD",returnD);
+			
+			/*
+			 * ArrayList<SchoolOff> list = ss.selectSchoolOff(userId);
+			 * System.out.println("휴학신청 list :: " + list); request.setAttribute("list",
+			 * list);
+			 */
+			
+			return "student/info/schoolOn";
+		
+		}
+		else {
+			request.setAttribute("msg","복학 신청 기간이 아닙니다.");
+			return "common/errorAlert";
+			
+		}	
+
+	}
+	
+	
 	//교직원_휴학처리 뷰출력
 	@RequestMapping("em_schoolOff.si")
 	public String schooloff(HttpServletRequest request) {
@@ -889,13 +1047,6 @@ public class StudentInfoController {
 	}
 	
 	
-	
-	//학생_복학신청
-	@RequestMapping("st_schoolOn.si")
-	public String schoolOnOnApply() {
-		
-		return "student/info/schoolOn";
-	}
 	
 	//교직원_복학처리
 	@RequestMapping("em_schoolOn.si")

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -191,7 +193,10 @@ table.basicinfo {
 						<td><c:out value="${list.offType }"/></td>
 						<td><c:out value="${list.offReason }"/></td>
 						<td><c:out value="${list.returnDate }"/></td>
-						<td><c:out value="${list.applyDate }"/></td>
+						<td>
+						<fmt:parseDate value="${list.applyDate }" var="applyDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${applyDate}" pattern="yyyy/MM/dd"/>
+						</td>
 						<td><c:out value="${list.offStatus }"/></td>
 					</tr>
 				</c:forEach>
@@ -289,7 +294,7 @@ table.basicinfo {
 				var form = $("#ApplyForm")[0];
 				
 				var data = new FormData(form);
-				
+				console.log(data); 
 				
 				$.ajax({
 					url:"st_insertSchoolOff.si",
@@ -305,14 +310,12 @@ table.basicinfo {
 						
 						alert("휴학 신청 완료");
 						
-						location.reload();
 					},
 					error:function(request,status,error){
 				        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				       }
 				});
 			}
-			
 			
 			
 			</script>

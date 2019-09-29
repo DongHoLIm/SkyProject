@@ -192,6 +192,18 @@ public interface StudentInfoDao {
 
 	int insertSchoolOffFile(SqlSessionTemplate sqlSession, DocFile df);
 
+	int graduationListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Graduation> selectGraduationMa(SqlSessionTemplate sqlSession, PageInfo pi);
+
+	int graduationFilterListCount(SqlSessionTemplate sqlSession, FilterCondition fc);
+
+	ArrayList<Graduation> selectGraduationMaFilter(SqlSessionTemplate sqlSession, PageInfo pi, FilterCondition fc);
+
+	StudentInfo statusCheck(SqlSessionTemplate sqlSession, String userId);
+
+	int countCheck(SqlSessionTemplate sqlSession, SchoolOff so);
+
 		
 
 

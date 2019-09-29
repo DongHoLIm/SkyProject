@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class DocFile implements Serializable{
 	private String fileCode;
-	private int docNo;
 	private String oldName;
 	private String changeName;
 	private String path;
@@ -15,11 +14,10 @@ public class DocFile implements Serializable{
 	
 	public DocFile() {}
 
-	public DocFile(String fileCode, int docNo, String oldName, String changeName, String path, String type,
-			String offApplyNo, String diseaseCode, String recoCode) {
+	public DocFile(String fileCode, String oldName, String changeName, String path, String type, String offApplyNo,
+			String diseaseCode, String recoCode) {
 		super();
 		this.fileCode = fileCode;
-		this.docNo = docNo;
 		this.oldName = oldName;
 		this.changeName = changeName;
 		this.path = path;
@@ -35,14 +33,6 @@ public class DocFile implements Serializable{
 
 	public void setFileCode(String fileCode) {
 		this.fileCode = fileCode;
-	}
-
-	public int getDocNo() {
-		return docNo;
-	}
-
-	public void setDocNo(int docNo) {
-		this.docNo = docNo;
 	}
 
 	public String getOldName() {
@@ -103,11 +93,12 @@ public class DocFile implements Serializable{
 
 	@Override
 	public String toString() {
-		return "DocFile [fileCode=" + fileCode + ", docNo=" + docNo + ", oldName=" + oldName + ", changeName="
-				+ changeName + ", path=" + path + ", type=" + type + ", offApplyNo=" + offApplyNo + ", diseaseCode="
-				+ diseaseCode + ", recoCode=" + recoCode + "]";
+		return "DocFile [fileCode=" + fileCode + ", oldName=" + oldName + ", changeName=" + changeName + ", path="
+				+ path + ", type=" + type + ", offApplyNo=" + offApplyNo + ", diseaseCode=" + diseaseCode
+				+ ", recoCode=" + recoCode + "]";
 	}
 
+	
 	
 
 }
