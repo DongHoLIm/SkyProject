@@ -32,7 +32,7 @@ public class ProfessorResultDaoImpl implements ProfessorResultDao{
 
 	@Override
 	public int resultInsertStu(SqlSessionTemplate sqlSession, StudentResult sr) {
-		System.out.println(sr);
+		
 		return sqlSession.update("professorResult.resultInsertStu",sr);
 	}
 
