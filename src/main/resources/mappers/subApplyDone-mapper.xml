@@ -12,4 +12,7 @@
 	 <insert id="insertSubApplyDone" parameterType="SubApplyDone">
 		INSERT INTO SUBAPPLY_DONE VALUES('SUBD' || SEQ_SUBDONE.NEXTVAL, #{subApplyCode})
 	</insert>
+	<select id="selectList" resultMap="SubApplyDoneResultSet">
+		SELECT * FROM SUBAPPLY_DONE
+	</select>
 </mapper> 

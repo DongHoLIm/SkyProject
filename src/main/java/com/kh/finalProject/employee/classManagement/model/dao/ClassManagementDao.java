@@ -6,11 +6,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
+import com.kh.finalProject.employee.classManagement.model.vo.ClassManagement;
 import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation;
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.employee.classManagement.model.vo.SubApplyDone;
 import com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete;
 import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
@@ -67,5 +69,13 @@ public interface ClassManagementDao {
 	ArrayList<LectureOpen> selectAbolitiontList(SqlSessionTemplate sqlSession, PageInfo pi) throws ClassManagementSelectListException;
 
 	int insertLectureEvaluation(SqlSessionTemplate sqlSession, LectureRegistration lr);
+
+	void insertClassManagement(SqlSessionTemplate sqlSession, String[] acCode, String[] studentNo);
+
+	ArrayList<SubApplyDone> selectSubApplyDone(SqlSessionTemplate sqlSession);
+
+	ArrayList<ClassManagement> selectClassManagementList(SqlSessionTemplate sqlSession);
+
+	void insertGrade(SqlSessionTemplate sqlSession, String[] classCode, String[] studentNo);
 
 }

@@ -47,6 +47,8 @@
 		<typeAlias type="com.kh.finalProject.professor.stuInfo.model.vo.stuInfoVo" alias="stuInfoPro"/>
 		<typeAlias type="com.kh.finalProject.studentInfo.model.vo.OffApplyFilter" alias="OffApplyFilter"/>
 		<typeAlias type="com.kh.finalProject.professor.sendSMS.model.vo.professorSubjectList" alias="professorSubjectList"/>
+		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.ClassManagement" alias="ClassManagement"/>
+		<typeAlias type="com.kh.finalProject.employee.classManagement.model.vo.Grade" alias="Grade"/>
 	</typeAliases>
 	
 	<mappers>
@@ -86,6 +88,8 @@
 		<mapper resource="mappers/lectureEvaluation-mapper.xml"/>
 		<mapper resource="mappers/docFile-mapper.xml"/>
 		<mapper resource="mappers/stuInfoPro-mapper.xml"/>
+		<mapper resource="mappers/classManagement-mapper.xml"/>
+		<mapper resource="mappers/grade-mapper.xml"/>
 	</mappers>
 	
 </configuration>

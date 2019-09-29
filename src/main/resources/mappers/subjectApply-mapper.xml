@@ -41,7 +41,7 @@
 		AND APPLY_TYPE = '정기'
 	</update>
 	<select id="selectUpdateList" resultMap="subjectApplyResultSet">
-		SELECT SUBAPPLY_CODE, APPLY_TYPE, DONE_TYPE
+		SELECT SUBAPPLY_CODE, APPLY_TYPE, DONE_TYPE, STUDENT_NO
 		FROM SUBJECT_APPLY
 		WHERE APPLY_TYPE = '정기'
         AND DONE_TYPE ='신청'

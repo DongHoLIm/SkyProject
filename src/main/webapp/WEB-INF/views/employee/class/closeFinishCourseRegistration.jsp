@@ -23,11 +23,11 @@
 				<table style="text-align:center;">
 					<thead>
 						<tr>
-							<th width="8%" style="text-align:center;">과목번호</th>
-							<th width="18%" style="text-align:center;">교과목명</th>
+							<th width="10%" style="text-align:center;">과목번호</th>
+							<th width="16%" style="text-align:center;">교과목명</th>
 							<th width="11%" style="text-align:center;">학과(부)</th>
-							<th width="7%" style="text-align:center;">교수명</th>
-							<th width="7%" style="text-align:center;">학점</th>
+							<th width="8%" style="text-align:center;">교수명</th>
+							<th width="6%" style="text-align:center;">학점</th>
 							<th width="10%" style="text-align:center;">이수구분</th>
 							<th width="7%" style="text-align:center;">수강인원</th>
 							<th width="15%" style="text-align:center;">강의실</th>

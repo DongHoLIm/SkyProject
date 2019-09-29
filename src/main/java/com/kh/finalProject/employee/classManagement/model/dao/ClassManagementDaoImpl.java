@@ -8,11 +8,14 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
+import com.kh.finalProject.employee.classManagement.model.vo.ClassManagement;
 import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation;
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
+import com.kh.finalProject.employee.classManagement.model.vo.Grade;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.employee.classManagement.model.vo.SubApplyDone;
 import com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete;
 import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
@@ -294,6 +297,48 @@ public class ClassManagementDaoImpl implements ClassManagementDao{
 	@Override
 	public int insertLectureEvaluation(SqlSessionTemplate sqlSession, LectureRegistration lr) {
 		return sqlSession.insert("LectureOpen.insertLectureEvaluation", lr);
+	}
+
+	@Override
+	public void insertClassManagement(SqlSessionTemplate sqlSession, String[] acCode, String[] studentNo) {
+		for(int i=0;i<acCode.length;i++) {
+			ClassManagement cm = new ClassManagement();
+			cm.setDoneCode(acCode[i]);
+			cm.setStudentNo(studentNo[i]);
+			sqlSession.insert("ClassManagement.insertClassManagement", cm);
+		
+		}
+	}
+
+	@Override
+	public ArrayList<SubApplyDone> selectSubApplyDone(SqlSessionTemplate sqlSession) {
+		ArrayList<SubApplyDone> list2 = null;
+		
+		list2 = (ArrayList) sqlSession.selectList("SubApplyDone.selectList");
+		
+		return list2;
+	}
+
+	@Override
+	public ArrayList<ClassManagement> selectClassManagementList(SqlSessionTemplate sqlSession) {
+		ArrayList<ClassManagement> list3 = null;
+		
+		list3 = (ArrayList) sqlSession.selectList("ClassManagement.selectClassManagement");
+		
+		return list3;
+	}
+
+	@Override
+	public void insertGrade(SqlSessionTemplate sqlSession, String[] classCode, String[] studentNo) {
+		for(int i=0;i<classCode.length;i++) {
+			Grade g = new Grade();
+			g.setClassCode(classCode[i]);
+			System.out.println("classCode::::" + classCode[i]);
+			g.setStudentNo(studentNo[i]);
+			
+			sqlSession.insert("Grade.insertGrade", g);
+		}
+		
 	}
 
 
