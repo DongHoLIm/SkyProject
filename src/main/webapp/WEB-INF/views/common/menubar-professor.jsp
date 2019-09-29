@@ -53,7 +53,7 @@
 											<span class="opener">수업관리</span>
 											<ul>
 												<li><a href="opensubject.pro">강의 계획서 입력,수정</a></li>												
-												<li><a href="#">강의 평가 조회</a></li>																							
+												<li><a href="pro_showLectureEvaluation.le">강의 평가 조회</a></li>																							
 											</ul>
 										</li>
 										<li>

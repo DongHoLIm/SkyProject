@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -18,34 +15,25 @@
 		padding: 10px 0px 0px 100px;
 	}
 	
-	#writeArea {
-		margin: 0 auto;
-		width: 88.5%;
-	}
-	
-	#writeBtn {
-		align: right;
+	.leInfo {
+	   width: 85%;
+	   text-align: center; 
+	   margin: 0 auto;
+	   border: 1px solid #dde1e3;
 	}
 	
 	.pagingArea {
 		margin-top: 2%;
 	}
-	
-	.insertSpan:hover {
-		color:red;
-		cursor: pointer;
-	}
-	
 </style>
-</head>
 <script>
 	$(function(){
 		$.ajax({
-			url:"st_LectureEvaluationList.le",
+			url:"pro_LectureEvaluation.le",
 			type:"POST",
 			success:function(data){
 				var $tbody = $("#tbody");
-					
+				
 				$tbody.children().remove();
 				
 				for(var i = 0; i < data.list.length; i++){
@@ -54,21 +42,20 @@
 					var $td2 = $("<td style='text-align: center;'>");
 					var $td3 = $("<td style='text-align: center;'>");
 					var $td4 = $("<td style='text-align: center;'>");
+					var $td5 = $("<td style='text-align: center;'>");
 					var $span = $("<span>");
 					
 					$td1.text(data.list[i].lectureNo);
 					$td2.text(data.list[i].subName);
-					$td3.text(data.list[i].professorName);
-					
-					$span.addClass("insertSpan");
-					$span.text("입력");
-					
-					$td4.html($span);
+					$td3.text(data.list[i].allCount);
+					$td4.text(data.list[i].memberCount);
+					$td5.text(data.list[i].avgCount);					
 					
 					$tr.append($td1);
 					$tr.append($td2);
 					$tr.append($td3);
 					$tr.append($td4);
+					$tr.append($td5);
 					
 					$tbody.append($tr);
 				}
@@ -141,30 +128,22 @@
 				
 				$(".pagingArea").children().remove();
 				$(".pagingArea").append($ul);
-				
-				$(".insertSpan").click(function(){
-					var lectureNo = $(this).parent().parent().children().eq(0).text();
-					
-					var location2 ="st_showLectureEvaluationInsert.le?lectureNo=" + lectureNo;
-					
-					window.open(location2, "_blank", "width=700, height=300");					
-				});// insertspan 끝
-			} // success function 끝
-		}); // 1번 ajax 끝
-	}); // onload function 끝
+			}
+		});
+	});
 	
 	function loadAjax(curr){
 		var currentPage = curr;
 		
 		$.ajax({
-			url:"st_LectureEvaluationList.le",
+			url:"pro_LectureEvaluation.le",
 			type:"POST",
 			data:{
 				"currentPage":currentPage
 			},
 			success:function(data){
 				var $tbody = $("#tbody");
-					
+				
 				$tbody.children().remove();
 				
 				for(var i = 0; i < data.list.length; i++){
@@ -173,21 +152,20 @@
 					var $td2 = $("<td style='text-align: center;'>");
 					var $td3 = $("<td style='text-align: center;'>");
 					var $td4 = $("<td style='text-align: center;'>");
+					var $td5 = $("<td style='text-align: center;'>");
 					var $span = $("<span>");
 					
 					$td1.text(data.list[i].lectureNo);
 					$td2.text(data.list[i].subName);
-					$td3.text(data.list[i].professorName);
-					
-					$span.addClass("insertSpan");
-					$span.text("입력");
-					
-					$td4.html($span);
+					$td3.text(data.list[i].allCount);
+					$td4.text(data.list[i].memberCount);
+					$td5.text(data.list[i].avgCount);					
 					
 					$tr.append($td1);
 					$tr.append($td2);
 					$tr.append($td3);
 					$tr.append($td4);
+					$tr.append($td5);
 					
 					$tbody.append($tr);
 				}
@@ -260,34 +238,28 @@
 				
 				$(".pagingArea").children().remove();
 				$(".pagingArea").append($ul);
-				
-				$(".insertSpan").click(function(){
-					var lectureNo = $(this).parent().parent().children().eq(0).text();
-					
-					var location2 ="st_showLectureEvaluationInsert.le?lectureNo=" + lectureNo;
-					
-					window.open(location2, "_blank", "width=700, height=300");					
-				});// insertspan 끝
-			} // success function 끝
-		}); // 1번 ajax 끝
+			}
+		});
 	}
 </script>
+</head>
 <body>
 	<div id="wrapper">
 		<div id="main">
 			<div class="inner">
-				<jsp:include page="/WEB-INF/views/common/header.jsp" />
+				<jsp:include page="../../common/header.jsp" />
 			</div>
-			<h4 id="basic">강의평가 입력</h4>
+			<h4 id="basic">강의평가 관리</h4>
 			<hr style="width: 88.5%; margin: 0 auto;">
-			<br><br>
-			<table style="width: 88.5%; text-align: center; margin: 0 auto;" id="boardArea">
-				<thead>
+			<br><br>			
+			<table class="leInfo">
+				<thead id="thead">
 					<tr>
-						<th style="text-align: center;">강의번호</th>
-						<th style="text-align: center;">과목명</th>
-						<th style="text-align: center;">교수명</th>
-						<th></th>
+						<th style="text-align: center">강의번호</th>
+						<th style="text-align: center">강의명</th>
+						<th style="text-align: center">수강인원</th>
+						<th style="text-align: center">참여인원</th>
+						<th style="text-align: center">점수</th>
 					</tr>
 				</thead>
 				<tbody id="tbody">
@@ -296,10 +268,10 @@
 			</table>
 			<div class="pagingArea">
 			
-			</div>	
+			</div>					
 		</div>
 		<div>
-			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
+			<jsp:include page="../../common/menubar-professor.jsp" />
 		</div>
 	</div>
 </body>

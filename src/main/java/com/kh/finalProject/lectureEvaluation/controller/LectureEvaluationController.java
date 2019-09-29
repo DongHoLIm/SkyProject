@@ -154,17 +154,57 @@ public class LectureEvaluationController {
 	}
 	
 	@RequestMapping(value="st_LectureEvaluationInsert.le")
-	public String st_LectureEvaluationInsert(LectureEvaluation lev, String[] answer, HttpServletRequest request) {
+	public String st_LectureEvaluationInsert(LectureEvaluation lev, String[] answer, HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser) {
 		
 		lev.setAnswer1(answer[0]);
 		lev.setAnswer2(answer[1]);
 		lev.setAnswer3(answer[2]);
 		lev.setAnswer4(answer[3]);
 		lev.setAnswer5(answer[4]);
+		lev.setStudentNo(loginUser.getMemberId());
 		
 		System.out.println("lev :::: " + lev);
 		
+		ls.st_LectureEvaluationInsert(lev);
+		
 		return "";
+	}
+	
+	
+	// 교수 강의평가 조회
+	@RequestMapping(value="pro_showLectureEvaluation.le")
+	public String pro_showLectureEvaluation(HttpServletRequest request) {		
+		
+		return "professor/class/pro_LectureEvaluation";
+	}
+	
+	@RequestMapping(value="pro_LectureEvaluation.le")
+	public ModelAndView pro_LectureEvaluation(ModelAndView mv, @ModelAttribute("loginUser") Member loginUser, HttpServletRequest request) {
+		
+		String professorNo = loginUser.getMemberId();
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}	
+		
+		int listCount = ls.pro_LectureEvaluationListCount(professorNo);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<LectureEvaluation> list = ls.pro_LectureEvaluationList(pi, professorNo);
+		
+		System.out.println("currentPage :::: " + currentPage);
+		System.out.println("pi :::: " + pi);
+		System.out.println("list :::: " + list);
+		
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);		
+		
+		mv.setViewName("jsonView");
+		
+		return mv;
 	}
 	
 }

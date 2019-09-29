@@ -60,6 +60,28 @@ public class LectureEvaluationServiceImpl implements LectureEvaluationService{
 		return ld.st_LectureEvaluationList(sqlSession, pi, studentNo);
 	}
 
+	@Override
+	public int st_LectureEvaluationInsert(LectureEvaluation lev) {
+		
+		int result = ld.st_LectureEvaluationInsert(sqlSession, lev);
+		
+		if(result > 0) {
+			ld.st_LectureEvaluationCountUpdate(sqlSession, lev);
+		}
+		
+		return result; 
+	}
+
+	@Override
+	public int pro_LectureEvaluationListCount(String professorNo) {
+		return ld.pro_LectureEvaluationListCount(sqlSession, professorNo);
+	}
+
+	@Override
+	public ArrayList<LectureEvaluation> pro_LectureEvaluationList(PageInfo pi, String professorNo) {
+		return ld.pro_LectureEvaluationList(sqlSession, pi, professorNo);
+	}
+
 
 
 

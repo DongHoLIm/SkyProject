@@ -91,6 +91,38 @@ public class LectureEvaluationDaoImpl implements LectureEvaluationDao{
 		return list;
 	}
 
+	@Override
+	public int st_LectureEvaluationInsert(SqlSessionTemplate sqlSession, LectureEvaluation lev) {
+		return sqlSession.insert("LectureEvaluation.st_LectureEvaluationInsert", lev);
+	}
+
+	@Override
+	public int st_LectureEvaluationCountUpdate(SqlSessionTemplate sqlSession, LectureEvaluation lev) {
+		return sqlSession.update("LectureEvaluation.st_LectureEvaluationCountUpdate", lev);
+	}
+
+	@Override
+	public int pro_LectureEvaluationListCount(SqlSessionTemplate sqlSession, String professorNo) {
+		return sqlSession.selectOne("LectureEvaluation.pro_LectureEvaluationListCount", professorNo);
+	}
+
+	@Override
+	public ArrayList<LectureEvaluation> pro_LectureEvaluationList(SqlSessionTemplate sqlSession, PageInfo pi, String professorNo) {
+		ArrayList<LectureEvaluation> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("LectureEvaluation.pro_LectureEvaluationList", professorNo, rowBounds);
+		
+		if(list == null) {
+			sqlSession.close();
+		}
+		
+		return list;
+	}
+
 
 	
 
