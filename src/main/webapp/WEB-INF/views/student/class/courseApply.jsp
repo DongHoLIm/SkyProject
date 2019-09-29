@@ -19,7 +19,7 @@ table {
 	font-family: "돋움", "돋움체";
 	font-size: 12px;
 	color: #666666;
-	text-decoration: none;
+	text-decoration: none; 
 }
 /*검색 테이블*/
 table.tableList1, table.tableList3{

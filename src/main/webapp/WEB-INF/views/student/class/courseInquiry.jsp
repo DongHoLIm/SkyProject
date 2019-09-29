@@ -437,7 +437,7 @@ table.tableList2 td img {
 									<option value="교선">교선</option>
 									<option value="전필">전필</option>
 									<option value="전선">전선</option>
-								</select>
+								</select> 
 								
 								&nbsp;&nbsp;&nbsp; <strong>과목</strong> : 
 								<select name="subJect" id="subJect" class="subJect" style="background-color: #FFD9EC;">
