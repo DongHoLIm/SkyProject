@@ -112,11 +112,11 @@
 							<th width="7%" style="text-align: center">글번호</th>
 							<th width="9%" style="text-align: center">시작일시</th>
 							<th width="9%" style="text-align: center;">종료일시</th>
-							<th width="45%" style="text-align: center;">제목</th>
+							<th width="40%" style="text-align: center;">제목</th>
 							<th width="12%" style="text-align: center;">작성부서</th>
 							<th width="9%" style="text-align: center;">작성자</th>
 							<th width="7%" style="text-align: center;">조회수</th>
-							<th width="9%" style="text-align: center;">게시기한</th>
+							<th width="14%" style="text-align: center;">게시기한</th>
 						</tr>
 					</thead>
 					<tbody>

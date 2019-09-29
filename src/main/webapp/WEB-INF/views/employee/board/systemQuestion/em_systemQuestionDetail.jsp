@@ -71,7 +71,7 @@
 									<img src="${uf.path}" width="50%" height="70%">
 								</div>
 							</c:if>
-							${sq.questionContent}
+							<pre>${sq.questionContent}</pre>
 						</td>
 					</tr>
 				</tbody>									
