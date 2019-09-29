@@ -9,8 +9,7 @@
 	rel="stylesheet" id="bootstrap-css">
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -144,26 +143,25 @@ body {
 			var title = $("#lname").val()
 			var content = $("#comment").val()
 			console.log($("#comment").val());
-			
-
 		});
-
 	});
 	
 	function sendMessage() {
+		console.log("!!!!!!?");
 		var tmp = $("#people").val();
 		var title = $("#lname").val();
 		var comment = $("#comment").val();
+		console.log(tmp);
+		console.log(title);
+		console.log(comment);
 		$.ajax({
-			url : '/finalProject/sendMessage',
-			type : 'post',
-			data : {
-				'tmp' : tmp,
-				'title' : title,
-				'comment' : comment
-			},
-			dataType : 'json',
-			success : function(result) {
+			url:"sendMessage.pro",
+			type:"post",
+			data:{
+				tmp:tmp,
+				title:title,
+				comment:comment},
+			success:function(data) {
 				alert("쪽지를 보내었습니다.")
 				window.close();
 			},

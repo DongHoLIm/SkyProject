@@ -55,8 +55,7 @@
       WHERE RECE_MEMBER = #{memberId}
    </select>
    	<insert id="sendMessage" parameterType="MessageVO">
-	INSERT INTO MESSAGE VALUES(MESSAGE_CODE.NEXTVAL, SYSDATE, #{receMember}, #{messageTitle},
-								#{messageContent},SYSDATE,#{memberId} )
+	INSERT INTO MESSAGE VALUES('MSG' || SEQ_MESSAGE.NEXTVAL, DEFAULT, #{receMember}, #{messageTitle}, #{messageContent}, NULL, #{memberId})
 	
 	</insert>
 

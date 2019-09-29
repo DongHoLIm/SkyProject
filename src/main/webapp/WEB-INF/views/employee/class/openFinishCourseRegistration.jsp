@@ -17,7 +17,7 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>수강신청 열기</h2>
+			<h4>수강신청 열기</h4>
 			<hr>
 
 			<form action="updateFinishOpenSubject.em" method="post">

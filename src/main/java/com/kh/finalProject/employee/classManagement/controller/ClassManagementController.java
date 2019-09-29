@@ -306,7 +306,7 @@ public class ClassManagementController {
 		os = cms.selectOneOpenSubject(subCode);
 		cms.insertSubjectDelete(sd, os);
 
-			return "employee/class/lectureAbolitionRegistration";
+			return "redirect:/subjectAbolition.em";
 		}
 	@RequestMapping(value="lectureAbolitionSelect.em")
 	public String selectLectureAbolition(HttpServletRequest request) {
