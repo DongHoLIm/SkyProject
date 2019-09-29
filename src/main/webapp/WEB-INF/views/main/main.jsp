@@ -60,16 +60,27 @@
 	.second-floor{
 		display: inline-block;
 		padding: 30px;
+		
 	}
 	#dateDetail {
 		text-align: center;		
 		font-family: 'Lato', sans-serif;
+		
 	}
 	#dateDetail tr th {
-		background: rgb(46,204,113);
+		background: rgb(44, 62, 80);
 		width:130px;
 		text-align:center;
 		color:white;
+		border-radius: 20px;
+		border: 0px solid white;
+		
+	}
+	#dateDetail tr{
+		border: 0px solid white;
+	}
+	#dateDetail tr td{
+		border-radius: 20px;
 	}
 </style>
 </head>

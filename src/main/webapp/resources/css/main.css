@@ -1,10 +1,11 @@
 @import url(fontawesome-all.min.css);
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic,600italic|Roboto+Slab:400,700");
+@import url("https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap");
 
 /*
 	Editorial by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	
 */
 
 html, body, div, span, applet, object,
@@ -117,7 +118,7 @@ input, select, textarea {
 
 	body, input, select, textarea {
 		color: #7f888f;
-		font-family: "Open Sans", sans-serif;
+		font-family: "Do Hyeon", sans-serif;
 		font-size: 13pt;
 		font-weight: 400;
 		line-height: 1.65;
@@ -181,7 +182,7 @@ input, select, textarea {
 
 	h1, h2, h3, h4, h5, h6 {
 		color: #3d4449;
-		font-family: "Roboto Slab", serif;
+		font-family: "Do Hyeon", serif;
 		font-weight: 700;
 		line-height: 1.5;
 		margin: 0 0 1em 0;
@@ -204,11 +205,11 @@ input, select, textarea {
 	}
 
 	h3 {
-		font-size: 1.25em;
+		font-size: 1.4em;
 	}
 
 	h4 {
-		font-size: 1.1em;
+		font-size: 1.5em;
 	}
 
 	h5 {
@@ -279,7 +280,7 @@ input, select, textarea {
 
 	pre {
 		-webkit-overflow-scrolling: touch;
-		font-family: "Courier New", monospace;
+		font-family: "Do Hyeon", monospace;
 		font-size: 0.9em;
 		margin: 0 0 2em 0;
 	}
@@ -1788,7 +1789,7 @@ input, select, textarea {
 	}
 
 	header p {
-		font-family: "Roboto Slab", serif;
+		font-family: "Do Hyeon", serif;
 		font-size: 1em;
 		font-weight: 400;
 		letter-spacing: 0.075em;
@@ -1942,7 +1943,7 @@ input, select, textarea {
 				text-rendering: auto;
 				line-height: 1;
 				text-transform: none !important;
-				font-family: 'Font Awesome 5 Free';
+				font-family: 'Do Hyeon';
 				font-weight: 900;
 			}
 
@@ -2430,7 +2431,7 @@ input, select, textarea {
 
 		table th {
 			color: #3d4449;
-			font-size: 0.9em;
+			font-size: 1.4em;
 			font-weight: 600;
 			padding: 0 0.75em 0.75em 0.75em;
 			text-align: left;
@@ -2492,7 +2493,7 @@ input, select, textarea {
 		color: #f56a6a !important;
 		cursor: pointer;
 		display: inline-block;
-		font-family: "Roboto Slab", serif;
+		font-family: "Do Hyeon", serif;
 		font-size: 0.8em;
 		font-weight: 700;
 		height: 3.5em;
@@ -3198,7 +3199,7 @@ input, select, textarea {
 
 			#sidebar .toggle:before {
 				content: '\f0c9';
-				font-size: 2rem;
+				font-size: 1.5rem;
 				height: inherit;
 				left: 0;
 				line-height: inherit;
@@ -3346,7 +3347,7 @@ input, select, textarea {
 		#header .logo {
 			border-bottom: 0;
 			color: inherit;
-			font-family: "Roboto Slab", serif;
+			font-family: "Do Hyeon", serif;
 			font-size: 1.125em;
 		}
 
@@ -3506,7 +3507,7 @@ input, select, textarea {
 		-ms-user-select: none;
 		user-select: none;
 		color: #3d4449;
-		font-family: "Roboto Slab", serif;
+		font-family: "Do Hyeon", serif;
 		font-family: 400;
 		letter-spacing: 0.075em;
 		list-style: none;
@@ -3517,10 +3518,10 @@ input, select, textarea {
 
 		#menu ul a, #menu ul span {
 			border-bottom: 0;
-			color: inherit;
+			color: black;
 			cursor: pointer;
 			display: block;
-			font-size: 0.9em;
+			font-size: 1.9em;
 			padding: 0.625em 0;
 		}
 
@@ -3591,7 +3592,7 @@ input, select, textarea {
 		}
 
 			#menu > ul > li > ul a, #menu > ul > li > ul span {
-				font-size: 0.8em;
+				font-size: 1.4em;
 			}
 
 			#menu > ul > li > ul > li {
