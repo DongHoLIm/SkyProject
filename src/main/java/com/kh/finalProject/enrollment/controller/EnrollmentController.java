@@ -127,7 +127,27 @@ System.out.println("등록 조회 컨트롤러 들어옴");
 		
 		return "student/register/registerInfo";
 	}
-
+	
+	@RequestMapping(value="print.en")
+	public String printView(Enrollment e, Model model, HttpServletRequest request, HttpServletResponse response) {
+String studentNo = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
+		
+		System.out.println("studentNo :::" + studentNo);
+		
+		
+		try {
+			ArrayList<Enrollment> memberEnrollment = es.userEnrollment(studentNo);
+			System.out.println("memberEnrollment :  "+ memberEnrollment);
+			//model.addAttribute("memberEnrollment", memberEnrollment);
+			
+			request.setAttribute("memberEnrollment", memberEnrollment);
+			
+			return "student/register/print";
+		} catch (EnrollmentException e1) {
+			model.addAttribute("msg", e1.getMessage());
+			return "common/errorAlert";
+		}
+	}
 }
 
 
