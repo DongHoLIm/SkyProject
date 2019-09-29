@@ -169,11 +169,13 @@ public class BoardDaoImpl implements BoardDao{
 
 	@Override
 	public int updatesNotice(SqlSessionTemplate sqlSession, Board b) {
+		System.out.println("b:::: " + b);
 		return sqlSession.update("Board.updatesNotice", b);
 	}
 
 	@Override
 	public int updateScholNotice(SqlSessionTemplate sqlSession, Board b) {
+		System.out.println("b:::: " + b);
 		return sqlSession.update("Board.updateScholNotice", b);
 	}
 

@@ -78,7 +78,7 @@
 								<img src="${uf.path}" width="50%" height="70%">
 							</div>
 						</c:if>
-						${b.content}
+						<pre>${b.content}</pre>
 					</td>
 				</tr>
 				<tr>
