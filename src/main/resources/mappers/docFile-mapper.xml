@@ -20,6 +20,13 @@
 		INSERT INTO DOC_FILE(FILE_CODE,OLD_NAME,CHANGE_NAME,PATH,TYPE,APPLY_NO)
 		VALUES('DOCF'||SEQ_DOCFILE.NEXTVAL, #{oldName}, #{changeName}, #{path}, '휴학신청','OS'||SEQ_OFFSCHOOL.CURRVAL)
 	</insert>
+	
+	
+	<select id="selectDocFile" resultMap="DocFileResultSet">
+	SELECT *
+	FROM DOC_FILE
+	WHERE APPLY_NO=#{offApplyNo}
+	</select>
  
 
 

@@ -139,6 +139,22 @@
 							
 						}
 						
+						$("#applyList").find("td").mouseenter(function(){
+							$(this).parents("tr").css({"font-weight":"bold", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parents("tr").css({"font-weight":"normal"});
+						}).click(function(){
+							var id = $(this).parents().children("td").eq(2).text();
+							var da = $(this).parents().children("td").eq(4).text();
+							
+							console.log(id);
+							console.log(da);
+							
+							window.open("em_selectoffApplyStu.si?id="+id+"&da="+da,'offAp' ,"height=550, width=900");
+							
+						});
+						
+						
 						var currentPage = data.pi.currentPage;
 						var listCount = data.pi.listCount;
 						var limit = data.pi.limit;
@@ -268,6 +284,22 @@
 							$tbody.append($tr);
 							
 						}
+						
+						$("#applyList").find("td").mouseenter(function(){
+							$(this).parents("tr").css({"font-weight":"bold", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parents("tr").css({"font-weight":"normal"});
+						}).click(function(){
+							var id = $(this).parents().children("td").eq(2).text();
+							var da = $(this).parents().children("td").eq(4).text();
+							
+							console.log(id);
+							console.log(da);
+							
+							window.open("em_selectoffApplyStu.si?id="+id+"&da="+da,'offAp' ,"height=550, width=900");
+							
+						});
+						
 						
 						var currentPage = data.pi.currentPage;
 						var listCount = data.pi.listCount;
@@ -403,6 +435,21 @@
 							$tbody.append($tr);
 						}
 						
+						$("#applyList").find("td").mouseenter(function(){
+							$(this).parents("tr").css({"font-weight":"bold", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parents("tr").css({"font-weight":"normal"});
+						}).click(function(){
+							var id = $(this).parents().children("td").eq(2).text();
+							var da = $(this).parents().children("td").eq(4).text();
+							
+							console.log(id);
+							console.log(da);
+							
+							window.open("em_selectoffApplyStu.si?id="+id+"&da="+da,'offAp' ,"height=550, width=900");
+							
+						});
+						
 						var currentPage = data.pi.currentPage;
 						var listCount = data.pi.listCount;
 						var limit = data.pi.limit;
@@ -533,6 +580,22 @@
 							$tbody.append($tr);
 							
 						}
+						
+						$("#applyList").find("td").mouseenter(function(){
+							$(this).parents("tr").css({"font-weight":"bold", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parents("tr").css({"font-weight":"normal"});
+						}).click(function(){
+							var id = $(this).parents().children("td").eq(2).text();
+							var da = $(this).parents().children("td").eq(4).text();
+							
+							console.log(id);
+							console.log(da);
+							
+							window.open("em_selectoffApplyStu.si?id="+id+"&da="+da,'offAp' ,"height=550, width=900");
+							
+						});
+						
 						
 						var currentPage = data.pi.currentPage;
 						var listCount = data.pi.listCount;

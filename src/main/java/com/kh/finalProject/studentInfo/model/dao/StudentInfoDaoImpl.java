@@ -755,5 +755,17 @@ public class StudentInfoDaoImpl implements StudentInfoDao{
 		return sqlSession.selectOne("SchoolOff.countCheck", so);
 	}
 
+	@Override
+	public SchoolOff OffApplyDetail(SqlSessionTemplate sqlSession, SchoolOff soInfo) {
+		
+		return sqlSession.selectOne("SchoolOff.OffApplyDetail",soInfo);
+	}
+
+	@Override
+	public DocFile selectDocFile(SqlSessionTemplate sqlSession, String applyNo) {
+		
+		return sqlSession.selectOne("DocFile.selectDocFile", applyNo);
+	}
+
 
 }

@@ -58,21 +58,21 @@ table.basicinfo {
        
             <table class="basicinfo">
                <tr>
-               	<th width="15%">구분</th>
+               	<th width="20%">구분</th>
                	<td>${graduation.division }</td>
-               	<th width="15%">졸업인증 코드</th>
+               	<th width="20%">졸업인증 코드</th>
                	<td id="code">${graduation.graduationCode }</td>
                </tr>
                
                <tr>
-               	<th width="15%">졸업인증 명칭</th>
+               	<th width="20%">졸업인증 명칭</th>
                	<td>${graduation.graduationName }</td>
-               	<th width="15%">학과</th>
+               	<th width="20%">학과</th>
                	<td>${graduation.sdeptName }</td>
                </tr>
                
                <tr>
-               	<th width="15%">졸업인증 내용</th>
+               	<th width="20%">졸업인증 내용</th>
                	<td colspan='3'>
                	<textarea id="content" rows="10" cols="5">${graduation.graduationContent }</textarea>
                	</td>

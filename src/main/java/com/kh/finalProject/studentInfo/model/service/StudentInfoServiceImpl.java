@@ -529,5 +529,17 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 		return sd.countCheck(sqlSession,so);
 	}
 
+	@Override
+	public SchoolOff OffApplyDetail(SchoolOff soInfo) {
+		
+		return sd.OffApplyDetail(sqlSession,soInfo);
+	}
+
+	@Override
+	public DocFile selectDocFile(String applyNo) {
+		
+		return sd.selectDocFile(sqlSession,applyNo);
+	}
+
 }
 

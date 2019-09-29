@@ -204,6 +204,10 @@ public interface StudentInfoDao {
 
 	int countCheck(SqlSessionTemplate sqlSession, SchoolOff so);
 
+	SchoolOff OffApplyDetail(SqlSessionTemplate sqlSession, SchoolOff soInfo);
+
+	DocFile selectDocFile(SqlSessionTemplate sqlSession, String applyNo);
+
 		
 
 

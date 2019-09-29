@@ -187,5 +187,9 @@ public interface StudentInfoService {
 	StudentInfo statusCheck(String userId);
 
 	int countCheck(SchoolOff so);
+
+	SchoolOff OffApplyDetail(SchoolOff soInfo);
+
+	DocFile selectDocFile(String applyNo);
   
 }
