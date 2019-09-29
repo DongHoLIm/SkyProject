@@ -16,12 +16,14 @@ import com.kh.finalProject.common.Pagination;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.employee.classManagement.model.service.ClassManagementService;
 import com.kh.finalProject.employee.classManagement.model.service.LessonPlanService;
+import com.kh.finalProject.employee.classManagement.model.vo.ClassManagement;
 import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation;
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.LessonPlan;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.employee.classManagement.model.vo.SubApplyDone;
 import com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete;
 import com.kh.finalProject.professor.openSubject.model.service.OpenSubjectService;
 import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
@@ -217,15 +219,31 @@ public class ClassManagementController {
 			cms.updateSubjectApply();
 			int result = list.size();
 			String[] code = new String[result];
+			String[] studentNo = new String[result];
 			System.out.println("code.length::: " + code.length);
 			for(int i=0;i<list.size();i++) {
-				System.out.println("???");
+				
+				studentNo[i] = list.get(i).getStudentNo();
 				code[i] = list.get(i).getSubApplyCode();
-				System.out.println("code:::" + code[i]);
+				
 			}
 			cms.insertSubApplyDone(code);
 			cms.deleteCloseSubjectApply();
-			
+			ArrayList<SubApplyDone> list2 = cms.selectSubApplyDone();
+			int result2 = list2.size();
+			String[] acCode = new String[result2];
+			for(int i=0;i<list2.size();i++) {
+				acCode[i] = list2.get(i).getDoneCode();
+			}		
+			cms.insertClassManagement(acCode,studentNo);
+			ArrayList<ClassManagement> list3 = cms.selectClassManagementList();
+			int result3 = list3.size();
+			String[] classCode = new String[result3];
+			for(int i=0;i<list3.size();i++) {
+				classCode[i] = list3.get(i).getClassCode();
+				studentNo[i] = list3.get(i).getStudentNo();
+			}
+			cms.insertGrade(classCode, studentNo);
 			
 			return "employee/class/closeFinishCourseRegistration";
 		}

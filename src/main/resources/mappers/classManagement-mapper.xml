@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ClassManagement">
+	<resultMap
+		type="com.kh.finalProject.employee.classManagement.model.vo.ClassManagement"
+		id="ClassManagementResultSet">
+		<id property="classCode" column="CLASS_CODE" />
+		<result property="studentNo" column="STUDENT_NO" />
+		<result property="doneCode" column="DONE_CODE" />
+	</resultMap>
+	 <insert id="insertClassManagement" parameterType="ClassManagement">
+		INSERT INTO CLASS_MANAGEMENT VALUES('CL' || SEQ_CLASS.NEXTVAL, #{doneCode}, #{studentNo})
+	</insert>
+	 <select id="selectClassManagement" resultMap="ClassManagementResultSet">
+		SELECT * FROM CLASS_MANAGEMENT 
+	</select>
+</mapper> 

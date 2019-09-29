@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
+import com.kh.finalProject.employee.classManagement.model.vo.ClassManagement;
 import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation;
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.employee.classManagement.model.vo.SubApplyDone;
 import com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete;
 import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
@@ -63,5 +65,14 @@ public interface ClassManagementService {
 	int getListCount4();
 
 	ArrayList<LectureOpen> selectAbolitiontList(PageInfo pi) throws ClassManagementSelectListException;
+
+	void insertClassManagement(String[] acCode, String[] studentNo);
+
+	ArrayList<SubApplyDone> selectSubApplyDone();
+
+	ArrayList<ClassManagement> selectClassManagementList();
+
+	void insertGrade(String[] classCode, String[] studentNo);
+
 
 }

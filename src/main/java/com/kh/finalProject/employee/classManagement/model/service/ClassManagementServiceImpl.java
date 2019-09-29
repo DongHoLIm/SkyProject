@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import com.kh.finalProject.board.model.vo.PageInfo;
 import com.kh.finalProject.employee.classManagement.exception.ClassManagementSelectListException;
 import com.kh.finalProject.employee.classManagement.model.dao.ClassManagementDao;
+import com.kh.finalProject.employee.classManagement.model.vo.ClassManagement;
 import com.kh.finalProject.employee.classManagement.model.vo.ClassRoomInformation;
 import com.kh.finalProject.employee.classManagement.model.vo.DepartmentProfessor;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureOpen;
 import com.kh.finalProject.employee.classManagement.model.vo.LectureRegistration;
 import com.kh.finalProject.employee.classManagement.model.vo.OpenSubject;
+import com.kh.finalProject.employee.classManagement.model.vo.SubApplyDone;
 import com.kh.finalProject.employee.classManagement.model.vo.SubjectDelete;
 import com.kh.finalProject.student.classmanagement.model.vo.SubjectApply;
 
@@ -174,5 +176,29 @@ public class ClassManagementServiceImpl implements ClassManagementService{
 	public ArrayList<LectureOpen> selectAbolitiontList(PageInfo pi) throws ClassManagementSelectListException {
 		
 		return cmd.selectAbolitiontList(sqlSession, pi);
+	}
+	@Override
+	public void insertClassManagement(String[] acCode, String[] studentNo) {
+	
+		cmd.insertClassManagement(sqlSession, acCode, studentNo);
+	}
+
+	@Override
+	public ArrayList<SubApplyDone> selectSubApplyDone() {
+		
+		return cmd.selectSubApplyDone(sqlSession);
+	}
+
+	@Override
+	public ArrayList<ClassManagement> selectClassManagementList() {
+		
+		return cmd.selectClassManagementList(sqlSession);
+	}
+
+	@Override
+	public void insertGrade(String[] classCode, String[] studentNo) {
+		
+		cmd.insertGrade(sqlSession, classCode, studentNo);
+		
 	}
 }
