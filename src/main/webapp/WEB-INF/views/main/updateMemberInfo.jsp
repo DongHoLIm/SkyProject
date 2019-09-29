@@ -15,6 +15,9 @@
 		width: 70%;
 		margin: 0 auto;
 	}
+	#search{
+		cursor: pointer;
+	}
 </style>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -31,6 +34,20 @@ function searchAddress(){
     }).open();
 	
 }
+$(function (){
+	$("input[id='memberPwd2']").on("propertychange change keyup paste input", function() {
+		var password2=$(this).val();		
+		var password1 = $("input[name='memberPwd']").val();		
+		if(password1!=password2){
+			$("p[id='fail']").css('display', '');
+			$("p[id='success']").css('display', 'none');
+			
+		}else{
+			$("p[id='success']").css('display', '');
+			$("p[id='fail']").css('display','none');
+		}
+	});
+});
 </script>
 </head>
 <body>
@@ -42,7 +59,7 @@ function searchAddress(){
 				<br />
 				<h4>회원 정보 변경</h4>				
 				<hr />	
-				<form action="updateMemberInfo.me" method="post">
+				<form action="updateMemberInfo1.me" method="post">
 				<div id="memberInfoDiv" >			
 				<table id="memberInfo">
 					<tr>
@@ -63,12 +80,13 @@ function searchAddress(){
 					</tr>
 					<tr>
 						<td>비밀번호 확인 : </td>
-						<td colspan="2"><input type="password" style="color:black;"/></td>
+						<td colspan="2"><input type="password" style="color:black;" id="memberPwd2" name="pwd2"/><p style="display:none; color:blue;" id="success">비밀번호가 일치합니다.</p>
+						<p style="display:none; color:red" id="fail">비밀번호가 불일치합니다.</p></td>
 					</tr>
 					<tr>
 						<td rowspan="3">주소 :</td>
 						<td><input type="text" value="${address[0]}" name="address1"/></td>
-						<td><a onclick="searchAddress();">검색</a></td>							
+						<td><a id="search" onclick="searchAddress();">검색</a></td>							
 					</tr>
 					<tr>						
 						<td colspan="2"><input type="text" style="color:black;" value="${address[1]}" name="address2"/></td>

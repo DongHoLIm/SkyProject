@@ -182,8 +182,7 @@
 					$("#MemberList tbody").empty();
  					for(var i =0;i<data.list.length;i++){
  						var $tr = $("<tr>");
- 						var $td1 = $("<td>").text(data.list[i].memberId);
- 						var $td2 = $("<td>").text(data.list[i].memberPwd);
+ 						var $td1 = $("<td>").text(data.list[i].memberId); 					
  						var $td3 = $("<td>").text(data.list[i].memberKName);
  						var $td4 = $("<td>").text(data.list[i].email);
  						var $td5 = $("<td>");
@@ -194,8 +193,7 @@
  						}else{
  							$td5.text("교직원");
  						}
- 						$tr.append($td1);
- 						$tr.append($td2);
+ 						$tr.append($td1); 					
  						$tr.append($td3);
  						$tr.append($td4);
  						$tr.append($td5);
@@ -262,8 +260,7 @@
 					$("#MemberList tbody").empty();
  					for(var i =0;i<data.list.length;i++){
  						var $tr = $("<tr>");
- 						var $td1 = $("<td>").text(data.list[i].memberId);
- 						var $td2 = $("<td>").text(data.list[i].memberPwd);
+ 						var $td1 = $("<td>").text(data.list[i].memberId); 						
  						var $td3 = $("<td>").text(data.list[i].memberKName);
  						var $td4 = $("<td>").text(data.list[i].email);
  						var $td5 = $("<td>");
@@ -274,8 +271,7 @@
  						}else{
  							$td5.text("교직원");
  						}
- 						$tr.append($td1);
- 						$tr.append($td2);
+ 						$tr.append($td1); 					
  						$tr.append($td3);
  						$tr.append($td4);
  						$tr.append($td5);

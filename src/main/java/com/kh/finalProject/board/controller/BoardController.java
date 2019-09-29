@@ -54,17 +54,12 @@ public class BoardController {
 		int listCount;
 		
 		try {
-			listCount = bs.getListCount();
-			
-			System.out.println("boardCtrl listCount :::: " + listCount);
+			listCount = bs.getListCount();		
 			
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
 			ArrayList<Board> list = bs.selectnNoticeList(pi);
-			
-			System.out.println("boardCtrl list :::: " + list);
-			System.out.println("boardCtrl :::: " + pi);
-			
+		
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 			
@@ -94,20 +89,16 @@ public class BoardController {
 			
 			if(uf == null) {
 				request.setAttribute("b", b);
-				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				
 				
 				return "employee/board/notice/normalNotice/em_normalNoticeDetail";
 				
 			} else {
 				
 				String realPath = uf.getPath().split("webapp")[1];
-				
-				System.out.println(realPath);
+		
 				
 				uf.setPath("/finalProject/" + realPath);
-				
-				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
-				System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
 				
 				request.setAttribute("b", b);
 				request.setAttribute("uf", uf);
@@ -124,13 +115,9 @@ public class BoardController {
 	
 	@RequestMapping(value="em_showInsertnNotice.bo")
 	public String emShowNoticeInsert(Writer writerInfo, HttpServletRequest request) {
-		String memberId = request.getParameter("memberId");
-		
-		System.out.println("emNoticeInsert memberId :::: " + memberId);
+		String memberId = request.getParameter("memberId");	
 		
 		writerInfo = bs.selectWriterInfo(memberId);
-		
-		System.out.println("selectWriterInfo writerInfo :::: " + writerInfo);
 		
 		request.setAttribute("writerInfo", writerInfo);
 		
@@ -150,13 +137,10 @@ public class BoardController {
 		
 		
 		if(photo.getOriginalFilename().length() > 0) {
-			root = request.getSession().getServletContext().getRealPath("resources");
-			System.out.println("em_nNoticeInsert.bo root :::: " + root);
+			root = request.getSession().getServletContext().getRealPath("resources");		
 			
 			filePath = root + "\\uploadFiles";
-			originFileName = photo.getOriginalFilename();
-			
-			System.out.println("em_nNoticeInsert.bo originFileName :::: " + originFileName);
+			originFileName = photo.getOriginalFilename();	
 			
 			ext = originFileName.substring(originFileName.lastIndexOf("."));
 			
@@ -204,8 +188,7 @@ public class BoardController {
 	
 	@RequestMapping("em_deletenNotice.bo")
 	public String emnNoticeDelete(String boardNo, HttpServletRequest request) {
-		System.out.println("delectnNotice boardNo ::::" + boardNo);
-		
+
 		try {
 			bs.deleteNotice(boardNo);
 			
@@ -226,12 +209,6 @@ public class BoardController {
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
-		System.out.println("searchCondition :::: " + searchCondition);
-		System.out.println("searchValue :::: " + searchValue);
-		System.out.println("currentPage :::: " + currentPage);
-		System.out.println("searchflag :::: " + searchflag);
-		
 		SearchCondition sc = new SearchCondition();
 		
 		if(searchCondition.equals("writer")) {
@@ -247,15 +224,11 @@ public class BoardController {
 		int listCount;
 		
 		try {
-			listCount = bs.getSearchResultListCount(sc);
-			
-			System.out.println("검색후 listCount :::: " + listCount);
+			listCount = bs.getSearchResultListCount(sc);	
 			
 			PageInfo spi = Pagination.getPageInfo(currentPage, listCount);
 			
 			spi.setSearchflag(searchflag);
-			
-			System.out.println("spi :::: " + spi);
 			
 			ArrayList<Board> slist = bs.selectSearchResultList(sc, spi);
 			
@@ -274,9 +247,7 @@ public class BoardController {
 	
 	@RequestMapping("em_showUpdatenNotice.bo")
 	public String emShowUpdateNotice(int boardNo, HttpServletRequest request) {
-		
-		System.out.println("update전 select용 boardNo :::: " + boardNo);
-		
+	
 		Board b;
 		UploadFile uf;
 		try {
@@ -284,22 +255,16 @@ public class BoardController {
 			uf = bs.selectUploadFile(boardNo);
 			
 			if(uf == null) {
-				request.setAttribute("b", b);
-				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
+				request.setAttribute("b", b);			
 				
 				return "employee/board/notice/normalNotice/em_normalNoticeUpdate";
 				
 			} else {
 				
 				String realPath = uf.getPath().split("webapp")[1];
-				
-				System.out.println(realPath);
-				
+							
 				uf.setPath("/finalProject/" + realPath);
-				
-				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
-				System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
-				
+							
 				request.setAttribute("b", b);
 				request.setAttribute("uf", uf);
 			
@@ -325,7 +290,7 @@ public class BoardController {
 		String changeName;		
 		
 		if(photo.getOriginalFilename().length() > 0) {
-			System.out.println("if문 안으로 들어옴");
+	
 			root = request.getSession().getServletContext().getRealPath("resources");
 			
 			filePath = root + "\\uploadFiles";
@@ -339,7 +304,7 @@ public class BoardController {
 			uf.setChangeName(changeName + ext);
 			uf.setPath(filePath + "\\" + changeName + ext);	
 			
-			System.out.println("일반공지 글 수정 uf :::: " + uf);
+	
 			
 			try{	
 				
@@ -362,7 +327,6 @@ public class BoardController {
 		}
 		
 		try{			
-			System.out.println("if문 바깥으로 들어옴");
 			bs.updatenNotice(b);
 			
 			model.addAttribute("b", b);
@@ -395,9 +359,7 @@ public class BoardController {
 		
 		try {
 			listCount = bs.getListCount();
-			
-			System.out.println("boardCtrl listCount :::: " + listCount);
-			
+						
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
 			ArrayList<Board> list = bs.selectnNoticeList(pi);
@@ -433,7 +395,6 @@ public class BoardController {
 			
 			if(uf == null) {
 				request.setAttribute("b", b);
-				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
 				
 				return "professor/board/notice/normalNotice/pro_normalNoticeDetail";
 				
@@ -441,12 +402,9 @@ public class BoardController {
 				
 				String realPath = uf.getPath().split("webapp")[1];
 				
-				System.out.println(realPath);
+
 				
 				uf.setPath("/finalProject/" + realPath);
-				
-				System.out.println("일반공지 상세보기 Ctrl b :::: " + b);
-				System.out.println("일반공지 상세보기 Ctrl uf :::: " + uf);
 				
 				request.setAttribute("b", b);
 				request.setAttribute("uf", uf);

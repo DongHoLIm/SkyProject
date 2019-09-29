@@ -88,7 +88,8 @@ public class MemberController {
 			}
 			model.addAttribute("loginUser",loginUser);			
 			return "redirect:loginOk.me";									
-		} catch (loginException e) {			
+		} catch (loginException e) {	
+			e.printStackTrace();
 			model.addAttribute("msg",e.getMessage());
 			return "common/errorAlert";
 		}
@@ -589,8 +590,12 @@ public class MemberController {
 	@RequestMapping("checkPwd.me")
 	public String checkPwd(HttpServletRequest request,HttpSession session) {
 		String chekPwd = request.getParameter("password");		
-		Member loginUser =(Member) session.getAttribute("loginUser"); 		
+		Member loginUser =(Member) session.getAttribute("loginUser"); 	
 		if(chekPwd == null) {
+			String msg = request.getParameter("msg");
+			if(msg!=null) {
+				request.setAttribute("msg","모든 정보를 입력을해야 가능합니다.");
+			}			
 			return "main/checkPwd";			
 		}else {			
 			
@@ -606,19 +611,24 @@ public class MemberController {
 			}
 		}	
 	}
-	@RequestMapping("updateMemberInfo.me")
+	@RequestMapping("updateMemberInfo1.me")
 	public String updateMemberInfo(HttpServletRequest request,Member m,SessionStatus status,HttpSession session) {
 		String address = request.getParameter("address1");
 		String address1 = request.getParameter("address2");
 		String address2 = request.getParameter("address3");
 		String addressFullName = address+"/"+address1+"/"+address2;
 		m.setAddress(addressFullName);
+		
 		try {
-			int result = ms.updateMemberInfo(m);			
-			return "redirect:logOut.me?result="+result;
+			if(m.getMemberPwd().equals("")||request.getParameter("pwd2").equals("")) {				
+				return "redirect:checkPwd.me?msg="+1;
+			}else {
+				int result = ms.updateMemberInfo(m);
+				return "redirect:logOut.me?result="+result;
+			}		
 		}catch(Exception e) {
 			e.printStackTrace();
-			request.setAttribute("msg","모든내용 작성시 수정가능합니다.");
+			request.setAttribute("msg","수정실패 했습니다.");
 			return "common/errorAlert";
 		}	
 		
