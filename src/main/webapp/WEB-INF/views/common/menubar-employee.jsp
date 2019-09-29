@@ -17,18 +17,10 @@
 				<!-- Sidebar -->
 					<div id="sidebar">
 						<div class="inner">
-
-							<!-- Search -->
-								<section id="search" class="alt">
-									<form method="post" action="#">
-										<input type="text" name="query" id="query" placeholder="Search" />
-									</form>
-								</section>
-
 							<!-- Menu -->
 								<nav id="menu">
 									<header class="major">
-										<h2>Menu</h2>
+										<h1>Menu</h1>
 									</header>
 									<ul>
 										<c:if test="${ac.classManager eq '0'}">
@@ -146,14 +138,14 @@
 							<!-- Section -->
 								<section>
 									<header class="major">
-										<h2>Get in touch</h2>
-									</header>
-									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+									<img src="resources/images/logo.png" width="200x;" height="50px;">										
+										<!--  <h2>KH UNIVERCITY</h2>  -->
+									</header>						
 									<ul class="contact">
-										<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-										<li class="icon solid fa-phone">(000) 000-0000</li>
-										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
-										Nashville, TN 00000-0000</li>
+										<li class="icon solid fa-envelope"><a href="#">KH.UNIVERCITY@KH.COM</a></li>
+										<li class="icon solid fa-phone">1544-9970</li>
+										<li class="icon solid fa-home">서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F<br />
+										</li>
 									</ul>
 								</section>
 
