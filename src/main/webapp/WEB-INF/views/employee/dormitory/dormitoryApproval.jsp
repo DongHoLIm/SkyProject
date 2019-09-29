@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
 				<jsp:include page="../../common/header.jsp" />
 			<br>
 					        
-	  				<h2>기숙사 신청</h2>	
+	  				<h2>기숙사 신청관리</h2>	
 					<h4>검색</h4>
 						<form action="stDormSearch.dor" method="post">
 							<table class="sample11" style="border:2px solid lightgray">
@@ -97,10 +98,14 @@
 	  					      <td style="text-align:center; background-color:white;">해당없음</td>
 	 					    </tr>
 					  </table>
+					  </div>
+					    
+					    
 				</div>
 					<div align="center">
 					<input type="button" value="승인" style="width:125px; text-align:center">
 				</div>
+				
 		</div>
 		</div>
 		<div>

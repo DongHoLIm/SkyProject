@@ -143,6 +143,26 @@ public class DormitoryController {
 		
 	}
 	
+	@RequestMapping(value="beforeDetail.dor")
+	public String empDormitoryCheck(Dormitory m, Model model, HttpServletRequest request, HttpServletResponse response){
+System.out.println("들어옴");
+		
+		ArrayList<Dormitory> memberDormitory;
+		
+		try {
+			memberDormitory = ds.empDormitory();
+			System.out.println("memberDormitory ::: " + memberDormitory);
+			
+			request.setAttribute("memberDormitory", memberDormitory);
+			
+			return "employee/dormitory/beforeDetailDormitory";
+			
+		} catch (DormitoryException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorAlert";
+		}
+	}
+	
 }
 
 

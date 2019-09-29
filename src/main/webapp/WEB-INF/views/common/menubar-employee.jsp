@@ -88,7 +88,7 @@
 											<li>
 											<span class="opener">기숙사관리</span>
 											<ul>
-												<li><a href="stDormApply.dor">기숙사 신청 관리</a></li>
+												<li><a href="beforeDetail.dor">기숙사 신청 관리</a></li>
 												<li><a href="stDorm.dor">기숙사 시설 관리</a></li>
 											
 											</ul>

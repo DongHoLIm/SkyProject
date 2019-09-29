@@ -18,4 +18,6 @@ public interface DormitoryDao {
 
 	List<Dormitory> beforeDormData(SqlSessionTemplate sqlSession, Dormitory dor) throws DormitoryException;
 
+	ArrayList<Dormitory> empDormitory(SqlSessionTemplate sqlSession) throws DormitoryException;
+
 }

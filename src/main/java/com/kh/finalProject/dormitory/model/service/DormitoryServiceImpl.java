@@ -42,4 +42,9 @@ public class DormitoryServiceImpl implements DormitoryService {
 		return dd.beforeDormData(sqlSession, dor);
 	}
 
+	@Override
+	public ArrayList<Dormitory> empDormitory() throws DormitoryException {
+		return dd.empDormitory(sqlSession);
+	}
+
 }
