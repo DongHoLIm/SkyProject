@@ -54,7 +54,7 @@
 	JOIN OPEN_SUBJECT OS ON(SA.OPENSUB_CODE = OS.OPENSUB_CODE)
 	WHERE SA.OPENSUB_CODE = #{opensubCode}
   	</select>
-  	<select id="subScheduler" resultType="SubjectScheduler" parameterType="String">
+  	<select id="subScheduler" resultMap="subjectSchedulerResultSet" parameterType="String">
   	SELECT OPENSUB_CODE,MIDDLE_EXAM,FINAL_EXAM,HOMEWORK,ATTENDANCE
   	FROM LESSON_PLAN
   	WHERE OPENSUB_CODE =#{opensubCode}

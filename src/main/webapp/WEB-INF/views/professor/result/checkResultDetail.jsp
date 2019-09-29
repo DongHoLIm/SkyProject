@@ -42,14 +42,11 @@
 						<th>과제점수</th>
 					</tr>
 					 <tr>
-						<%-- <td><c:out value="${subSch.middleExam } %"/></td>
+						<td><c:out value="${subSch.middleExam } %"/></td>
 						<td><c:out value="${subSch.finalExam } %"/></td>
 						<td><c:out value="${subSch.attendance } %"/></td>
-						<td><c:out value="${subSch.homeWork } %"/></td> --%>
-						<td>20%</td>
-						<td>20%</td>
-						<td>20%</td>
-						<td>20%</td>
+						<td><c:out value="${subSch.homeWork } %"/></td>
+						
 					</tr> 
 				</table>
 				<br />
