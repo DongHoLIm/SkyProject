@@ -60,5 +60,16 @@
 	<c:if test="${empty loginUser}">		
 		<jsp:forward page="Login.jsp"/>
 	</c:if>
+		<c:if test="${!empty requestScope.msg}">
+	<input type="hidden" id="errorMessage" value="${requestScope.msg }"/>
+	<script>
+	$(function(){
+		var errorMessage = $("#errorMessage").val();
+		console.log(errorMessage);
+		alert(errorMessage);
+		
+	});
+	</script>
+	</c:if>
 </body>
 </html>

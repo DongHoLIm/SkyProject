@@ -82,7 +82,7 @@
 	</insert>
 	<insert id="insertProfessorInfo" parameterType="Member">
 		INSERT INTO PROFESSOR VALUES(
-			#{memberId},#{sdeptCode}
+			#{memberId},#{sdeptCode},DEFAULT
 		)
 	</insert>
 	<insert id="insertEmployeeInfo" parameterType="Member">
