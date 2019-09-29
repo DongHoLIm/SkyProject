@@ -52,7 +52,9 @@ table.basicinfo {
 	
 
 }
-
+#btn {
+	margin-left: 80%;
+}
 
 
 </style>
@@ -72,29 +74,22 @@ table.basicinfo {
 						<table class="basicinfo">
 							<tr>
 								<td class="td">복학구분</td>
-								<td><select name='mulitple'>
-										<option value=''>-- 선택 --</option>
-										<option value='' selected>2019-09-12</option>
-										<option value='' disabled>경제 사정</option>
-										<option value='' label=''></option>
-								</select></td>
+								<td>
+									<select name='mulitple'>
+										<option value='일반복학'>일반복학</option>
+										<option value='군제대복학'>군제대복학</option>
+									</select>
+								</td>
 					
-								<td class="td">복학일자</td>
-             				     <td><input type="text" value="" ></td>
+								<td class="td">복학학기</td>
+             				     <td><input type="text" value="${returnD }" readonly></td>
 							</tr>
-							
-							<tr>
-								 <td class="td">복학학년</td>
-             				     <td><input type="text" value="" ></td>
-								 <td class="td">변동 적용일</td>
-             				     <td><input type="text" value="" >
-             				     </td>
-             				 
-							</tr>
-							   				
+										
 					</table>
-             			<input type="button" value="신청하기" id="modified" style="float: right; margin-right: 50px;">
 					
+             		<div>
+						<button id="btn" onclick="apply();">신청하기</button>
+					</div>
 							
 						
 						

@@ -174,6 +174,18 @@ public interface StudentInfoService {
 
 	ArrayList<SchoolOff> selectOffFilterStudent(OffApplyFilter of, PageInfo pi);
 
-	void schoolOffApplyWithFile(SchoolOff so, DocFile df);
+	int schoolOffApplyWithFile(SchoolOff so, DocFile df);
+
+	int graduationListCount();
+
+	ArrayList<Graduation> selectGraduationMa(PageInfo pi);
+
+	int graduationFilterListCount(FilterCondition fc);
+
+	ArrayList<Graduation> selectGraduationMaFilter(PageInfo pi, FilterCondition fc);
+
+	StudentInfo statusCheck(String userId);
+
+	int countCheck(SchoolOff so);
   
 }

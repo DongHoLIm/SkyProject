@@ -6,7 +6,6 @@
 <mapper namespace="DocFile">
 	<resultMap type="DocFile" id="DocFileResultSet">
 		<id property="fileCode" column="FILE_CODE"/>
-		<result property="docNo" column="DOC_NO"/>
 		<result property="oldName" column="OLD_NAME"/>
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="path" column="PATH"/>
@@ -16,12 +15,12 @@
 		<result property="recoCode" column="RECO_CODE"/>
 	</resultMap>
 	
-	<!-- <insert id="insertSchoolOffFile" parameterType="DocFile">
-		INSERT INTO DOC_FILE(FILE_CODE,OLD_NAME,CHANGE_NAMER,DOC_NO,)
-	
-	
-	</insert> -->
-
+	<insert id="insertSchoolOffFile" parameterType="DocFile">
+		
+		INSERT INTO DOC_FILE(FILE_CODE,OLD_NAME,CHANGE_NAME,PATH,TYPE,APPLY_NO)
+		VALUES('DOCF'||SEQ_DOCFILE.NEXTVAL, #{oldName}, #{changeName}, #{path}, '휴학신청','OS'||SEQ_OFFSCHOOL.CURRVAL)
+	</insert>
+ 
 
 
 

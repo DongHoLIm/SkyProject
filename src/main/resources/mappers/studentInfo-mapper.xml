@@ -186,10 +186,17 @@
   	WHERE COLLEGE_NAME != '교양학부'
   	</select>
   	 
-  	 <select id="selectSdeptList" resultMap="studentInfoResultSet">
+  	<select id="selectSdeptList" resultMap="studentInfoResultSet">
   	SELECT SDEPT_NAME
 	FROM SDEPARTMENT 
 	WHERE SDEPT_NAME != '교양학과'
+  	</select>
+  	
+  	<select id="statusCheck" resultMap="studentInfoResultSet">
+  	SELECT STUDENT_STATUS
+  	FROM STUDENT_INFO
+  	WHERE STUDENT_NO = #{studentNo}
+  	
   	</select>
   	 
   	 

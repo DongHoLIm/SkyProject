@@ -476,7 +476,7 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 	}
 
 	@Override
-	public void schoolOffApplyWithFile(SchoolOff so, DocFile df) {
+	public int schoolOffApplyWithFile(SchoolOff so, DocFile df) {
 		
 		int result=0;
 		
@@ -490,6 +490,43 @@ public class StudentInfoServiceImpl implements StudentInfoService{
 			result = -1;
 		}
 		
+		return result;
+	}
+
+	@Override
+	public int graduationListCount() {
+		
+		return sd.graduationListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Graduation> selectGraduationMa(PageInfo pi) {
+		
+		return sd.selectGraduationMa(sqlSession,pi);
+	}
+
+	@Override
+	public int graduationFilterListCount(FilterCondition fc) {
+		
+		return sd.graduationFilterListCount(sqlSession,fc);
+	}
+
+	@Override
+	public ArrayList<Graduation> selectGraduationMaFilter(PageInfo pi, FilterCondition fc) {
+		
+		return sd.selectGraduationMaFilter(sqlSession,pi,fc);
+	}
+
+	@Override
+	public StudentInfo statusCheck(String userId) {
+		
+		return sd.statusCheck(sqlSession,userId);
+	}
+
+	@Override
+	public int countCheck(SchoolOff so) {
+		
+		return sd.countCheck(sqlSession,so);
 	}
 
 }

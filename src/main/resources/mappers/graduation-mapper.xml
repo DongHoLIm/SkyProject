@@ -64,4 +64,48 @@
   	WHERE GRADUATION_CODE=#{graduationCode}
   </update>
   
+ <select id="graduationListCount" resultType="_int">
+  	SELECT COUNT(*)
+  	FROM GRADURATION_CRITERIA
+  	WHERE SDEPT_CODE != 'SD100'
+  </select>
+  
+  <select id="selectGraduationMa" resultMap="graduationResultSet">
+  	SELECT G.SDEPT_CODE, G.GRADUATION_NAME, G.GRADUATION_CONTENT, G.GRADUATION_CODE,
+  		 S.SDEPT_NAME, C.COLLEGE_NAME
+  	FROM GRADURATION_CRITERIA G
+  	LEFT JOIN SDEPARTMENT S ON(G.SDEPT_CODE=S.SDEPT_CODE)
+  	LEFT JOIN COLLEGE C ON(S.COLLEGE_CODE=C.COLLEGE_CODE)
+  	WHERE G.SDEPT_CODE !='SD100' 
+  </select>
+  
+  <select id="graduationFilterListCount" resultType="_int" parameterType="FilterCondition">
+  	SELECT COUNT(*)
+  	FROM GRADURATION_CRITERIA G
+  	LEFT JOIN SDEPARTMENT S ON(G.SDEPT_CODE=S.SDEPT_CODE)
+  	LEFT JOIN COLLEGE C ON(S.COLLEGE_CODE=C.COLLEGE_CODE)
+  	WHERE G.SDEPT_CODE != 'SD100'
+  	<if test="college != '단과대학'">
+  		AND COLLEGE_NAME = #{college}
+  	</if>
+  	<if test = "sdeptName != '학과'">
+  		AND SDEPT_NAME = #{sdeptName}
+  	</if>
+  </select>
+  
+  <select id="selectGraduationMaFilter" resultMap="graduationResultSet" parameterType="FilterCondition">
+  	SELECT G.SDEPT_CODE, G.GRADUATION_NAME, G.GRADUATION_CONTENT, G.GRADUATION_CODE,
+  		 S.SDEPT_NAME, C.COLLEGE_NAME
+  	FROM GRADURATION_CRITERIA G
+  	LEFT JOIN SDEPARTMENT S ON(G.SDEPT_CODE=S.SDEPT_CODE)
+  	LEFT JOIN COLLEGE C ON(S.COLLEGE_CODE=C.COLLEGE_CODE)
+  	WHERE G.SDEPT_CODE != 'SD100'
+  	<if test="college != '단과대학'">
+  		AND COLLEGE_NAME = #{college}
+  	</if>
+  	<if test = "sdeptName != '학과'">
+  		AND SDEPT_NAME = #{sdeptName}
+  	</if>
+  </select>
+    
 </mapper>
