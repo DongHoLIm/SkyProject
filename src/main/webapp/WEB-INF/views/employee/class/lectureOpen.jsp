@@ -20,7 +20,7 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 				<br>
-				<h2>강의개설등록</h2>
+				<h4>강의개설등록</h4>
 				<hr style="margin: 0 auto;">
 				<br> <br>
 				

@@ -14,7 +14,7 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>휴강 및 보강 관리</h2>
+			<h4>휴강 및 보강 관리</h4>
 			<hr style="margin: 0 auto;">
 			<br> <br>
 			<form>

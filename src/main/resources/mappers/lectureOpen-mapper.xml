@@ -46,8 +46,8 @@
 		SELECT SUB_CODE, SUB_NAME, SDEPT_NAME, COMPLETE_TYPE, SUB_GRADE, MADE_DATE
 		FROM SUBJECT S
 		JOIN SDEPARTMENT SD ON(S.SDEPT_CODE = SD.SDEPT_CODE)
-		WHERE ENROL_TYPE = 1
-		OR ENROL_TYPE=0
+		WHERE ENROL_TYPE = 0
+		OR ENROL_TYPE= 1
 	</select>
 	<update id="updateSubjectDelete">
 		UPDATE SUBJECT SET ENROL_TYPE = 2
@@ -56,13 +56,14 @@
 	<select id="selectListCount2" resultType="_int">
 		SELECT COUNT(*)
 		FROM SUBJECT
-		WHERE ENROL_TYPE=1
+		WHERE ENROL_TYPE= 0
+		OR ENROL_TYPE = 1
 	</select>
 	<select id="selectListCount3" resultType="_int">
 		SELECT COUNT(*)
 		FROM SUBJECT
-		WHERE ENROL_TYPE = 2
-		OR ENROL_TYPE = 1
+		WHERE ENROL_TYPE = 1
+		OR ENROL_TYPE = 2
 	</select>
 	<select id="selectListCount4" resultType="_int">
 		SELECT COUNT(*)

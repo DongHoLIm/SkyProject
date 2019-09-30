@@ -14,7 +14,7 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>시간표 조정</h2>
+			<h4>시간표 조정</h4>
 			<hr style="margin: 0 auto;">
 			<br> <br>
 			<table style="text-align: center; margin: 0 auto;">

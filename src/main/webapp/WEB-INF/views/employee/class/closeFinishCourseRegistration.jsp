@@ -17,7 +17,7 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>수강신청 닫기</h2>
+			<h4>수강신청 닫기</h4>
 			<hr>	
 			<form action="closeFinishOpenSubject.em" method="post">
 				<table style="text-align:center;">

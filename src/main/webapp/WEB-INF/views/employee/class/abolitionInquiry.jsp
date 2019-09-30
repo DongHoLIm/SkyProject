@@ -23,7 +23,7 @@
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 			<br>
-			<h2>개설/폐지 조회</h2>
+			<h4>개설/폐지 조회</h4>
 			<hr style="margin: 0 auto;">
 			<br> <br>
 			

@@ -50,7 +50,7 @@ table.basicinfo {
 			<div class="inner">
 				<jsp:include page="../../common/header.jsp" />
 				<br>
-				<h2>강의폐지등록</h2>
+				<h4>강의폐지등록</h4>
 				<hr>
 				<br> <br>
 				<div>
