@@ -322,11 +322,11 @@ table.basicinfo {
 			</script>
 			
 
-		
+		</div>
 		<div>
 			<jsp:include page="../../common/menubar-student.jsp" />
 		</div>
-		</div>
+		
 	</div>
 </body>
 </html>
