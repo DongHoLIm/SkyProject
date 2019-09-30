@@ -138,11 +138,11 @@ table.tableList2 td img {
 							<input type="text" id="complete" size="25" placeholder="이수구분을 입력하세요" onkeypress="if(event.keyCode==13) {completeSearch(); return false;}" style="display:none;">
 						</span>
 					</span>&nbsp;&nbsp;&nbsp;
-					<span class="btn1" onclick="gwamokSearch();" id="search_btn" style="background:red">조 회</span>
-					<span class="btn2" onclick="professorSearch();" id="search_btn" style="background:red; display:none;">조 회</span>
-					<span class="btn3" onclick="completeSearch();" id="search_btn" style="background:red; display:none;">조 회</span>
+					<span class="btn1" onclick="gwamokSearch();" id="search_btn" style="background:red; cursor:pointer;">조 회</span>
+					<span class="btn2" onclick="professorSearch();" id="search_btn" style="background:red; display:none; cursor:pointer;">조 회</span>
+					<span class="btn3" onclick="completeSearch();" id="search_btn" style="background:red; display:none; cursor:pointer;">조 회</span>
 					&nbsp;&nbsp;&nbsp;
-					<span class="delete" onclick="deleteSubjectApply();" style="background:skyblue;"> 삭 제 </span>
+					<span class="delete" onclick="deleteSubjectApply();" style="background:skyblue; cursor:pointer;"> 삭 제 </span>
 				</td>
 			</tr>
 		</tbody> 
