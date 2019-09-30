@@ -17,4 +17,8 @@ public interface DormitoryService {
 	List<Dormitory> beforeDormData(Dormitory dor) throws DormitoryException;
 
 	ArrayList<Dormitory> empDormitory() throws DormitoryException;
+
+	ArrayList<Dormitory> empApplyDormitory() throws DormitoryException;
+
+	public void updateDormitory();
 }

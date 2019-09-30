@@ -56,8 +56,16 @@
 	</select>
 	
 	<select id="empDormitoryCheck" resultMap="dormitoryResultSet" parameterType="String">
-	SELECT D.STUDENT_NO, D.DOR_APPLY_SEMESTER, 20||SUBSTR(D.DOR_APPLY_YEAR,1,2) AS DOR_APPLY_YEAR, SUBSTR(D.DOR_APPLY_DATE,1,10) AS DOR_APPLY_DATE, D.AGGREMENT_STATUS, M.MEMBER_KNAME
+	SELECT *
 		FROM DORM_APPLY D JOIN MEMBER M ON (D.STUDENT_NO = M.MEMBER_ID) 
 	</select>
 
+	<select id="empApplyDormitoryCheck" resultMap="dormitoryResultSet" parameterType="String">
+	SELECT *
+		FROM DORM_APPLY D JOIN MEMBER M ON (D.STUDENT_NO = M.MEMBER_ID) 
+	</select>
+	
+	<update id="rev" parameterType="Dormitory">
+		UPDATE DORM_APPLY SET AGGREMENT_STATUS = '승인'
+	</update>
 </mapper>

@@ -20,4 +20,8 @@ public interface DormitoryDao {
 
 	ArrayList<Dormitory> empDormitory(SqlSessionTemplate sqlSession) throws DormitoryException;
 
+	ArrayList<Dormitory> empApplyDormitory(SqlSessionTemplate sqlSession) throws DormitoryException;
+
+	public void updateDormitory(SqlSessionTemplate sqlSession);
+
 }

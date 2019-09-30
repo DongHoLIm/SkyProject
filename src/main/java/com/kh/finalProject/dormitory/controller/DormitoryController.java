@@ -88,8 +88,22 @@ public class DormitoryController {
 	}
 	
 	@RequestMapping(value="stDormApply.dor")
-	public String stDormApplyInfo() {
-		return "employee/dormitory/dormitoryApproval";
+	public String stDormApplyInfo(Dormitory m, Model model, HttpServletRequest request, HttpServletResponse response) {
+ArrayList<Dormitory> memberDormitory;
+		
+		try {
+			memberDormitory = ds.empApplyDormitory();
+			System.out.println("memberDormitory ::: " + memberDormitory);
+			
+			request.setAttribute("memberDormitory", memberDormitory);
+			
+			return "employee/dormitory/dormitoryApproval";
+			
+		} catch (DormitoryException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorAlert";
+		}
+		
 	}
 	
 	@RequestMapping(value="stDorm.dor")
@@ -161,6 +175,15 @@ System.out.println("들어옴");
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorAlert";
 		}
+	}
+	
+	@RequestMapping(value="dormitoryAggrement.dor")
+	public String update() {
+		System.out.println("들어옴");
+		
+		ds.updateDormitory();
+		
+		return "common/successAlert";
 	}
 	
 }
