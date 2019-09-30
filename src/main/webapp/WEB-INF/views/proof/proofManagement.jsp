@@ -143,9 +143,9 @@
 					</tbody>
 				</table>
 			</div>
-			<div>
-				<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
-			</div>
+		</div>
+		<div>
+			<jsp:include page="/WEB-INF/views/common/menubar-student.jsp" />
 		</div>
 	</div>		
 </body>

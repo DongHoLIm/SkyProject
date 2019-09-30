@@ -87,7 +87,6 @@
 		function em_acNoticeList(){
 			var memberId = $("#memberId").val();
 			
-			alert("memberId :::: " + memberId)
 			
 			location.href="em_searchMyBoardList.bo?memberId="+memberId;
 		}
