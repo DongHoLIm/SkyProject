@@ -87,6 +87,20 @@ public class EnrollmentDaoImpl implements EnrollmentDao{
 		
 	}
 
+	@Override
+	public ArrayList<Enrollment> empPrintEnrollment(SqlSessionTemplate sqlSession) throws EnrollmentException {
+		ArrayList<Enrollment> memberEnrollment = null;
+		
+		memberEnrollment = (ArrayList) sqlSession.selectList("Enrollment.empPrintEnrollmentCheck");
+		
+		if(memberEnrollment == null) {
+			
+			throw new EnrollmentException("정보가 존재하지 않습니다.");
+		}
+		
+		return memberEnrollment;
+	}
+
 //	@Override
 //	public List<Enrollment> getList(SqlSessionTemplate sqlSession) {
 //		

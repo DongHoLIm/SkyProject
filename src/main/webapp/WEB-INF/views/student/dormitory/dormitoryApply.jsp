@@ -76,11 +76,21 @@ $(function(){
 	  				<h2>기숙사 신청</h2>	
 					<form action="dormitoryApply.dor" method="post">
 					<div class="container">
-					    
 	  					<table class="table" text-align="center">
 	  					  	<tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">소속</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:385px;" name="sdeptName"></td>
+	  					      <td style="text-align:center; background-color:white;"><select style="width:385px;" name="sdeptName">
+											<option value=''>------------------------------ 선택  ------------------------------</option>
+											<option value='교양학과'>교양학과</option>
+											<option value='경영학과'>경영학과</option>
+											<option value='경제학과'>경제학과</option>
+											<option value='정치외교과'>정치외교과</option>
+											<option value='실용음악과'>실용음악과</option>
+											<option value='사회체육과'>사회체육과</option>
+											<option value='컴퓨터공학과'>컴퓨터공학과</option>
+											<option value='전자공학과'>전자공학과</option>
+											<option value='건축학과'>건축학과</option>
+											</select></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">입사학기</td>
 	  					      <td style="text-align:center; background-color:white;"><select style="width:385px;" name="dorApplySemester">
 											<option value=''>------------------------------ 선택  ------------------------------</option>
@@ -146,7 +156,7 @@ $(function(){
 	 					    </tr>
 	 					    <tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">입사현황</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:385px;" name="dormCondition"></td>
+	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:385px;" name="dormCondition" placeholder="0"></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">흡연여부</td>
 	  					      <td style="text-align:center; background-color:white;"><select style="width:385px;" name="smoking">
 											<option value=''>------------------------------ 선택  ------------------------------</option>
@@ -161,8 +171,12 @@ $(function(){
 											<option value='Yes'>해당</option>
 											<option value='No'>해당없음</option>
 											</select></td>
-	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">생활관</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:385px;" name="dormitoryName"></td>
+	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">신청기숙사</td>
+	  					      <td style="text-align:center; background-color:white;"><select style="width:385px;" name="dormitoryName">
+											<option value=''>------------------------------ 선택  ------------------------------</option>
+											<option value='dormitory1'>기숙사1</option>
+											<option value='dormitory2'>기숙사2</option>
+											</select></td>
 	 					    </tr>
 					  </table>
 				</div>

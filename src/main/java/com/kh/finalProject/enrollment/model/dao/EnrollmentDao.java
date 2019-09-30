@@ -21,4 +21,6 @@ public interface EnrollmentDao {
 	ArrayList<Enrollment> stEnrollment(SqlSessionTemplate sqlSession) throws EnrollmentException;
 
 	public void updateEnrollment(SqlSessionTemplate sqlSession);
+
+	ArrayList<Enrollment> empPrintEnrollment(SqlSessionTemplate sqlSession) throws EnrollmentException;
 }

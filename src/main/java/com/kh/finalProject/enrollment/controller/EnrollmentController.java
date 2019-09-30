@@ -148,6 +148,22 @@ String studentNo = ((Member) request.getSession().getAttribute("loginUser")).get
 			return "common/errorAlert";
 		}
 	}
+	
+	@RequestMapping(value="empPrint.en")
+	public String empPrintView(Enrollment e, Model model, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			ArrayList<Enrollment> memberEnrollment = es.empPrintEnrollment();
+			System.out.println("memberEnrollment :  "+ memberEnrollment);
+			//model.addAttribute("memberEnrollment", memberEnrollment);
+			
+			request.setAttribute("memberEnrollment", memberEnrollment);
+			
+			return "student/register/print";
+		} catch (EnrollmentException e1) {
+			model.addAttribute("msg", e1.getMessage());
+			return "common/errorAlert";
+		}
+	}
 }
 
 
