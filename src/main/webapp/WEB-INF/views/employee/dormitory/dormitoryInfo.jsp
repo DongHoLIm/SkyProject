@@ -65,7 +65,7 @@
 		 					   	</tr>
 		 					   	<tr style="background-color:white">
 		 					   		<td colspan="3" style="border:1px solid lightgray; color:black"></td>
-		 					   		<td style="border:1px solid lightgray; color:black">92실</td>
+		 					   		<td style="border:1px solid lightgray; color:black">87실</td>
 		 					   		<td style="border:1px solid lightgray; color:black">358명</td>
 		 					   	</tr>
 	 					   	</tbody>

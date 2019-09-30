@@ -43,7 +43,7 @@
 							<table class="sample11" style="border:2px solid lightgray">
 						<thead>
 							<tr  style="text-align:center">
-								<th width="6%"><p class="sipal">기숙사 신청번호</p></th>
+								<th width="6%"><p class="sipal">신청번호</p></th>
 								<th width="39%"><input type="text" name="applyCode"/></th>
 								<th width="6%"><p>학번</p></th>
 								<th width="39%"><input type="text" name="studentNo"/></th>

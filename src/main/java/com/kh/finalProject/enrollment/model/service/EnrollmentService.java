@@ -17,6 +17,8 @@ public interface EnrollmentService {
 	ArrayList<Enrollment> stEnrollment() throws EnrollmentException;
 
 	public void updateEnrollment();
+
+	ArrayList<Enrollment> empPrintEnrollment() throws EnrollmentException;
 	
 	//public List<Enrollment> getList();
 }

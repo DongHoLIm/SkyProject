@@ -42,4 +42,12 @@
 	<update id="up">
 		UPDATE ENROLLMENT SET PAY_STATUS = 'Y'
 	</update>
+	
+	<select id="empPrintEnrollmentCheck" resultMap="enrollmentResultSet" parameterType="String">
+		SELECT E.STUDENT_NO, E.ENROLL_SEMESTER, E.TUITION, E.ENROLL_YEAR, E.PAY_STATUS, E.PAY_AMOUNT, S.SCHO_AMOUNT
+		FROM SCHO_APPLY SA JOIN SCHOLARSHIP S ON(SA.SCHO_APPLY_CODE = S.SCHO_APPLY_CODE)
+        JOIN ENROLLMENT E ON(SA.STUDENT_NO = E.STUDENT_NO)
+	</select>
+	
+
 </mapper>

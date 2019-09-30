@@ -82,7 +82,18 @@ $(function(){
 	  					<table class="table" text-align="center">
 	  					  	<tr>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">소속</td>
-	  					      <td style="text-align:center; background-color:white;"><input type="text" style="width:385px;" name="sdeptName"></td>
+	  					      <td style="text-align:center; background-color:white;"><select style="width:385px;" name="sdeptName">
+											<option value=''>------------------------------ 선택  ------------------------------</option>
+											<option value='교양학과'>교양학과</option>
+											<option value='경영학과'>경영학과</option>
+											<option value='경제학과'>경제학과</option>
+											<option value='정치외교과'>정치외교과</option>
+											<option value='실용음악과'>실용음악과</option>
+											<option value='사회체육과'>사회체육과</option>
+											<option value='컴퓨터공학과'>컴퓨터공학과</option>
+											<option value='전자공학과'>전자공학과</option>
+											<option value='건축학과'>건축학과</option>
+											</select></td>
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">신청학기</td>
 	  					      <td style="text-align:center; background-color:white;"><select style="width:385px;" name="dorApplySemester">
 											<option value=''>------------------------------ 선택  ------------------------------</option>

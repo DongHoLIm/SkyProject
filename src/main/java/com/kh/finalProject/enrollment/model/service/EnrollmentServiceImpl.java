@@ -49,6 +49,11 @@ public class EnrollmentServiceImpl implements EnrollmentService{
 		ed.updateEnrollment(sqlSession);
 		
 	}
+
+	@Override
+	public ArrayList<Enrollment> empPrintEnrollment() throws EnrollmentException {
+		return ed.empPrintEnrollment(sqlSession);
+	}
 	
 //	@Override
 //	public List<Enrollment> getList() {

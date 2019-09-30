@@ -40,7 +40,7 @@
 										, #{address}, #{addressDetail}, #{emerPhone}, #{email}, #{parentPhone}
 										, null, #{bank}, #{accountNo}, #{dormCondition}
 										, #{smoking}, #{basicLife}, #{dormitoryName}, SYSDATE
-										, '신청', #{sdeptName}, #{memberKname}, #{memberNo})
+										, '미승인', #{sdeptName}, #{memberKname}, #{memberNo})
 	</insert>
 	
 	<select id="beforeDormitory" resultMap="dormitoryResultSet" parameterType="String">
