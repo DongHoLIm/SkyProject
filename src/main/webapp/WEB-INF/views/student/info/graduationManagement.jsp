@@ -57,15 +57,15 @@ table.basicinfo{
             
             <jsp:include page="../info/common.jsp" />
                
+               <h4 id="basic">졸업 인증 관리</h4>
                <table class="basicinfo" id="Change">
-                  <h4 id="basic">졸업 인증 내역</h4>
-
                   <thead>
                      <tr>
-                        <th style="text-align: center" id="t1">인증 구분</th>
+                        <th style="text-align: center" id="t1">인증구분</th>
                         <th style="text-align: center" id="t1">인증명</th>
-                        <th style="text-align: center" id="t1">인증 여부</th>
-                        <th style="text-align: center" id="t1">학생 인증 내용</th>
+                        <th style="text-align: center" id="t1">인증기준</th>
+                        <th style="text-align: center" id="t1">인증여부</th>
+                        <th style="text-align: center" id="t1">학생인증내용</th>
                         
                      </tr>
                   </thead>
@@ -74,6 +74,7 @@ table.basicinfo{
 					<tr>
 						<td><c:out value="${list.division }"/></td>
 						<td><c:out value="${list.graduationName }"/></td>
+						<td><c:out value="${list.graduationContent }"/></td>
 						<td><c:out value="${list.check }"/></td>
 						<td><c:out value="${list.graduationInfo }"/></td>
 					</tr>
@@ -81,9 +82,10 @@ table.basicinfo{
                   </tbody>
                </table>
                
-      			<!-- <div class="basicinfo">
-      			<button id="modified">졸업 조건 확인 하기</button>
-               </div>  -->
+               
+               
+               
+      			
                
                <br><br><br><br><br><br>
          

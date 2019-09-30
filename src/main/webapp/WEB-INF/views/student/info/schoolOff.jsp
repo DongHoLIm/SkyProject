@@ -89,7 +89,7 @@ table.basicinfo {
 			<jsp:include page="../info/common.jsp" />
 
 				<h4 id="basic">휴학 신청</h4>
-				<form id="ApplyForm" action="" method="post" enctype="multipart/form-data">
+				<form id="ApplyForm" action="st_insertSchoolOffA.si" method="post" enctype="multipart/form-data">
 				<table class="basicinfo">
 				<tr>
 					<td class="tdd">휴학 구분</td>
@@ -166,7 +166,8 @@ table.basicinfo {
 			</table>
 			
 			<div>
-				<button id="btn" onclick="apply();">신청하기</button>
+				<!-- <button id="btn" onclick="apply();">신청하기</button> -->
+				<button id="btn" type="submit">신청하기</button>
 			</div>
 			</form>
 			
@@ -304,11 +305,11 @@ table.basicinfo {
 					processData: false,
 		            contentType: false,
 		            cache: false,
-		            timeout: 600000,
 					success:function(data){
 						console.log("접속성공");
 						
 						alert("휴학 신청 완료");
+						
 						
 					},
 					error:function(request,status,error){
