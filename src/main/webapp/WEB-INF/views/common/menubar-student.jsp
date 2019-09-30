@@ -28,8 +28,6 @@
 											<ul>
 												<li><a href="st_studentInfo.si">학적정보 조회</a></li>
 												<li><a href="st_personalInfo.si">신상 관리</a></li>
-												<li><a href="#">학적 변동 조회</a></li>
-												<li><a href="#">성적 관리</a></li>
 												<li><a href="st_graduation.si">졸업인증 관리</a></li>
 												<li><a href="st_schoolOff.si">휴학신청 관리</a></li>
 												<li><a href="st_schoolOn.si">복학신청 관리</a></li>
@@ -42,7 +40,6 @@
 											<span class="opener">수업관리</span>
 											<ul>
 												<li><a href="#" onclick="window.open('goSugang.st', 'SKY 수강신청'); return false">과목조회, 수강신청</a></li>
-												<li><a href="#">병결신청</a></li>
 												<li><a href="st_showLectureEvaluation.le">강의평가 입력</a></li>
 												<li><a href="#">시간표조회</a></li>
 											</ul>

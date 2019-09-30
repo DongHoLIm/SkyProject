@@ -31,8 +31,6 @@
 												<li><a href="lectureOpen.em" >강의 개설</a></li>
 												<li><a href="subjectAbolition.em">강의 폐지</a></li>
 												<li><a href="lectureAbolitionSelect.em">개설/폐지 조회</a></li>
-												<li><a href="#">시간표조정</a></li>
-												<li><a href="#">수강인원관리</a></li>
 										    <li><a href="lessionPlan.em">강의계획서조회</a></li>
 												<li><a href="em_showLectureEvaluationOpen.le">강의평가 관리</a></li>												
 												<li><h4>수강신청관리</h4></li>
@@ -48,7 +46,6 @@
 											<ul>
 												<li><h4>학적관리</h4></li>
 												<li><a href="em_studentInfoList.si">학생 전체 조회</a></li>
-												<li><a href="#">학사경고 관리</a></li>
 												<li><a href="em_showDropOut.si">자퇴 신청 관리</a></li>
 												<li><a href="em_showExplusion.si">제적처리</a></li>
 												<li><h4>휴복학관리</h4></li>
