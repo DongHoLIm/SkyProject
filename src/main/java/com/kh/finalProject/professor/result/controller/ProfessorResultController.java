@@ -76,7 +76,6 @@ public class ProfessorResultController {
 			 subjectInfo.setOpenSemester(semester);
 			 ArrayList<StudentResult> stuList = ps.studentList(opensubCode);		
 			 SubjectScheduler subSch = ps.subSch(opensubCode);	
-			 System.out.println("왜 안가져오냐 시벌아...."+subSch);
 			 if(subSch==null) {
 				 request.setAttribute("msg", "강의계획서를 입력해주세요");
 				 return "common/errorAlert";

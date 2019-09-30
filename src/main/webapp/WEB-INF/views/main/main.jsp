@@ -60,7 +60,7 @@
 	.second-floor{
 		display: inline-block;
 		padding: 30px;
-		
+		width: 30%;
 	}
 	#dateDetail {
 		text-align: center;		
@@ -69,18 +69,14 @@
 	}
 	#dateDetail tr th {
 		background: rgb(44, 62, 80);
-		width:130px;
+		width:15%;
 		text-align:center;
-		color:white;
-		border-radius: 20px;
+		color:white;		
 		border: 0px solid white;
 		
 	}
 	#dateDetail tr{
 		border: 0px solid white;
-	}
-	#dateDetail tr td{
-		border-radius: 20px;
 	}
 </style>
 </head>
@@ -97,9 +93,9 @@
 				<table id="mainBoardList">
 					<thead>
 						<tr>
-							<th width="5%" style="text-align: center">번호</th>
+							<th width="7%" style="text-align: center">번호</th>
 							<th width="14%" style="text-align: center;">게시일자</th>
-							<th width="45%" style="text-align: center;">제목</th>
+							<th width="43%" style="text-align: center;">제목</th>
 							<th width="9%" style="text-align: center;">작성자</th>
 							<th width="12%" style="text-align: center;">작성부서</th>
 							<th width="7%" style="text-align: center;">조회수</th>
@@ -122,11 +118,11 @@
 					<div id="calendar_content"></div>
 				</div>
 				<div class="second-floor">
-					<table id="dateDetail" style="border-radius: 40px;">
+					<table id="dateDetail">
 						<thead>
 							<tr>
 								<th>날짜</th>
-								<th>해당일정</th>
+								<th width="30%">해당일정</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -191,7 +187,7 @@
 							$("#dateDetail tbody").append($tr);
 								for(var j= 0; j<date.length;j++){								
 									 if(Number (data.dateList[i].sDate) == Number(date.eq(j).text())){
-										date.eq(j).css({color:"cyon"}); 
+										date.eq(j).css('color','blue'); 
 										date.eq(j).append($br);
 										date.eq(j).append(title);
 									} 
