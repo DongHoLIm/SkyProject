@@ -139,32 +139,34 @@ public class StudentInfoController {
 		String parentsAddress = postcode2 + "/" + address2 + "/" + detailAddress2;
 		System.out.println("보호자주소::"+parentsAddress);
 		
-		if(si.geteName().length()==0 || postcode1==null || address1==null || detailAddress1==null ||
+		if(si.geteName().length()==0 || postcode1.length()==0 || address1.length()==0 || detailAddress1.length()==0 ||
 				si.getEmail().length()==0 || si.getPhone().length()==0 || si.getBank().length()==0 || si.getAccountNo().length()==0 ||
 				si.getAccountHolder().length()==0 ||si.getParentsName().length()==0 || si.getParentsRelation().length()==0 ||
-				si.getParentsPhone().length()==0 || postcode2==null || address2==null || detailAddress2==null) {
+				si.getParentsPhone().length()==0 || postcode2.length()==0 || address2.length()==0 || detailAddress2.length()==0) {
 			
 			model.addAttribute("msg","필수 내용을 모두 입력 해 주세요.");
 			return "common/errorAlert";
-		}
-		
-
-		si.setStudentNo(userId);
-		si.setAddress(studentAddress);
-		si.setParentsAddress(parentsAddress);
-
-		System.out.println(si);
-
-		int result = ss.changePersonalInfo(si);
-
-		
-
-		if(result>0) {
-			return "redirect:st_personalInfo.si";			
 		}else {
-			model.addAttribute("msg","신상정보 수정 실패");
-			return "common/errorAlert";	
+			si.setStudentNo(userId);
+			si.setAddress(studentAddress);
+			si.setParentsAddress(parentsAddress);
+
+			System.out.println(si);
+
+			int result = ss.changePersonalInfo(si);
+
+			
+
+			if(result>0) {
+				return "redirect:st_personalInfo.si";			
+			}else {
+				model.addAttribute("msg","신상정보 수정 실패");
+				return "common/errorAlert";	
+			}
 		}
+		
+
+		
 	}
 
 
@@ -697,14 +699,14 @@ public class StudentInfoController {
 		System.out.println("month::" + month);
 		
 		String start="";
-		if(month.equals("02") || month.equals("08") || month.equals("09")) {
+		if(month.equals("02") || month.equals("08") || month.equals("09")|| month.equals("10")) {
 			
 			StudentInfo student = ss.statusCheck(userId);
 			
 			String status = student.getStudentStatus();
 			System.out.println(status);
 			
-			if(status.equals("휴학생") || status.equals("졸업생")) {
+			if(!status.equals("재학생")) {
 				request.setAttribute("msg","휴학 신청 대상자가 아닙니다.");
 				return "common/errorAlert";
 			}
@@ -973,14 +975,14 @@ public class StudentInfoController {
 		
 		
 		String returnD="";
-		if(month.equals("02") || month.equals("08") || month.equals("09")) {
+		if(month.equals("02") || month.equals("08") || month.equals("09")|| month.equals("10")) {
 			
 			StudentInfo student = ss.statusCheck(userId);
 			
 			String status = student.getStudentStatus();
 			System.out.println(status);
 			
-			if(status.equals("재학생") || status.equals("졸업생")) {
+			if(!status.equals("휴학생")) {
 				request.setAttribute("msg","복학 신청 대상자가 아닙니다.");
 				return "common/errorAlert";
 			}

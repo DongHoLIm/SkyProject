@@ -814,11 +814,11 @@
 			
 			</script>
 
-	
+		</div>
 		<div>
 			<jsp:include page="../../common/menubar-employee.jsp" />
 		</div>
-	</div>
+	
 	</div>
 	
 </body>
