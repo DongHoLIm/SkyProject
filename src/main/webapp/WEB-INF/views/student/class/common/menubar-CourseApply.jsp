@@ -11,6 +11,7 @@
 	margin: 0;
 	line-height: 1;
 	font-family: '돋움', '돋움체';
+	
 }
 
 #munu {
@@ -22,9 +23,10 @@
 }
 
 #menu ul {
-	background: black;
+	background: lightgray;
 	height: 49px;
 	padding-top: 0px;
+	
 }
 
 #menu ul li {
@@ -40,7 +42,7 @@
 	border-radius: 2px 2px 0 0;
 	text-decoration: none;
 	font-size: 14px;
-	color: white;
+	color: black;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
 	font-weight: bold;
 	opacity: .9;

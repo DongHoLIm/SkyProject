@@ -248,7 +248,7 @@ function deptSearch(){
 									"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
 									"<td>"+"</td>"+
 									"<td>"+"</td>"+
-									"<td>"+"<button id='openSubCode' onclick='insertFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"신청"+"</button>"+"</td>"+
+									"<td>"+"<button id='openSubCode' onclick='insertFinishSubjectApply();' value='"+list[i].openSubCode+"' style='cursor:pointer;'>"+"신청"+"</button>"+"</td>"+
 								"</tr>");
 				$(".tableList2").append(table);  				
 				count++;
@@ -292,7 +292,7 @@ function gwamokSearch(){
 										"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
 										"<td>"+"</td>"+
 										"<td>"+"</td>"+
-										"<td>"+"<button id='openSubCode' onclick='insertFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"신청"+"</button>"+"</td>"+
+										"<td>"+"<button id='openSubCode' onclick='insertFinishSubjectApply();' value='"+list[i].openSubCode+"' style='cursor:pointer;'>"+"신청"+"</button>"+"</td>"+
 									"</tr>");
 					$(".tableList2").append(table);  
 					count++;
@@ -394,7 +394,7 @@ function professorGwamokSearch(){
 									"<td>"+"<a>"+'조회'+"</a>"+"</td>"+
 									"<td>"+"</td>"+
 									"<td>"+"</td>"+
-									"<td>"+"<button id='openSubCode' onclick='insertFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"신청"+"</button>"+"</td>"+
+									"<td>"+"<button id='openSubCode' onclick='insertFinishSubjectApply();' value='"+list[i].openSubCode+"' style='cursor:pointer;'>"+"신청"+"</button>"+"</td>"+
 								"</tr>");
 				$(".tableList2 tbody").append(table);  	
 				count++;					
@@ -461,7 +461,7 @@ function gwamokSearch2(){
 									"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
 									"<td>"+"</td>"+
 									"<td>"+"</td>"+
-									"<td>"+"<button id='openSubCode' onclick='updateFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"신청"+"</button>"+"</td>"+
+									"<td>"+"<button id='openSubCode' onclick='updateFinishSubjectApply();' value='"+list[i].openSubCode+"' style='cursor:pointer;'>"+"신청"+"</button>"+"</td>"+
 								"</tr>");
 				$(".tableList4").append(table);  				
 				count++;
@@ -501,7 +501,7 @@ function professorSearch2(){
 									"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
 									"<td>"+"</td>"+
 									"<td>"+"</td>"+
-									"<td>"+"<button id='openSubCode' onclick='updateFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"신청"+"</button>"+"</td>"+
+									"<td>"+"<button id='openSubCode' onclick='updateFinishSubjectApply();' value='"+list[i].openSubCode+"' style=' cursor:pointer;'>"+"신청"+"</button>"+"</td>"+
 								"</tr>");
 				$(".tableList4").append(table);  				
 				count++;
@@ -540,7 +540,7 @@ function completeSearch2(){
 									"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
 									"<td>"+"</td>"+
 									"<td>"+"</td>"+
-									"<td>"+"<button id='openSubCode' onclick='updateFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"신청"+"</button>"+"</td>"+
+									"<td>"+"<button id='openSubCode' onclick='updateFinishSubjectApply();' value='"+list[i].openSubCode+"' style='cursor:pointer;'>"+"신청"+"</button>"+"</td>"+
 								"</tr>");
 				$(".tableList2").append(table);  				
 				count++;
@@ -600,7 +600,7 @@ function finishSubjectApplyList(){
 									"<td>"+"<a style='color:red;'>"+'조회'+"</a>"+"</td>"+
 									"<td>"+"</td>"+
 									"<td>"+"</td>"+
-									"<td>"+"<button id='openSubCode' onclick='deleteFinishSubjectApply();' value='"+list[i].openSubCode+"'>"+"취소"+"</button>"+"</td>"+
+									"<td>"+"<button id='openSubCode' onclick='deleteFinishSubjectApply();' value='"+list[i].openSubCode+"' style='cursor:pointer;'>"+"취소"+"</button>"+"</td>"+
 								"</tr>");
 				$(".tableList2").append(table);  				
 				count++;
@@ -696,11 +696,11 @@ function deleteFinishSubjectApply(){
 							</span>
 						</span>
 						<span>
-							<span class="btn1" onclick="deptSearch();" name="search_btn" id="search_btn" style="background:red">조 회</span>
-							<span class="btn2" onclick="gwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;">조 회</span>
-							<span class="btn3" onclick="professorGwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;">조 회</span>
+							<span class="btn1" onclick="deptSearch();" name="search_btn" id="search_btn" style="background:red; cursor:pointer;">조 회</span>
+							<span class="btn2" onclick="gwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none; cursor:pointer;">조 회</span>
+							<span class="btn3" onclick="professorGwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none; cursor:pointer;">조 회</span>
 							&nbsp;&nbsp;&nbsp;
-							<span class="apply" onclick="insertFinishSubjectApply();" style="background:skyblue;"> 신 청 </span>
+							<span class="apply" onclick="insertFinishSubjectApply();" style="background:skyblue; cursor:pointer;"> 신 청 </span>
 						</span>
 					</td>				
 				</tr>
@@ -750,9 +750,9 @@ function deleteFinishSubjectApply(){
 							<input type="text" id="complete2" size="25" placeholder="이수구분을 입력하세요" onkeypress="if(event.keyCode==13) {completeSearch(); return false;}" style="display:none;">
 						</span>
 					</span>&nbsp;&nbsp;&nbsp;
-					<span class="btn4" onclick="gwamokSearch2();" id="search_btn" style="background:red">조 회</span>
-					<span class="btn5" onclick="professorSearch2();" id="search_btn" style="background:red; display:none;">조 회</span>
-					<span class="btn6" onclick="completeSearch2();" id="search_btn" style="background:red; display:none;">조 회</span>
+					<span class="btn4" onclick="gwamokSearch2();" id="search_btn" style="background:red; cursor:pointer;">조 회</span>
+					<span class="btn5" onclick="professorSearch2();" id="search_btn" style="background:red; display:none; cursor:pointer;">조 회</span>
+					<span class="btn6" onclick="completeSearch2();" id="search_btn" style="background:red; display:none; cursor:pointer;">조 회</span>
 					&nbsp;&nbsp;&nbsp;
 				</td>
 			</tr>
@@ -791,7 +791,7 @@ function deleteFinishSubjectApply(){
 				<td><a style="color:red;">조회</a></td>
 				<td></td>
 				<td></td>
-				<td><button id="openSubCode" onclick="updateFinishSubjectApply();" value="${ openSubject.openSubCode }">신청</button></td>
+				<td><button id="openSubCode" onclick="updateFinishSubjectApply();" value="${ openSubject.openSubCode }" style="cursor:pointer;">신청</button></td>
 			</tr>
 			</c:forEach>
 		</tbody>

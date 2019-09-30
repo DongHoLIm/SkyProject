@@ -471,11 +471,11 @@ table.tableList2 td img {
 							</span>
 						</span>
 						<span>
-							<span class="btn1" onclick="deptSearch();" name="search_btn" id="search_btn" style="background:red">조 회</span>
-							<span class="btn2" onclick="gwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;">조 회</span>
-							<span class="btn3" onclick="professorGwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none;">조 회</span>
+							<span class="btn1" onclick="deptSearch();" name="search_btn" id="search_btn" style="background:red; cursor:pointer;">조 회</span>
+							<span class="btn2" onclick="gwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none; cursor:pointer;">조 회</span>
+							<span class="btn3" onclick="professorGwamokSearch();" name="search_btn" id="search_btn" style="background:red; display:none; cursor:pointer;">조 회</span>
 							&nbsp;&nbsp;&nbsp;
-							<span class="apply" onclick="insertSubjectApply();" style="background:skyblue;"> 신 청 </span>
+							<span class="apply" onclick="insertSubjectApply();" style="background:skyblue; cursor:pointer;"> 신 청 </span>
 						</span>
 					</td>				
 				</tr>
