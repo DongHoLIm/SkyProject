@@ -156,8 +156,7 @@ $(function(){
 	  					      <td style="text-align:center; background-color:#eff1f2; color:black;">신청장학금</td>
 	  					      <td style="text-align:center; background-color:white;"><select style="width:385px;" name="basicLife">
 											<option value=''>------------------------------ 선택  ------------------------------</option>
-											<option value='Yes'>해당</option>
-											<option value='No'>해당없음</option>
+											<option value='Yes'>성적장학금</option>
 											</select></td>
 	 					    </tr>
 					  </table>
