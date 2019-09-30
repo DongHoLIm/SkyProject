@@ -109,11 +109,9 @@ public class StudentInfoController {
 	@RequestMapping(value="st_changePersonalInfo.si")
 	public String changePersonalInfo(Model model, StudentInfo si, HttpServletRequest request,
 			@ModelAttribute("loginUser") Member loginUser) {
-
-		String userId = loginUser.getMemberId();
-		System.out.println(userId);
-
+		
 		System.out.println(si);
+		
 
 		String postcode1 = request.getParameter("postcode1");
 		String address1 = request.getParameter("address1");
@@ -122,6 +120,9 @@ public class StudentInfoController {
 		System.out.println(postcode1);
 		System.out.println(address1);
 		System.out.println(detailAddress1);
+		
+		String userId = loginUser.getMemberId();
+		System.out.println(userId);
 
 		String studentAddress = postcode1 + "/" + address1 + "/" + detailAddress1;
 		System.out.println("학생주소::"+studentAddress);
@@ -137,6 +138,16 @@ public class StudentInfoController {
 
 		String parentsAddress = postcode2 + "/" + address2 + "/" + detailAddress2;
 		System.out.println("보호자주소::"+parentsAddress);
+		
+		if(si.geteName().length()==0 || postcode1==null || address1==null || detailAddress1==null ||
+				si.getEmail().length()==0 || si.getPhone().length()==0 || si.getBank().length()==0 || si.getAccountNo().length()==0 ||
+				si.getAccountHolder().length()==0 ||si.getParentsName().length()==0 || si.getParentsRelation().length()==0 ||
+				si.getParentsPhone().length()==0 || postcode2==null || address2==null || detailAddress2==null) {
+			
+			model.addAttribute("msg","필수 내용을 모두 입력 해 주세요.");
+			return "common/errorAlert";
+		}
+		
 
 		si.setStudentNo(userId);
 		si.setAddress(studentAddress);
@@ -146,18 +157,10 @@ public class StudentInfoController {
 
 		int result = ss.changePersonalInfo(si);
 
-		StudentInfo basicInfo = ss.basicInfo(userId);
-		StudentInfo personalInfo = ss.personInfoManage(userId);
-
-		System.out.println(basicInfo);
-		System.out.println(personalInfo);
-
-		request.setAttribute("basicInfo",basicInfo);
-		request.setAttribute("personalInfo",personalInfo);
-
+		
 
 		if(result>0) {
-			return "student/info/studentPersonalInfo";			
+			return "redirect:st_personalInfo.si";			
 		}else {
 			model.addAttribute("msg","신상정보 수정 실패");
 			return "common/errorAlert";	
@@ -398,8 +401,10 @@ public class StudentInfoController {
 
 				division = list.get(i).getsDeptCode();
 				if(division.equals("SD100")) {
+					System.out.println(division);
 					list.get(i).setDivision("교내 인증");
 				}else {
+					System.out.println(division);
 					list.get(i).setDivision("학과 인증");
 				}
 
@@ -410,7 +415,8 @@ public class StudentInfoController {
 					list.get(i).setCheck("미통과");
 				}
 			}
-
+			
+			
 			System.out.println("list::" + list);
 			request.setAttribute("list",list);
 
@@ -729,6 +735,64 @@ public class StudentInfoController {
 		}	
 
 	}
+	
+	//휴학신청 insert redirect
+	@RequestMapping("st_insertSchoolOffA.si")
+	public String insertSchoolOffA(Model model, SchoolOff so,DocFile df,HttpServletRequest request, @ModelAttribute("loginUser") Member loginUser,
+									@RequestParam(name="docFile", required=false) MultipartFile docFile) {
+		
+		String userId = loginUser.getMemberId();
+		so.setStudentNo(userId);
+		System.out.println("휴학신청 객체::"+so);
+		
+		int ApplyCount = ss.countCheck(so);
+		
+		if(ApplyCount>0) {
+			request.setAttribute("msg","해당학기에 신청 내역이 있습니다.");
+			return "common/errorAlert";
+			
+		}
+		
+		
+		if(docFile.getOriginalFilename().length()>0) {
+			String originFileName = docFile.getOriginalFilename();
+			System.out.println("originalfileName : " + originFileName);
+			
+			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+			String changeName = CommonUtils.getRandomString() + ext;
+			System.out.println("changeName::"+changeName);
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			System.out.println("root::"+root);
+			
+			String filePath = root + "\\docFiles";
+			
+			df.setOldName(originFileName);
+			df.setChangeName(changeName);
+			df.setPath(filePath + "\\" + changeName);
+			System.out.println(df);
+			
+			try {
+				docFile.transferTo(new File(filePath+"\\"+changeName));
+				
+				int result2 = ss.schoolOffApplyWithFile(so,df);
+				
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}else {
+			
+			int result = ss.schoolOffApply(so);
+		
+		}
+		
+		return "redirect:st_schoolOff.si";
+	}
 
 	
 	//휴학신청 insert (ajax)
@@ -1046,23 +1110,22 @@ public class StudentInfoController {
 		String da = request.getParameter("da");
 		System.out.println(da);
 		
-		//StudentInfo basicInfo = ss.basicInfo(id);
-		//request.setAttribute("basicInfo",basicInfo);
 		
 		SchoolOff soInfo = new SchoolOff();
 		soInfo.setOffStart(da);
 		soInfo.setStudentNo(id);
 		
 		SchoolOff soSelect = ss.OffApplyDetail(soInfo);
-		//request.setAttribute("soSelect",soSelect);
+		request.setAttribute("soSelect",soSelect);
 		
 		String offType = soSelect.getOffType();
 		System.out.println("offType::"+offType);
 		
+		System.out.println("soSelect::"+soSelect);
+		
 		if(offType.equals("일반휴학")) {
-			//return "employee/studentInfo/offApplyDetail";
-			request.setAttribute("msg","제출서류가 없습니다.");
-			return "common/errorAlert";
+			
+			return "employee/studentInfo/offApplyDetail";
 			
 			
 		}else {
@@ -1070,8 +1133,6 @@ public class StudentInfoController {
 			System.out.println("applyNo::"+applyNo);
 			
 			DocFile dfSelect = ss.selectDocFile(applyNo);
-			//String path = dfSelect.getPath();
-			//System.out.println(path);
 			
 			String img = dfSelect.getChangeName();
 			System.out.println(img);
